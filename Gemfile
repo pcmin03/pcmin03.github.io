@@ -2,7 +2,15 @@
 
 source "https://rubygems.org"
 
-gem "jekyll-theme-chirpy", "~> 7.3", ">= 7.3.1"
+gem "jekyll", "~> 4.3"
+gem "jekyll-seo-tag"
+gem "jekyll-sitemap"
+gem "jekyll-feed"
+
+group :jekyll_plugins do
+  gem "jekyll-paginate"
+  gem "jekyll-archives"
+end
 
 gem "html-proofer", "~> 5.0", group: :test
 
