@@ -1,12 +1,11 @@
 ---
-title: Post with Header Image
-tags: TeXt
+layout: article
+title: [PaperReview] Feature Representation Learning for Unsupervised Cross-domain Image Retrieval
 article_header:
-  type: cover
-  image:
-    src: /screenshot.jpg
+  type: overlay
+  theme: dark
+  background_color: '#123'
+  background_image: false
 ---
-
- with Header Image, See [Page layout](https://kitian616.github.io/jekyll-TeXt-theme/samples.html#page-layout) for more examples.
 
 <!--more-->
