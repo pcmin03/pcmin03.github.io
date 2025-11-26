@@ -49,7 +49,7 @@ header:
       fr-LU   : *FR
       tr      : &TR       Hakkında
       # @end locale config
-    url: /about.html
+    url: https://smoggy-fibula-4b3.notion.site/My-Portfolio-Chan-Min-Park-195c3ffbc67f4f67a80eca8b9a506a3b?pvs=74
 
   - titles:
       # @start locale config
