@@ -1,5 +1,4 @@
 ---
-layout: article
 title: [PaperReview] Feature Representation Learning for Unsupervised Cross-domain Image Retrieval
 article_header:
   type: overlay
