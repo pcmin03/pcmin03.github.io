@@ -24,6 +24,13 @@ header:
       tr      : &TR       Çalışma
       # @end locale config
     url: /archive.html
+    children:
+      - title: UCDIR
+        url: /study/ucdir.html
+      - title: 3D Vision
+        url: /study/3dvision.html
+      - title: LLM
+        url: /study/llm.html
 
   - titles:
       # @start locale config
