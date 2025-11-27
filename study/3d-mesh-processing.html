@@ -1,0 +1,87 @@
+---
+layout: article
+title: 3D Mesh Processing
+article_header:
+  type: overlay
+  theme: dark
+  background_color: '#203028'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
+    src: /assets/images/projects/mri-image-analysis.jpg
+aside:
+  toc: true
+---
+
+# 3D Mesh Processing
+
+3D mesh processing involves manipulating polygonal meshes, which are fundamental representations of 3D objects.
+
+## Mesh Representation
+
+### Vertices, Edges, and Faces
+
+A mesh consists of:
+- **Vertices**: 3D points defining the shape
+- **Edges**: Connections between vertices
+- **Faces**: Polygons (typically triangles) forming the surface
+
+### Data Structures
+
+Common representations:
+- **Vertex List + Face List**: Simple but inefficient
+- **Half-Edge**: Efficient for topology queries
+- **Winged-Edge**: Alternative topology structure
+
+## Mesh Operations
+
+### Simplification
+
+Reducing polygon count while preserving shape:
+- **Edge Collapse**: Merging vertices
+- **Quadric Error Metrics**: Optimal simplification
+- **LOD (Level of Detail)**: Multiple resolution versions
+
+### Subdivision
+
+Increasing mesh density:
+- **Catmull-Clark**: For quad meshes
+- **Loop Subdivision**: For triangle meshes
+- **Smooth surfaces**: From coarse control meshes
+
+### Smoothing
+
+Removing noise and irregularities:
+- **Laplacian Smoothing**: Average neighbor positions
+- **Taubin Smoothing**: Prevents shrinkage
+- **Bilateral Smoothing**: Preserves sharp features
+
+## Mesh Analysis
+
+### Topology Analysis
+- Genus (number of holes)
+- Euler characteristic
+- Connected components
+
+### Geometry Analysis
+- Curvature computation
+- Surface area and volume
+- Feature detection
+
+## Applications
+
+- **3D Modeling**: CAD and animation
+- **Medical Imaging**: Surface reconstruction from scans
+- **Computer Graphics**: Game assets and rendering
+- **3D Printing**: Mesh preparation and optimization
+
+## File Formats
+
+Common mesh formats:
+- **OBJ**: Simple text format
+- **PLY**: Polygon file format
+- **STL**: For 3D printing
+- **GLTF**: Modern web format
+
+## Conclusion
+
+3D mesh processing is essential for working with 3D models across many applications, from entertainment to medical imaging.

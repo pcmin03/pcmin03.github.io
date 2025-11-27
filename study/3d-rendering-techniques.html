@@ -1,0 +1,106 @@
+---
+layout: article
+title: 3D Rendering Techniques
+article_header:
+  type: overlay
+  theme: dark
+  background_color: '#203028'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
+    src: /assets/images/projects/mri-image-analysis.jpg
+aside:
+  toc: true
+---
+
+# 3D Rendering Techniques
+
+3D rendering converts 3D models into 2D images, simulating how light interacts with surfaces and materials.
+
+## Rendering Pipeline
+
+### Geometry Processing
+- **Model Transformation**: Object to world space
+- **View Transformation**: World to camera space
+- **Projection**: 3D to 2D screen coordinates
+- **Clipping**: Remove off-screen geometry
+
+### Rasterization
+Converting primitives (triangles) to pixels:
+- **Scan Conversion**: Fill triangles with pixels
+- **Depth Testing**: Determine visible surfaces
+- **Fragment Shading**: Compute pixel colors
+
+## Lighting Models
+
+### Phong Reflection Model
+- **Ambient**: Base illumination
+- **Diffuse**: Lambertian reflection
+- **Specular**: Shiny highlights
+
+### Physically Based Rendering (PBR)
+- **Albedo**: Base color
+- **Metallic**: Metal vs. dielectric
+- **Roughness**: Surface smoothness
+- **Normal Maps**: Surface detail
+
+## Rendering Methods
+
+### Rasterization (Real-time)
+- Fast, used in games
+- GPU-accelerated
+- Limited realism
+
+### Ray Tracing
+- Simulates light paths
+- High quality, slower
+- Realistic reflections and shadows
+
+### Path Tracing
+- Monte Carlo method
+- Photorealistic results
+- Very computationally expensive
+
+## Shading Techniques
+
+### Flat Shading
+One color per face, fast but unrealistic.
+
+### Gouraud Shading
+Interpolated vertex colors, smooth appearance.
+
+### Phong Shading
+Interpolated normals, per-pixel lighting.
+
+## Advanced Techniques
+
+### Shadow Mapping
+- Render from light's perspective
+- Depth comparison for shadows
+- Real-time shadow generation
+
+### Ambient Occlusion
+- Darkens creases and corners
+- Adds depth perception
+- Screen-space approximations
+
+### Global Illumination
+- Indirect lighting simulation
+- Light bouncing between surfaces
+- More realistic but expensive
+
+## Applications
+
+- **Video Games**: Real-time rendering
+- **Film**: Offline rendering for VFX
+- **Architecture**: Visualization and walkthroughs
+- **Medical Visualization**: 3D scan rendering
+
+## Modern Trends
+
+- **Real-time Ray Tracing**: Hardware-accelerated
+- **Neural Rendering**: AI-based techniques
+- **Volumetric Rendering**: For clouds, smoke, etc.
+
+## Conclusion
+
+3D rendering techniques continue to evolve, enabling increasingly realistic and efficient visualization of 3D scenes.

@@ -1,0 +1,79 @@
+---
+layout: article
+title: Transformer Architecture
+article_header:
+  type: overlay
+  theme: dark
+  background_color: '#203028'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
+    src: /assets/images/projects/test-time-adaptation.jpg
+aside:
+  toc: true
+---
+
+# Transformer Architecture
+
+Transformers are a revolutionary architecture that has transformed natural language processing and computer vision.
+
+## Introduction
+
+Introduced in "Attention Is All You Need" (2017), transformers rely entirely on attention mechanisms, eliminating the need for recurrent or convolutional layers.
+
+## Key Components
+
+### Self-Attention Mechanism
+
+Self-attention allows the model to weigh the importance of different parts of the input:
+- **Query, Key, Value**: Three learned representations
+- **Attention Scores**: Determine relationships between tokens
+- **Parallel Processing**: Unlike RNNs, processes all tokens simultaneously
+
+### Multi-Head Attention
+
+Multiple attention heads capture different types of relationships:
+- Each head learns different patterns
+- Concatenated and projected to final representation
+- Enables rich feature extraction
+
+### Positional Encoding
+
+Since transformers have no inherent notion of sequence order:
+- **Sinusoidal Encoding**: Fixed positional patterns
+- **Learned Embeddings**: Trainable position representations
+
+## Architecture Components
+
+### Encoder
+- Stack of identical layers
+- Self-attention + feed-forward networks
+- Residual connections and layer normalization
+
+### Decoder
+- Similar to encoder with additional cross-attention
+- Generates output sequences
+- Masked self-attention for autoregressive generation
+
+## Vision Transformers (ViT)
+
+Transformers adapted for images:
+- Split images into patches
+- Treat patches as sequence tokens
+- Apply standard transformer architecture
+
+## Applications
+
+- **Natural Language Processing**: BERT, GPT, T5
+- **Computer Vision**: Vision Transformers, DETR
+- **Multimodal**: CLIP, DALL-E
+- **Speech Recognition**: Whisper
+
+## Advantages
+
+- **Parallelization**: Faster training than RNNs
+- **Long-range Dependencies**: Better than CNNs for global context
+- **Transfer Learning**: Pre-trained models work across tasks
+
+## Conclusion
+
+Transformers have become the dominant architecture in AI, powering state-of-the-art models across multiple domains.

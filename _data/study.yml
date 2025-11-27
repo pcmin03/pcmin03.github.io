@@ -1,0 +1,20 @@
+- title: Image Processing
+  cover: /assets/images/study/image-processing.jpg
+  description: Image processing techniques and algorithms
+  url: /study/image-processing.html
+  tags: [Image Processing, Computer Vision]
+  excerpt: Learn about various image processing techniques including filtering, enhancement, and transformation methods.
+
+- title: Deep Learning
+  cover: /assets/images/study/deep-learning.jpg
+  description: Deep learning architectures and applications
+  url: /study/deep-learning.html
+  tags: [Deep Learning, Neural Networks, AI]
+  excerpt: Explore deep learning models, architectures, and their applications in computer vision and natural language processing.
+
+- title: 3D Geometry
+  cover: /assets/images/study/3d-geometry.jpg
+  description: 3D geometry and computer graphics
+  url: /study/3d-geometry.html
+  tags: [3D Geometry, Computer Graphics, Visualization]
+  excerpt: Understanding 3D geometry, transformations, and rendering techniques for computer graphics applications.

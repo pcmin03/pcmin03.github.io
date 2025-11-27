@@ -1,0 +1,69 @@
+---
+layout: article
+title: Convolutional Neural Networks
+article_header:
+  type: overlay
+  theme: dark
+  background_color: '#203028'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
+    src: /assets/images/projects/universal-segmentation.jpg
+aside:
+  toc: true
+---
+
+# Convolutional Neural Networks
+
+Convolutional Neural Networks (CNNs) are specialized neural networks designed for processing grid-like data such as images.
+
+## Architecture
+
+### Convolutional Layers
+
+Convolutional layers apply filters (kernels) to detect features:
+- **Feature Detection**: Identifies patterns like edges, textures
+- **Parameter Sharing**: Reduces number of parameters
+- **Spatial Invariance**: Detects features regardless of position
+
+### Pooling Layers
+
+Pooling layers reduce spatial dimensions:
+- **Max Pooling**: Takes maximum value in each region
+- **Average Pooling**: Takes average value
+- **Purpose**: Reduces computation and overfitting
+
+### Fully Connected Layers
+
+Final layers that perform classification or regression based on extracted features.
+
+## Popular Architectures
+
+### LeNet
+Early CNN for digit recognition.
+
+### AlexNet
+Breakthrough architecture that won ImageNet 2012.
+
+### VGG
+Deep network with small 3x3 filters.
+
+### ResNet
+Residual connections enable very deep networks (100+ layers).
+
+## Applications
+
+CNNs excel at:
+- **Image Classification**: Identifying objects in images
+- **Object Detection**: Locating and classifying objects
+- **Semantic Segmentation**: Pixel-level classification
+- **Medical Imaging**: Disease detection and diagnosis
+
+## Training Considerations
+
+- **Data Augmentation**: Increases dataset diversity
+- **Transfer Learning**: Using pre-trained models
+- **Regularization**: Dropout, batch normalization
+
+## Conclusion
+
+CNNs revolutionized computer vision and remain the foundation of modern image analysis systems.

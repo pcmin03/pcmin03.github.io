@@ -1,0 +1,21 @@
+- title: 3D Coordinate Systems
+  cover: /assets/images/projects/mri-image-analysis.jpg
+  description: 3D coordinate systems and transformations
+  url: /study/3d-coordinate-systems.html
+  tags: [3D Geometry, Coordinate Systems]
+  excerpt: Learn about 3D coordinate systems, transformations, and matrix operations in 3D space.
+
+- title: 3D Mesh Processing
+  cover: /assets/images/projects/mri-image-analysis.jpg
+  description: Mesh operations and processing
+  url: /study/3d-mesh-processing.html
+  tags: [3D Geometry, Mesh Processing]
+  excerpt: Understanding 3D mesh structures, operations, and processing techniques for 3D models.
+
+- title: 3D Rendering Techniques
+  cover: /assets/images/projects/mri-image-analysis.jpg
+  description: 3D rendering and visualization
+  url: /study/3d-rendering-techniques.html
+  tags: [3D Geometry, Rendering, Visualization]
+  excerpt: Explore 3D rendering techniques, lighting models, and visualization methods for 3D graphics.
+

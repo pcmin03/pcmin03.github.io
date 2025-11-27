@@ -1,0 +1,64 @@
+---
+title: Image Transformation and Warping
+categories: [Image Processing]
+tags: [Image Processing, Transformation]
+article_header:
+  type: overlay
+  theme: dark
+  background_color: '#203028'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
+    src: /assets/images/projects/path-quant.jpg
+---
+
+Image transformation and warping are essential techniques for geometric manipulation of images, enabling applications from image registration to creative effects.
+
+<!--more-->
+
+## Geometric Transformations
+
+### Affine Transformations
+
+Affine transformations preserve parallel lines and include:
+- **Translation**: Moving images
+- **Rotation**: Rotating images around a point
+- **Scaling**: Resizing images
+- **Shearing**: Distorting images along axes
+
+### Projective Transformations
+
+Projective (homography) transformations can represent perspective changes, useful for:
+- Image stitching
+- Camera calibration
+- Perspective correction
+
+## Image Warping
+
+Image warping involves non-linear transformations that can:
+- Correct lens distortion
+- Create artistic effects
+- Align images from different viewpoints
+
+### Warping Methods
+- **Thin Plate Spline (TPS)**: Smooth warping
+- **Mesh-based Warping**: Control point-based deformation
+- **Optical Flow**: Motion-based warping
+
+## Applications
+
+- **Medical Imaging**: Image registration and alignment
+- **Computer Graphics**: Texture mapping and morphing
+- **Photography**: Perspective correction and panorama creation
+- **Computer Vision**: Feature matching and tracking
+
+## Implementation
+
+Modern implementations use:
+- Matrix operations for transformations
+- Interpolation methods (bilinear, bicubic)
+- GPU acceleration for real-time processing
+
+## Conclusion
+
+Image transformation and warping are powerful tools that enable sophisticated image manipulation and analysis across many domains.
+

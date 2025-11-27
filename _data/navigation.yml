@@ -1,86 +1,29 @@
 header:
   - titles:
       # @start locale config
-      en      : &EN       Categories
+      en      : &EN       Home
       en-GB   : *EN
       en-US   : *EN
       en-CA   : *EN
       en-AU   : *EN
-      zh-Hans : &ZH_HANS  分类
+      zh-Hans : &ZH_HANS  首页
       zh      : *ZH_HANS
       zh-CN   : *ZH_HANS
       zh-SG   : *ZH_HANS
-      zh-Hant : &ZH_HANT  分類
+      zh-Hant : &ZH_HANT  首頁
       zh-TW   : *ZH_HANT
       zh-HK   : *ZH_HANT
-      ko      : &KO       카테고리
+      ko      : &KO       홈
       ko-KR   : *KO
-      fr      : &FR       Catégories
+      fr      : &FR       Accueil
       fr-BE   : *FR
       fr-CA   : *FR
       fr-CH   : *FR
       fr-FR   : *FR
       fr-LU   : *FR
-      tr      : &TR       Kategoriler
+      tr      : &TR       Ana Sayfa
       # @end locale config
-    url: /categories.html
-    children:
-      - title: UCDIR
-        url: /study/ucdir.html
-      - title: 3D Vision
-        url: /study/3dvision.html
-
-  - titles:
-      # @start locale config
-      en      : &EN       Search
-      en-GB   : *EN
-      en-US   : *EN
-      en-CA   : *EN
-      en-AU   : *EN
-      zh-Hans : &ZH_HANS  搜索
-      zh      : *ZH_HANS
-      zh-CN   : *ZH_HANS
-      zh-SG   : *ZH_HANS
-      zh-Hant : &ZH_HANT  搜尋
-      zh-TW   : *ZH_HANT
-      zh-HK   : *ZH_HANT
-      ko      : &KO       검색
-      ko-KR   : *KO
-      fr      : &FR       Rechercher
-      fr-BE   : *FR
-      fr-CA   : *FR
-      fr-CH   : *FR
-      fr-FR   : *FR
-      fr-LU   : *FR
-      tr      : &TR       Ara
-      # @end locale config
-    url: /search.html
-
-  - titles:
-      # @start locale config
-      en      : &EN       About
-      en-GB   : *EN
-      en-US   : *EN
-      en-CA   : *EN
-      en-AU   : *EN
-      zh-Hans : &ZH_HANS  关于
-      zh      : *ZH_HANS
-      zh-CN   : *ZH_HANS
-      zh-SG   : *ZH_HANS
-      zh-Hant : &ZH_HANT  關於
-      zh-TW   : *ZH_HANT
-      zh-HK   : *ZH_HANT
-      ko      : &KO       소개
-      ko-KR   : *KO
-      fr      : &FR       À propos
-      fr-BE   : *FR
-      fr-CA   : *FR
-      fr-CH   : *FR
-      fr-FR   : *FR
-      fr-LU   : *FR
-      tr      : &TR       Hakkında
-      # @end locale config
-    url: https://smoggy-fibula-4b3.notion.site/My-Portfolio-Chan-Min-Park-195c3ffbc67f4f67a80eca8b9a506a3b?pvs=74
+    url: /
 
   - titles:
       # @start locale config
@@ -110,26 +53,90 @@ header:
 
   - titles:
       # @start locale config
-      en      : &EN       Github
+      en      : &EN       Research
       en-GB   : *EN
       en-US   : *EN
       en-CA   : *EN
       en-AU   : *EN
-      zh-Hans : &ZH_HANS  Github
+      zh-Hans : &ZH_HANS  研究
       zh      : *ZH_HANS
       zh-CN   : *ZH_HANS
       zh-SG   : *ZH_HANS
-      zh-Hant : &ZH_HANT  Github
+      zh-Hant : &ZH_HANT  研究
       zh-TW   : *ZH_HANT
       zh-HK   : *ZH_HANT
-      ko      : &KO       Github
+      ko      : &KO       리서치
       ko-KR   : *KO
-      fr      : &FR       Github
+      fr      : &FR       Recherche
       fr-BE   : *FR
       fr-CA   : *FR
       fr-CH   : *FR
       fr-FR   : *FR
       fr-LU   : *FR
-      tr      : &TR       Github
+      tr      : &TR       Araştırma
       # @end locale config
-    url: https://github.com/pcmin03
+    url: /categories.html
+    children:
+      - title: Image Retrieval
+        url: /study/image-retrieval.html
+      - title: 3D Vision
+        url: /study/3dvision.html
+
+  - titles:
+      # @start locale config
+      en      : &EN       Study
+      en-GB   : *EN
+      en-US   : *EN
+      en-CA   : *EN
+      en-AU   : *EN
+      zh-Hans : &ZH_HANS  学习
+      zh      : *ZH_HANS
+      zh-CN   : *ZH_HANS
+      zh-SG   : *ZH_HANS
+      zh-Hant : &ZH_HANT  學習
+      zh-TW   : *ZH_HANT
+      zh-HK   : *ZH_HANT
+      ko      : &KO       스터디
+      ko-KR   : *KO
+      fr      : &FR       Étude
+      fr-BE   : *FR
+      fr-CA   : *FR
+      fr-CH   : *FR
+      fr-FR   : *FR
+      fr-LU   : *FR
+      tr      : &TR       Çalışma
+      # @end locale config
+    url: /study.html
+    children:
+      - title: Image Processing
+        url: /study/image-processing.html
+      - title: Deep Learning
+        url: /study/deep-learning.html
+      - title: 3D Geometry
+        url: /study/3d-geometry.html
+
+  - titles:
+      # @start locale config
+      en      : &EN       Portfolio
+      en-GB   : *EN
+      en-US   : *EN
+      en-CA   : *EN
+      en-AU   : *EN
+      zh-Hans : &ZH_HANS  作品集
+      zh      : *ZH_HANS
+      zh-CN   : *ZH_HANS
+      zh-SG   : *ZH_HANS
+      zh-Hant : &ZH_HANT  作品集
+      zh-TW   : *ZH_HANT
+      zh-HK   : *ZH_HANT
+      ko      : &KO       포트폴리오
+      ko-KR   : *KO
+      fr      : &FR       Portfolio
+      fr-BE   : *FR
+      fr-CA   : *FR
+      fr-CH   : *FR
+      fr-FR   : *FR
+      fr-LU   : *FR
+      tr      : &TR       Portföy
+      # @end locale config
+    url: https://smoggy-fibula-4b3.notion.site/My-Portfolio-Chan-Min-Park-195c3ffbc67f4f67a80eca8b9a506a3b?pvs=74

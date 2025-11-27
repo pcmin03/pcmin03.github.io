@@ -1,0 +1,21 @@
+- title: Image Processing Basics
+  cover: /assets/images/projects/path-quant.jpg
+  description: Fundamentals of image processing
+  url: /study/image-processing-basics.html
+  tags: [Image Processing, Computer Vision]
+  excerpt: Introduction to basic image processing techniques including filtering, enhancement, and transformation methods.
+
+- title: Advanced Image Filtering
+  cover: /assets/images/projects/path-quant.jpg
+  description: Advanced filtering techniques
+  url: /study/advanced-image-filtering.html
+  tags: [Image Processing, Filtering]
+  excerpt: Learn about advanced image filtering techniques such as Gaussian blur, edge detection, and noise reduction.
+
+- title: Image Transformation and Warping
+  cover: /assets/images/projects/path-quant.jpg
+  description: Image transformation methods
+  url: /study/image-transformation.html
+  tags: [Image Processing, Transformation]
+  excerpt: Understanding image transformation, warping, and geometric operations for image manipulation.
+

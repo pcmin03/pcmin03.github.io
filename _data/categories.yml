@@ -1,0 +1,14 @@
+- title: Image Retrieval
+  cover: /assets/images/categories/ucdir.jpg
+  description: Image retrieval and cross-domain matching
+  url: /study/image-retrieval.html
+  tags: [Image Retrieval, Computer Vision, Cross-domain]
+  excerpt: Research on image retrieval techniques, cross-domain matching, and feature representation learning.
+
+- title: 3D Vision
+  cover: /assets/images/posts/sam3d/figure1.png
+  description: 3D vision and computer graphics
+  url: /study/3dvision.html
+  tags: [3D Vision, Computer Graphics, 3D Geometry]
+  excerpt: Exploring 3D vision techniques, depth estimation, and 3D scene understanding.
+

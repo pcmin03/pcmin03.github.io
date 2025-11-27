@@ -1,0 +1,79 @@
+---
+layout: article
+title: 3D Coordinate Systems
+article_header:
+  type: overlay
+  theme: dark
+  background_color: '#203028'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
+    src: /assets/images/projects/mri-image-analysis.jpg
+aside:
+  toc: true
+---
+
+# 3D Coordinate Systems
+
+Understanding 3D coordinate systems is fundamental to computer graphics, 3D modeling, and spatial analysis.
+
+## Coordinate System Types
+
+### Cartesian Coordinates
+
+The most common system using three perpendicular axes (X, Y, Z):
+- **Right-handed**: Thumb=X, Index=Y, Middle=Z
+- **Left-handed**: Alternative orientation
+- **Origin**: Point (0, 0, 0) where axes intersect
+
+### Spherical Coordinates
+
+Represents points using:
+- **Radius (r)**: Distance from origin
+- **Azimuth (θ)**: Angle in XY plane
+- **Elevation (φ)**: Angle from Z axis
+
+### Cylindrical Coordinates
+
+Combines polar coordinates with height:
+- **Radius (r)**: Distance from Z axis
+- **Angle (θ)**: Rotation around Z axis
+- **Height (z)**: Position along Z axis
+
+## Transformations
+
+### Translation
+Moving objects in 3D space using translation vectors.
+
+### Rotation
+Rotating around axes:
+- **Euler Angles**: Three rotation angles
+- **Quaternions**: Four-component representation (avoids gimbal lock)
+- **Rotation Matrices**: 3x3 matrices for rotation
+
+### Scaling
+Uniform or non-uniform scaling along axes.
+
+## Homogeneous Coordinates
+
+Using 4D representation (x, y, z, w) enables:
+- Combined transformations as matrix multiplication
+- Perspective projection
+- Efficient computation
+
+## Applications
+
+- **Computer Graphics**: Rendering and animation
+- **Robotics**: Kinematics and path planning
+- **Medical Imaging**: 3D reconstruction and analysis
+- **Game Development**: 3D world representation
+
+## World vs. Local Coordinates
+
+- **World Space**: Global coordinate system
+- **Local Space**: Object-relative coordinates
+- **View Space**: Camera-relative coordinates
+- **Screen Space**: 2D projection coordinates
+
+## Conclusion
+
+Mastering 3D coordinate systems is essential for any work involving 3D data, graphics, or spatial computation.

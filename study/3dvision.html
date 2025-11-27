@@ -34,7 +34,7 @@ articles:
   show_info: true
 ---
 
-{%- assign filtered_posts = site.posts | where_exp: "post", "post.tags contains '3D Vision' or post.categories contains '3D Vision' or post.tags contains '3D-Vision' or post.categories contains '3D-Vision' or post.tags contains '3dvision' or post.categories contains '3dvision'" -%}
+{%- assign filtered_posts = site.posts | where_exp: "post", "post.categories contains '3D Vision'" -%}
 {%- assign page.filtered_posts = filtered_posts -%}
 
 <div class="layout--home">

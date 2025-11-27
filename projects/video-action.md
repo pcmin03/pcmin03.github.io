@@ -1,9 +1,6 @@
 ---
 layout: article
 title: Video Action Analysis (중간배제)
-mode: immersive
-header:
-  theme: dark
 article_header:
   type: overlay
   theme: dark
@@ -11,8 +8,6 @@ article_header:
   background_image:
     gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
     src: /assets/images/projects/video-action.jpg
-aside:
-  toc: true
 ---
 
 # Video Action Analysis (중간배제)

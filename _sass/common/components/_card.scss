@@ -31,10 +31,26 @@
 .card__image {
   position: relative;
   width: 100%;
+  height: 200px;
+  overflow: hidden;
+  & > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
   & > img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+  & > a > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: inherit;
   }
   & > .overlay {

@@ -1,0 +1,46 @@
+---
+layout: articles
+titles:
+  # @start locale config
+  en      : &EN       Image Retrieval
+  en-GB   : *EN
+  en-US   : *EN
+  en-CA   : *EN
+  en-AU   : *EN
+  zh-Hans : &ZH_HANS  图像检索
+  zh      : *ZH_HANS
+  zh-CN   : *ZH_HANS
+  zh-SG   : *ZH_HANS
+  zh-Hant : &ZH_HANT  圖像檢索
+  zh-TW   : *ZH_HANT
+  zh-HK   : *ZH_HANT
+  ko      : &KO       이미지 검색
+  ko-KR   : *KO
+  fr      : &FR       Recherche d'images
+  fr-BE   : *FR
+  fr-CA   : *FR
+  fr-CH   : *FR
+  fr-FR   : *FR
+  fr-LU   : *FR
+  tr      : &TR       Görüntü Arama
+  # @end locale config
+show_title: false
+articles:
+  data_source: page.filtered_posts
+  article_type: BlogPosting
+  show_cover: false
+  show_excerpt: true
+  show_readmore: true
+  show_info: true
+---
+
+{%- assign filtered_posts = site.posts | where_exp: "post", "post.categories contains 'Image Retrieval'" -%}
+{%- assign page.filtered_posts = filtered_posts -%}
+
+<div class="layout--home">
+  {%- include article-list.html articles=filtered_posts type='item' article_type='BlogPosting' show_cover=false show_excerpt=true show_readmore=true show_info=true -%}
+</div>
+<script>
+  {%- include scripts/home.js -%}
+</script>
+
