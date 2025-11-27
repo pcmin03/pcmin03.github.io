@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: articles
 titles:
   # @start locale config
   en      : &EN       Categories
@@ -24,28 +24,20 @@ titles:
   fr-LU   : *FR
   tr      : &TR       Kategoriler
   # @end locale config
+show_title: false
 key: page-categories
+articles:
+  data_source: paginator.posts
+  article_type: BlogPosting
+  show_cover: false
+  show_excerpt: true
+  show_readmore: true
+  show_info: true
 ---
 
-<div class="layout--study">
-  <div class="study-categories" style="margin-bottom: 2rem;">
-    <h3 style="margin-bottom: 1rem;">Categories</h3>
-    <div class="button-group" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-      <a href="/study/ucdir.html" class="button button--secondary button--pill">UCDIR</a>
-      <a href="/study/3dvision.html" class="button button--secondary button--pill">3D Vision</a>
-      <a href="/study/llm.html" class="button button--secondary button--pill">LLM</a>
-      <a href="/archive.html" class="button button--secondary button--pill">All</a>
-    </div>
-  </div>
-  
-  <div class="layout--archive js-all">
-    {%- include tags.html -%}
-    <div class="js-result layout--archive__result d-none">
-      {%- include article-list.html articles=site.posts type='brief' show_info=true reverse=true group_by='year' -%}
-    </div>
-  </div>
+<div class="layout--home">
+  {%- include paginator.html -%}
 </div>
-
 <script>
-  {%- include scripts/archieve.js -%}
+  {%- include scripts/home.js -%}
 </script>

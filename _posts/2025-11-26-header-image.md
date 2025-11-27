@@ -1,5 +1,6 @@
 ---
 title: "[PaperReview] Feature Representation Learning for Unsupervised Cross-domain Image Retrieval"
+tags: [UCDIR]
 article_header:
   type: overlay
   theme: dark

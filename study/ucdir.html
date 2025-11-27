@@ -26,7 +26,7 @@ titles:
   # @end locale config
 show_title: false
 articles:
-  data_source: site.filtered_posts
+  data_source: page.filtered_posts
   article_type: BlogPosting
   show_cover: false
   show_excerpt: true
@@ -35,7 +35,7 @@ articles:
 ---
 
 {%- assign filtered_posts = site.posts | where_exp: "post", "post.tags contains 'UCDIR' or post.categories contains 'UCDIR' or post.tags contains 'ucdir' or post.categories contains 'ucdir'" -%}
-{%- assign site.filtered_posts = filtered_posts -%}
+{%- assign page.filtered_posts = filtered_posts -%}
 
 <div class="layout--home">
   {%- include article-list.html articles=filtered_posts type='item' article_type='BlogPosting' show_cover=false show_excerpt=true show_readmore=true show_info=true -%}
