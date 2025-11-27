@@ -1,27 +1,27 @@
 header:
   - titles:
       # @start locale config
-      en      : &EN       Study
+      en      : &EN       Categories
       en-GB   : *EN
       en-US   : *EN
       en-CA   : *EN
       en-AU   : *EN
-      zh-Hans : &ZH_HANS  学习
+      zh-Hans : &ZH_HANS  分类
       zh      : *ZH_HANS
       zh-CN   : *ZH_HANS
       zh-SG   : *ZH_HANS
-      zh-Hant : &ZH_HANT  學習
+      zh-Hant : &ZH_HANT  分類
       zh-TW   : *ZH_HANT
       zh-HK   : *ZH_HANT
-      ko      : &KO       학습
+      ko      : &KO       카테고리
       ko-KR   : *KO
-      fr      : &FR       Étude
+      fr      : &FR       Catégories
       fr-BE   : *FR
       fr-CA   : *FR
       fr-CH   : *FR
       fr-FR   : *FR
       fr-LU   : *FR
-      tr      : &TR       Çalışma
+      tr      : &TR       Kategoriler
       # @end locale config
     url: /archive.html
     children:
@@ -29,8 +29,6 @@ header:
         url: /study/ucdir.html
       - title: 3D Vision
         url: /study/3dvision.html
-      - title: LLM
-        url: /study/llm.html
 
   - titles:
       # @start locale config

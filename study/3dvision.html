@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: articles
 titles:
   # @start locale config
   en      : &EN       3D Vision
@@ -24,25 +24,22 @@ titles:
   fr-LU   : *FR
   tr      : &TR       3D Vision
   # @end locale config
-key: page-study-3dvision
+show_title: false
+articles:
+  data_source: site.filtered_posts
+  article_type: BlogPosting
+  show_cover: false
+  show_excerpt: true
+  show_readmore: true
+  show_info: true
 ---
 
-{%- assign _3dvision_posts = site.posts | where_exp: "post", "post.tags contains '3D Vision' or post.categories contains '3D Vision' or post.tags contains '3D-Vision' or post.categories contains '3D-Vision'" -%}
+{%- assign filtered_posts = site.posts | where_exp: "post", "post.tags contains '3D Vision' or post.categories contains '3D Vision' or post.tags contains '3D-Vision' or post.categories contains '3D-Vision' or post.tags contains '3dvision' or post.categories contains '3dvision'" -%}
+{%- assign site.filtered_posts = filtered_posts -%}
 
-<div class="layout--study">
-  <div class="study-categories" style="margin-bottom: 2rem;">
-    <h3 style="margin-bottom: 1rem;">Categories</h3>
-    <div class="button-group" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-      <a href="/study/ucdir.html" class="button button--secondary button--pill">UCDIR</a>
-      <a href="/study/3dvision.html" class="button button--primary button--pill">3D Vision</a>
-      <a href="/study/llm.html" class="button button--secondary button--pill">LLM</a>
-      <a href="/archive.html" class="button button--secondary button--pill">All</a>
-    </div>
-  </div>
-  
-  <div class="layout--archive">
-    {%- include article-list.html articles=_3dvision_posts type='brief' show_info=true reverse=true group_by='year' -%}
-  </div>
+<div class="layout--home">
+  {%- include article-list.html articles=filtered_posts type='item' article_type='BlogPosting' show_cover=false show_excerpt=true show_readmore=true show_info=true -%}
 </div>
-
-
+<script>
+  {%- include scripts/home.js -%}
+</script>
