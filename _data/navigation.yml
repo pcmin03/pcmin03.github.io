@@ -23,7 +23,7 @@ header:
       fr-LU   : *FR
       tr      : &TR       Kategoriler
       # @end locale config
-    url: /archive.html
+    url: /categories.html
     children:
       - title: UCDIR
         url: /study/ucdir.html
@@ -54,7 +54,7 @@ header:
       fr-LU   : *FR
       tr      : &TR       Ara
       # @end locale config
-    url: /archive.html
+    url: /search.html
 
   - titles:
       # @start locale config

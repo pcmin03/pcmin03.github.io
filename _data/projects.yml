@@ -1,18 +1,41 @@
-- title: Example Project 1
-  image: /assets/images/default-header-image.jpg
-  description: This is a sample project description. You can edit this in _data/projects.yml.
-  url: '#'
-  tags: [Demo, Test]
+- title: Path-Quant
+  image: /assets/images/projects/path-quant.jpg
+  description: Development / Detection
+  url: /projects/path-quant.html
+  tags: [Development, Detection]
 
-- title: Example Project 2
-  image: /assets/images/default-header-image.jpg
-  description: Another sample project. Add your own projects to _data/projects.yml.
-  url: '#'
-  tags: [Jekyll, Theme]
+- title: LungCT AI
+  image: /assets/images/projects/lungct.jpg
+  description: Development / Detection, Classification
+  url: /projects/lungct-ai.html
+  tags: [Development, Detection, Classification]
 
-- title: Example Project 3
-  image: /assets/images/default-header-image.jpg
-  description: Third sample project.
-  url: '#'
-  tags: [Grid, Layout]
+- title: Universal Segmentation
+  image: /assets/images/projects/segmentation.jpg
+  description: Research / Segmentation
+  url: /projects/universal-segmentation.html
+  tags: [Research, Segmentation]
 
+- title: Test-Time Adaptation
+  image: /assets/images/projects/testtime.jpg
+  description: Research / Classification
+  url: /projects/test-time-adaptation.html
+  tags: [Research, Classification]
+
+- title: MRI Image Analysis
+  image: /assets/images/projects/mri.jpg
+  description: Education / Image
+  url: /projects/mri-image-analysis.html
+  tags: [Education, Image]
+
+- title: Medical Image Reconstruction using Deep Learning
+  image: /assets/images/projects/reconstruction.jpg
+  description: Education / Generative
+  url: /projects/medical-image-reconstruction.html
+  tags: [Education, Generative]
+
+- title: Video Action Analysis (중간배제)
+  image: /assets/images/projects/videoaction.jpg
+  description: Development / Video Action
+  url: /projects/video-action.html
+  tags: [Development, Video Action]
