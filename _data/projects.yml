@@ -1,0 +1,18 @@
+- title: Example Project 1
+  image: /assets/images/default-header-image.jpg
+  description: This is a sample project description. You can edit this in _data/projects.yml.
+  url: '#'
+  tags: [Demo, Test]
+
+- title: Example Project 2
+  image: /assets/images/default-header-image.jpg
+  description: Another sample project. Add your own projects to _data/projects.yml.
+  url: '#'
+  tags: [Jekyll, Theme]
+
+- title: Example Project 3
+  image: /assets/images/default-header-image.jpg
+  description: Third sample project.
+  url: '#'
+  tags: [Grid, Layout]
+

@@ -84,6 +84,9 @@
 
 .navigation {
   @include overflow(auto, "x");
+  @include media-breakpoint-up(lg) {
+    overflow: visible;
+  }
   & > ul {
     height: map-get($layout, header-height);
     padding-bottom: 0;
