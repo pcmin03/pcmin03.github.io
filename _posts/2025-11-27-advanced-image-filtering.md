@@ -5,10 +5,10 @@ tags: [Image Processing, Filtering]
 article_header:
   type: overlay
   theme: dark
-  background_color: '#203028'
+  background_color: '#0d1b2a'
   background_image:
-    gradient: 'linear-gradient(135deg, rgba(34, 139, 87 , .4), rgba(139, 34, 139, .4))'
-    src: /assets/images/projects/path-quant.jpg
+    gradient: 'linear-gradient(135deg, rgba(13, 27, 42, .85), rgba(176, 125, 103, .65))'
+    src: /assets/images/study/image-processing.jpg
 ---
 
 Advanced image filtering techniques go beyond basic operations to provide sophisticated image enhancement and analysis capabilities.

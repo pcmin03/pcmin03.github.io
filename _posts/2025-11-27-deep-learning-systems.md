@@ -5,9 +5,9 @@ tags: [Deep Learning, Computer Vision, MLOps]
 article_header:
   type: overlay
   theme: dark
-  background_color: '#14213d'
+  background_color: '#0d1b2a'
   background_image:
-    gradient: 'linear-gradient(135deg, rgba(16, 24, 32, .75), rgba(239, 131, 84, .55))'
+    gradient: 'linear-gradient(135deg, rgba(13, 27, 42, .85), rgba(176, 125, 103, .65))'
     src: /assets/images/study/deep-learning.jpg
 ---
 

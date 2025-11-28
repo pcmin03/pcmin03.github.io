@@ -5,9 +5,9 @@ tags: [Deep Learning, Vision Transformers, Attention]
 article_header:
   type: overlay
   theme: dark
-  background_color: '#1b263b'
+  background_color: '#0d1b2a'
   background_image:
-    gradient: 'linear-gradient(135deg, rgba(27, 38, 59, .8), rgba(230, 57, 70, .55))'
+    gradient: 'linear-gradient(135deg, rgba(13, 27, 42, .85), rgba(176, 125, 103, .65))'
     src: /assets/images/study/deep-learning.jpg
 ---
 

@@ -5,9 +5,9 @@ tags: [3D Geometry, Camera Models]
 article_header:
   type: overlay
   theme: dark
-  background_color: '#0f172a'
+  background_color: '#0d1b2a'
   background_image:
-    gradient: 'linear-gradient(135deg, rgba(15, 23, 42, .85), rgba(244, 114, 182, .45))'
+    gradient: 'linear-gradient(135deg, rgba(13, 27, 42, .85), rgba(176, 125, 103, .65))'
     src: /assets/images/study/3d-geometry.jpg
 ---
 

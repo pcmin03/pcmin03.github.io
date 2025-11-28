@@ -5,9 +5,9 @@ tags: [3D Geometry, Rendering, PBR]
 article_header:
   type: overlay
   theme: dark
-  background_color: '#1e1b4b'
+  background_color: '#0d1b2a'
   background_image:
-    gradient: 'linear-gradient(135deg, rgba(30, 27, 75, .8), rgba(52, 211, 153, .45))'
+    gradient: 'linear-gradient(135deg, rgba(13, 27, 42, .85), rgba(176, 125, 103, .65))'
     src: /assets/images/study/3d-geometry.jpg
 ---
 
