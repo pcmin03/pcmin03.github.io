@@ -254,6 +254,10 @@ layout: base
   {%- include scripts/page.js -%}
 </script>
 
+{%- if _header != false and site.data.navigation.header -%}
+<script>{%- include scripts/components/navigation.js -%}</script>
+{%- endif -%}
+
 {%- if page.sidebar -%}
 <script>{%- include scripts/components/sidebar.js -%}</script>
 {%- endif -%}

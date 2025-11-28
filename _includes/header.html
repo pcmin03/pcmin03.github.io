@@ -18,9 +18,12 @@
         {%- if site.search.provider -%}
           <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
         {%- endif -%}
+        {%- if site.data.navigation.header -%}
+        <button class="button button--secondary button--circle menu-toggle js-menu-toggle d-lg-none"><i class="fas fa-bars"></i></button>
+        {%- endif -%}
       </div>
       {%- if site.data.navigation.header -%}
-      <nav class="navigation">
+      <nav class="navigation js-navigation">
         <ul>
           {%- for _item in site.data.navigation.header -%}
             {%- include snippets/get-nav-url.html path=_item.url -%}

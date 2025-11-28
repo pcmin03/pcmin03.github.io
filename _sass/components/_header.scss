@@ -58,6 +58,13 @@
       @include flexbox();
     }
   }
+  & > .menu-toggle {
+    display: none;
+    margin-left: map-get($spacers, 2);
+    @include media-breakpoint-down(md) {
+      @include flexbox();
+    }
+  }
 }
 
 .header__brand {
@@ -87,6 +94,18 @@
   @include media-breakpoint-up(lg) {
     overflow: visible;
   }
+  @include media-breakpoint-down(md) {
+    display: none;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    &.navigation--open {
+      display: block;
+      max-height: 1000px;
+      padding-top: map-get($spacers, 2);
+    }
+  }
   & > ul {
     height: map-get($layout, header-height);
     padding-bottom: 0;
@@ -95,11 +114,15 @@
     @include media-breakpoint-down(md) {
       padding-bottom: 4px;
       margin: -4px 0 0 0;
+      @include flex-direction(column);
+      @include align-items(flex-start);
+      height: auto;
     }
     @include menu(3, 2, nowrap);
     @include align-items(center);
     @include media-breakpoint-down(md) {
       height: auto;
+      @include flex-wrap(wrap);
     }
     .search-button {
       @include media-breakpoint-down(md) {
@@ -116,6 +139,17 @@
     margin-bottom: -4px;
     content: "";
     @include split-line(bottom, 4px, transparent);
+  }
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    &::after {
+      display: none;
+    }
+    & > a {
+      display: block;
+      width: 100%;
+      padding: map-get($spacers, 2) 0;
+    }
   }
   & > a {
     i {
@@ -138,11 +172,45 @@
   position: relative;
   overflow: visible;
   
-  &:hover > .navigation__dropdown,
-  .navigation__dropdown:hover {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  @include media-breakpoint-up(lg) {
+    &:hover > .navigation__dropdown,
+    .navigation__dropdown:hover {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    & > a {
+      width: 100%;
+      padding: map-get($spacers, 2) 0;
+    }
+    .navigation__dropdown {
+      position: static;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      box-shadow: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      margin-left: map-get($spacers, 3);
+      background: transparent !important;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      &.navigation__dropdown--open {
+        max-height: 500px;
+        padding-top: map-get($spacers, 1);
+      }
+      li a {
+        padding: map-get($spacers, 1) 0;
+        color: $header-text-color !important;
+        font-size: map-get($base, font-size-sm);
+      }
+    }
   }
   
   > a {
