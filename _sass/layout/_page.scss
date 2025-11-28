@@ -23,11 +23,20 @@ html,
   height: 100%;
   color: $text-color;
   .col-aside {
-    display: none;
+    display: block;
     & > aside {
       position: absolute;
       width: map-get($layout, aside-width);
       @include overflow(hidden);
+      @include media-breakpoint-down(lg) {
+        position: static !important;
+        width: 100%;
+      }
+    }
+    @include media-breakpoint-down(lg) {
+      display: block;
+      width: 100%;
+      margin-top: map-get($spacers, 3);
     }
   }
 }
@@ -115,7 +124,13 @@ html,
       }
     }
     @include media-breakpoint-down(lg) {
-      display: none;
+      display: block;
+      width: 100%;
+      margin-top: map-get($spacers, 3);
+      & > aside {
+        position: static !important;
+        width: 100%;
+      }
     }
   }
 }

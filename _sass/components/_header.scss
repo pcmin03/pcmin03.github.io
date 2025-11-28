@@ -105,18 +105,22 @@
       display: block;
       max-height: 1000px;
       padding-top: map-get($spacers, 2);
-      .navigation__item--dropdown .navigation__dropdown {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        max-height: none !important;
-        overflow: visible !important;
-        margin-left: map-get($spacers, 3) !important;
-        padding-top: map-get($spacers, 1) !important;
-        position: static !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
+      overflow: visible !important;
+      
+      .navigation__item--dropdown {
+        .navigation__dropdown {
+          display: block !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          max-height: none !important;
+          overflow: visible !important;
+          margin-left: map-get($spacers, 3) !important;
+          padding-top: map-get($spacers, 1) !important;
+          position: static !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
       }
     }
   }
