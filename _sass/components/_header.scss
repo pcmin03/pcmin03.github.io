@@ -7,6 +7,7 @@
   }
   .main {
     @include flexbox();
+    position: relative;
     @include media-breakpoint-down(md) {
       @include flex-direction(column);
     }
@@ -54,15 +55,22 @@
   & > .search-button {
     display: none;
     margin-left: map-get($spacers, 2);
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       @include flexbox();
     }
   }
   & > .menu-toggle {
     display: none;
     margin-left: map-get($spacers, 2);
-    @include media-breakpoint-down(md) {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 999px;
+    width: 42px;
+    height: 42px;
+    @include media-breakpoint-down(lg) {
       @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
     }
   }
 }
@@ -106,7 +114,35 @@
       max-height: 1000px;
       padding-top: map-get($spacers, 2);
       overflow: visible !important;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.12);
+      background: $background-color;
+      padding-bottom: map-get($spacers, 2);
+      position: absolute;
+      top: calc(map-get($layout, header-height) + map-get($spacers, 1));
+      right: map-get($spacers, 2);
+      left: auto;
+      width: 300px;
+      max-width: calc(100% - map-get($spacers, 4));
+      border-radius: map-get($base, border-radius-lg);
+      z-index: map-get($z-indexes, modal);
+      max-height: 80vh;
+      @include overflow(auto);
       
+      .navigation__item {
+        width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        &:last-child {
+          border-bottom: none;
+        }
+        & > a {
+          display: block;
+          width: 100%;
+          padding: map-get($spacers, 2) 0;
+          text-align: center;
+        }
+      }
+
       .navigation__item--dropdown {
         .navigation__dropdown {
           display: block !important;
@@ -114,12 +150,16 @@
           visibility: visible !important;
           max-height: none !important;
           overflow: visible !important;
-          margin-left: map-get($spacers, 3) !important;
+          margin-left: 0 !important;
           padding-top: map-get($spacers, 1) !important;
           position: static !important;
           background: transparent !important;
           box-shadow: none !important;
           border: none !important;
+          li {
+            text-align: center;
+            width: 100%;
+          }
         }
       }
     }

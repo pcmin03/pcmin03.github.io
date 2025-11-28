@@ -1,43 +1,73 @@
 (function() {
-  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.pageLoad.then(function() {
+    var menuToggle = document.querySelector('.js-menu-toggle');
+    var navigation = document.querySelector('.js-navigation');
+    var dropdownItems = document.querySelectorAll('.navigation__item--dropdown');
 
-  window.Lazyload.js(SOURCES.jquery, function() {
-    var $menuToggle = $('.js-menu-toggle');
-    var $navigation = $('.js-navigation');
-    var $dropdownItems = $('.navigation__item--dropdown');
+    if (!menuToggle || !navigation) {
+      return;
+    }
 
-    // Toggle mobile menu
-    $menuToggle.on('click', function() {
-      $navigation.toggleClass('navigation--open');
-      $(this).find('i').toggleClass('fa-bars fa-times');
+    var icon = menuToggle.querySelector('i');
+    var toggleState = function(isOpen) {
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      if (!icon) {
+        return;
+      }
+      if (isOpen) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    };
+
+    menuToggle.addEventListener('click', function(event) {
+      event.preventDefault();
+      var willOpen = !navigation.classList.contains('navigation--open');
+      navigation.classList.toggle('navigation--open', willOpen);
+      toggleState(willOpen);
     });
 
-    // Toggle dropdown on mobile
-    $dropdownItems.on('click', '> a', function(e) {
-      if (window.innerWidth < 1024) {
-        e.preventDefault();
-        var $dropdown = $(this).siblings('.navigation__dropdown');
-        $dropdown.toggleClass('navigation__dropdown--open');
+    dropdownItems.forEach(function(item) {
+      var trigger = item.querySelector('> a');
+      if (!trigger) {
+        return;
+      }
+      trigger.addEventListener('click', function(event) {
+        if (window.innerWidth < 1024) {
+          event.preventDefault();
+          var dropdown = item.querySelector('.navigation__dropdown');
+          if (dropdown) {
+            dropdown.classList.toggle('navigation__dropdown--open');
+          }
+        }
+      });
+    });
+
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.header')) {
+        navigation.classList.remove('navigation--open');
+        toggleState(false);
+        dropdownItems.forEach(function(item) {
+          var dropdown = item.querySelector('.navigation__dropdown');
+          dropdown && dropdown.classList.remove('navigation__dropdown--open');
+        });
       }
     });
 
-    // Close menu when clicking outside
-    $(document).on('click', function(e) {
-      if (!$(e.target).closest('.header').length) {
-        $navigation.removeClass('navigation--open');
-        $menuToggle.find('i').removeClass('fa-times').addClass('fa-bars');
-        $dropdownItems.find('.navigation__dropdown').removeClass('navigation__dropdown--open');
-      }
-    });
-
-    // Close menu on window resize if it becomes desktop size
-    $(window).on('resize', function() {
+    window.addEventListener('resize', function() {
       if (window.innerWidth >= 1024) {
-        $navigation.removeClass('navigation--open');
-        $menuToggle.find('i').removeClass('fa-times').addClass('fa-bars');
-        $dropdownItems.find('.navigation__dropdown').removeClass('navigation__dropdown--open');
+        navigation.classList.remove('navigation--open');
+        toggleState(false);
+        dropdownItems.forEach(function(item) {
+          var dropdown = item.querySelector('.navigation__dropdown');
+          dropdown && dropdown.classList.remove('navigation__dropdown--open');
+        });
       }
     });
+
+    toggleState(false);
   });
 })();
-
