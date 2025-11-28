@@ -11,7 +11,9 @@ article_header:
     src: /assets/images/study/deep-learning.jpg
 ---
 
-Robust 컴퓨터 비전 모델을 제품으로 배포하려면 **데이터 파이프라인, 학습 인프라, 배포 전략**을 하나의 시스템으로 묶어야 한다. 이 글은 연구용 prototype을 실제 서비스로 옮길 때 고려할 핵심 포인트를 정리했다.
+연구용 prototype을 실제 서비스로 전환할 때 고려해야 할 데이터 파이프라인, 학습 인프라, 배포 전략을 정리합니다.
+
+<!--more-->
 
 ## 1. Data Engine
 - **Continuous labeling**: 모델 피드백을 바탕으로 hard example을 우선 수집해 annotation 비용을 줄인다.

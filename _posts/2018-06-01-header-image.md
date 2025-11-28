@@ -7,6 +7,6 @@ article_header:
     src: /screenshot.jpg
 ---
 
- with Header Image, See [Page layout](https://kitian616.github.io/jekyll-TeXt-theme/samples.html#page-layout) for more examples.
+Header Image를 사용한 포스트 예제입니다.
 
 <!--more-->

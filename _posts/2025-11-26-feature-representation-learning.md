@@ -11,4 +11,6 @@ article_header:
     src: /assets/images/categories/ucdir.jpg
 ---
 
+Unsupervised cross-domain image retrieval을 위한 feature representation learning 방법론을 다룹니다.
+
 <!--more-->

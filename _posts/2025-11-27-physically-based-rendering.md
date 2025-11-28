@@ -11,7 +11,9 @@ article_header:
     src: /assets/images/study/3d-geometry.jpg
 ---
 
-PBR(Physically Based Rendering)는 현대 실시간/오프라인 렌더러의 기본 규칙이다. 여기에서는 핵심 수식과 파라미터가 어떤 의미를 가지는지 요약한다.
+현대 실시간/오프라인 렌더러의 기본 규칙인 PBR의 핵심 수식과 파라미터를 요약합니다.
+
+<!--more-->
 
 ## 1. BRDF 구성 요소
 - **Diffuse**: Lambertian, $f_d = \frac{c}{\pi}$

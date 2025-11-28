@@ -11,7 +11,7 @@ article_header:
     src: /assets/images/study/image-processing.jpg
 ---
 
-Image transformation and warping are essential techniques for geometric manipulation of images, enabling applications from image registration to creative effects.
+이미지 등록부터 창의적 효과까지 다양한 응용을 가능하게 하는 기하학적 이미지 조작의 필수 기법입니다.
 
 <!--more-->
 

@@ -11,7 +11,7 @@ article_header:
     src: /assets/images/study/image-processing.jpg
 ---
 
-Image processing is a fundamental technique in computer vision and digital image analysis. This article introduces the core concepts and methods used in image processing.
+컴퓨터 비전과 디지털 이미지 분석의 기본이 되는 이미지 처리의 핵심 개념과 방법을 소개합니다.
 
 <!--more-->
 

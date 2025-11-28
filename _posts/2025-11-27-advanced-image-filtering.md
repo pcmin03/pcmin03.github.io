@@ -11,7 +11,7 @@ article_header:
     src: /assets/images/study/image-processing.jpg
 ---
 
-Advanced image filtering techniques go beyond basic operations to provide sophisticated image enhancement and analysis capabilities.
+고급 이미지 필터링 기법을 통해 정교한 이미지 향상 및 분석 기능을 제공합니다.
 
 <!--more-->
 

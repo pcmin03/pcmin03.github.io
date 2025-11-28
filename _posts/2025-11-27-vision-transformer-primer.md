@@ -11,7 +11,9 @@ article_header:
     src: /assets/images/study/deep-learning.jpg
 ---
 
-ViT는 CNN을 대체하는 기본 백본으로 자리 잡았다. 이 글에서는 **Patch tokenization → Multi-head Self-Attention → MLP Head**로 이어지는 파이프라인을 짧게 정리한다.
+CNN을 대체하는 기본 백본으로 자리 잡은 ViT의 핵심 파이프라인을 정리합니다.
+
+<!--more-->
 
 ## 1. Patch Embedding
 이미지를 $16\times16$ 혹은 $14\times14$ 패치로 자른 뒤 linear projection을 통과시키면 $N$개의 토큰이 된다. CLS 토큰을 prepend해 전체 이미지 표현을 학습한다.

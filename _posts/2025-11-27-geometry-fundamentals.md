@@ -11,7 +11,9 @@ article_header:
     src: /assets/images/study/3d-geometry.jpg
 ---
 
-3D 비전 파이프라인의 핵심은 **카메라 모델, 좌표계, 변환 행렬**을 정확하게 다루는 것이다. 이 글은 프로젝트를 시작할 때 꼭 필요한 기초 공식만 모았다.
+3D 비전 파이프라인에서 필요한 카메라 모델, 좌표계, 변환 행렬의 기초 공식을 모았습니다.
+
+<!--more-->
 
 ## 1. Camera Model
 - **Pinhole model**: $s\begin{bmatrix}u\\v\\1\end{bmatrix}=K[R|t]\begin{bmatrix}X\\Y\\Z\\1\end{bmatrix}$
