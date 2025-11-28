@@ -91,10 +91,11 @@
 
 .navigation {
   @include overflow(auto, "x");
+  overflow-y: visible;
   @include media-breakpoint-up(lg) {
     overflow: visible;
   }
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     display: none;
     width: 100%;
     max-height: 0;
@@ -104,6 +105,19 @@
       display: block;
       max-height: 1000px;
       padding-top: map-get($spacers, 2);
+      .navigation__item--dropdown .navigation__dropdown {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-left: map-get($spacers, 3) !important;
+        padding-top: map-get($spacers, 1) !important;
+        position: static !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
     }
   }
   & > ul {
@@ -111,7 +125,7 @@
     padding-bottom: 0;
     margin: 0;
     overflow: visible;
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       padding-bottom: 4px;
       margin: -4px 0 0 0;
       @include flex-direction(column);
@@ -120,12 +134,12 @@
     }
     @include menu(3, 2, nowrap);
     @include align-items(center);
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       height: auto;
       @include flex-wrap(wrap);
     }
     .search-button {
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         display: none;
       }
     }
@@ -140,7 +154,7 @@
     content: "";
     @include split-line(bottom, 4px, transparent);
   }
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     width: 100%;
     &::after {
       display: none;
@@ -181,30 +195,26 @@
     }
   }
   
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     width: 100%;
     & > a {
       width: 100%;
       padding: map-get($spacers, 2) 0;
     }
     .navigation__dropdown {
-      position: static;
+      position: static !important;
       display: block !important;
       opacity: 1 !important;
       visibility: visible !important;
-      box-shadow: none;
-      border: none;
-      padding: 0;
-      margin: 0;
-      margin-left: map-get($spacers, 3);
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      margin-left: map-get($spacers, 3) !important;
       background: transparent !important;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      &.navigation__dropdown--open {
-        max-height: 500px;
-        padding-top: map-get($spacers, 1);
-      }
+      max-height: none !important;
+      overflow: visible !important;
+      padding-top: map-get($spacers, 1) !important;
       li a {
         padding: map-get($spacers, 1) 0;
         color: $header-text-color !important;
@@ -237,6 +247,20 @@
   margin: 0;
   margin-top: 4px;
   transition: opacity 0.15s ease, visibility 0.15s ease;
+  
+  @include media-breakpoint-down(lg) {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: static !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-left: map-get($spacers, 3) !important;
+    margin-top: map-get($spacers, 1) !important;
+  }
   
   li {
     margin: 0;

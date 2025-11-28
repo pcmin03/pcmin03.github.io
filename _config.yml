@@ -224,4 +224,4 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap
-  - jemoji
+  # - jemoji  # nokogiri 플랫폼 이슈로 임시 비활성화
