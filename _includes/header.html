@@ -8,7 +8,8 @@
     <div class="main">
       <div class="header__title">
         <div class="header__brand">
-          {%- include svg/logo.svg -%}
+          {%- include snippets/prepend-baseurl.html path='/assets/images/logo/logo.svg' -%}
+          <img src="{{ __return }}" alt="{{ site.title }}" style="height: 2.4rem; width: auto;">
           {%- assign _paths_root = site.paths.root | default: site.data.variables.default.paths.root  -%}
           {%- include snippets/get-nav-url.html path=_paths_root -%}
           {%- if site.title -%}
