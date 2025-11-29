@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pcmin03.github.io/sitemap.xml
+
+
