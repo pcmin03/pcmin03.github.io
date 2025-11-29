@@ -161,7 +161,7 @@ pageview:
 ## => Search
 ##############################
 search:
-  provider: default # "default" (default), false, "google", "custom"
+  provider: google # "default" (default), false, "google", "custom"
 
   ## Google Custom Search Engine
   google:
@@ -175,7 +175,7 @@ analytics:
 
   ## Google Analytics
   google:
-    tracking_id : UA-71907556-1
+    tracking_id : G-H7HG5BN7KK
     anonymize_ip: true # Anonymize IP tracking for Analytics
 
 
