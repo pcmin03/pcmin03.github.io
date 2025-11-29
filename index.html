@@ -313,12 +313,12 @@ body.layout--home {
 .resume__hero {
   background: var(--resume-hero-gradient);
   color: #fff;
-  padding: clamp(1.5rem, 4vw, 3.5rem);
-  padding-top: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.25rem, 3vw, 3rem);
+  padding-top: clamp(1.25rem, 3vw, 3rem);
   margin-top: 0 !important;
   display: grid;
   grid-template-columns: minmax(220px, 280px) 1fr;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -375,7 +375,7 @@ body.layout--home {
 
 .resume__meta {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.7rem;
   position: relative;
   z-index: 1;
   max-width: 760px;
@@ -477,42 +477,42 @@ body.layout--home {
 .resume__stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin-top: 1.25rem;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
   width: 100%;
 }
 
 .resume__stat {
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  padding: 0.85rem 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 30px rgba(5, 5, 12, 0.25);
+  box-shadow: 0 10px 30px rgba(5, 5, 12, 0.2);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  min-height: 110px;
+  min-height: 95px;
 }
 
 .resume__stat-value {
   display: block;
-  font-size: 1.85rem;
+  font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .resume__stat-label {
   display: block;
-  font-size: 0.9rem;
-  letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  letter-spacing: 0.015em;
   text-transform: none;
   color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .resume__meta p {
-  margin: 1rem 0 0 0;
+  margin: 0.8rem 0 0 0;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
@@ -522,8 +522,8 @@ body.layout--home {
 .resume__contact {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
   justify-content: center;
 }
 
@@ -531,10 +531,10 @@ body.layout--home {
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
-  padding: 0.5rem 1rem;
+  font-size: 0.92rem;
+  padding: 0.45rem 0.9rem;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -564,6 +564,7 @@ body.layout--home {
 .resume__spotlight-heading {
   padding: clamp(1.5rem, 4vw, 3rem);
   padding-bottom: clamp(0.5rem, 2vw, 1rem);
+  text-align: center;
 }
 
 .resume__spotlight-title {
@@ -573,6 +574,14 @@ body.layout--home {
   color: var(--resume-accent);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.resume__spotlight-subtitle {
+  margin: 0.4rem auto 0;
+  max-width: 720px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--resume-muted);
 }
 
 .spotlight-card {
@@ -1331,9 +1340,9 @@ body.layout--home {
     <img src="/assets/mstile-310x310.png" alt="ChanMin Park">
     <div class="resume__meta">
       <h1>ChanMin Park</h1>
-      <p class="resume__subtitle">AI Research Engineer · Computer Vision · Medical AI</p>
+      <p class="resume__subtitle">Applied AI Engineer · Computer Vision</p>
       <p class="resume__overview">
-        Computer vision AI research engineer translating frontier models into production for smart factories and medical imaging. Focused on 3D AI & sensor fusion, domain adaptation, and retrieval research that survive messy, real-world data.
+        Applied AI engineer translating frontier models into resilient production systems for smart factories, robotics, and inspection. I bridge 3D perception, sensor fusion, and domain adaptation so models survive messy, changing environments.
       </p>
       <div class="resume__contact">
         <a href="tel:+821039993403">📞 +82 10-3999-3403</a>
@@ -1345,15 +1354,15 @@ body.layout--home {
       <div class="resume__stats">
         <div class="resume__stat">
           <span class="resume__stat-value">5+</span>
-          <span class="resume__stat-label">Years building computer vision systems</span>
+          <span class="resume__stat-label">Years delivering applied AI systems</span>
         </div>
         <div class="resume__stat">
           <span class="resume__stat-value">10+</span>
-          <span class="resume__stat-label">Competition & industry awards</span>
+          <span class="resume__stat-label">Competition & industry recognition</span>
         </div>
         <div class="resume__stat">
           <span class="resume__stat-value">3</span>
-          <span class="resume__stat-label">Patent filings & registrations</span>
+          <span class="resume__stat-label">Applied AI patent filings</span>
         </div>
         <div class="resume__stat">
           <span class="resume__stat-value">6</span>
@@ -1365,6 +1374,9 @@ body.layout--home {
 
   <div class="resume__spotlight-heading scroll-animate fade-in-up">
     <h3 class="resume__spotlight-title">Summary</h3>
+    <p class="resume__spotlight-subtitle">
+      End-to-end applied AI: architecting data pipelines, training resilient perception models, and hardening deployments across factories, clinics, and research teams.
+    </p>
   </div>
 
   <section class="resume__spotlight scroll-animate fade-in-up">
@@ -1373,7 +1385,7 @@ body.layout--home {
         <i class="fas fa-industry"></i>
       </div>
       <h4>Industrial & Smart Factory AI</h4>
-      <p>Building 3D AI stacks that fuse LiDAR, ToF, and RGB sensors for autonomous inspection lines, integrating perception with PLC/L2 systems and MLOps-driven retraining loops.</p>
+      <p>Shipping applied AI stacks that fuse LiDAR, ToF, and RGB sensors for autonomous inspection lines, wiring perception into PLC/L2 systems, and closing the loop with MLOps retraining.</p>
       <div class="spotlight-card__tags">
         <span class="spotlight-tag">3D Vision</span>
         <span class="spotlight-tag">Sensor Fusion</span>
@@ -1385,7 +1397,7 @@ body.layout--home {
         <i class="fas fa-stethoscope"></i>
       </div>
       <h4>Medical Imaging & Diagnostics</h4>
-      <p>Shipped KFDA-certified pathology and CT solutions that process gigapixel slides, coordinate large labeling teams, and match clinical experts on accuracy.</p>
+      <p>Productized regulated applied AI for pathology and CT: orchestrated labeling operations, optimized gigapixel inference, and cleared KFDA reviews alongside clinical teams.</p>
       <div class="spotlight-card__tags">
         <span class="spotlight-tag">Digital Pathology</span>
         <span class="spotlight-tag">CT</span>
@@ -1397,7 +1409,7 @@ body.layout--home {
         <i class="fas fa-flask"></i>
       </div>
       <h4>Research & Community</h4>
-      <p>Publishing on source-free domain adaptation, self/self-supervised learning, and leading TIGER challenge-winning teams while teaching medical AI courses.</p>
+      <p>Run applied research on domain adaptation and self-supervised learning, lead TIGER-winning deployments, and teach engineers how to operationalize modern CV stacks.</p>
       <div class="spotlight-card__tags">
         <span class="spotlight-tag">Domain Adaptation</span>
         <span class="spotlight-tag">Self-Supervised</span>
