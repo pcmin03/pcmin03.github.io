@@ -33,15 +33,7 @@ The proposed framework learns domain-generalized features that can be effectivel
 
 ## Figures
 
-![Figure 1: Framework Overview](/assets/images/posts/domain-generalized-retrieval/figure1.png)
-
-![Figure 2: Architecture Diagram](/assets/images/posts/domain-generalized-retrieval/figure2.png)
-
-![Figure 3: Experimental Results](/assets/images/posts/domain-generalized-retrieval/figure3.png)
-
-![Figure 4: Domain Generalization Results](/assets/images/posts/domain-generalized-retrieval/figure4.png)
-
-![Figure 5: Qualitative Examples](/assets/images/posts/domain-generalized-retrieval/figure5.png)
+*Note: This paper was published at ICCV 2023. Images will be added once the arXiv version is available or from the conference proceedings.*
 
 ## Results
 

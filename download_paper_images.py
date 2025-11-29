@@ -35,8 +35,8 @@ def download_images_from_ar5iv(arxiv_id, output_dir):
         if not img_src:
             continue
         
-        # Skip small icons/logos
-        if 'logo' in img_src.lower() or 'icon' in img_src.lower():
+        # Skip small icons/logos and base64 images
+        if 'logo' in img_src.lower() or 'icon' in img_src.lower() or img_src.startswith('data:'):
             continue
         
         # Make absolute URL
@@ -83,11 +83,11 @@ def main():
     # Add arXiv IDs here as you find them
     papers = {
         '2302.06081': 'correspondence-free-domain-alignment',  # Correspondence-free domain alignment - DONE
+        '2405.20645': 'semantic-feature-learning',  # Semantic feature learning universal retrieval (NeurIPS 2024)
         # TODO: Find arXiv IDs for:
-        # - Domain-generalized cross-domain retrieval (ICCV 2023)
-        # - Semantic feature learning universal retrieval (NeurIPS 2024)
-        # - Prototypical optimal transport (AAAI 2024)
-        # - Noise mitigation (ICME 2025)
+        # - Domain-generalized cross-domain retrieval (ICCV 2023) - may not be on arXiv
+        # - Prototypical optimal transport (AAAI 2024) - need to find
+        # - Noise mitigation (ICME 2025) - may not be on arXiv yet
     }
     
     base_dir = 'assets/images/posts'
@@ -104,7 +104,7 @@ def main():
         print(f"Downloaded {len(downloaded)} images")
         
         # Also try the labs.arxiv.org format
-        if len(downloaded) == 0:
+        if len(downloaded) <= 1:  # Only logo downloaded
             print(f"Trying alternative ar5iv format...")
             try:
                 alt_url = f"https://ar5iv.labs.arxiv.org/html/{arxiv_id}"

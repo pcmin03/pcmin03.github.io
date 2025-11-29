@@ -33,15 +33,11 @@ The method learns semantic features that capture domain-invariant information, e
 
 ## Figures
 
-![Figure 1: Framework Overview](/assets/images/posts/semantic-feature-learning/figure1.png)
+<div style="text-align: center; margin: 2rem 0;">
+  <img src="/assets/images/posts/semantic-feature-learning/figure1.png" alt="Figure 1" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+</div>
 
-![Figure 2: Semantic Learning Architecture](/assets/images/posts/semantic-feature-learning/figure2.png)
-
-![Figure 3: Universal Retrieval Results](/assets/images/posts/semantic-feature-learning/figure3.png)
-
-![Figure 4: Cross-Domain Performance](/assets/images/posts/semantic-feature-learning/figure4.png)
-
-![Figure 5: Qualitative Results](/assets/images/posts/semantic-feature-learning/figure5.png)
+*Note: Additional figures will be added once the paper is available on arXiv.*
 
 ## Results
 

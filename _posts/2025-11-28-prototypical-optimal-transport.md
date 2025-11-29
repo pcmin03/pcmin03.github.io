@@ -33,15 +33,7 @@ The approach uses prototypical representations and optimal transport to align fe
 
 ## Figures
 
-![Figure 1: Framework Overview](/assets/images/posts/prototypical-optimal-transport/figure1.png)
-
-![Figure 2: Prototypical Optimal Transport](/assets/images/posts/prototypical-optimal-transport/figure2.png)
-
-![Figure 3: Experimental Results](/assets/images/posts/prototypical-optimal-transport/figure3.png)
-
-![Figure 4: Ablation Study](/assets/images/posts/prototypical-optimal-transport/figure4.png)
-
-![Figure 5: Qualitative Results](/assets/images/posts/prototypical-optimal-transport/figure5.png)
+*Note: This paper was published at AAAI 2024. Images will be added once the arXiv version is available or from the conference proceedings.*
 
 ## Results
 

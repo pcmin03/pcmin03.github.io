@@ -33,15 +33,7 @@ The proposed approach incorporates noise mitigation strategies to learn robust f
 
 ## Figures
 
-![Figure 1: Framework Overview](/assets/images/posts/noise-mitigation-retrieval/figure1.png)
-
-![Figure 2: Noise Mitigation Architecture](/assets/images/posts/noise-mitigation-retrieval/figure2.png)
-
-![Figure 3: Experimental Results](/assets/images/posts/noise-mitigation-retrieval/figure3.png)
-
-![Figure 4: Noise Robustness Analysis](/assets/images/posts/noise-mitigation-retrieval/figure4.png)
-
-![Figure 5: Qualitative Results](/assets/images/posts/noise-mitigation-retrieval/figure5.png)
+*Note: This paper was published at ICME 2025. Images will be added once the paper is available on arXiv or from the conference proceedings.*
 
 ## Results
 
