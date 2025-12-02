@@ -168,6 +168,15 @@ search:
     custom_search_engine_id: 02421e0d7434646ca
 
 
+## => Webmaster Verifications
+##############################
+webmaster_verifications:
+  google: wJPbxcoguASoARbVvXnhDavTLWq-1qscuXKU7Omtiw8
+  naver: 22251130d42647602a55281f410a70d79f88c746
+  # bing: # Bing Webmaster verification code
+  # yandex: # Yandex Webmaster verification code
+  # baidu: # Baidu Webmaster verification code
+
 ## => Analytics
 ##############################
 analytics:
