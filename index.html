@@ -144,6 +144,11 @@ body.layout--home {
   padding-top: 0 !important;
 }
 
+.layout--home .page__content .main {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 .layout--page .page__content > .resume {
   max-width: 100%;
   width: 100%;
@@ -1340,9 +1345,9 @@ body.layout--home {
     <img src="/assets/mstile-310x310.png" alt="ChanMin Park">
     <div class="resume__meta">
       <h1>ChanMin Park</h1>
-      <p class="resume__subtitle">Applied AI Engineer · Computer Vision</p>
+      <p class="resume__subtitle">Applied Computer Vision & Perception Engineer</p>
       <p class="resume__overview">
-        Applied AI engineer translating frontier models into resilient production systems for smart factories, robotics, and inspection. I bridge 3D perception, sensor fusion, and domain adaptation so models survive messy, changing environments.
+        Pure vision-first engineer shipping detection, tracking, pose, 3D depth, and self-supervised embeddings into real factories and robotics fleets. I own the stack end-to-end—from data engines and SSL pretraining (DINO/MoCo/MAE) to sensor fusion, evaluation, and deployment.
       </p>
       <div class="resume__contact">
         <a href="tel:+821039993403">📞 +82 10-3999-3403</a>
@@ -1354,19 +1359,19 @@ body.layout--home {
       <div class="resume__stats">
         <div class="resume__stat">
           <span class="resume__stat-value">5+</span>
-          <span class="resume__stat-label">Years delivering applied AI systems</span>
+          <span class="resume__stat-label">Years shipping vision & perception stacks</span>
         </div>
         <div class="resume__stat">
           <span class="resume__stat-value">10+</span>
-          <span class="resume__stat-label">Competition & industry recognition</span>
+          <span class="resume__stat-label">Major CV deployments & awards</span>
         </div>
         <div class="resume__stat">
           <span class="resume__stat-value">3</span>
-          <span class="resume__stat-label">Applied AI patent filings</span>
+          <span class="resume__stat-label">Perception-focused patent filings</span>
         </div>
         <div class="resume__stat">
           <span class="resume__stat-value">6</span>
-          <span class="resume__stat-label">Peer-reviewed submissions & accepts</span>
+          <span class="resume__stat-label">Peer-reviewed vision papers</span>
         </div>
       </div>
     </div>
@@ -1375,45 +1380,45 @@ body.layout--home {
   <div class="resume__spotlight-heading scroll-animate fade-in-up">
     <h3 class="resume__spotlight-title">Summary</h3>
     <p class="resume__spotlight-subtitle">
-      End-to-end applied AI: architecting data pipelines, training resilient perception models, and hardening deployments across factories, clinics, and research teams.
+      Applied vision is my craft: architect data + sensing stacks, train pure CV/SSL models that tolerate drift, and own the reliability playbook from prototype to robotics fleets.
     </p>
   </div>
 
   <section class="resume__spotlight scroll-animate fade-in-up">
     <article class="spotlight-card">
       <div class="spotlight-card__icon">
-        <i class="fas fa-industry"></i>
+        <i class="fas fa-cubes"></i>
       </div>
-      <h4>Industrial & Smart Factory AI</h4>
-      <p>Shipping applied AI stacks that fuse LiDAR, ToF, and RGB sensors for autonomous inspection lines, wiring perception into PLC/L2 systems, and closing the loop with MLOps retraining.</p>
+      <h4>3D Vision & Sensor Fusion · Smart Industry</h4>
+      <p>Engineer LiDAR·ToF·IMU·RGB fusion stacks, depth/pose pipelines, and PLC/L2 integrations that keep robotics, inspection, and autonomous lines reliable even under factory drift.</p>
       <div class="spotlight-card__tags">
         <span class="spotlight-tag">3D Vision</span>
         <span class="spotlight-tag">Sensor Fusion</span>
-        <span class="spotlight-tag">MLOps</span>
+        <span class="spotlight-tag">Edge AI</span>
       </div>
     </article>
     <article class="spotlight-card">
       <div class="spotlight-card__icon">
-        <i class="fas fa-stethoscope"></i>
+        <i class="fas fa-cogs"></i>
       </div>
-      <h4>Medical Imaging & Diagnostics</h4>
-      <p>Productized regulated applied AI for pathology and CT: orchestrated labeling operations, optimized gigapixel inference, and cleared KFDA reviews alongside clinical teams.</p>
+      <h4>Applied AI Engineer · Productization & Ops</h4>
+      <p>Own the full cycle from data engines and labeling ops to deployment—building monitoring, rollout guardrails, and zero-downtime update paths so perception products stay reliable in the wild.</p>
       <div class="spotlight-card__tags">
-        <span class="spotlight-tag">Digital Pathology</span>
-        <span class="spotlight-tag">CT</span>
-        <span class="spotlight-tag">Regulatory</span>
+        <span class="spotlight-tag">Productization</span>
+        <span class="spotlight-tag">MLOps</span>
+        <span class="spotlight-tag">Reliability</span>
       </div>
     </article>
     <article class="spotlight-card">
       <div class="spotlight-card__icon">
         <i class="fas fa-flask"></i>
       </div>
-      <h4>Research & Community</h4>
-      <p>Run applied research on domain adaptation and self-supervised learning, lead TIGER-winning deployments, and teach engineers how to operationalize modern CV stacks.</p>
+      <h4>Domain-Specific AI Research · Robust Learning</h4>
+      <p>Research domain adaptation, noise-robust training, and SSL tailored to factory/robotics data—crafting objectives that stabilize embeddings and become playbooks for future deployments.</p>
       <div class="spotlight-card__tags">
         <span class="spotlight-tag">Domain Adaptation</span>
+        <span class="spotlight-tag">Noise Robustness</span>
         <span class="spotlight-tag">Self-Supervised</span>
-        <span class="spotlight-tag">Education</span>
       </div>
     </article>
   </section>
@@ -1425,10 +1430,10 @@ body.layout--home {
         <div class="expertise-list">
           <div class="expertise-item">
             <div class="expertise-item__icon">
-              <i class="fas fa-camera"></i>
+              <i class="fas fa-crosshairs"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">Traditional Computer Vision</span>
+              <span class="expertise-item__title">Object Detection & Segmentation</span>
             </div>
           </div>
           
@@ -1437,35 +1442,16 @@ body.layout--home {
               <i class="fas fa-cube"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">Object Detection, Segmentation</span>
+              <span class="expertise-item__title">3D Vision · Depth · Pose</span>
             </div>
           </div>
           
           <div class="expertise-item">
             <div class="expertise-item__icon">
-              <i class="fas fa-eye"></i>
+              <i class="fas fa-robot"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">3D Vision Model</span>
-              <span class="expertise-item__subtitle">Sensor fusion, Point Cloud</span>
-            </div>
-          </div>
-          
-          <div class="expertise-item">
-            <div class="expertise-item__icon">
-              <i class="fas fa-search"></i>
-            </div>
-            <div class="expertise-item__content">
-              <span class="expertise-item__title">Unsupervised Image Retrieval</span>
-            </div>
-          </div>
-          
-          <div class="expertise-item">
-            <div class="expertise-item__icon">
-              <i class="fas fa-brain"></i>
-            </div>
-            <div class="expertise-item__content">
-              <span class="expertise-item__title">Semi/Self-Supervised Learning</span>
+              <span class="expertise-item__title">Sensor Fusion & Robotics Perception</span>
             </div>
           </div>
           
@@ -1474,7 +1460,25 @@ body.layout--home {
               <i class="fas fa-video"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">Video Anomaly Detection</span>
+              <span class="expertise-item__title">Video Recognition & Tracking</span>
+            </div>
+          </div>
+          
+          <div class="expertise-item">
+            <div class="expertise-item__icon">
+              <i class="fas fa-dna"></i>
+            </div>
+            <div class="expertise-item__content">
+              <span class="expertise-item__title">Self-Supervised Vision (DINO/MoCo/MAE)</span>
+            </div>
+          </div>
+          
+          <div class="expertise-item">
+            <div class="expertise-item__icon">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="expertise-item__content">
+              <span class="expertise-item__title">Embedding & Metric Learning</span>
             </div>
           </div>
           
@@ -1483,16 +1487,16 @@ body.layout--home {
               <i class="fas fa-exchange-alt"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">Test Time Domain Adaptation</span>
+              <span class="expertise-item__title">Domain Adaptation & Continual Eval</span>
             </div>
           </div>
           
           <div class="expertise-item">
             <div class="expertise-item__icon">
-              <i class="fas fa-shapes"></i>
+              <i class="fas fa-database"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">Universal Segmentation</span>
+              <span class="expertise-item__title">Large-Scale Data Pipelines</span>
             </div>
           </div>
           
@@ -1501,7 +1505,7 @@ body.layout--home {
               <i class="fas fa-rocket"></i>
             </div>
             <div class="expertise-item__content">
-              <span class="expertise-item__title">MLOps & CI/CD</span>
+              <span class="expertise-item__title">Edge Deployment & MLOps</span>
             </div>
           </div>
         </div>
@@ -1591,6 +1595,10 @@ body.layout--home {
               <i class="fas fa-search"></i>
               <strong>Domain Adaptation & Retrieval Research:</strong> Conducting data-centric research on domain adaptation, clustering, and retrieval to improve cross-line and cross-facility generalization of AI models.
             </p>
+            <p>
+              <i class="fas fa-layer-group"></i>
+              <strong>Self-Supervised Embeddings:</strong> Apply DINO/MoCo/MAE pipelines on internal video + image corpora to stabilize detection/pose features and refresh embeddings without labeled data.
+            </p>
             <div class="achievement-highlight">
               <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
                 <i class="fas fa-industry" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
@@ -1672,7 +1680,7 @@ body.layout--home {
             </div>
             <p>
               <i class="fas fa-rocket"></i>
-              <strong>Machine Learning Engineering:</strong> Experience in model deployment and packaging using Torch script, CI, Docker, and MLflow.
+              <strong>Applied Vision Engineering:</strong> Deployment with TorchScript, ONNX, CI/CD, Docker, MLflow, and optimization tricks that later became the blueprint for current robotics/industrial perception projects.
             </p>
           </div>
         </div>
