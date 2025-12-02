@@ -395,6 +395,7 @@ body.layout--home {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  color: #fff;
 }
 
 .resume__meta h2 {
@@ -1024,6 +1025,15 @@ body.layout--home {
   transition: color 0.3s ease;
 }
 
+.achievement-highlight strong a:hover {
+  color: var(--resume-primary) !important;
+}
+
+.achievement-highlight a img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
 .timeline-item__highlights {
   margin-top: 0.5rem;
 }
@@ -1337,6 +1347,16 @@ body.layout--home {
   .resume__stat-label {
     font-size: 0.8rem;
   }
+
+  .achievement-highlight > div[style*="display: flex"] {
+    flex-direction: column !important;
+  }
+
+  .achievement-highlight img {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 0.75rem;
+  }
 }
 </style>
 
@@ -1556,16 +1576,15 @@ body.layout--home {
       <div class="resume-card scroll-animate fade-in-left" id="awards">
         <h3>Awards & Competitions</h3>
         <ul class="resume-list">
-          <li><span>AI Technology Excellence Award</span><span class="resume-tag">2025</span></li>
-          <li><span>TIGER Challenge - 1st Place</span><span class="resume-tag">VUNO</span></li>
-          <li><span>HealthHub Datathon - 1st Place</span><span class="resume-tag">2020</span></li>
-          <li><span>Video Recognition: Google - Isolated Sign Language Recognition</span></li>
-          <li><span>Instance Segmentation: HealthHub Datathon Track B - 1st Place</span><span class="resume-tag">2020</span></li>
-          <li><span>Object Detection: Lesion Detection AI Competition</span> <a href="#" target="_blank" rel="noopener" style="color: var(--resume-primary); text-decoration: none; font-size: 0.85rem;">Code Link</a></li>
-          <li><span>Tabular Classification: Autonomous Driving Sensor - Top 8%</span></li>
-          <li><span>Inje Creative Comprehensive Design Contest</span><span class="resume-tag">Gold</span></li>
-          <li><span>2017 Engineering Festival Competition</span><span class="resume-tag">Bronze</span></li>
-          <li><span>Good Capstone Design Contest</span><span class="resume-tag">Excellence</span></li>
+          <li><span>🥇 TIGER Challenge - 1st Place</span><span class="resume-tag">VUNO</span></li>
+          <li><span>🥇 HealthHub Datathon - 1st Place</span><span class="resume-tag">2020</span></li>
+          <li><span>🏆 Video Recognition: Google - Isolated Sign Language Recognition</span></li>
+          <li><span>🥇 Instance Segmentation: HealthHub Datathon Track B - 1st Place</span><span class="resume-tag">2020</span></li>
+          <li><span>🎯 Object Detection: Lesion Detection AI Competition</span> <a href="#" target="_blank" rel="noopener" style="color: var(--resume-primary); text-decoration: none; font-size: 0.85rem;">Code Link</a></li>
+          <li><span>🏅 Tabular Classification: Autonomous Driving Sensor - Top 8%</span></li>
+          <li><span>Inje Creative Comprehensive Design Contest</span><span class="resume-tag">🥇 Gold</span></li>
+          <li><span>2017 Engineering Festival Competition</span><span class="resume-tag">🥉 Bronze</span></li>
+          <li><span>Good Capstone Design Contest</span><span class="resume-tag">🏅 Excellence</span></li>
         </ul>
       </div>
     </aside>
@@ -1627,16 +1646,23 @@ body.layout--home {
           <span>Seoul, Korea · May 2021 - July 2024</span>
           <div class="timeline-item__highlights">
             <div class="achievement-highlight">
-              <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
-                <i class="fas fa-trophy" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
-                <span style="flex: 1;">
-                  <strong style="color: var(--resume-accent); font-size: 0.95rem; display: block; margin-bottom: 0.35rem; line-height: 1.3;">
-                    2D Pathology Object Detection & SW Productization
-                    <span class="achievement-badge">KFDA Certified</span>
-                  </strong>
-                  <span style="font-size: 0.85rem; line-height: 1.5; color: #4f5b63;">Developed deep learning model for gigapixel pathology cell detection. Obtained <strong>KFDA certification</strong>, coordinated 20+ labelers, secured <strong>2 patents</strong>. VUNO Med-PathQuant achieved 90%+ accuracy vs. clinical experts.</span>
-                </span>
-              </p>
+              <div style="display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1rem;">
+                <div style="flex: 1;">
+                  <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
+                    <i class="fas fa-trophy" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
+                    <span style="flex: 1;">
+                      <strong style="color: var(--resume-accent); font-size: 0.95rem; display: block; margin-bottom: 0.35rem; line-height: 1.3;">
+                        <a href="/projects/path-quant.html" style="color: inherit; text-decoration: none; transition: color 0.3s ease;">2D Pathology Object Detection & SW Productization</a>
+                        <span class="achievement-badge">KFDA Certified</span>
+                      </strong>
+                      <span style="font-size: 0.85rem; line-height: 1.5; color: #4f5b63;">Developed deep learning model for gigapixel pathology cell detection. Obtained <strong>KFDA certification</strong>, coordinated 20+ labelers, secured <strong>2 patents</strong>. VUNO Med-PathQuant achieved 90%+ accuracy vs. clinical experts.</span>
+                    </span>
+                  </p>
+                </div>
+                <a href="/projects/path-quant.html" style="display: block; transition: transform 0.3s ease;">
+                  <img src="/assets/images/pathology-detection.jpg" alt="2D Pathology Object Detection" style="width: 280px; max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); object-fit: contain; flex-shrink: 0; background: rgba(255, 255, 255, 0.5); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" />
+                </a>
+              </div>
               <a href="https://www.docdocdoc.co.kr/news/articleView.html?idxno=2011950" target="_blank" rel="noopener" class="achievement-link-card">
                 <i class="fas fa-newspaper"></i>
                 <span>News: 뷰노, 디지털 병리 분석 AI 솔루션 식약처 인증</span>
@@ -1644,16 +1670,23 @@ body.layout--home {
               </a>
             </div>
             <div class="achievement-highlight">
-              <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
-                <i class="fas fa-cube" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
-                <span style="flex: 1;">
-                  <strong style="color: var(--resume-accent); font-size: 0.95rem; display: block; margin-bottom: 0.35rem; line-height: 1.3;">
-                    3D Lung CT Nodule Detection
-                    <span class="achievement-badge">Self/Semi-Supervised</span>
-                  </strong>
-                  <span style="font-size: 0.85rem; line-height: 1.5; color: #4f5b63;">Engineered deep learning model for tiny nodule detection in 3D lung CT using self/semi-supervised learning. Detects small pulmonary nodules critical for early lung cancer diagnosis with robust clinical performance.</span>
-                </span>
-              </p>
+              <div style="display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1rem;">
+                <div style="flex: 1;">
+                  <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
+                    <i class="fas fa-cube" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
+                    <span style="flex: 1;">
+                      <strong style="color: var(--resume-accent); font-size: 0.95rem; display: block; margin-bottom: 0.35rem; line-height: 1.3;">
+                        <a href="/projects/lungct-ai.html" style="color: inherit; text-decoration: none; transition: color 0.3s ease;">3D Lung CT Nodule Detection</a>
+                        <span class="achievement-badge">Self/Semi-Supervised</span>
+                      </strong>
+                      <span style="font-size: 0.85rem; line-height: 1.5; color: #4f5b63;">Engineered deep learning model for tiny nodule detection in 3D lung CT using self/semi-supervised learning. Detects small pulmonary nodules critical for early lung cancer diagnosis with robust clinical performance.</span>
+                    </span>
+                  </p>
+                </div>
+                <a href="/projects/lungct-ai.html" style="display: block; transition: transform 0.3s ease;">
+                  <img src="/assets/images/lung-ct-nodule.jpg" alt="3D Lung CT Nodule Detection" style="width: 280px; max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); object-fit: contain; flex-shrink: 0; background: rgba(255, 255, 255, 0.5); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" />
+                </a>
+              </div>
               <a href="https://www.hitnews.co.kr/news/articleView.html?idxno=42672" target="_blank" rel="noopener" class="achievement-link-card">
                 <i class="fas fa-newspaper"></i>
                 <span>News: 뷰노, 폐 CT AI 솔루션</span>
@@ -1695,16 +1728,21 @@ body.layout--home {
           <span>Seoul, Korea · Sep 2023 - Dec 2023</span>
           <div class="timeline-item__highlights">
             <div class="achievement-highlight">
-              <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
-                <i class="fas fa-chalkboard-teacher" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
-                <span style="flex: 1;">
-                  <strong style="color: var(--resume-accent); font-size: 0.95rem; display: block; margin-bottom: 0.35rem; line-height: 1.3;">
-                    Medical AI Course Instruction
-                    <span class="achievement-badge">Online Course</span>
-                  </strong>
-                  <span style="font-size: 0.85rem; line-height: 1.5; color: #4f5b63;">Conducted comprehensive sessions on medical image processing and computer vision, covering fundamentals, recent papers, and hands-on exercises. Taught deep learning model development for segmentation, detection, and classification tasks.</span>
-                </span>
-              </p>
+              <div style="display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1rem;">
+                <div style="flex: 1;">
+                  <p style="margin: 0; display: flex; align-items: flex-start; gap: 0.6rem;">
+                    <i class="fas fa-chalkboard-teacher" style="color: var(--resume-primary); font-size: 0.95rem; margin-top: 0.15rem; flex-shrink: 0;"></i>
+                    <span style="flex: 1;">
+                      <strong style="color: var(--resume-accent); font-size: 0.95rem; display: block; margin-bottom: 0.35rem; line-height: 1.3;">
+                        Medical AI Course Instruction
+                        <span class="achievement-badge">Online Course</span>
+                      </strong>
+                      <span style="font-size: 0.85rem; line-height: 1.5; color: #4f5b63;">Conducted comprehensive sessions on medical image processing and computer vision, covering fundamentals, recent papers, and hands-on exercises. Taught deep learning model development for segmentation, detection, and classification tasks.</span>
+                    </span>
+                  </p>
+                </div>
+                <img src="/assets/images/medical-ai-course.png" alt="Medical AI Course - Deep Learning for Medical Image Processing" style="width: 320px; max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); object-fit: contain; flex-shrink: 0; background: rgba(255, 255, 255, 0.5);" />
+              </div>
               <a href="https://fastcampus.co.kr/data_online_medicalai" target="_blank" rel="noopener" class="achievement-link-card">
                 <i class="fas fa-graduation-cap"></i>
                 <span>Course: 딥러닝을 활용한 의료 영상 처리 & 모델 개발</span>
