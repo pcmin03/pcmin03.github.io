@@ -117,6 +117,32 @@ header:
 
   - titles:
       # @start locale config
+      en      : &EN       Graph
+      en-GB   : *EN
+      en-US   : *EN
+      en-CA   : *EN
+      en-AU   : *EN
+      zh-Hans : &ZH_HANS  知识图谱
+      zh      : *ZH_HANS
+      zh-CN   : *ZH_HANS
+      zh-SG   : *ZH_HANS
+      zh-Hant : &ZH_HANT  知識圖譜
+      zh-TW   : *ZH_HANT
+      zh-HK   : *ZH_HANT
+      ko      : &KO       그래프
+      ko-KR   : *KO
+      fr      : &FR       Graphique
+      fr-BE   : *FR
+      fr-CA   : *FR
+      fr-CH   : *FR
+      fr-FR   : *FR
+      fr-LU   : *FR
+      tr      : &TR       Grafik
+      # @end locale config
+    url: /graph/
+
+  - titles:
+      # @start locale config
       en      : &EN       Portfolio
       en-GB   : *EN
       en-US   : *EN

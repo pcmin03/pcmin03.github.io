@@ -1,0 +1,392 @@
+---
+layout: page
+title: Knowledge Graph
+permalink: /graph/
+---
+
+<style>
+#graph-container {
+  width: 100%;
+  height: 800px;
+  border: 1px solid #2d2d2d;
+  border-radius: 8px;
+  background: #1e1e1e; /* Dark background */
+}
+.graph-controls {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #111;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+.graph-controls button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #333;
+  color: #eee;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.graph-controls button:hover {
+  background: #444;
+}
+.graph-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #111;
+  border-radius: 8px;
+  color: #aaa;
+  border: 1px solid #333;
+  font-size: 0.9rem;
+}
+</style>
+
+<div class="graph-controls">
+  <button onclick="resetView()">Reset View</button>
+  <button onclick="togglePhysics()">Toggle Physics</button>
+  <button onclick="exportGraph()">Export as PNG</button>
+</div>
+
+<div id="graph-container">
+  <div style="text-align:center; padding: 2rem; color:#aaa;">Loading graph...</div>
+</div>
+
+<div class="graph-info">
+  Obsidian-style graph view based on links, categories, and tags.
+  <p id="graph-stats"></p>
+</div>
+
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script>
+// =============== POST METADATA ===============
+const posts = [
+  {% for post in site.posts %}
+  {
+    id: {{ forloop.index }},
+    title: {{ post.title | jsonify }},
+    url: {{ post.url | jsonify }},
+    categories: {{ post.categories | jsonify }},
+    tags: {{ post.tags | jsonify }},
+    date: {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    filename: {{ post.path | split: '/' | last | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+];
+
+// =============== NODE BUILDER (Obsidian style) ===============
+const baseNodes = posts.map(post => ({
+  id: post.id,
+  label: "",
+  title: post.title,
+  url: post.url
+}));
+
+// =============== LINK EXTRACTORS ===============
+function extractObsidianLinks(content, pid) {
+  const links = [];
+  if (!content) return links;
+  
+  const regex = /\[\[([^\]]+?)\]\]/g;
+  let m;
+  while ((m = regex.exec(content)) !== null) {
+    const target = findPostByTitle(m[1].trim());
+    if (target)
+      links.push({ from: pid, to: target, type: "obsidian" });
+  }
+  return links;
+}
+
+function extractMarkdownLinks(content, pid) {
+  const links = [];
+  if (!content) return links;
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let m;
+  while ((m = regex.exec(content)) !== null) {
+    const url = m[2];
+    const target = findPostByUrl(url);
+    if (target)
+      links.push({ from: pid, to: target, type: "md" });
+  }
+  return links;
+}
+
+// =============== HELPER SEARCH ===============
+function findPostByTitle(t) {
+  const key = t.toLowerCase().trim();
+  const post = posts.find(p => p.title.toLowerCase().trim() === key);
+  if (post) return post.id;
+  
+  // Partial match
+  const partial = posts.find(p => {
+    const pt = p.title.toLowerCase().trim();
+    return pt.includes(key) || key.includes(pt);
+  });
+  return partial ? partial.id : null;
+}
+
+function findPostByUrl(url) {
+  const clean = url.replace(/^\//, "").replace(/\.html$/, "");
+  const post = posts.find(p =>
+    p.url.replace(/^\//, "").replace(/\.html$/, "") === clean
+  );
+  return post ? post.id : null;
+}
+
+// =============== BUILD CATEGORY/TAG EDGES ===============
+function buildSoftEdges() {
+  const edges = [];
+  const done = new Set();
+  posts.forEach(a => {
+    posts.forEach(b => {
+      if (a.id >= b.id) return;
+      const k = `${a.id}-${b.id}`;
+      if (done.has(k)) return;
+      done.add(k);
+      const sameCat = a.categories.some(c => b.categories.includes(c));
+      const sameTag = a.tags.some(t => b.tags.includes(t));
+      if (sameCat || sameTag) {
+        edges.push({
+          from: a.id,
+          to: b.id,
+          type: "soft"
+        });
+      }
+    });
+  });
+  return edges;
+}
+
+// =============== LOAD CONTENT & BUILD FINAL GRAPH ===============
+async function loadContents() {
+  const res = await Promise.all(posts.map(async (p) => {
+    try {
+      const file = `https://raw.githubusercontent.com/pcmin03/pcmin03.github.io/main/_posts/${p.filename}`;
+      const r = await fetch(file);
+      if (r.ok) {
+        const t = await r.text();
+        const content = t.replace(/^---\s*\n.*?\n---\s*\n/ms, "");
+        return { ...p, raw: content };
+      }
+    } catch (e) {
+      // Fallback: try local path
+      try {
+        const r = await fetch(`/_posts/${p.filename}`);
+        if (r.ok) {
+          const t = await r.text();
+          const content = t.replace(/^---\s*\n.*?\n---\s*\n/ms, "");
+          return { ...p, raw: content };
+        }
+      } catch (e2) {}
+    }
+    return { ...p, raw: "" };
+  }));
+  return res;
+}
+
+async function buildGraph() {
+  const loaded = await loadContents();
+  const edges = [];
+  
+  loaded.forEach(p => {
+    if (!p.raw) return;
+    extractObsidianLinks(p.raw, p.id).forEach(e => edges.push(e));
+    extractMarkdownLinks(p.raw, p.id).forEach(e => edges.push(e));
+  });
+  
+  // Add soft category/tag edges ONLY if not already linked
+  const soft = buildSoftEdges();
+  soft.forEach(s => {
+    if (!edges.some(e =>
+      (e.from === s.from && e.to === s.to) ||
+      (e.to === s.from && e.from === s.to)
+    )) edges.push(s);
+  });
+
+  // ============= NODE DEGREE-BASED SIZE & COLOR =============
+  const degree = {};
+  edges.forEach(e => {
+    degree[e.from] = (degree[e.from] || 0) + 1;
+    degree[e.to] = (degree[e.to] || 0) + 1;
+  });
+
+  function getColorByCategory(category) {
+    const colors = {
+      '3D Vision': { bg: '#4a90e2', border: '#357abd', highlight: '#6ca0ff' },
+      'Deep Learning': { bg: '#e24a4a', border: '#c23a3a', highlight: '#ff5a5a' },
+      'Image Processing': { bg: '#4ae24a', border: '#3ac23a', highlight: '#5aff5a' },
+      'Image Retrieval': { bg: '#e2b84a', border: '#c2983a', highlight: '#ffd85a' },
+      'default': { bg: '#b07d67', border: '#8a5f4f', highlight: '#d09d87' }
+    };
+    return colors[category] || colors['default'];
+  }
+
+  // Generate consistent initial positions based on post ID
+  function getInitialPosition(nodeId, totalNodes) {
+    // Use a simple hash-like function to generate consistent positions
+    const angle = (nodeId * 137.508) % 360; // Golden angle approximation
+    const radius = 200 + (nodeId % 3) * 100; // Vary radius slightly
+    const x = Math.cos(angle * Math.PI / 180) * radius;
+    const y = Math.sin(angle * Math.PI / 180) * radius;
+    return { x, y };
+  }
+
+  const nodes = baseNodes.map(n => {
+    const post = posts.find(p => p.id === n.id);
+    const category = post ? (post.categories[0] || 'default') : 'default';
+    const catColor = getColorByCategory(category);
+    const connections = degree[n.id] || 0;
+    const initialPos = getInitialPosition(n.id, posts.length);
+    
+    return {
+      ...n,
+      label: post ? (post.title.length > 25 ? post.title.substring(0, 25) + '...' : post.title) : '',
+      size: Math.min(10 + connections * 1.5, 25),
+      x: initialPos.x,
+      y: initialPos.y,
+      fixed: false, // Allow physics to adjust, but start from consistent position
+      color: {
+        background: catColor.bg,
+        border: catColor.border,
+        highlight: { 
+          background: catColor.highlight, 
+          border: catColor.border 
+        },
+        hover: {
+          background: catColor.highlight,
+          border: catColor.border
+        }
+      },
+      font: {
+        size: 12,
+        color: '#ffffff',
+        face: 'Arial',
+        bold: true
+      }
+    };
+  });
+
+  // ============= EDGE STYLING =============
+  const styledEdges = edges.map(e => {
+    let color, width, dashes;
+    if (e.type === "obsidian") {
+      width = 3;
+      color = "#4a90e2";  // Blue for Obsidian links
+      dashes = false;
+    } else if (e.type === "md") {
+      width = 2;
+      color = "#4ae24a";  // Green for markdown links
+      dashes = false;
+    } else {
+      // Soft edges (category/tag)
+      width = 1.5;
+      color = "#b07d67";  // Brown for category/tag connections
+      dashes = false;
+    }
+    return {
+      from: e.from,
+      to: e.to,
+      color: { 
+        color: color, 
+        highlight: "#ffffff",
+        hover: color
+      },
+      width: width,
+      smooth: { type: 'continuous', roundness: 0.5 },
+      dashes: dashes
+    };
+  });
+
+  setupNetwork(nodes, styledEdges);
+}
+
+// =============== VIS NETWORK INITIALIZATION ===============
+let network;
+let physicsOn = true;
+
+function setupNetwork(nodes, edges) {
+  const container = document.getElementById("graph-container");
+  container.innerHTML = "";
+  
+  const data = {
+    nodes: new vis.DataSet(nodes),
+    edges: new vis.DataSet(edges)
+  };
+
+  const options = {
+    nodes: {
+      shape: "dot",
+      borderWidth: 2,
+      shadow: {
+        enabled: true,
+        color: 'rgba(0,0,0,0.3)',
+        size: 5,
+        x: 2,
+        y: 2
+      }
+    },
+    edges: {
+      shadow: {
+        enabled: false
+      }
+    },
+    interaction: {
+      hover: true,
+      zoomView: true,
+      dragView: true,
+      hoverConnectedEdges: true,
+      selectConnectedEdges: true
+    },
+    physics: {
+      enabled: true,
+      stabilization: {
+        enabled: true,
+        iterations: 300,  // More iterations for consistent results
+        fit: true
+      },
+      barnesHut: {
+        gravitationalConstant: -3000,  // Moderate repulsion for clustering
+        centralGravity: 0.1,  // Moderate central gravity
+        springLength: 200,  // Balanced spring length
+        springConstant: 0.04,  // Balanced spring constant
+        damping: 0.09,  // Smooth motion
+        avoidOverlap: 0.8  // Prevent overlap while allowing clustering
+      }
+    }
+  };
+
+  network = new vis.Network(container, data, options);
+
+  network.on("click", function(p) {
+    if (p.nodes.length > 0) {
+      const id = p.nodes[0];
+      const post = posts.find(x => x.id === id);
+      if (post) window.location.href = post.url;
+    }
+  });
+
+  document.getElementById("graph-stats").innerText =
+    `Nodes: ${nodes.length} | Edges: ${edges.length}`;
+}
+
+// =============== CONTROLS ===============
+function togglePhysics() {
+  physicsOn = !physicsOn;
+  network.setOptions({ physics: { enabled: physicsOn } });
+}
+
+function resetView() {
+  network.fit();
+}
+
+function exportGraph() {
+  const canvas = network.getCanvas();
+  const dataURL = canvas.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = dataURL;
+  a.download = "knowledge-graph.png";
+  a.click();
+}
+
+buildGraph();
+</script>
