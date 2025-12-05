@@ -1,4 +1,6 @@
 ---
+layout: article
+
 title: "[CS231A] Lecture 01: Camera Models (카메라 모델)"
 categories: [3D Geometry]
 tags: [3D Vision, CS231A, Camera Models, Computer Vision]
