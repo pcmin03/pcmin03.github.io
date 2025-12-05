@@ -1087,14 +1087,14 @@ $$P' = K \begin{bmatrix} R  &  T \\end{bmatrix} P_w$$
 
 초보자도 단번에 전체 파이프라인을 이해할 수 있도록 완전 단계별로 계산해보겠습니다.
 
-## 📌 설정한 카메라 내부 파라미터 (Intrinsic  matrix)
+## 설정한 카메라 내부 파라미터 (Intrinsic  matrix)
 
 $$K = \begin{bmatrix} \alpha  &  0  &  c_x  0  &  \beta  &  c_y  0  &  0  &  1 \\end{bmatrix} = \begin{bmatrix} 800  &  0  &  320  0  &  800  &  240  0  &  0  &  1 \\end{bmatrix}$$
 
 * focal length in pixel: $f_x = f_y = 800$
 * principal point: $(c_x, c_y) = (320, 240)$
 
-## 📌 카메라 외부 파라미터 (Extrinsic: R, T)
+## 카메라 외부 파라미터 (Extrinsic: R, T)
 
 카메라 위치는 world 좌표에서:
 * 카메라가 world 원점으로 약간 내려다본다고 가정
@@ -1105,7 +1105,7 @@ $$K = \begin{bmatrix} \alpha  &  0  &  c_x  0  &  \beta  &  c_y  0  &  0  &  1 \
 
 $$R_x(-20°) = \begin{bmatrix} 1  &  0  &  0  0  &  \cos(-20°)  &  -\sin(-20°)  0  &  \sin(-20°)  &  \cos(-20°) \\end{bmatrix} = \begin{bmatrix} 1  &  0  &  0  0  &  0.94  &  0.34  0  &  -0.34  &  0.94 \\end{bmatrix}$$
 
-## 📌 3D 점 (World coordinates)
+## 3D 점 (World coordinates)
 
 $$P_w = (2, 1, 10)$$
 
@@ -1231,33 +1231,33 @@ $$x' = s  x + t_x, \quad  y' = s  y + t_y$$
 
 # 18. CS231A  1강 완전 정복 요약
 
-## 📌 1) 핀홀 모델 기본
+## 1) 핀홀 모델 기본
 
 $$x' = f\frac{x}{z}, \quad  y' = f\frac{y}{z}$$
 
-## 📌 2) Intrinsic  matrix
+## 2) Intrinsic  matrix
 
 $$K = \begin{bmatrix} f_x  &  s  &  c_x  0  &  f_y  &  c_y  0  &  0  &  1 \\end{bmatrix}$$
 
-## 📌 3) Extrinsic: World → Camera
+## 3) Extrinsic: World → Camera
 
 $$P_c = R P_w + T$$
 
-## 📌 4) 전체 투영식
+## 4) 전체 투영식
 
 $$p = K [R|T] P_w$$
 
-## 📌 5) Distortion 모델
+## 5) Distortion 모델
 
 * radial: $k_1  r^2 + k_2  r^4 + k_3  r^6$
 * tangential: $p_1, p_2$
 
-## 📌 6) Calibration
+## 6) Calibration
 
 * 대응점 $(P_i, p_i)$를 모아서 SVD로 투영행렬 $M = K[R|T]$ 추정
 * 이후 분해 → $(K, R, T)$
 
-## 📌 7) Simplified  models
+## 7) Simplified  models
 
 * Weak  perspective
 * Orthographic
