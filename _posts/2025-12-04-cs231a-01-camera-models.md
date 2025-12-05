@@ -1109,7 +1109,7 @@ $$R_x(-20°) = \begin{bmatrix} 1  &  0  &  0  0  &  \cos(-20°)  &  -\sin(-20°)
 
 $$P_w = (2, 1, 10)$$
 
-## ◆ STEP 1 — World → Camera 변환
+## STEP 1 — World → Camera 변환
 
 $$P_c = R P_w + T$$
 
@@ -1119,7 +1119,7 @@ $$R P_w = \begin{bmatrix} 1  &  0  &  0  0  &  0.94  &  0.34  0  &  -0.34  &  0.
 
 $$P_c = (2, 4.34, 9.06) + (0, 0, 5) = (2, 4.34, 14.06)$$
 
-## ◆ STEP 2 — Camera → Image plane 투영
+## STEP 2 — Camera → Image plane 투영
 
 핀홀 투영식:
 
@@ -1131,7 +1131,7 @@ $$x' = 800 \cdot \frac{2}{14.06} = 113.8$$
 
 $$y' = 800 \cdot \frac{4.34}{14.06} = 246.7$$
 
-## ◆ STEP  3 — Image  plane → Pixel 좌표로 변환
+## STEP 3 — Image  plane → Pixel 좌표로 변환
 
 $$u = x' + c_x, \quad  v = y' + c_y$$
 
