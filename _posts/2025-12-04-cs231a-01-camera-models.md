@@ -32,7 +32,9 @@ mathjax_autoNumber: true
 
 ## 1. 핀홀 카메라 이야기다
 
-### 1.1 “구멍 하나로 세상을 찍는” 모델이다
+### 1.1 "구멍 하나로 세상을 찍는" 모델이다
+
+![Figure 1: Pinhole camera model](/assets/images/cs231a/lecture01/fig_1_1.jpeg)
 
 가장 단순한 카메라를 상상해보면 된다.
 두꺼운 판에 아주 작은 구멍(조리개, aperture)을 뚫고, 그 뒤에 필름을 둔다.
@@ -48,6 +50,8 @@ mathjax_autoNumber: true
 ### 1.2 좌표계 정의와 유도다
 
 강의 그림 2처럼, 핀홀을 원점 O로 두고 카메라 좌표계를 정의한다 
+
+![Figure 2: Pinhole camera coordinate system](/assets/images/cs231a/lecture01/fig_2_1.jpeg)
 
 * z축 k: 이미지 평면을 향해 수직으로 나가는 축
 * x축 i, y축 j: 이미지 평면 평행인 두 축
@@ -107,7 +111,9 @@ $$P' = \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} f \frac{x}{z} \\
 ### 2.2 Thin lens / paraxial refraction 모델이다
 
 강의의 그림 5처럼 렌즈 중심을 원점으로 보고,
-빛이 광학축에 대해 작은 각도만 가진다고 가정하는 **얇은 렌즈(thin lens)** 근사를 쓴다 
+빛이 광학축에 대해 작은 각도만 가진다고 가정하는 **얇은 렌즈(thin lens)** 근사를 쓴다
+
+![Figure 5: Thin lens model](/assets/images/cs231a/lecture01/fig_5_1.png) 
 
 이때,
 
@@ -135,7 +141,9 @@ $$P' = \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} z' \frac{x}{z} \
   * **핀쿠션 왜곡(pincushion)**: 가장자리가 당겨져 밖으로 날카롭게 튀어나온 느낌
 
 강의의 그림 6을 보면
-정사각형 격자가 **안으로 볼록, 밖으로 볼록**하게 휘는 모습을 확인할 수 있다 
+정사각형 격자가 **안으로 볼록, 밖으로 볼록**하게 휘는 모습을 확인할 수 있다
+
+![Figure 6: Radial distortion (barrel and pincushion)](/assets/images/cs231a/lecture01/fig_4_3.png) 
 
 요약하면,
 
@@ -379,6 +387,8 @@ $$x' = x, \quad y' = y$$
 ---
 
 ### 9.1 NumPy로 3D 점들을 핀홀 카메라로 투영하기다
+
+![Camera projection example](/assets/images/cs231a/lecture01/fig_9_1.jpeg)
 
 ```python
 import numpy as np
