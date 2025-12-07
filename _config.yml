@@ -179,6 +179,16 @@ analytics:
     anonymize_ip: true # Anonymize IP tracking for Analytics
 
 
+## => Webmaster Verifications
+##############################
+webmaster_verifications:
+  google: wjsLCRRyIgkDABSsrjxaWYbWLlTh7A1QZOy4OeKAeQY
+  # naver: # Naver Search Advisor verification code
+  # bing: # Bing Webmaster Tools verification code
+  # yandex: # Yandex Webmaster verification code
+  # baidu: # Baidu Webmaster verification code
+
+
 ## => Build
 ##############################
 markdown    : kramdown
