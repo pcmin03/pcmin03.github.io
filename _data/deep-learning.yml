@@ -1,21 +1,21 @@
 - title: Neural Network Fundamentals
   cover: /assets/images/projects/universal-segmentation.jpg
   description: Basics of neural networks
-  url: /study/neural-network-fundamentals.html
+  url: /pages/neural-network-fundamentals.html
   tags: [Deep Learning, Neural Networks]
   excerpt: Introduction to neural network architectures, backpropagation, and training methods.
 
 - title: Convolutional Neural Networks
   cover: /assets/images/projects/universal-segmentation.jpg
   description: CNN architectures and applications
-  url: /study/convolutional-neural-networks.html
+  url: /pages/convolutional-neural-networks.html
   tags: [Deep Learning, CNN, Computer Vision]
   excerpt: Deep dive into convolutional neural networks, their architectures, and applications in computer vision.
 
 - title: Transformer Architecture
   cover: /assets/images/projects/universal-segmentation.jpg
   description: Transformer models and attention mechanisms
-  url: /study/transformer-architecture.html
+  url: /pages/transformer-architecture.html
   tags: [Deep Learning, Transformer, Attention]
   excerpt: Understanding transformer architecture, attention mechanisms, and their applications in vision and NLP.
 

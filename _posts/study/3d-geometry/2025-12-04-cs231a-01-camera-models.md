@@ -1,6 +1,4 @@
 ---
-layout: article
-
 title: "[CS231A] Lecture 01: Camera Models (카메라 모델)"
 categories: [3D Geometry]
 tags: [3D Vision, CS231A, Camera Models, Computer Vision]
@@ -34,9 +32,7 @@ mathjax_autoNumber: true
 
 ## 1. 핀홀 카메라 이야기다
 
-### 1.1 "구멍 하나로 세상을 찍는" 모델이다
-
-![Figure 1: Pinhole camera model](/assets/images/cs231a/lecture01/fig_1_1.jpeg)
+### 1.1 “구멍 하나로 세상을 찍는” 모델이다
 
 가장 단순한 카메라를 상상해보면 된다.
 두꺼운 판에 아주 작은 구멍(조리개, aperture)을 뚫고, 그 뒤에 필름을 둔다.
@@ -52,8 +48,6 @@ mathjax_autoNumber: true
 ### 1.2 좌표계 정의와 유도다
 
 강의 그림 2처럼, 핀홀을 원점 O로 두고 카메라 좌표계를 정의한다 
-
-![Figure 2: Pinhole camera coordinate system](/assets/images/cs231a/lecture01/fig_2_1.jpeg)
 
 * z축 k: 이미지 평면을 향해 수직으로 나가는 축
 * x축 i, y축 j: 이미지 평면 평행인 두 축
@@ -113,9 +107,7 @@ $$P' = \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} f \frac{x}{z} \\
 ### 2.2 Thin lens / paraxial refraction 모델이다
 
 강의의 그림 5처럼 렌즈 중심을 원점으로 보고,
-빛이 광학축에 대해 작은 각도만 가진다고 가정하는 **얇은 렌즈(thin lens)** 근사를 쓴다
-
-![Figure 5: Thin lens model](/assets/images/cs231a/lecture01/fig_5_1.png) 
+빛이 광학축에 대해 작은 각도만 가진다고 가정하는 **얇은 렌즈(thin lens)** 근사를 쓴다 
 
 이때,
 
@@ -143,9 +135,7 @@ $$P' = \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} z' \frac{x}{z} \
   * **핀쿠션 왜곡(pincushion)**: 가장자리가 당겨져 밖으로 날카롭게 튀어나온 느낌
 
 강의의 그림 6을 보면
-정사각형 격자가 **안으로 볼록, 밖으로 볼록**하게 휘는 모습을 확인할 수 있다
-
-![Figure 6: Radial distortion (barrel and pincushion)](/assets/images/cs231a/lecture01/fig_4_3.png) 
+정사각형 격자가 **안으로 볼록, 밖으로 볼록**하게 휘는 모습을 확인할 수 있다 
 
 요약하면,
 
@@ -389,8 +379,6 @@ $$x' = x, \quad y' = y$$
 ---
 
 ### 9.1 NumPy로 3D 점들을 핀홀 카메라로 투영하기다
-
-![Camera projection example](/assets/images/cs231a/lecture01/fig_9_1.jpeg)
 
 ```python
 import numpy as np
@@ -1099,14 +1087,14 @@ $$P' = K \begin{bmatrix} R  &  T \\end{bmatrix} P_w$$
 
 초보자도 단번에 전체 파이프라인을 이해할 수 있도록 완전 단계별로 계산해보겠습니다.
 
-## 설정한 카메라 내부 파라미터 (Intrinsic  matrix)
+## 📌 설정한 카메라 내부 파라미터 (Intrinsic  matrix)
 
 $$K = \begin{bmatrix} \alpha  &  0  &  c_x  0  &  \beta  &  c_y  0  &  0  &  1 \\end{bmatrix} = \begin{bmatrix} 800  &  0  &  320  0  &  800  &  240  0  &  0  &  1 \\end{bmatrix}$$
 
 * focal length in pixel: $f_x = f_y = 800$
 * principal point: $(c_x, c_y) = (320, 240)$
 
-## 카메라 외부 파라미터 (Extrinsic: R, T)
+## 📌 카메라 외부 파라미터 (Extrinsic: R, T)
 
 카메라 위치는 world 좌표에서:
 * 카메라가 world 원점으로 약간 내려다본다고 가정
@@ -1117,11 +1105,11 @@ $$K = \begin{bmatrix} \alpha  &  0  &  c_x  0  &  \beta  &  c_y  0  &  0  &  1 \
 
 $$R_x(-20°) = \begin{bmatrix} 1  &  0  &  0  0  &  \cos(-20°)  &  -\sin(-20°)  0  &  \sin(-20°)  &  \cos(-20°) \\end{bmatrix} = \begin{bmatrix} 1  &  0  &  0  0  &  0.94  &  0.34  0  &  -0.34  &  0.94 \\end{bmatrix}$$
 
-## 3D 점 (World coordinates)
+## 📌 3D 점 (World coordinates)
 
 $$P_w = (2, 1, 10)$$
 
-## STEP 1 — World → Camera 변환
+## ◆ STEP 1 — World → Camera 변환
 
 $$P_c = R P_w + T$$
 
@@ -1131,7 +1119,7 @@ $$R P_w = \begin{bmatrix} 1  &  0  &  0  0  &  0.94  &  0.34  0  &  -0.34  &  0.
 
 $$P_c = (2, 4.34, 9.06) + (0, 0, 5) = (2, 4.34, 14.06)$$
 
-## STEP 2 — Camera → Image plane 투영
+## ◆ STEP 2 — Camera → Image plane 투영
 
 핀홀 투영식:
 
@@ -1143,7 +1131,7 @@ $$x' = 800 \cdot \frac{2}{14.06} = 113.8$$
 
 $$y' = 800 \cdot \frac{4.34}{14.06} = 246.7$$
 
-## STEP 3 — Image  plane → Pixel 좌표로 변환
+## ◆ STEP  3 — Image  plane → Pixel 좌표로 변환
 
 $$u = x' + c_x, \quad  v = y' + c_y$$
 
@@ -1243,33 +1231,33 @@ $$x' = s  x + t_x, \quad  y' = s  y + t_y$$
 
 # 18. CS231A  1강 완전 정복 요약
 
-## 1) 핀홀 모델 기본
+## 📌 1) 핀홀 모델 기본
 
 $$x' = f\frac{x}{z}, \quad  y' = f\frac{y}{z}$$
 
-## 2) Intrinsic  matrix
+## 📌 2) Intrinsic  matrix
 
 $$K = \begin{bmatrix} f_x  &  s  &  c_x  0  &  f_y  &  c_y  0  &  0  &  1 \\end{bmatrix}$$
 
-## 3) Extrinsic: World → Camera
+## 📌 3) Extrinsic: World → Camera
 
 $$P_c = R P_w + T$$
 
-## 4) 전체 투영식
+## 📌 4) 전체 투영식
 
 $$p = K [R|T] P_w$$
 
-## 5) Distortion 모델
+## 📌 5) Distortion 모델
 
 * radial: $k_1  r^2 + k_2  r^4 + k_3  r^6$
 * tangential: $p_1, p_2$
 
-## 6) Calibration
+## 📌 6) Calibration
 
 * 대응점 $(P_i, p_i)$를 모아서 SVD로 투영행렬 $M = K[R|T]$ 추정
 * 이후 분해 → $(K, R, T)$
 
-## 7) Simplified  models
+## 📌 7) Simplified  models
 
 * Weak  perspective
 * Orthographic

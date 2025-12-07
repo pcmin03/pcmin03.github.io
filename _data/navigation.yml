@@ -75,12 +75,12 @@ header:
       fr-LU   : *FR
       tr      : &TR       Araştırma
       # @end locale config
-    url: /categories.html
+    url: /research.html
     children:
       - title: Image Retrieval
-        url: /study/image-retrieval.html
+        url: /pages/image-retrieval.html
       - title: 3D Vision
-        url: /study/3dvision.html
+        url: /pages/3dvision.html
 
   - titles:
       # @start locale config
@@ -109,11 +109,11 @@ header:
     url: /study.html
     children:
       - title: Image Processing
-        url: /study/image-processing.html
+        url: /pages/image-processing.html
       - title: Deep Learning
-        url: /study/deep-learning.html
+        url: /pages/deep-learning.html
       - title: 3D Geometry
-        url: /study/3d-geometry.html
+        url: /pages/3d-geometry.html
 
   - titles:
       # @start locale config

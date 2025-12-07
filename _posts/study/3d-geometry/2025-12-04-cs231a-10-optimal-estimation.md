@@ -20,28 +20,13 @@ mathjax_autoNumber: true
 **원본 강의 노트**: [10-optimal-estimation.pdf](https://web.stanford.edu/class/cs231a/course_notes/10-optimal-estimation.pdf)
 
 <!--more-->
-
 ### 0. 강의 10 한 눈에 보기
 
-이 강의는 "카메라"에서 살짝 벗어나서 **시간에 따라 변하는 상태를 추정하는 필터들**을 다루는 강의다.
+이 강의는 “카메라”에서 살짝 벗어나서 **시간에 따라 변하는 상태를 추정하는 필터들**을 다루는 강의다.
 큰 흐름은 이렇게 흘러간다.
 
 1. 상태 추정과 POMDP(부분관측 마르코프 결정 과정) 소개
-2. **베이즈 필터**: 아주 일반적인 형태의 "재귀적 상태 추정기"
-3. **칼만 필터(Kalman Filter)**: 연속 상태 + 선형 + 가우시안인 경우의 최적 필터
-4. **확장 칼만 필터(EKF)**: 비선형 시스템에 칼만 필터 아이디어를 확장한 것
-
-이제 차근차근 스토리처럼 따라가 보겠다.
-
----
-
-### 0. 강의 10 한 눈에 보기
-
-이 강의는 "카메라"에서 살짝 벗어나서 **시간에 따라 변하는 상태를 추정하는 필터들**을 다루는 강의다.
-큰 흐름은 이렇게 흘러간다.
-
-1. 상태 추정과 POMDP(부분관측 마르코프 결정 과정) 소개
-2. **베이즈 필터**: 아주 일반적인 형태의 "재귀적 상태 추정기"
+2. **베이즈 필터**: 아주 일반적인 형태의 “재귀적 상태 추정기”
 3. **칼만 필터(Kalman Filter)**: 연속 상태 + 선형 + 가우시안인 경우의 최적 필터
 4. **확장 칼만 필터(EKF)**: 비선형 시스템에 칼만 필터 아이디어를 확장한 것
 
@@ -52,29 +37,35 @@ mathjax_autoNumber: true
 ## 1. 상태 추정(State Estimation)과 POMDP
 
 로봇이나 자율주행차를 생각하면 이해가 쉽다.
-로봇은 매 순간 "내가 지금 어디에 있고, 속도는 얼마고, 주변 상황은 어떤지" 알고 싶어 한다.
-하지만 이 상태 $x_t$는 직접 볼 수 없고, 대신 **센서 측정값 $z_t$**만 본다. 예를 들어:
+로봇은 매 순간 “내가 지금 어디에 있고, 속도는 얼마고, 주변 상황은 어떤지” 알고 싶어 한다.
+하지만 이 상태 (x_t)는 직접 볼 수 없고, 대신 **센서 측정값 (z_t)**만 본다. 예를 들어:
 
-* 상태 $x_t$: 로봇의 위치, 자세, 속도 벡터 등
-* 관측 $z_t$: 카메라 이미지, LiDAR 거리, IMU 값 등
-* 제어입력 $u_t$: 휠에 준 속도 명령, 조향각, 토크 등
+* 상태 (x_t): 로봇의 위치, 자세, 속도 벡터 등
+* 관측 (z_t): 카메라 이미지, LiDAR 거리, IMU 값 등
+* 제어입력 (u_t): 휠에 준 속도 명령, 조향각, 토크 등
 
 강의에서는 이를 **부분관측 마르코프 결정과정(POMDP)** 그래프로 표현한다.
 
 여기서 핵심 가정이 두 가지다.
 
 1. **마르코프 가정(transition model)**
-$$p(x_t \mid x_{0:t-1}, z_{1:t-1}, u_{1:t}) = p(x_t \mid x_{t-1}, u_t)$$
+   [
+   p(x_t \mid x_{0:t-1}, z_{1:t-1}, u_{1:t}) = p(x_t \mid x_{t-1}, u_t)
+   ]
    지금 상태는 **직전 상태와 지금 입력만** 보면 된다는 뜻이다.
 
 2. **측정 모델(measurement model)**
-$$p(z_t \mid x_{0:t}, z_{1:t-1}, u_{1:t}) = p(z_t \mid x_t)$$
+   [
+   p(z_t \mid x_{0:t}, z_{1:t-1}, u_{1:t}) = p(z_t \mid x_t)
+   ]
    현재 측정값은 **현재 상태만**에 의존한다고 가정한다.
 
 우리가 진짜로 알고 싶은 건 “지금 상태가 뭐냐?”이다.
 즉 **후행분포(posterior)**
 
-$$p(x_t \mid z_{1:t}, u_{1:t})$$
+[
+p(x_t \mid z_{1:t}, u_{1:t})
+]
 
 를 시간마다 업데이트하는 것이 목표다.
 이 분포를 흔히 **belief**라 부르고 ( bel_t(x) ) 또는 ( bel(t) )라고 표기한다.
@@ -89,22 +80,32 @@ $$p(x_t \mid z_{1:t}, u_{1:t})$$
 
 추정하고 싶은 것은 계속 같다.
 
-$$bel_t(x_t) = p(x_t \mid z_{1:t}, u_{1:t})$$
+[
+bel_t(x_t) = p(x_t \mid z_{1:t}, u_{1:t})
+]
 
 우리가 원하는 것은 이것을 **재귀식**으로 쓰는 것이다:
 
-$$p(x_t \mid z_{1:t}, u_{1:t}) = f\big( p(x_{t-1} \mid z_{1:t-1}, u_{1:t-1}), z_t, u_t \big)$$
+[
+p(x_t \mid z_{1:t}, u_{1:t}) = f\big( p(x_{t-1} \mid z_{1:t-1}, u_{1:t-1}), z_t, u_t \big)
+]
 
 이를 유도하면 다음과 같이 나온다:
 
 1. **예측(prediction)** 단계
-$$\underbrace{p(x_t \mid z_{1:t-1}, u_{1:t})}*{\text{prior 혹은 predicted belief}} = \int p(x_t \mid x*{t-1}, u_t), p(x_{t-1} \mid z_{1:t-1}, u_{1:t-1}) , dx_{t-1}$$
+   [
+   \underbrace{p(x_t \mid z_{1:t-1}, u_{1:t})}*{\text{prior 혹은 predicted belief}}
+   = \int p(x_t \mid x*{t-1}, u_t), p(x_{t-1} \mid z_{1:t-1}, u_{1:t-1}) , dx_{t-1}
+   ]
 
    * 이전 posterior에 **동역학 모델 (p(x_t \mid x_{t-1}, u_t))**를 적용해서
      “아직 새로운 측정은 안 본 상태의 belief”를 만든다.
 
 2. **업데이트(update)** 단계
-$$p(x_t \mid z_{1:t}, u_{1:t}) = \eta , p(z_t \mid x_t), p(x_t \mid z_{1:t-1}, u_{1:t})$$
+   [
+   p(x_t \mid z_{1:t}, u_{1:t}) =
+   \eta , p(z_t \mid x_t), p(x_t \mid z_{1:t-1}, u_{1:t})
+   ]
    여기서 (\eta = 1 / p(z_t \mid z_{1:t-1}, u_{1:t}))는 정규화 상수다.
 
    * 측정모델 (p(z_t \mid x_t)) 는
@@ -138,9 +139,13 @@ $$p(x_t \mid z_{1:t}, u_{1:t}) = \eta , p(z_t \mid x_t), p(x_t \mid z_{1:t-1}, u
 조금 더 엔지니어링 감각에 맞게 쓰면 다음과 같다.
 
 * 동역학(프로세스) 모델
-$$x_t = f(x_{t-1}, u_t) + w_{t-1}$$
+  [
+  x_t = f(x_{t-1}, u_t) + w_{t-1}
+  ]
 * 측정 모델
-$$z_t = h(x_t) + v_t$$
+  [
+  z_t = h(x_t) + v_t
+  ]
 
 여기서
 
@@ -157,14 +162,19 @@ $$z_t = h(x_t) + v_t$$
 칼만 필터는 **모든 확률분포가 다변량 가우시안**이라고 가정한다.
 
 * (X \in \mathbb{R}^N) 이 다변량 가우시안이면
-$$X \sim \mathcal{N}(\mu, \Sigma)$$
+  [
+  X \sim \mathcal{N}(\mu, \Sigma)
+  ]
 
   * (\mu): 평균 벡터 (\in \mathbb{R}^N)
   * (\Sigma): 공분산 행렬 (\in \mathbb{R}^{N\times N}), 양의 반정정부호
 
 PDF는 다음과 같다.
 
-$$p(x) = \frac{1}{\sqrt{(2\pi)^N |\Sigma|}} \exp\left(-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu)\right)$$
+[
+p(x) = \frac{1}{\sqrt{(2\pi)^N |\Sigma|}}
+\exp\left(-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu)\right)
+]
 
 강의 노트에서는 등고선을 그리면 **타원(ellipse)**로 보인다고 설명한다.
 
@@ -194,12 +204,18 @@ $$p(x) = \frac{1}{\sqrt{(2\pi)^N |\Sigma|}} \exp\left(-\frac{1}{2}(x - \mu)^T \S
 
 즉,
 
-$$x_t = A_t x_{t-1} + B_t u_t + w_t$$
-$$z_t = C_t x_t + v_t$$
+[
+x_t = A_t x_{t-1} + B_t u_t + w_t \tag{14}
+]
+[
+z_t = C_t x_t + v_t \tag{15}
+]
 
 * (w_t \sim \mathcal{N}(0, Q_t)), (v_t \sim \mathcal{N}(0, R_t)) 이고 각 시점 간에는 상관이 없다고 가정한다.
 * 초기 상태도 가우시안
-$$x_0 \sim \mathcal{N}(\mu_{0|0}, \Sigma_{0|0})$$
+  [
+  x_0 \sim \mathcal{N}(\mu_{0|0}, \Sigma_{0|0})
+  ]
   이라고 둔다.
 
 이렇게 되면, 베이즈 필터에서 다루던 확률분포들은 모두 가우시안이고,
@@ -209,12 +225,18 @@ $$x_0 \sim \mathcal{N}(\mu_{0|0}, \Sigma_{0|0})$$
 
 이전 시점의 posterior가
 
-$$x_{t-1} \mid z_{1:t-1}, u_{1:t-1} \sim \mathcal{N}(\mu_{t-1|t-1}, \Sigma_{t-1|t-1})$$
+[
+x_{t-1} \mid z_{1:t-1}, u_{1:t-1} \sim \mathcal{N}(\mu_{t-1|t-1}, \Sigma_{t-1|t-1})
+]
 
 라고 하자. 그러면 현재 시점의 **예측 분포**는:
 
-$$\mu_{t|t-1} = A_t \mu_{t-1|t-1} + B_t u_t$$
-$$\Sigma_{t|t-1} = A_t \Sigma_{t-1|t-1} A_t^T + Q_t$$
+[
+\mu_{t|t-1} = A_t \mu_{t-1|t-1} + B_t u_t \tag{16}
+]
+[
+\Sigma_{t|t-1} = A_t \Sigma_{t-1|t-1} A_t^T + Q_t \tag{17}
+]
 
 * 평균 예측: 이전 평균을 동역학 모델에 넣고, 제어 입력을 더한다.
   노이즈 (w_t)는 평균 0이므로 평균에는 영향을 주지 않는다.
@@ -228,17 +250,27 @@ $$\Sigma_{t|t-1} = A_t \Sigma_{t-1|t-1} A_t^T + Q_t$$
 
 이미 예측한 분포는
 
-$$x_t \mid z_{1:t-1}, u_{1:t} \sim \mathcal{N}(\mu_{t|t-1}, \Sigma_{t|t-1})$$
+[
+x_t \mid z_{1:t-1}, u_{1:t} \sim \mathcal{N}(\mu_{t|t-1}, \Sigma_{t|t-1})
+]
 
 이고, 측정 모델은
 
-$$z_t = C_t x_t + v_t, \quad v_t \sim \mathcal{N}(0, R_t)$$
+[
+z_t = C_t x_t + v_t, \quad v_t \sim \mathcal{N}(0, R_t)
+]
 
 이다. 칼만 필터는 다음과 같이 posterior를 업데이트한다.
 
-$$\mu_{t|t} = \mu_{t|t-1} + K_t (z_t - C_t \mu_{t|t-1})$$
-$$\Sigma_{t|t} = \Sigma_{t|t-1} - K_t C_t \Sigma_{t|t-1}$$
-$$K_t = \Sigma_{t|t-1} C_t^T (C_t \Sigma_{t|t-1} C_t^T + R_t)^{-1}$$
+[
+\mu_{t|t} = \mu_{t|t-1} + K_t (z_t - C_t \mu_{t|t-1}) \tag{18}
+]
+[
+\Sigma_{t|t} = \Sigma_{t|t-1} - K_t C_t \Sigma_{t|t-1} \tag{19}
+]
+[
+K_t = \Sigma_{t|t-1} C_t^T (C_t \Sigma_{t|t-1} C_t^T + R_t)^{-1} \tag{20}
+]
 
 여기서
 
@@ -254,7 +286,9 @@ $$K_t = \Sigma_{t|t-1} C_t^T (C_t \Sigma_{t|t-1} C_t^T + R_t)^{-1}$$
    * 분자와 분모가 거의 같아서, 비율이 1로 가고
      (K_t \approx C_t^{-1}) 이 된다.
    * 이 경우 측정값을 거의 그대로 믿어서
-$$\mu_{t|t} \approx C_t^{-1} z_t$$
+     [
+     \mu_{t|t} \approx C_t^{-1} z_t
+     ]
    * 공분산은 0으로 수렴해 “상태를 확실히 안다”고 본다.
 
 2. **프로세스 노이즈가 거의 0 ((\Sigma_{t|t-1} \to 0))**
@@ -271,9 +305,9 @@ $$\mu_{t|t} \approx C_t^{-1} z_t$$
 
 노트의 그림 6은 2차원 상태에서 세 개의 타원을 그려놓는다.
 
-* 오렌지 타원: 예측된 측정 분포 $\mathcal{N}(C_t \mu_{t|t-1}, C_t \Sigma_{t|t-1} C_t^T)$
-* 파란 타원: 실제 측정의 분포 $\mathcal{N}(z_t, R_t)$
-* 초록 타원: 둘을 곱한 결과인 업데이트된 posterior $\mathcal{N}(\mu_{t|t}, \Sigma_{t|t})$
+* 오렌지 타원: 예측된 측정 분포 ( \mathcal{N}(C_t \mu_{t|t-1}, C_t \Sigma_{t|t-1} C_t^T))
+* 파란 타원: 실제 측정의 분포 ( \mathcal{N}(z_t, R_t))
+* 초록 타원: 둘을 곱한 결과인 업데이트된 posterior ( \mathcal{N}(\mu_{t|t}, \Sigma_{t|t}))
 
 두 분포를 곱하면 **겹치는 부분**에서 확률이 커지고,
 이 부분이 다시 하나의 가우시안 타원으로 표현된다.
@@ -298,8 +332,12 @@ $$\mu_{t|t} \approx C_t^{-1} z_t$$
 
 비선형 동역학:
 
-$$x_t = f(x_{t-1}, u_t) + w_t$$
-$$z_t = g(x_t) + v_t$$
+[
+x_t = f(x_{t-1}, u_t) + w_t
+]
+[
+z_t = g(x_t) + v_t
+]
 
 를 그대로 사용하면, 가우시안 분포가 비선형 함수에 의해 통과하면서 **비가우시안**으로 바뀐다.
 이 경우 앞서 썼던 깔끔한 칼만 필터 식을 그대로 쓸 수 없다.
@@ -320,20 +358,35 @@ EKF의 아이디어는 단순하다.
 
 선형화 후의 Jacobian은 다음과 같다.
 
-$$A_t = \left. \frac{\partial f(x_t, u_t)}{\partial x_t} \right|*{x_t = \mu*{t-1|t-1}}$$
-$$C_t = \left. \frac{\partial g(x_t, u_t)}{\partial x_t} \right|*{x_t = \mu*{t|t-1}}$$
+[
+A_t = \left. \frac{\partial f(x_t, u_t)}{\partial x_t} \right|*{x_t = \mu*{t-1|t-1}} \tag{27}
+]
+[
+C_t = \left. \frac{\partial g(x_t, u_t)}{\partial x_t} \right|*{x_t = \mu*{t|t-1}} \tag{28}
+]
 
 이걸 이용하면 EKF의 예측/업데이트 식은
 칼만 필터와 형태가 거의 같다.
 
 * **Predict**
-$$\mu_{t|t-1} = f(\mu_{t-1|t-1}, u_t)$$
-$$\Sigma_{t|t-1} = A_{t-1} \Sigma_{t-1|t-1} A_{t-1}^T + Q_{t-1}$$
+  [
+  \mu_{t|t-1} = f(\mu_{t-1|t-1}, u_t) \tag{22}
+  ]
+  [
+  \Sigma_{t|t-1} = A_{t-1} \Sigma_{t-1|t-1} A_{t-1}^T + Q_{t-1} \tag{23}
+  ]
 
 * **Update**
-$$\mu_{t|t} = \mu_{t|t-1} + K_t (z_t - g(\mu_{t|t-1}))$$
-$$\Sigma_{t|t} = \Sigma_{t|t-1} - K_t C_t \Sigma_{t|t-1}$$
-$$K_t = \Sigma_{t|t-1} C_t^T \big(C_t \Sigma_{t|t-1} C_t^T + R_t\big)^{-1}$$
+  [
+  \mu_{t|t} = \mu_{t|t-1} + K_t (z_t - g(\mu_{t|t-1})) \tag{24}
+  ]
+  [
+  \Sigma_{t|t} = \Sigma_{t|t-1} - K_t C_t \Sigma_{t|t-1} \tag{25}
+  ]
+  [
+  K_t = \Sigma_{t|t-1} C_t^T
+  \big(C_t \Sigma_{t|t-1} C_t^T + R_t\big)^{-1} \tag{26}
+  ]
 
 따라서 EKF는
 
@@ -347,9 +400,9 @@ $$K_t = \Sigma_{t|t-1} C_t^T \big(C_t \Sigma_{t|t-1} C_t^T + R_t\big)^{-1}$$
 
 ## 6. 이 강의에서 꼭 가져가야 할 직관
 
-1. **상태 추정은 "숨은 상태"를 확률적으로 추적하는 문제**다.
+1. **상태 추정은 “숨은 상태”를 확률적으로 추적하는 문제**다.
 
-   * belief $p(x_t \mid z_{1:t}, u_{1:t})$를 관리하는 문제라고 생각하면 된다.
+   * belief (p(x_t \mid z_{1:t}, u_{1:t}))를 관리하는 문제라고 생각하면 된다.
 
 2. **베이즈 필터**는 가장 일반적인 틀이고,
 
@@ -357,11 +410,11 @@ $$K_t = \Sigma_{t|t-1} C_t^T \big(C_t \Sigma_{t|t-1} C_t^T + R_t\big)^{-1}$$
 
 3. **칼만 필터**는 이를 선형-가우시안에 특화시켜
 
-   * $(\mu, \Sigma)$만 업데이트하는 효율적인 알고리즘이다.
+   * (\mu, \Sigma) 만 업데이트하는 효율적인 알고리즘이다.
    * 예측으로 불확실성이 커지고,
    * 측정으로 다시 줄어들면서 점점 수렴한다.
 
-4. **EKF**는 "비선형 시스템을 매 시점마다 선형 근사해서" 칼만 필터를 적용하는 버전이다.
+4. **EKF**는 “비선형 시스템을 매 시점마다 선형 근사해서” 칼만 필터를 적용하는 버전이다.
 
 이제 실제로 간단한 코드로 한 번 감을 잡아보자.
 
@@ -379,9 +432,22 @@ $$K_t = \Sigma_{t|t-1} C_t^T \big(C_t \Sigma_{t|t-1} C_t^T + R_t\big)^{-1}$$
 
 선형 모델은 다음과 같다.
 
-$$x_t = \begin{bmatrix} 1 & \Delta t \ 0 & 1 \end{bmatrix} x_{t-1} + w_t$$
+[
+x_t =
+\begin{bmatrix}
+1 & \Delta t \
+0 & 1
+\end{bmatrix}
+x_{t-1} + w_t
+]
 
-$$z_t = \begin{bmatrix} 1 & 0 \end{bmatrix} x_t + v_t$$
+[
+z_t =
+\begin{bmatrix}
+1 & 0
+\end{bmatrix}
+x_t + v_t
+]
 
 아래는 그 구현 예시다.
 
@@ -563,6 +629,125 @@ plt.show()
 * 가상의 2D 점이 직선으로 움직이고
 * 각 시점마다 노이즈 섞인 좌표를 관측하는 상황에서
 * OpenCV 칼만 필터가 점의 궤적을 부드럽게 추정하는 예시다.
+
+
+
+## 1. 서론 (Introduction)
+
+최적 추정(Optimal Estimation)은 **노이즈가 있는 관측으로부터 시스템의 상태를 추정하는 기술**입니다. 로봇 공학, 자율 주행, 추적 등에서 핵심적인 역할을 합니다.
+
+## 2. 상태 추정 (State Estimation)
+
+### 2.1. 상태 공간 모델
+
+시스템의 상태를 다음과 같이 모델링합니다:
+
+$$x_t = f(x_{t-1}, u_t, w_t)$$
+
+$$z_t = h(x_t, v_t)$$
+
+여기서:
+- $x_t$: 시간 $t$에서의 상태
+- $u_t$: 제어 입력
+- $z_t$: 관측
+- $w_t, v_t$: 프로세스 및 관측 노이즈
+
+### 2.2. 추정 문제
+
+과거 관측 $z_{1:t}$로부터 현재 상태 $x_t$를 추정하는 문제입니다.
+
+## 3. 베이지안 필터 (Bayesian Filter)
+
+### 3.1. 조건부 확률 복습
+
+베이지안 필터는 조건부 확률을 기반으로 합니다:
+- **사전 확률 (Prior)**: $P(x_t | z_{1:t-1})$
+- **사후 확률 (Posterior)**: $P(x_t | z_{1:t})$
+- **우도 (Likelihood)**: $P(z_t | x_t)$
+
+### 3.2. 베이지안 필터 유도
+
+베이즈 정리를 사용하여 사후 확률을 계산합니다:
+
+$$P(x_t | z_{1:t}) = \frac{P(z_t | x_t) P(x_t | z_{1:t-1})}{P(z_t | z_{1:t-1})}$$
+
+### 3.3. 예측 단계 (Prediction)
+
+이전 상태로부터 현재 상태를 예측합니다:
+
+$$P(x_t | z_{1:t-1}) = \int P(x_t | x_{t-1}) P(x_{t-1} | z_{1:t-1}) dx_{t-1}$$
+
+### 3.4. 업데이트 단계 (Update)
+
+관측을 통하여 상태를 업데이트합니다:
+
+$$P(x_t | z_{1:t}) \propto P(z_t | x_t) P(x_t | z_{1:t-1})$$
+
+## 4. 칼만 필터 (Kalman Filter)
+
+### 4.1. 선형 칼만 필터
+
+선형 시스템과 가우시안 노이즈를 가정합니다:
+
+$$x_t = A x_{t-1} + B u_t + w_t$$
+
+$$z_t = C x_t + v_t$$
+
+여기서 $w_t \sim \mathcal{N}(0, Q)$, $v_t \sim \mathcal{N}(0, R)$입니다.
+
+### 4.2. 칼만 필터 알고리즘
+
+1. **예측 (Predict)**:
+   - 상태 예측: $\hat{x}_{t|t-1} = A \hat{x}_{t-1|t-1} + B u_t$
+   - 공분산 예측: $P_{t|t-1} = A P_{t-1|t-1} A^T + Q$
+
+2. **업데이트 (Update)**:
+   - 칼만 gain: $K_t = P_{t|t-1} C^T (C P_{t|t-1} C^T + R)^{-1}$
+   - 상태 업데이트: $\hat{x}_{t|t} = \hat{x}_{t|t-1} + K_t (z_t - C \hat{x}_{t|t-1})$
+   - 공분산 업데이트: $P_{t|t} = (I - K_t C) P_{t|t-1}$
+
+![Kalman Filter Overview](/assets/images/posts/cs231a-10/figures/page_1_img_1.png)
+![Kalman Filter Algorithm](/assets/images/posts/cs231a-10/figures/page_3_img_1.png)
+
+### 4.3. 확장 칼만 필터 (Extended Kalman Filter, EKF)
+
+비선형 시스템을 선형화하여 칼만 필터를 적용합니다.
+
+## 5. 파티클 필터 (Particle Filter)
+
+### 5.1. 파티클 필터의 개념
+
+비선형, 비가우시안 시스템을 처리하기 위한 몬테카를로 방법입니다.
+
+### 5.2. 파티클 필터 알고리즘
+
+1. **샘플링**: 사전 분포에서 파티클 샘플링
+2. **가중치 계산**: 관측에 기반하여 가중치 계산
+3. **리샘플링**: 가중치에 따라 파티클 재샘플링
+
+![Particle Filter](/assets/images/posts/cs231a-10/figures/page_5_img_1.png)
+![State Estimation Applications](/assets/images/posts/cs231a-10/figures/page_5_img_2.png)
+
+## 6. 응용 분야 (Applications)
+
+최적 추정은 다음과 같은 분야에서 활용됩니다:
+
+- **로봇 공학**: 위치 추정 및 추적
+- **자율 주행**: 차량 위치 및 속도 추정
+- **객체 추적**: 비디오에서 객체 추적
+- **센서 융합**: 여러 센서 데이터 통합
+- **SLAM (Simultaneous Localization and Mapping)**: 동시 위치 추정 및 맵핑
+
+## 요약
+
+이 강의에서는 다음과 같은 내용을 다뤘습니다:
+
+1. **상태 추정**: 노이즈가 있는 관측으로부터 상태 추정
+2. **베이지안 필터**: 확률론적 상태 추정 프레임워크
+3. **칼만 필터**: 선형 시스템을 위한 최적 필터
+4. **파티클 필터**: 비선형 시스템을 위한 몬테카를로 방법
+
+최적 추정은 불확실성이 있는 환경에서 시스템 상태를 추정하는 핵심 기술입니다.
 
 ## 참고 자료
 
