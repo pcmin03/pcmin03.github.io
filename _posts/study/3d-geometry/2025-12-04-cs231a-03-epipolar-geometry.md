@@ -15,335 +15,209 @@ mathjax_autoNumber: true
 
 **Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition**
 
-이 포스트는 Stanford CS231A 강의의 03번째 강의 노트인 "Epipolar Geometry"를 한글로 정리한 것입니다.
+이 포스트는 Stanford CS231A 강의의 세 번째 강의 노트인 "Epipolar Geometry"를 정리한 것입니다.
 
 **원본 강의 노트**: [03-epipolar-geometry.pdf](https://web.stanford.edu/class/cs231a/course_notes/03-epipolar-geometry.pdf)
 
 <!--more-->
 
-## 강의 개요
-
-이 강의에서는 에피폴라 기하학에 대해 다룹니다.
-
-
-## 강의 노트 페이지 이미지
-
-<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin: 2rem 0;'>
-  <div><img src='/assets/images/posts/cs231a-03/page_1.png' alt='Page 1' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_2.png' alt='Page 2' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_3.png' alt='Page 3' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_4.png' alt='Page 4' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_5.png' alt='Page 5' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_6.png' alt='Page 6' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_7.png' alt='Page 7' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_8.png' alt='Page 8' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_9.png' alt='Page 9' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_10.png' alt='Page 10' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_11.png' alt='Page 11' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_12.png' alt='Page 12' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_13.png' alt='Page 13' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-03/page_14.png' alt='Page 14' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-</div>
-
-
-## 주요 수식
-
-이 강의에서 다루는 주요 수식들:
-
-**수식 1:**
-
-```
-which K = K' = I. This reduces Equation 1 to M = I 0 M' = RT −RTT (2) Furthermore, this means that the location of p' in the first camera’s ref- erence system is Rp'+T. Since the vectors Rp'+T and T lie in the epipolar plane, then if we take the cross product of T ×(Rp'+T) = T ×(Rp'), we will
-```
-
-**수식 2:**
-
-$$pT ·[T ×(Rp')] = 0 (3)$$
-
-**수식 3:**
-
-$$a×b =  a z 0 −a xb y = [a × ]b (4)$$
-
-**수식 4:**
-
-$$pT ·[T ](Rp') = 0$$
-
-**수식 5:**
-
-$$pT[T ]Rp' = 0$$
-
-**수식 6:**
-
-$$The matrix E = [T ]R is known as the Essential Matrix, creating a com-$$
-
-**수식 7:**
-
-$$Thus e' satisfies e'T(ETx) = (e'TET)x = 0 for all the x, so Ee' = 0. Similarly ETe = 0.$$
-
-**수식 8:**
-
-$$pT[T ]Rp' = 0 (8)$$
-
-**수식 9:**
-
-$$pTK−T[T ]RK'−1p' = 0 (9)$$
-
-**수식 10:**
-
-$$The matrix F = K'−T[T ]RK−1 is known as the Fundamental Matrix,$$
-
-**수식 11:**
-
-$$Wf = 0 (12)$$
-
-**수식 12:**
-
-$$same K and that there is no relative rotation between the cameras (R = I).$$
-
-**수식 13:**
-
-$$E = [T × ]R = 0 0 −T x (17)$$
-
-**수식 14:**
-
-$$coordinates) are in the set {x|(cid:96)Tx = 0}. If we define each epipolar line as (cid:96) = (cid:96) (cid:96) (cid:96) , then we can we formulate a linear system of equations$$
-
-**수식 15:**
-
-$$R = −α√ e' 2 α√ e' 1 0 (21)  e'2+e'2 e'2+e'2 $$
-
-**수식 16:**
-
-$$H = T−1GRT (23)$$
-
-**수식 17:**
-
-$$H = H H M (25)$$
-
-**수식 18:**
-
-$$where F = [e] M and$$
-
-**수식 19:**
-
-$$F = [e] M = [e] [e] [e] M = [e] [e] F (27)$$
-
-**수식 20:**
-
-$$M = [e] F (28)$$
-
-**수식 21:**
-
-$$the F = [e] M still holds up to scale. Therefore, the more general case of$$
-
-**수식 22:**
-
-$$M = [e] F +evT (29)$$
-
-
 ## 1. Introduction
 
-Previously, we have seen how to compute the intrinsic and extrinsic param- eters of a camera using one or more views using a typical camera calibration procedure or single view metrology. This process culminated in deriving properties about the 3D world from one image. However, in general, 그것은 not possible to recover the entire structure of the 3D world from just one image. This is due to the intrinsic ambiguity of the 3D to the 2D mapping: some information is simply lost. Figure 1: A single picture such as this picture of a man holding up the Leaning Tower of Pisa can result in ambiguous scenarios. Multiple views of the same scene help us resolve these potential ambiguities. For example, in Figure 1, we may be initially fooled to believe that the man is holding up the Leaning Tower of Pisa. Only by careful inspection can we tell that 이것은 not the case and merely an illusion based on the 투영 of different 깊이s onto the 이미지 평면. However, if we were able to view this scene from a completely different angle, this illusion immediately disappears and we would instantly figure out the correct scene layout. 1 Thefocusoftheselecturenotesistoshowhowhavingknowledgeofgeom- etrywhenmultiplecamerasarepresentcanbeextremelyhelpful. Specifically, we will first focus on defining the geometry involved in two viewpoints and then present how this geometry can aid in further understanding the world around us.
+이전에 일반적인 카메라 보정 절차나 단일 뷰 측정학을 사용하여 하나 이상의 시점을 사용하여 카메라의 내부 및 외부 파라미터를 계산하는 방법을 보았습니다. 이 과정은 하나의 이미지로부터 3D 세계에 대한 속성을 유도하는 것으로 정점에 달했습니다. 그러나 일반적으로 단일 이미지로부터 3D 세계의 전체 구조를 복원하는 것은 불가능합니다. 이것은 3D에서 2D 매핑의 고유한 모호성 때문입니다: 일부 정보는 단순히 손실됩니다.
 
+Figure 1에서 보여주듯이, 피사의 사탑을 들고 있는 남자의 사진과 같은 단일 사진은 모호한 시나리오를 초래할 수 있습니다. 동일한 장면의 여러 시점은 이러한 잠재적 모호성을 해결하는 데 도움이 됩니다.
+
+예를 들어, Figure 1에서 우리는 처음에 남자가 피사의 사탑을 들고 있다고 믿도록 속을 수 있습니다. 신중한 검사를 통해서만 이것이 사실이 아니며 단순히 다른 깊이를 이미지 평면에 투영한 것에 기반한 착시라는 것을 알 수 있습니다. 그러나 완전히 다른 각도에서 이 장면을 볼 수 있다면, 이 착시는 즉시 사라지고 즉시 올바른 장면 레이아웃을 파악할 수 있습니다.
+
+이 강의 노트의 초점은 여러 카메라가 있을 때 기하학에 대한 지식을 갖는 것이 얼마나 도움이 될 수 있는지 보여주는 것입니다. 구체적으로, 먼저 두 시점에 관련된 기하학을 정의하는 데 초점을 맞추고, 그런 다음 이 기하학이 우리 주변 세계를 더 잘 이해하는 데 어떻게 도움이 될 수 있는지 제시하겠습니다.
 
 ## 2. Epipolar Geometry
 
-Figure 2: The general setup of 에피폴라 geometry. The gray region is the 에피폴라 plane. The orange line is the baseline, while the two blue lines are the 에피폴라 lines. Often in multiple view geometry, there are interesting relationships be- tween the multiple cameras, a 3D 점, and that point’s 투영s in each of the camera’s 이미지 평면. The geometry that relates the cameras, points in 3D, and the corresponding observations is referred to as the 에피폴라 geometry of a 스테레오 pair. As illustrated in Figure 2, the standard 에피폴라 geometry setup involves two cameras observing the same 3D 점 P, whose 투영 in each of the 이미지 평면s is located at p and p' respectively. 카메라는 centers are located at O and O , and the line between them is referred to as the
+다중 시점 기하학에서 종종 여러 카메라, 3D 점, 그리고 각 카메라의 이미지 평면에서 그 점의 투영 사이에 흥미로운 관계가 있습니다. 카메라, 3D의 점, 그리고 해당 관측값을 관련시키는 기하학은 스테레오 쌍의 **epipolar geometry(에피폴라 기하학)**라고 불립니다.
 
+Figure 2에서 설명하듯이, 표준 에피폴라 기하학 설정은 동일한 3D 점 $P$를 관찰하는 두 카메라를 포함하며, 각 이미지 평면에서의 투영은 각각 $p$와 $p'$에 위치합니다. 카메라 중심은 $O_1$과 $O_2$에 위치하며, 그들 사이의 선은 **baseline(기준선)**이라고 불립니다. 두 카메라 중심과 $P$로 정의된 평면을 **epipolar plane(에피폴라 평면)**이라고 부릅니다. 기준선이 두 이미지 평면과 교차하는 위치는 **epipoles(에피폴)** $e$와 $e'$로 알려져 있습니다. 마지막으로, 에피폴라 평면과 두 이미지 평면의 교차로 정의된 선은 **epipolar lines(에피폴라 선)**로 알려져 있습니다. 에피폴라 선은 이미지 평면에서 각각의 에피폴에서 기준선과 교차하는 속성을 가집니다.
 
-## 1. 2
+Figure 4에서 보여주듯이, 에피폴라 기하학의 흥미로운 경우는 이미지 평면이 서로 평행할 때 발생합니다. 이미지 평면이 서로 평행할 때, 중심 $O_1, O_2$를 연결하는 기준선이 이미지 평면에 평행하기 때문에 에피폴 $e$와 $e'$은 무한대에 위치할 것입니다. 이 경우의 또 다른 중요한 부산물은 에피폴라 선이 각 이미지 평면의 축에 평행하다는 것입니다. 이 경우는 특히 유용하며 이미지 정렬에 대한 후속 섹션에서 더 자세히 다룰 것입니다.
 
-baseline. We call the plane defined by the two camera centers and P the 에피폴라 plane. Thelocationsofwherethebaselineintersectsthetwoimage 2 Figure 3: An example of 에피폴라 lines and their corresponding points drawn on an image pair. planes are known as the the epipoles e and e'. Finally, the lines defined by the intersection of the 에피폴라 plane and the two 이미지 평면s are known as the 에피폴라 lines. The 에피폴라 lines have the property that they intersect the baseline at the respective epipoles in the 이미지 평면. Figure 4: When the two 이미지 평면s are parallel, then the epipoles e and e' are located at infinity. Notice that the 에피폴라 lines are parallel to the u axis of each 이미지 평면. An interesting case of 에피폴라 geometry is shown in Figure 4, which occurs when the 이미지 평면s are parallel to each other. When the 이미지 평면s are parallel to each other, then the epipoles e and e' will be located at infinity since the baseline joining the centers O ,O is parallel to the image
+그러나 실제 상황에서는 3D 위치 $P$의 정확한 위치가 주어지지 않지만, 이미지 평면 중 하나에서 그 투영 $p$를 결정할 수 있습니다. 또한 카메라의 위치, 방향, 카메라 행렬을 알 수 있어야 합니다. 이 지식으로 무엇을 할 수 있을까요? 카메라 위치 $O_1, O_2$와 이미지 점 $p$에 대한 지식으로 에피폴라 평면을 정의할 수 있습니다. 이 에피폴라 평면으로 에피폴라 선을 결정할 수 있습니다. 정의에 의해, 두 번째 이미지로의 $P$의 투영 $p'$는 두 번째 이미지의 에피폴라 선에 위치해야 합니다. 따라서 에피폴라 기하학에 대한 기본 이해는 장면의 3D 구조를 모르는 상태에서 이미지 쌍 사이에 강한 제약을 만들 수 있게 해줍니다.
 
+Figure 5에서 보여주듯이, 이제 시점 간에 점과 에피폴라 선을 매핑하는 원활한 방법을 개발하려고 합니다. 원래 에피폴라 기하학 프레임워크(Figure 5)에서 주어진 설정을 취하면, 3D 점을 각각의 2D 이미지 평면 위치로 매핑하는 카메라 투영 행렬을 $M$과 $M'$로 더 정의하겠습니다. 월드 참조 시스템이 첫 번째 카메라와 연관되어 있고 두 번째 카메라가 먼저 회전 $R$에 의해 그리고 그 다음 평행 이동 $T$에 의해 오프셋된다고 가정합니다. 이것은 카메라 투영 행렬을 다음과 같이 지정합니다:
 
-## 1. 2
-
-planes. Another important byproduct of this case is that the 에피폴라 lines are parallel to an axis of each 이미지 평면. This case is especially useful 3 and will be covered in greater detail in the subsequent section on image rectification. In real world situations, however, we are not given the exact location of the3DlocationP, butcandetermineits투영inoneoftheimageplanes p. We also should be able to know the cameras locations, orientations, and camera matrices. What can we do with this knowledge? With the knowledge of camera locations O ,O and the image point p, 우리는 할 수 있습니다 define the 에피폴라
-
-
-## 1. 2
-
-plane. With this 에피폴라 plane, 우리는 할 수 있습니다 then determine the 에피폴라 lines1. By definition, P’s 투영 into the second image p' must be located on the 에피폴라 line of the second image. Thus, a basic understanding of 에피폴라 geometry allows us to create a strong constraint between image pairs without knowing the 3D structure of the scene. Figure 5: The setup for determining the essential and fundamental matrices, which help map points and 에피폴라 lines across views. Wewillnowtrytodevelopseamlesswaystomappointsand에피폴라lines across views. If we take the setup given in the original 에피폴라 geometry framework(Figure5),thenweshallfurtherdefineM andM' tobethecamera 투영 matrices that map 3D 점s into their respective 2D 이미지 평면 locations. Let us assume that the world reference system is associated to the first camera with the second camera offset first by a 회전 R and then by a 평행 이동 T. This specifies the camera 투영 matrices to be: M = K I 0 M' = K' RT −RTT (1) 1This means that 에피폴라 lines 될 수 있습니다 determined by just knowing the camera centers O ,O and a point in one of the images p
-
-
-## 1. 2
-
-4
-
+$$M = K \begin{bmatrix} I & 0 \end{bmatrix}, \quad M' = K' \begin{bmatrix} R^T & -R^T T \end{bmatrix} \tag{1}$$
 
 ## 3. The Essential Matrix
 
-In the simplest case, let us assume that we have canonical cameras, in which K = K' = I. This reduces Equation 1 to M = I 0 M' = RT −RTT (2) Furthermore, this means that the location of p' in the first camera’s ref- erence system is Rp'+T. Since the vectors Rp'+T and T lie in the 에피폴라 plane, then if we take the cross product of T ×(Rp'+T) = T ×(Rp'), we will get a vector normal to the 에피폴라 plane. This also means that p, which lies in the 에피폴라 plane is normal to T × (Rp'), giving us the constraint that their dot product is zero: pT ·[T ×(Rp')] = 0 (3) From linear algebra, 우리는 할 수 있습니다 introduce a different and compact expression for the cross product: 우리는 할 수 있습니다 represent the cross product between any two vectors a and b as a matrix-vector multiplication:   
+가장 간단한 경우, $K = K' = I$인 **canonical cameras(표준 카메라)**를 가지고 있다고 가정하겠습니다. 이것은 방정식 1을 다음과 같이 축소합니다:
 
+$$M = \begin{bmatrix} I & 0 \end{bmatrix}, \quad M' = \begin{bmatrix} R^T & -R^T T \end{bmatrix} \tag{2}$$
 
-## 0. −a a b
+또한 이것은 첫 번째 카메라의 참조 시스템에서 $p'$의 위치가 $R p' + T$라는 것을 의미합니다. 벡터 $R p' + T$와 $T$가 에피폴라 평면에 있기 때문에, $T \times (R p' + T) = T \times (R p')$의 외적을 취하면 에피폴라 평면에 수직인 벡터를 얻습니다. 이것은 또한 에피폴라 평면에 있는 $p$가 $T \times (R p')$에 수직이라는 것을 의미하며, 이것은 내적이 0이라는 제약을 제공합니다:
 
-z y x a×b =  a z 0 −a xb y = [a × ]b (4) −a a 0 b y x z Combining this expression with Equation 3, 우리는 할 수 있습니다 convert the cross product term into matrix multiplication, giving pT ·[T ](Rp') = 0 × (5) pT[T ]Rp' = 0 × The matrix E = [T ]R is known as the Essential Matrix, creating a com- × pact expression for the 에피폴라 constraint: pTEp' = 0 (6) The Essential matrix is a 3×3 matrix that contains 5 degrees of freedom. It has rank 2 and is singular. The Essential matrix is useful for computing the 에피폴라 lines associated with p and p'. For instance, (cid:96)' = ETp gives the 에피폴라 line in the 이미지 평면ofcamera2. Similarly(cid:96) = Ep' givesthe에피폴라lineintheimageplane of camera 1. Other interesting properties of the essential matrix is that its dot product with the epipoles equate to zero: ETe = Ee' = 0. Because for any point x (other than e) in the image of camera 1, the corresponding 에피폴라 line in the image of camera 2, l' = ETx, contains the epipole e'. Thus e' satisfies e'T(ETx) = (e'TET)x = 0 for all the x, so Ee' = 0. Similarly ETe = 0. 5
+$$p^T \cdot [T \times (R p')] = 0 \tag{3}$$
 
+선형 대수학에서, 외적에 대한 다른 간결한 표현을 도입할 수 있습니다: 임의의 두 벡터 $a$와 $b$ 사이의 외적을 행렬-벡터 곱셈으로 표현할 수 있습니다:
+
+$$a \times b = \begin{bmatrix} 0 & -a_z & a_y \\ a_z & 0 & -a_x \\ -a_y & a_x & 0 \end{bmatrix} \begin{bmatrix} b_x \\ b_y \\ b_z \end{bmatrix} = [a_\times] b \tag{4}$$
+
+이 표현을 방정식 3과 결합하면, 외적 항을 행렬 곱셈으로 변환할 수 있어 다음을 제공합니다:
+
+$$p^T \cdot [T_\times](R p') = 0$$
+
+$$p^T [T_\times] R p' = 0 \tag{5}$$
+
+행렬 $E = [T_\times] R$은 **Essential Matrix(필수 행렬)**로 알려져 있으며, 에피폴라 제약에 대한 간결한 표현을 만듭니다:
+
+$$p^T E p' = 0 \tag{6}$$
+
+Essential 행렬은 5개의 자유도를 포함하는 $3 \times 3$ 행렬입니다. 그것은 rank 2를 가지며 singular입니다.
+
+Essential 행렬은 $p$와 $p'$와 관련된 에피폴라 선을 계산하는 데 유용합니다. 예를 들어, $\ell' = E^T p$는 카메라 2의 이미지 평면에서 에피폴라 선을 제공합니다. 마찬가지로 $\ell = E p'$는 카메라 1의 이미지 평면에서 에피폴라 선을 제공합니다. Essential 행렬의 다른 흥미로운 속성은 에피폴과의 내적이 0과 같다는 것입니다: $E^T e = E e' = 0$. 카메라 1의 이미지에서 $e$가 아닌 임의의 점 $x$에 대해, 카메라 2의 이미지에서 해당 에피폴라 선 $l' = E^T x$는 에피폴 $e'$를 포함합니다. 따라서 $e'$는 모든 $x$에 대해 $e'^T (E^T x) = (e'^T E^T) x = 0$을 만족하므로 $E e' = 0$입니다. 마찬가지로 $E^T e = 0$입니다.
 
 ## 4. The Fundamental Matrix
 
-Although we derived a relationship between p and p' when we have canoni- cal cameras, we should be able to find a more general expression when the camerasarenolongercanonical. Recallthatgivesusthe투영matrices: M = K I 0 M' = K' RT −RTT (7) First, we must define p = K−1p and p' = K'−1p' to be the 투영s of c c P to the corresponding camera images if the cameras were canonical. Recall that in the canonical case: pT[T ]Rp' = 0 (8) c × c By substituting in the values of p and p', we get c c pTK−T[T ]RK'−1p' = 0 (9) × The matrix F = K'−T[T ]RK−1 is known as the Fundamental Matrix, × which acts similar to the Essential matrix from the previous section but also encodes information about the camera matrices K,K' and the relative 평행 이동 T and 회전 R between the cameras. Therefore, 그것은 also usefulincomputingthe에피폴라linesassociatedwithpandp', evenwhenthe camera matrices K,K' and the transformation R,T are unknown. Similar to theEssentialmatrix, wecancomputethe에피폴라lines(cid:96)' = FTpand(cid:96) = Fp' from just the Fundamental matrix and the corresponding points. One main difference between the Fundamental matrix and the Essential matrix is that the Fundamental matrix contains 7 degrees of freedom, compared to the Essential matrix’s 5 degrees of freedom. But how is the Fundamental matrix useful? Like the Essential matrix, if we know the Fundamental matrix, then simply knowing a point in an image gives us an easy constraint (the 에피폴라 line) of the corresponding point in the other image. Therefore, without knowing the actual position of P in 3D space, or any of the extrinsic or intrinsic characteristics of the cameras, 우리는 할 수 있습니다 establish a relationship between any p and p'.
+표준 카메라를 가진 경우 $p$와 $p'$ 사이의 관계를 유도했지만, 카메라가 더 이상 표준이 아닐 때 더 일반적인 표현을 찾을 수 있어야 합니다. 이것은 우리에게 투영 행렬을 제공합니다:
 
+$$M = K \begin{bmatrix} I & 0 \end{bmatrix}, \quad M' = K' \begin{bmatrix} R^T & -R^T T \end{bmatrix} \tag{7}$$
 
-## 4.1. The Eight-Point Algorithm
+먼저, 카메라가 표준이었다면 $P$의 해당 카메라 이미지로의 투영인 $p_c = K^{-1} p$와 $p'_c = K'^{-1} p'$를 정의해야 합니다. 표준 경우에서 다음을 기억하세요:
 
-Still, the assumption that 우리는 할 수 있습니다 have the Fundamental matrix, which is defined by a matrix product of the camera parameters, seems rather large. However, 그것은 possible to estimate the Fundamental matrix given two images ofthesamesceneandwithoutknowingtheextrinsicorintrinsicparametersof thecamera. ThemethodwediscussfordoingsoisknownastheEight-Point 6 Figure 6: Corresponding points are drawn in the same color on each of the respective images. Algorithm, which was proposed by Longuet-Higgins in 1981 and extended by Hartley in 1995. As the title suggests, the Eight-Point Algorithm assumes that a set of at least 8 pairs of corresponding points between two images is available. Each correspondence p = (u ,v ,1) and p' = (u',v',1) gives us the epipo- i i i i i i lar constraint pTFp' = 0. We can reformulate the constraint as follows: i i   F 11 F 12   F 13   F 21   u u' v'u u u'v v v' v u' v' 1 F  = 0 (10) i i i i i i i i i i i i  22  F  23   F  31   F 32 F 33 Since this constraint is a scalar equation, it only constrains one degree of freedom. Since 우리는 할 수 있습니다 only know the Fundamental matrix up to scale, we require eight of these constraints to determine the Fundamental matrix: 7    u u' v'u u' u'v v v' v u' v' 1  F 11       u u u 1 2 3 4 u u u 1 ' 2 ' 3 ' 4 v v v 1 2 3 4 ' ' ' u u u 1 2 3 4 u u u 1 ' 2 ' 3 ' 4 u u u 1 ' 2 ' 3 ' 4 v v v 1 2 3 4 v v v 1 2 3 4 v v v 1 2 3 4 ' ' ' v v v 1 2 3 4 u u u 1 ' 2 ' 3 ' 4 v v v 1 2 3 4 ' ' ' 1 1 1              F F F F 1 1 2 2 3 1        = 0 (11) u u' v'u u' u'v v v' v u' v' 1 22   5 5 5 5 5 5 5 5 5 5 5 5 F  u u' v'u u' u'v v v' v u' v' 1 23   6 6 6 6 6 6 6 6 6 6 6 6 F  u u 7 u u '
+$$p_c^T [T_\times] R p'_c = 0 \tag{8}$$
 
+$p_c$와 $p'_c$의 값을 대입하면 다음을 얻습니다:
 
-## 7. (cid:48)
+$$p^T K^{-T} [T_\times] R K'^{-1} p' = 0 \tag{9}$$
 
-v v 7 ' ' u u 7 u u '
+행렬 $F = K'^{-T} [T_\times] R K^{-1}$은 **Fundamental Matrix(기본 행렬)**로 알려져 있으며, 이전 섹션의 Essential 행렬과 유사하게 작동하지만 카메라 행렬 $K, K'$와 카메라 간의 상대 평행 이동 $T$와 회전 $R$에 대한 정보도 인코딩합니다. 따라서 카메라 행렬 $K, K'$와 변환 $R, T$가 알려지지 않았을 때도 $p$와 $p'$와 관련된 에피폴라 선을 계산하는 데 유용합니다. Essential 행렬과 유사하게, Fundamental 행렬과 해당 점만으로 에피폴라 선 $\ell' = F^T p$와 $\ell = F p'$를 계산할 수 있습니다. Fundamental 행렬과 Essential 행렬 사이의 주요 차이점 중 하나는 Fundamental 행렬이 Essential 행렬의 5개 자유도와 비교하여 7개의 자유도를 포함한다는 것입니다.
 
+그러나 Fundamental 행렬은 어떻게 유용할까요? Essential 행렬과 마찬가지로, Fundamental 행렬을 알고 있다면, 단순히 이미지의 점을 아는 것만으로 다른 이미지에서 해당 점의 쉬운 제약(에피폴라 선)을 얻을 수 있습니다. 따라서 3D 공간에서 $P$의 실제 위치나 카메라의 외부 또는 내부 특성을 모르는 상태에서도 임의의 $p$와 $p'$ 사이의 관계를 설정할 수 있습니다.
 
-## 7. (cid:48)
+### 4.1 The Eight-Point Algorithm
 
-u u '
+여전히 카메라 파라미터의 행렬 곱으로 정의되는 Fundamental 행렬을 가질 수 있다는 가정은 상당히 큰 것처럼 보입니다. 그러나 카메라의 외부 또는 내부 파라미터를 모르는 상태에서 동일한 장면의 두 이미지가 주어지면 Fundamental 행렬을 추정할 수 있습니다. 이를 위해 논의하는 방법은 **Eight-Point Algorithm(8점 알고리즘)**로 알려져 있으며, 1981년 Longuet-Higgins에 의해 제안되고 1995년 Hartley에 의해 확장되었습니다. 제목이 시사하듯이, 8점 알고리즘은 두 이미지 사이에 최소 8쌍의 대응 점 집합이 사용 가능하다고 가정합니다.
 
+각 대응 $p_i = (u_i, v_i, 1)$과 $p'_i = (u'_i, v'_i, 1)$은 우리에게 에피폴라 제약 $p_i^T F p'_i = 0$을 제공합니다. 제약을 다음과 같이 재공식화할 수 있습니다:
 
-## 7. (cid:48)
+$$\begin{bmatrix} u_i u'_i & v'_i u_i & u'_i & u_i v'_i & v_i v'_i & v'_i & u_i & v_i & 1 \end{bmatrix} \begin{bmatrix} F_{11} \\ F_{12} \\ F_{13} \\ F_{21} \\ F_{22} \\ F_{23} \\ F_{31} \\ F_{32} \\ F_{33} \end{bmatrix} = 0 \tag{10}$$
 
-v v 7 v v 7 v v 7 ' ' v v 7 u u '
+이 제약은 스칼라 방정식이므로 하나의 자유도만 제약합니다. Fundamental 행렬을 스케일까지만 알 수 있으므로, Fundamental 행렬을 결정하기 위해 이러한 제약 중 8개가 필요합니다. 이것은 다음과 같이 간결하게 작성할 수 있습니다:
 
+$$W f = 0 \tag{12}$$
 
-## 7. (cid:48)
+여기서 $W$는 $N \geq 8$개의 대응으로부터 파생된 $N \times 9$ 행렬이고 $f$는 우리가 원하는 Fundamental 행렬의 값입니다.
 
-v v 7 ' ' 1 1  F 3 3 1 2  
+실제로는 노이즈 측정의 영향을 줄이기 때문에 8개보다 많은 대응을 사용하고 더 큰 $W$ 행렬을 만드는 것이 종종 더 좋습니다. 이 동차 방정식 시스템의 해는 $W$가 rank-deficient이므로 Singular Value Decomposition (SVD)를 통해 최소 제곱 의미에서 찾을 수 있습니다. SVD는 rank가 full일 수 있는 Fundamental 행렬 $\hat{F}$의 추정값을 제공합니다. 그러나 실제 Fundamental 행렬은 rank 2를 가진다는 것을 알고 있습니다. 따라서 $\hat{F}$의 최선의 rank-2 근사인 해를 찾아야 합니다. 이를 위해 다음 최적화 문제를 해결합니다:
 
+$$\minimize_F \|F - \hat{F}\|_F$$
 
-## 8. 8 8 8 8 8 8 8 8 8 8 8 F
+$$\text{subject to } \det F = 0 \tag{13}$$
 
-33 This 될 수 있습니다 compactly written as Wf = 0 (12) where W is an N ×9 matrix derived from N ≥ 8 correspondences and f is the values of the Fundamental matrix we desire. In practice, it often is better to use more than eight correspondences and createalargerW matrixbecauseitreducestheeffectsofnoisymeasurements. The solution to this system of homogeneous equations 될 수 있습니다 found in the least-squares sense by Singular Value Decomposition (SVD), as W is rank- ˆ deficient. SVD will give us a estimate of the Fundamental matrix F, which may have full rank. However, we know that the true Fundamental matrix has rank 2. Therefore, we should look for a solution that is the best rank-2 ˆ approximation of F. To do so, we solve the following optimization problem: ˆ minimize (cid:107)F −F(cid:107) F F (13) subject to detF = 0 This problem is solved again by SVD, where F ˆ = UΣVT, then the best rank-2 approximation is found by   Σ 0 0 1 F = U  0 Σ 2 0VT (14)
+이 문제는 다시 SVD로 해결되며, $\hat{F} = U \Sigma V^T$이면 최선의 rank-2 근사는 다음에 의해 찾습니다:
 
+$$F = U \begin{bmatrix} \Sigma_1 & 0 & 0 \\ 0 & \Sigma_2 & 0 \\ 0 & 0 & 0 \end{bmatrix} V^T \tag{14}$$
 
-## 4.2. The Normalized Eight-Point Algorithm
+### 4.2 The Normalized Eight-Point Algorithm
 
-In practice, the standard least-squares approach to the Eight-Point Algo- rithm is not precise. Often, the distance between a point p and its corre- i sponding 에피폴라 line (cid:96) = Fp' will be very large, usually on the scale of i 10+ pixels. To reduce this error, 우리는 할 수 있습니다 consider a modified version of the Eight-Point Algorithm called the Normalized Eight-Point Algorithm. 8 The main problem of the standard Eight-Point Algorithm stems from the fact that W is ill-conditioned for SVD. For SVD to work properly, W should have one singular value equal to (or near) zero, with the other singular values being nonzero. However, the correspondences p = (u ,v ,1) will often have i i i extremely large values in the first and second coordinates due to the pixel range of a modern camera (i.e. p = (1832,1023,1)). If the image points i used to construct W are in a relatively small region of the image, then each of the vectors for p and p' will generally be very similar. Consequently, the i i constructed W matrix will have one very large singular value, with the rest relatively small. To solve this problem, we will normalize the points in the image before constructingW. Thismeanswepre-conditionW byapplyingbothatrans- lation and scaling on the image coordinates such that two requirements are satisfied. First, the origin of the new coordinate system should be located at the centroid of the image points (평행 이동). Second, the mean square distance of the transformed image points from the origin should be 2 pix- els (scaling). We can compactly represent this process by a transformation matrices T,T' that translate by the centroid and scale by the scaling factor 2N ( )1/2 ΣN ||x −x¯||2 i=1 i , for each respective image. Afterwards, we normalize the coordinates: q = Tp q' = T'p' (15) i i i i Using the new, normalized coordinates, 우리는 할 수 있습니다 compute the new F using q the regular least-squares Eight Point Algorithm....
+실제로, 8점 알고리즘에 대한 표준 최소 제곱 접근 방식은 정확하지 않습니다. 종종 점 $p_i$와 해당 에피폴라 선 $\ell_i = F p'$ 사이의 거리가 매우 클 수 있으며, 일반적으로 10+ 픽셀 규모입니다. 이 오차를 줄이기 위해 **Normalized Eight-Point Algorithm(정규화된 8점 알고리즘)**이라는 8점 알고리즘의 수정된 버전을 고려할 수 있습니다.
 
+표준 8점 알고리즘의 주요 문제는 $W$가 SVD에 대해 ill-conditioned라는 사실에서 비롯됩니다. SVD가 제대로 작동하려면 $W$는 하나의 singular value가 0(또는 0에 가까움)이고 다른 singular value가 0이 아니어야 합니다. 그러나 대응 $p_i = (u_i, v_i, 1)$은 현대 카메라의 픽셀 범위로 인해 첫 번째와 두 번째 좌표에서 종종 매우 큰 값을 가집니다(예: $p_i = (1832, 1023, 1)$). $W$를 구성하는 데 사용되는 이미지 점이 이미지의 상대적으로 작은 영역에 있다면, $p_i$와 $p'_i$에 대한 벡터는 일반적으로 매우 유사할 것입니다. 결과적으로 구성된 $W$ 행렬은 하나의 매우 큰 singular value와 나머지는 상대적으로 작은 singular value를 가질 것입니다.
+
+이 문제를 해결하기 위해 $W$를 구성하기 전에 이미지의 점을 정규화하겠습니다. 이것은 두 가지 요구 사항이 만족되도록 이미지 좌표에 평행 이동과 스케일링을 모두 적용하여 $W$를 사전 조건화한다는 것을 의미합니다. 첫째, 새로운 좌표계의 원점은 이미지 점의 중심에 위치해야 합니다(평행 이동). 둘째, 원점으로부터 변환된 이미지 점의 평균 제곱 거리는 2 픽셀이어야 합니다(스케일링). 각각의 이미지에 대해 중심값으로 평행 이동하고 스케일링 인자 $\left(\frac{2N}{\sum_{i=1}^N \|x_i - \bar{x}\|^2}\right)^{1/2}$로 스케일링하는 변환 행렬 $T, T'$로 이 프로세스를 간결하게 표현할 수 있습니다.
+
+그 후 좌표를 정규화합니다:
+
+$$q_i = T p_i, \quad q'_i = T' p'_i \tag{15}$$
+
+새로운 정규화된 좌표를 사용하여 일반 최소 제곱 8점 알고리즘을 사용하여 새로운 $F_q$를 계산할 수 있습니다. 그러나 행렬 $F_q$는 정규화된 좌표에 대한 기본 행렬입니다. 일반 좌표 공간에서 사용할 수 있도록 하려면 비정규화해야 하므로 다음을 제공합니다:
+
+$$F = T'^T F_q T \tag{16}$$
+
+궁극적으로, 이 새로운 Fundamental 행렬 $F$는 실제 응용에서 좋은 결과를 제공합니다.
 
 ## 5. Image Rectification
 
-Recall that an interesting case for 에피폴라 geometry occurs when two images are parallel to each other. Let us first compute the Essential matrix E in the case of parallel 이미지 평면s. We can assume that the two cameras have the 9 same K and that there is no relative 회전 between the cameras (R = I). In this case, let us assume that there is only a 평행 이동 along the x axis, giving T = (T ,0,0). This gives x  
+에피폴라 기하학의 흥미로운 경우는 두 이미지가 서로 평행할 때 발생한다는 것을 기억하세요. 먼저 평행 이미지 평면의 경우 Essential 행렬 $E$를 계산하겠습니다. 두 카메라가 동일한 $K$를 가지고 카메라 간에 상대 회전이 없다고 가정할 수 있습니다($R = I$). 이 경우 $x$ 축을 따라 평행 이동만 있다고 가정하여 $T = (T_x, 0, 0)$를 제공합니다. 이것은 다음을 제공합니다:
 
+$$E = [T_\times] R = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -T_x \\ 0 & T_x & 0 \end{bmatrix} \tag{17}$$
 
-## 0. 0 0
+$E$가 알려지면, 이미지 평면의 점과 관련된 에피폴라 선의 방향을 찾을 수 있습니다. 점 $p'$와 관련된 에피폴라 선 $\ell$의 방향을 계산하겠습니다:
 
-E = [T × ]R = 0 0 −T x (17)
+$$\ell = E p' = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -T_x \\ 0 & T_x & 0 \end{bmatrix} \begin{bmatrix} u' \\ v' \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ -T_x \\ T_x v' \end{bmatrix} \tag{18}$$
 
+$\ell$의 방향이 수평임을 볼 수 있으며, 이는 유사한 방식으로 계산되는 $\ell'$의 방향도 마찬가지입니다.
 
-## 0. T 0
+에피폴라 제약 $p^T E p' = 0$을 사용하면 $v = v'$라는 사실에 도달하여 $p$와 $p'$가 동일한 $v$ 좌표를 공유함을 보여줍니다. 결과적으로 대응 점 사이에 매우 직관적인 관계가 존재합니다. 따라서 **rectification(정렬)**, 즉 주어진 두 이미지를 평행하게 만드는 프로세스는 이미지의 대응 점 사이의 관계를 파악할 때 유용해집니다.
 
-x Once E is known, 우리는 할 수 있습니다 find the directions of the 에피폴라 lines associ- ated with points in the 이미지 평면s. Let us compute the direction of the 에피폴라 line (cid:96) associated with point p':     
+이미지 쌍을 정렬하는 것은 두 카메라 행렬 $K, K'$ 또는 그들 사이의 상대 변환 $R, T$에 대한 지식을 요구하지 않습니다. 대신 정규화된 8점 알고리즘에 의해 추정된 Fundamental 행렬을 사용할 수 있습니다. Fundamental 행렬을 얻으면 각 대응 $p_i$와 $p'_i$에 대해 에피폴라 선 $\ell_i$와 $\ell'_i$를 계산할 수 있습니다.
 
+에피폴라 선 집합으로부터 각 이미지의 에피폴 $e$와 $e'$를 추정할 수 있습니다. 이것은 에피폴이 모든 에피폴라 선의 교차점에 있다는 것을 알고 있기 때문입니다. 실제 세계에서는 노이즈 측정으로 인해 모든 에피폴라 선이 단일 점에서 교차하지 않습니다. 따라서 에피폴을 계산하는 것은 모든 에피폴라 선에 점을 피팅하는 최소 제곱 오차를 최소화하여 찾을 수 있습니다. 각 에피폴라 선은 동차 좌표로 표현된 선 위의 모든 점이 집합 $\{x | \ell^T x = 0\}$에 있는 벡터 $\ell$로 표현될 수 있다는 것을 기억하세요. 각 에피폴라 선을 $\ell_i = \begin{bmatrix} \ell_{i,1} & \ell_{i,2} & \ell_{i,3} \end{bmatrix}^T$로 정의하면, 선형 방정식 시스템을 공식화하고 SVD를 사용하여 에피폴 $e$를 찾을 수 있습니다:
 
-## 0. 0 0 u(cid:48) 0
+$$\begin{bmatrix} \ell_1^T \\ \vdots \\ \ell_n^T \end{bmatrix} e = 0 \tag{19}$$
 
-(cid:96) = Ep' = 0 0 −T xv'  = −T x (18)
+에피폴 $e$와 $e'$를 찾은 후, 대부분 수평 축을 따라 무한대의 점이 아니라는 것을 알게 될 것입니다. 만약 그렇다면, 정의에 의해 이미지는 이미 평행할 것입니다. 따라서 이미지를 평행하게 만드는 방법에 대한 통찰을 얻습니다: 에피폴 $e$를 수평 축을 따라 무한대로 매핑하는 호모그래피를 찾을 수 있을까요? 구체적으로, 이것은 에피폴을 무한대로 매핑하기 위해 이미지에 적용할 수 있는 호모그래피 쌍 $H_1, H_2$를 찾고 싶다는 것을 의미합니다. 두 번째 에피폴 $e'$를 수평 축의 무한대에서 점 $(f, 0, 0)$으로 매핑하는 호모그래피 $H_2$를 찾는 것부터 시작하겠습니다.
 
+이 호모그래피에 대한 많은 가능한 선택이 있으므로 합리적인 것을 선택하려고 해야 합니다. 실제로 좋은 결과로 이어지는 조건 중 하나는 호모그래피가 이미지 중심 근처의 점에 평행 이동과 회전을 적용하는 변환처럼 작동한다고 주장하는 것입니다. 그러한 변환을 달성하는 첫 번째 단계는 중심이 동차 좌표에서 $(0, 0, 1)$에 있도록 두 번째 이미지를 평행 이동하는 것입니다. 평행 이동 행렬을 적용하여 이를 수행할 수 있습니다:
 
-## 0. T 0 1 T v(cid:48)
+$$T = \begin{bmatrix} 1 & 0 & -\frac{\text{width}}{2} \\ 0 & 1 & -\frac{\text{height}}{2} \\ 0 & 0 & 1 \end{bmatrix} \tag{20}$$
 
-x x We can see that the direction of (cid:96) is horizontal, as is the direction of (cid:96)', which is computed in a similar manner. Figure 7: The process of image rectification involves computing two homo- graphies that 우리는 할 수 있습니다 apply to a pair of images to make them parallel. If we use the 에피폴라 constraint pTEp' = 0, then we arrive at the fact that v = v', demonstrating that p and p' share the same v-coordinate. Con- sequently, there exists a very straightforward relationship between the cor- responding points. Therefore, rectification, or the process of making any two given images parallel, becomes useful when discerning the relationships between corresponding points in images. 10 Figure 8: The rectification problem setup: we compute two homographies that 우리는 할 수 있습니다 apply to the 이미지 평면s to make the resulting planes parallel. Rectifying a pair of images does not require knowledge of the two camera matricesK,K' ortherelativetransformationR,T betweenthem. Instead,우리는 할 수 있습니다 use the Fundamental matrix estimated by the Normalized Eight Point Algorithm. Upon getting the Fundamental matrix, 우리는 할 수 있습니다 compute the 에피폴라 lines (cid:96) and (cid:96)' for each correspondence p and p'. i i i i Fromthesetof에피폴라lines,wecanthenestimatetheepipoleseande' of each image. This is because we know that the epipole lies in the intersection of all the 에피폴라 lines. In the real world, due to noisy measurements, all the 에피폴라 lines will not intersect in a single point. Therefore, computing the epipole 될 수 있습니다 found by minimizing the least squared error of 피팅 a point to all the 에피폴라 lines. Recall that each 에피폴라 line 될 수 있습니다 represented as a vector (cid:96) such that all points on the line (represented in 동차 좌표) are in the set {x|(cid:96)Tx = 0}. If we define each 에피폴라 line as T (cid:96) = (cid:96) (cid:96) (cid:96) , then 우리는 할 수 있습니다 we formulate a linear system of equations i i,1 i,2 i,3 and solve using SVD to find the epipole e:   (cid:96)T 1 ....
+평행 이동을 적용한 후, 에피폴을 어떤 점 $(f, 0, 1)$에서 수평 축에 배치하기 위해 회전을 적용합니다. 평행 이동된 에피폴 $T e'$이 동차 좌표 $(e'_1, e'_2, 1)$에 위치한다면, 적용된 회전은 다음과 같습니다:
 
+$$R = \begin{bmatrix} \frac{\alpha e'_1}{\sqrt{e'^2_1 + e'^2_2}} & \frac{\alpha e'_2}{\sqrt{e'^2_1 + e'^2_2}} & 0 \\ -\frac{\alpha e'_2}{\sqrt{e'^2_1 + e'^2_2}} & \frac{\alpha e'_1}{\sqrt{e'^2_1 + e'^2_2}} & 0 \\ 0 & 0 & 1 \end{bmatrix} \tag{21}$$
 
-## 1. 2
+여기서 $e'_1 \geq 0$이면 $\alpha = 1$이고 그렇지 않으면 $\alpha = -1$입니다. 이 회전을 적용한 후, $(f, 0, 1)$에 있는 임의의 점이 수평 축의 무한대에서 점 $(f, 0, 0)$으로 가져오는 것은 다음 변환을 적용하는 것만 필요합니다:
 
-to map the epipoles to infinity. Let us start by finding a homography H that 2 11 mapsthesecondepipolee' toapointonthehorizontalaxisatinfinity(f,0,0). Since there are many possible choices for this homography, we should try to choose something reasonable. One condition that leads to good results in practice is to insist that the homography acts like a transformation that applies a 평행 이동 and 회전 on points near the center of the image. Thefirststepinachievingsuchatransformationistotranslatethesecond image such that the center is at (0,0,1) in 동차 좌표. We can do so by applying the 평행 이동 matrix 
+$$G = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ -\frac{1}{f} & 0 & 1 \end{bmatrix} \tag{22}$$
 
+이 변환을 적용한 후, 마침내 무한대에 에피폴을 가지므로 일반 이미지 공간으로 다시 평행 이동할 수 있습니다. 따라서 두 번째 이미지를 정렬하기 위해 적용하는 호모그래피 $H_2$는 다음과 같습니다:
 
-## 1. 0
+$$H_2 = T^{-1} G R T \tag{23}$$
 
-−width 2 T = 0 1 −height  (20) 2
+이제 유효한 $H_2$를 찾았으므로, 첫 번째 이미지에 대한 매칭 호모그래피 $H_1$을 찾아야 합니다. 이미지의 대응 점 사이의 제곱 거리 합을 최소화하는 변환 $H_1$을 찾아서 이를 수행합니다:
 
+$$\arg \min_{H_1} \sum_i \|H_1 p_i - H_2 p'_i\|^2 \tag{24}$$
 
-## 0. 0 1
+유도는 이 수업의 범위를 벗어나지만, 실제로 매칭 $H_1$이 다음 형식임을 증명할 수 있습니다:
 
-After applying the 평행 이동, we apply a 회전 to place the epipole on the horizontal axis at some point (f,0,1). If the translated epipole Te' is located at 동차 좌표 (e',e',1), then the 회전 applied is
+$$H_1 = H_A H_2 M \tag{25}$$
 
+여기서 $F = [e]_\times M$이고
 
-## 1. 2
+$$H_A = \begin{bmatrix} a_1 & a_2 & a_3 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} \tag{26}$$
 
- α√ e' 1 α√ e' 2 0  e'2+e'2 e'2+e'2  1 2 1 2  R = −α√ e' 2 α√ e' 1 0 (21)  e'2+e'2 e'2+e'2 
+$(a_1, a_2, a_3)$는 나중에 계산될 특정 벡터 $a$의 요소를 구성합니다.
 
+먼저 $M$이 무엇인지 알아야 합니다. 임의의 $3 \times 3$ skew-symmetric 행렬 $A$의 흥미로운 속성은 스케일까지 $A = A^3$라는 것입니다. 임의의 외적 행렬 $[e]_\times$는 skew-symmetric이고 Fundamental 행렬 $F$를 스케일까지만 알 수 있기 때문에:
 
-## 0. 0 1
+$$F = [e]_\times M = [e]_\times [e]_\times [e]_\times M = [e]_\times [e]_\times F \tag{27}$$
 
-where α = 1 if e' ≥ 0 and α = −1 otherwise. After applying this 회전, 1 notice that given any point at (f,0,1), bringing it to a point at infinity on the horizontal axis (f,0,0) only requires applying a transformation  
+오른쪽 항을 그룹화하면 다음을 찾을 수 있습니다:
 
+$$M = [e]_\times F \tag{28}$$
 
-## 1. 0 0
+$M$의 열에 $e$의 임의의 스칼라 배수가 추가되면, $F = [e]_\times M$은 여전히 스케일까지 유지됩니다. 따라서 $M$을 정의하는 더 일반적인 경우는 다음과 같습니다:
 
-G =  0 1 0  (22) −1 0 1 f After applying this transformation, we finally have an epipole at infinity, so 우리는 할 수 있습니다 translate back to the regular image space. Thus, the homography H 2 that we apply on the second image to rectify 그것은 H = T−1GRT (23) 2 Now that a valid H is found, we need to find a 매칭 homography H
+$$M = [e]_\times F + e v^T \tag{29}$$
 
+어떤 벡터 $v$에 대해. 실제로, $v^T = \begin{bmatrix} 1 & 1 & 1 \end{bmatrix}$로 설정하여 $M$을 정의하는 것이 매우 잘 작동합니다.
 
-## 2. 1
+마지막으로 $H_1$을 해결하기 위해 $H_A$의 $a$ 값을 계산해야 합니다. 방정식 24에서 제시된 문제를 최소화하는 $H_1, H_2$를 찾고 싶다는 것을 기억하세요. $H_2$와 $M$의 값을 이미 알고 있으므로, $\hat{p}_i = H_2 M p_i$와 $\hat{p}'_i = H_2 p'_i$를 대입하고 최소화 문제는 다음과 같이 됩니다:
 
-for the first image. We do so by finding a transformation H that minimizes 1 the sum of square distances between the corresponding points of the images (cid:88) argmin (cid:107)H p −H p'(cid:107)2 (24)
+$$\arg \min_{H_A} \sum_i \|H_A \hat{p}_i - \hat{p}'_i\|^2 \tag{30}$$
 
+특히, $\hat{p}_i = (\hat{x}_i, \hat{y}_i, 1)$과 $\hat{p}'_i = (\hat{x}'_i, \hat{y}'_i, 1)$로 설정하면, 최소화 문제는 다음으로 대체될 수 있습니다:
 
-## 1. i 2 i
+$$\arg \min_a \sum_i (a_1 \hat{x}_i + a_2 \hat{y}_i + a_3 - \hat{x}'_i)^2 + (\hat{y}_i - \hat{y}'_i)^2 \tag{31}$$
 
-H1 i 12 Although the derivation2 is outside the scope of this class, 우리는 할 수 있습니다 actually prove that the 매칭 H is of the form: 1 H = H H M (25)
+$\hat{y}_i - \hat{y}'_i$가 상수 값이므로, 최소화 문제는 더욱 다음과 같이 축소됩니다:
 
+$$\arg \min_a \sum_i (a_1 \hat{x}_i + a_2 \hat{y}_i + a_3 - \hat{x}'_i)^2 \tag{32}$$
 
-## 1. A 2
+궁극적으로 이것은 $a$에 대한 최소 제곱 문제 $W a = b$를 해결하는 것으로 축소되며, 여기서
 
-where F = [e] M and ×   a a a
+$$W = \begin{bmatrix} \hat{x}_1 & \hat{y}_1 & 1 \\ \vdots & \vdots & \vdots \\ \hat{x}_n & \hat{y}_n & 1 \end{bmatrix}, \quad b = \begin{bmatrix} \hat{x}'_1 \\ \vdots \\ \hat{x}'_n \end{bmatrix} \tag{33}$$
 
+$a$를 계산한 후, $H_A$를 계산하고 마지막으로 $H_1$을 계산할 수 있습니다. 따라서 몇 가지 대응이 주어지면 임의의 이미지 쌍을 정렬하기 위해 호모그래피 $H_1, H_2$를 생성했습니다.
 
-## 1. 2 3
-
-H A = 0 1 0 (26)
-
-
-## 0. 0 1
-
-with (a ,a ,a ) composing the elements of a certain vector a that will be
-
-
-## 1. 2 3
-
-computed later. First, we need to know what M is. An interesting property of any 3×3 skew-symmetric matrix A is A = A3 up to scale. Because any cross product matrix [e] is skew-symmetric and that 우리는 할 수 있습니다 only know the Fundamental × matrix F up to scale, then F = [e] M = [e] [e] [e] M = [e] [e] F (27) × × × × × × By grouping the right terms, 우리는 할 수 있습니다 find that M = [e] F (28) × Notice that if the columns of M were added by any scalar multiple of e, then the F = [e] M still holds up to scale. Therefore, the more general case of × defining M is M = [e] F +evT (29) × for some vector v. In practice, defining M by setting vT = 1 1 1 works very well. TofinallysolveforH ,weneedtocomputetheavaluesofH . Recallthat
-
-
-## 1. A
-
-wewanttofindaH ,H tominimizetheproblemposedinEquation24. Since
-
-
-## 1. 2
-
-we already know the value of H and M, then 우리는 할 수 있습니다 substitute pˆ = H Mp
-
-
-## 2. i 2 i
-
-and pˆ' = H p' and the minimization problem becomes i 2 i (cid:88) argmin (cid:107)H pˆ −pˆ'(cid:107)2 (30) A i i HA i In particular, if we let pˆ = (xˆ ,yˆ,1) and pˆ' = (xˆ',yˆ',1), then the mini- i i i i i i mization problem 될 수 있습니다 replaced by: (cid:88) argmin (a xˆ +a yˆ +a −xˆ')2 +(yˆ −yˆ')2 (31)
-
-
-## 1. i 2 i 3 i i i
-
-a i 2If you are interested in the details, please see Chapter 11 of Hartley & Zisserman’s textbook Multiple View Geometry 13 Since yˆ −yˆ' is a constant value, the minimization problem further reduces i i to (cid:88) argmin (a xˆ +a yˆ +a −xˆ')2 (32)
-
-
-## 1. i 2 i 3 i
-
-a i Ultimately, this breaks down into solving a least-squares problem Wa = b for a where     xˆ yˆ 1 xˆ'
-
-
-## 1. 1 1
-
-. . W =  . .  b =  . .  (33)     xˆ yˆ 1 xˆ' n n n After computing a, 우리는 할 수 있습니다 compute H and finally H . Thus, we gen- A 1 erated the homographies H ,H to rectify any image pair given a few corre-
-
-
-## 1. 2
-
-spondences. 14
-
-
-## 요약
-
-이 강의에서는 에피폴라 기하학의 주요 개념과 방법론을 다뤘습니다.
+---
 
 ## 참고 자료
 
