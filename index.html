@@ -3346,6 +3346,7 @@ body.layout--home {
     const navLinks = document.querySelectorAll('.sidebar-nav__link');
     const sections = [];
     
+    // Build sections array
     navLinks.forEach(function(link) {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
@@ -3354,6 +3355,30 @@ body.layout--home {
           sections.push({ id: href.substring(1), element: section, link: link });
         }
       }
+    });
+
+    // Add click handlers for smooth scrolling
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const targetId = this.getAttribute('href');
+        if (!targetId || !targetId.startsWith('#')) return;
+        
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          const elementRect = targetSection.getBoundingClientRect();
+          const absoluteElementTop = elementRect.top + window.pageYOffset;
+          const offset = 80;
+          const scrollTarget = absoluteElementTop - offset;
+          
+          window.scrollTo({
+            top: Math.max(0, scrollTarget),
+            behavior: 'smooth'
+          });
+        }
+      });
     });
 
     let sidebarScrollTimeout = null;
@@ -3392,24 +3417,6 @@ body.layout--home {
 
     window.addEventListener('scroll', throttledUpdateActiveNav, { passive: true });
     updateActiveNav();
-    
-    // Smooth scroll for navigation links
-    navLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          // Use a more mobile-friendly scroll behavior
-          const elementTop = targetSection.offsetTop;
-          const offset = 80; // Account for sticky nav
-          window.scrollTo({
-            top: elementTop - offset,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
   });
 
   // Floating Navigation (Mobile)
@@ -3436,16 +3443,23 @@ body.layout--home {
       floatingLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
           e.preventDefault();
+          e.stopPropagation();
+          
           const targetId = this.getAttribute('href');
+          if (!targetId || !targetId.startsWith('#')) return;
+          
           const targetSection = document.querySelector(targetId);
           if (targetSection) {
             floatingBtn.classList.remove('active');
             floatingMenu.classList.remove('show');
-            // Use window.scrollTo instead of scrollIntoView for better mobile control
-            const elementTop = targetSection.offsetTop;
+            
+            const elementRect = targetSection.getBoundingClientRect();
+            const absoluteElementTop = elementRect.top + window.pageYOffset;
             const offset = 80;
+            const scrollTarget = absoluteElementTop - offset;
+            
             window.scrollTo({
-              top: elementTop - offset,
+              top: Math.max(0, scrollTarget),
               behavior: 'smooth'
             });
           }
@@ -3509,6 +3523,7 @@ body.layout--home {
     const topNavLinks = document.querySelectorAll('.top-nav__link');
     const topSections = [];
     
+    // Build sections array
     topNavLinks.forEach(function(link) {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
@@ -3517,30 +3532,36 @@ body.layout--home {
           topSections.push({ element: section, link: link });
         }
       }
-      
-      // Smooth scroll
+    });
+    
+    // Add click handlers for smooth scrolling
+    topNavLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
+        
         const targetId = this.getAttribute('href');
+        if (!targetId || !targetId.startsWith('#')) return;
+        
         const targetSection = document.querySelector(targetId);
         if (targetSection) {
-          // Use window.scrollTo for better mobile control
-          const elementTop = targetSection.offsetTop;
-          const offset = 80; // Account for sticky nav
+          // Calculate scroll position accounting for sticky nav
+          const elementRect = targetSection.getBoundingClientRect();
+          const absoluteElementTop = elementRect.top + window.pageYOffset;
+          const offset = 80; // Account for sticky nav height
+          const scrollTarget = absoluteElementTop - offset;
+          
           window.scrollTo({
-            top: elementTop - offset,
+            top: Math.max(0, scrollTarget),
             behavior: 'smooth'
           });
         }
       });
     });
 
-    let isScrolling = false;
     let scrollTimeout = null;
     
     function updateTopActiveNav() {
-      if (isScrolling) return; // Prevent updates during programmatic scrolling
-      
       const scrollPosition = window.scrollY + 150;
       
       let currentSection = null;
@@ -3559,15 +3580,13 @@ body.layout--home {
       
       if (currentSection) {
         currentSection.link.classList.add('active');
-        // Only scroll nav link if it's not visible, and use scrollLeft instead of scrollIntoView
+        // Scroll nav link into view if needed
         const navList = currentSection.link.closest('.top-nav__list');
         if (navList) {
           const linkRect = currentSection.link.getBoundingClientRect();
           const navRect = navList.getBoundingClientRect();
           
-          // Check if link is outside visible area
           if (linkRect.left < navRect.left || linkRect.right > navRect.right) {
-            // Use scrollLeft to scroll only the nav, not the page
             const scrollLeft = currentSection.link.offsetLeft - (navList.offsetWidth / 2) + (currentSection.link.offsetWidth / 2);
             navList.scrollTo({
               left: Math.max(0, scrollLeft),
@@ -3578,7 +3597,6 @@ body.layout--home {
       }
     }
     
-    // Throttle scroll events to prevent excessive updates
     function throttledUpdateTopActiveNav() {
       if (scrollTimeout) {
         return;
@@ -3591,16 +3609,6 @@ body.layout--home {
 
     window.addEventListener('scroll', throttledUpdateTopActiveNav, { passive: true });
     updateTopActiveNav();
-    
-    // Mark when programmatic scrolling is happening
-    topNavLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        isScrolling = true;
-        setTimeout(function() {
-          isScrolling = false;
-        }, 1000);
-      });
-    });
   });
 
   // Tab Switching
