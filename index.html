@@ -6,2572 +6,8 @@ show_posts: false
 full_width: true
 ---
 
-<style>
-:root {
-  --resume-bg: #f8f6f4;
-  --resume-primary: #b07d67;
-  --resume-accent: #1f2b34;
-  --resume-muted: #6e7c85;
-  --resume-hero-gradient: linear-gradient(135deg, rgba(23, 27, 54, 0.95) 0%, rgba(84, 39, 68, 0.9) 55%, rgba(176, 125, 103, 0.85) 100%);
-  --resume-glass: rgba(255, 255, 255, 0.82);
-  --resume-border: rgba(32, 52, 61, 0.08);
-}
+<link rel="stylesheet" href="{{ '/assets/css/resume.css' | relative_url }}">
 
-html {
-  overflow-x: hidden !important;
-  max-width: 100vw;
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-body {
-  overflow-x: hidden !important;
-  max-width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-body.layout--home {
-  background: radial-gradient(140% 140% at 0% 0%, #192438 0%, #0f1724 60%, #070b12 100%);
-  overflow-x: hidden !important;
-  overflow-y: auto;
-  max-width: 100vw;
-  position: relative;
-}
-
-/* Force hide Summary section if it exists */
-#summary,
-.experience-summary-banner,
-[id*="summary"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
-.layout--home .page,
-.layout--home .page__content {
-  background: transparent;
-  overflow-x: hidden !important;
-  overflow-y: visible;
-  max-width: 100vw;
-  width: 100%;
-}
-
-
-/* Scroll Animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes drawLine {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.scroll-animate {
-  opacity: 0;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.scroll-animate.animated {
-  opacity: 1;
-}
-
-.scroll-animate.fade-in-up {
-  transform: translateY(30px);
-}
-
-.scroll-animate.fade-in-up.animated {
-  transform: translateY(0);
-}
-
-.scroll-animate.fade-in-left {
-  transform: translateX(-30px);
-}
-
-.scroll-animate.fade-in-left.animated {
-  transform: translateX(0);
-}
-
-.scroll-animate.fade-in-right {
-  transform: translateX(30px);
-}
-
-.scroll-animate.fade-in-right.animated {
-  transform: translateX(0);
-}
-
-.resume {
-  background: linear-gradient(180deg, rgba(255, 253, 251, 0.98), rgba(247, 245, 242, 0.95));
-  border-radius: 0;
-  box-shadow: 0 25px 65px rgba(10, 10, 20, 0.18);
-  overflow-x: hidden !important;
-  overflow-y: visible;
-  margin: 0;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  width: 100%;
-  max-width: 100vw;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid var(--resume-border);
-  position: relative;
-  isolation: isolate;
-  box-sizing: border-box;
-}
-
-.resume::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 10% 20%, rgba(176, 125, 103, 0.08), transparent 55%);
-  z-index: -1;
-}
-
-/* Override main container max-width for full width */
-.layout--page.full-width .page__content,
-.layout--page .page__content {
-  max-width: 100% !important;
-  width: 100% !important;
-}
-
-.layout--page.full-width .page__content .main,
-.layout--page .page__content .main {
-  max-width: 100% !important;
-  width: 100% !important;
-  padding: 0 clamp(1rem, 3vw, 3rem);
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.layout--home .page__content .main {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.layout--page .page__content > .resume {
-  max-width: 100%;
-  width: 100%;
-  margin: 0;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  border-radius: 0;
-}
-
-/* Keep header visible - ensure header is not hidden */
-.header {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  z-index: 1000 !important;
-  width: 100% !important;
-}
-
-.header .main {
-  display: flex !important;
-  visibility: visible !important;
-}
-
-.header__title {
-  display: flex !important;
-  visibility: visible !important;
-  align-items: center !important;
-}
-
-/* Ensure search button and menu toggle are visible on small screens */
-.header__title > .search-button {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-.header__title > .menu-toggle {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Navigation menu - visible on large screens */
-.navigation {
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-.navigation ul {
-  display: flex !important;
-  visibility: visible !important;
-  flex-direction: row !important;
-  align-items: center !important;
-}
-
-.navigation__item {
-  display: block !important;
-  visibility: visible !important;
-}
-
-.navigation__item a {
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Large screens: show navigation, hide mobile buttons */
-@media (min-width: 1024px) {
-  .navigation {
-    display: block !important;
-  }
-  
-  .header__title > .search-button {
-    display: none !important;
-  }
-  
-  .header__title > .menu-toggle {
-    display: none !important;
-  }
-}
-
-/* Small screens: hide navigation, show mobile buttons */
-@media (max-width: 1023px) {
-  .navigation {
-    display: none !important;
-  }
-  
-  .navigation.navigation--open {
-    display: block !important;
-    /* Adjust position to not cover hamburger button */
-    top: calc(5rem + 0.5rem) !important; /* header-height + spacing */
-    margin-top: 0.5rem !important;
-  }
-  
-  .header__title > .search-button {
-    display: flex !important;
-  }
-  
-  .header__title > .menu-toggle {
-    display: flex !important;
-    position: relative !important;
-    z-index: 1001 !important; /* Higher than navigation menu */
-  }
-  
-  /* Ensure navigation menu doesn't cover hamburger button */
-  .navigation.navigation--open {
-    top: calc(5rem + 1rem) !important; /* header-height (5rem) + extra spacing */
-  }
-}
-
-/* Remove extra whitespace below header but keep header visible */
-/* Only target home layout to avoid affecting other pages */
-.layout--home .page__content {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.layout--home .page__main {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Ensure resume starts immediately after header */
-.layout--home .resume {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.layout--home .resume__hero {
-  margin-top: 0 !important;
-  padding-top: clamp(2rem, 5vw, 4rem) !important;
-}
-
-@media (min-width: 1400px) {
-  .layout--page .page__content .main {
-    padding-left: clamp(2rem, 5vw, 5rem);
-    padding-right: clamp(2rem, 5vw, 5rem);
-  }
-  
-  .resume__body {
-    padding-left: clamp(2rem, 5vw, 5rem);
-    padding-right: clamp(2rem, 5vw, 5rem);
-  }
-  
-  .resume__hero {
-    padding-left: clamp(3rem, 6vw, 6rem);
-    padding-right: clamp(3rem, 6vw, 6rem);
-  }
-}
-
-@media (min-width: 1920px) {
-  .layout--page .page__content .main {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-  
-  .resume__body {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-  
-  .resume__hero {
-    padding-left: 7rem;
-    padding-right: 7rem;
-  }
-}
-
-.resume__hero {
-  background: var(--resume-hero-gradient);
-  color: #fff;
-  padding: clamp(1.25rem, 3vw, 3rem);
-  padding-top: clamp(1.25rem, 3vw, 3rem);
-  margin-top: 0 !important;
-  display: grid;
-  grid-template-columns: minmax(min(220px, 45%), 280px) 1fr;
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-  box-shadow: 0 30px 80px rgba(5, 5, 12, 0.45);
-  isolation: isolate;
-}
-
-@media (min-width: 1400px) {
-  .resume__hero {
-    padding: 3rem 4rem;
-    gap: 3rem;
-    grid-template-columns: minmax(240px, 320px) 1fr;
-  }
-}
-
-.resume__hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.1;
-  pointer-events: none;
-}
-
-.resume__hero::after {
-  content: '';
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
-  top: -120px;
-  right: -80px;
-  filter: blur(10px);
-  z-index: 0;
-  opacity: 0.8;
-  max-width: calc(100% + 80px);
-  pointer-events: none;
-}
-
-.resume__hero img {
-  width: 190px;
-  height: 190px;
-  border-radius: 32px;
-  object-fit: cover;
-  border: 6px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-  position: relative;
-  z-index: 1;
-}
-
-.resume__meta {
-  display: grid;
-  gap: 0.7rem;
-  position: relative;
-  z-index: 1;
-  max-width: 760px;
-  text-align: center;
-  justify-items: center;
-  margin: 0 auto;
-}
-
-.resume__meta h1 {
-  margin: 0;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: #fff;
-}
-
-.resume__meta h2 {
-  margin: 0;
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.4;
-}
-
-.resume__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  width: fit-content;
-}
-
-.resume__subtitle {
-  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
-  margin: 0;
-  text-align: center;
-}
-
-.resume__overview {
-  margin: 0.25rem 0 0;
-  font-size: clamp(0.75rem, 1.6vw, 0.9rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 640px;
-  text-align: center;
-}
-
-.resume__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 0.75rem;
-}
-
-.resume__action {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.4rem;
-  border-radius: 999px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #fff;
-}
-
-.resume__action--primary {
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.resume__action--primary:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.resume__action--ghost {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.resume__action--ghost:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.resume__stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.6rem;
-  margin-top: 0.9rem;
-  width: 100%;
-}
-
-.resume__stat {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 0.85rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 30px rgba(5, 5, 12, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  min-height: 95px;
-}
-
-.resume__stat-value {
-  display: block;
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.resume__stat-label {
-  display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.015em;
-  text-transform: none;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.35;
-}
-
-.resume__meta p {
-  margin: 0.8rem 0 0 0;
-  font-size: clamp(0.75rem, 1.6vw, 0.9rem);
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 600px;
-}
-
-.resume__contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.1rem;
-  justify-content: center;
-}
-
-.resume__contact a {
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.75rem;
-  padding: 0.45rem 0.9rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.resume__contact a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.resume__body {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  padding: clamp(1.5rem, 4vw, 3rem);
-  max-width: 1400px;
-  margin: 0 auto;
-  overflow-x: hidden !important;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.resume__spotlight {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: clamp(1rem, 3vw, 1.75rem);
-  padding: clamp(1.5rem, 4vw, 3rem);
-  padding-top: clamp(1rem, 3vw, 2rem);
-  padding-bottom: clamp(0.5rem, 2vw, 1.5rem);
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-.resume__spotlight-heading {
-  padding: clamp(1.5rem, 4vw, 3rem);
-  padding-bottom: clamp(0.5rem, 2vw, 1rem);
-  text-align: center;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.resume__spotlight-title {
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--resume-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.resume__spotlight-subtitle {
-  margin: 0.4rem auto 0;
-  max-width: 720px;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--resume-muted);
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.spotlight-card {
-  background: var(--resume-glass);
-  border: 1px solid rgba(176, 125, 103, 0.25);
-  border-radius: 24px;
-  padding: 1.75rem;
-  box-shadow: 0 20px 45px rgba(10, 10, 30, 0.15);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(14px);
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.spotlight-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.15), transparent 65%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.spotlight-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 60px rgba(10, 10, 30, 0.22);
-}
-
-.spotlight-card:hover::after {
-  opacity: 1;
-}
-
-.spotlight-card__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  background: rgba(176, 125, 103, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  color: var(--resume-primary);
-  font-size: 1.5rem;
-}
-
-.spotlight-card h4 {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--resume-accent);
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.spotlight-card p {
-  margin: 0.85rem 0 0;
-  color: #4f5b63;
-  line-height: 1.6;
-  font-size: 0.75rem;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.spotlight-card__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 1rem;
-}
-
-.spotlight-tag {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: rgba(32, 52, 61, 0.08);
-  border-radius: 999px;
-  padding: 0.3rem 0.65rem;
-  font-weight: 700;
-  color: var(--resume-accent);
-}
-
-@media (min-width: 1400px) {
-  .resume__body {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
-    padding: 3rem 4rem;
-  }
-}
-
-.resume__sidebar {
-  display: none;
-}
-
-/* Sidebar Navigation Shortcuts */
-.sidebar-nav {
-  background: var(--resume-glass);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  border: 1px solid var(--resume-border);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  padding: 1.25rem;
-  margin-bottom: 0;
-}
-
-.sidebar-nav__title {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--resume-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.75rem;
-}
-
-.sidebar-nav__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.sidebar-nav__item {
-  margin: 0;
-}
-
-.sidebar-nav__link {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  color: var(--resume-accent);
-  text-decoration: none;
-  font-size: 0.8rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  background: transparent;
-}
-
-.sidebar-nav__link:hover {
-  background: rgba(176, 125, 103, 0.1);
-  color: var(--resume-primary);
-  transform: translateX(4px);
-}
-
-.sidebar-nav__link.active {
-  background: rgba(176, 125, 103, 0.15);
-  color: var(--resume-primary);
-  font-weight: 600;
-}
-
-.sidebar-nav__link i {
-  font-size: 0.85rem;
-  width: 1.2rem;
-  text-align: center;
-  opacity: 0.7;
-}
-
-.sidebar-nav__link:hover i,
-.sidebar-nav__link.active i {
-  opacity: 1;
-}
-
-/* Floating Navigation Button (Mobile) - Hidden, using top nav instead */
-.floating-nav {
-  display: none !important;
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 1000;
-}
-
-.floating-nav__btn {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--resume-primary), #8b5a42);
-  border: none;
-  box-shadow: 0 4px 20px rgba(176, 125, 103, 0.4);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  color: #fff;
-  font-size: 1.4rem;
-}
-
-.floating-nav__btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(176, 125, 103, 0.5);
-}
-
-.floating-nav__btn.active {
-  background: linear-gradient(135deg, #8b5a42, var(--resume-primary));
-}
-
-.floating-nav__btn.active i::before {
-  content: "\f00d";
-}
-
-.floating-nav__menu {
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  background: var(--resume-glass);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  border: 1px solid var(--resume-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  padding: 1rem;
-  min-width: 180px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.floating-nav__menu.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.floating-nav__menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.floating-nav__menu li {
-  margin: 0;
-}
-
-.floating-nav__menu a {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.75rem;
-  border-radius: 8px;
-  color: var(--resume-accent);
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.floating-nav__menu a:hover,
-.floating-nav__menu a.active {
-  background: rgba(176, 125, 103, 0.15);
-  color: var(--resume-primary);
-}
-
-.floating-nav__menu a i {
-  width: 1.2rem;
-  text-align: center;
-  opacity: 0.7;
-}
-
-.floating-nav__menu a:hover i,
-.floating-nav__menu a.active i {
-  opacity: 1;
-}
-
-
-/* Top Horizontal Navigation */
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--resume-glass);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--resume-border);
-  padding: 0.75rem 1.5rem;
-  margin-bottom: 1rem;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.top-nav__list {
-  display: flex;
-  gap: 0.25rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100%;
-}
-
-.top-nav__list::-webkit-scrollbar {
-  display: none;
-}
-
-.top-nav__link {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 20px;
-  color: var(--resume-accent);
-  text-decoration: none;
-  font-size: 0.75rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  background: transparent;
-}
-
-.top-nav__link:hover {
-  background: rgba(176, 125, 103, 0.1);
-  color: var(--resume-primary);
-}
-
-.top-nav__link.active {
-  background: var(--resume-primary);
-  color: #fff;
-}
-
-.top-nav__link i {
-  font-size: 0.7rem;
-}
-
-
-/* Tab Navigation */
-.tab-navigation {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid var(--resume-border);
-  padding-bottom: 0;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.tab-button {
-  padding: 0.75rem 1.5rem;
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid transparent;
-  color: var(--resume-muted);
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  bottom: -2px;
-}
-
-.tab-button:hover {
-  color: var(--resume-primary);
-  background: rgba(176, 125, 103, 0.05);
-}
-
-.tab-button.active {
-  color: var(--resume-primary);
-  border-bottom-color: var(--resume-primary);
-  background: rgba(176, 125, 103, 0.08);
-}
-
-.tab-content {
-  display: none;
-  animation: fadeIn 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-  min-height: 200px;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.resume-card {
-  border: 1px solid rgba(32, 52, 61, 0.08);
-  border-radius: 12px;
-  padding: 1.5rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.resume-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.resume-card h3 {
-  margin-top: 0;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--resume-muted);
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.resume-card p {
-  margin: 0.5rem 0;
-  color: #4f5b63;
-  line-height: 1.7;
-  font-size: 0.75rem;
-}
-
-.resume-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.resume-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.8rem;
-  font-weight: 500;
-  color: var(--resume-accent);
-  font-size: 0.75rem;
-  line-height: 1.5;
-  margin-bottom: 0.5rem;
-}
-
-.resume-list li a {
-  color: var(--resume-primary);
-}
-
-/* Experience & Education Summary Styles */
-.resume-summary-section {
-  margin-bottom: 3rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
-.experience-summary-container,
-.education-summary-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.resume-summary-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--resume-accent);
-  margin: 0 0 0.5rem 0;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.experience-summary-list,
-.education-summary-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.experience-summary-item,
-.education-summary-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 0;
-  background: transparent;
-  border: none;
-}
-
-.summary-item-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  flex-shrink: 0;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-}
-
-.experience-summary-content,
-.education-summary-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  min-width: 0;
-}
-
-.experience-summary-name,
-.education-summary-name {
-  font-weight: 700;
-  color: var(--resume-accent);
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-.experience-summary-role,
-.education-summary-degree {
-  font-weight: 400;
-  color: var(--resume-muted);
-  font-size: 0.75rem;
-  line-height: 1.4;
-}
-
-.experience-summary-period,
-.education-summary-period {
-  font-size: 0.7rem;
-  color: var(--resume-muted);
-  line-height: 1.4;
-  font-weight: 400;
-}
-
-@media (max-width: 768px) {
-  .resume-summary-section {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .resume-summary-section::-webkit-scrollbar {
-    display: none;
-  }
-
-  .experience-summary-container,
-  .education-summary-container {
-    gap: 1rem;
-    min-width: 0;
-  }
-
-  .experience-summary-list,
-  .education-summary-list {
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .experience-summary-item,
-  .education-summary-item {
-    gap: 0.75rem;
-    min-width: 0;
-  }
-
-  .summary-item-logo {
-    width: 36px;
-    height: 36px;
-  }
-
-  .experience-summary-name,
-  .education-summary-name {
-    font-size: 0.75rem;
-  }
-
-  .experience-summary-role,
-  .education-summary-degree {
-    font-size: 0.7rem;
-  }
-
-  .experience-summary-period,
-  .education-summary-period {
-    font-size: 0.65rem;
-  }
-}
-
-.resume-list li a:hover {
-  text-decoration: underline;
-}
-
-.resume-tag {
-  background: rgba(32, 52, 61, 0.08);
-  border-radius: 999px;
-  padding: 0.2rem 0.75rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* Expertise Section Styles - Compact Grid */
-.expertise-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  margin-top: 0.5rem;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.expertise-item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem 0.85rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.8) 100%);
-  border: 1.5px solid rgba(32, 52, 61, 0.1);
-  border-radius: 8px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  cursor: default;
-}
-
-.expertise-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--resume-primary), rgba(176, 125, 103, 0.6));
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.expertise-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(176, 125, 103, 0.15);
-  border-color: var(--resume-primary);
-  background: linear-gradient(135deg, #fff 0%, rgba(248, 249, 250, 0.95) 100%);
-}
-
-.expertise-item:hover::before {
-  transform: scaleY(1);
-}
-
-.expertise-item__icon {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.12), rgba(176, 125, 103, 0.06));
-  border-radius: 6px;
-  color: var(--resume-primary);
-  font-size: 0.85rem;
-  transition: all 0.25s ease;
-}
-
-.expertise-item:hover .expertise-item__icon {
-  background: linear-gradient(135deg, var(--resume-primary), rgba(176, 125, 103, 0.85));
-  color: #fff;
-  transform: scale(1.15) rotate(8deg);
-  box-shadow: 0 3px 10px rgba(176, 125, 103, 0.35);
-}
-
-.expertise-item__content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  min-width: 0;
-}
-
-.expertise-item__title {
-  font-weight: 600;
-  color: var(--resume-accent);
-  font-size: 0.7rem;
-  line-height: 1.3;
-  transition: color 0.25s ease;
-}
-
-.expertise-item:hover .expertise-item__title {
-  color: var(--resume-primary);
-}
-
-.expertise-item__subtitle {
-  font-size: 0.7rem;
-  color: var(--resume-muted);
-  font-style: italic;
-  line-height: 1.2;
-  margin-top: 0.1rem;
-  opacity: 0.85;
-}
-
-@media (max-width: 768px) {
-  .expertise-list {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-  
-  .expertise-item {
-    padding: 0.6rem 0.75rem;
-    gap: 0.65rem;
-  }
-  
-  .expertise-item__icon {
-    width: 26px;
-    height: 26px;
-    font-size: 0.8rem;
-  }
-  
-  .expertise-item__title {
-    font-size: 0.8rem;
-  }
-  
-  .expertise-item__subtitle {
-    font-size: 0.65rem;
-  }
-}
-
-.resume__timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  overflow-x: hidden !important;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.resume-section {
-  margin-bottom: 3rem;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.resume-section:last-child {
-  margin-bottom: 0;
-}
-
-.resume-section__title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--resume-accent);
-  margin-bottom: 2rem;
-  margin-top: 0;
-  padding-bottom: 0.75rem;
-  border-bottom: 3px solid var(--resume-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  position: relative;
-}
-
-.resume-section__title::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: var(--resume-primary);
-}
-
-.timeline-item {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid rgba(32, 52, 61, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  padding-left: 2.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.timeline-item:last-child {
-  margin-bottom: 0;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 1.5rem;
-  bottom: 1.5rem;
-  width: 3px;
-  background: linear-gradient(to bottom, var(--resume-primary), rgba(176, 125, 103, 0.3));
-  border-radius: 2px;
-}
-
-.timeline-item:hover {
-  transform: translateX(8px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.timeline-item h4 {
-  margin: 0 0 0.25rem;
-  font-size: 0.95rem;
-  color: var(--resume-accent);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.timeline-item .company-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  flex-shrink: 0;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  display: inline-block;
-  min-width: 40px;
-  min-height: 40px;
-}
-
-.timeline-item .company-logo[src=""],
-.timeline-item .company-logo:not([src]) {
-  display: none;
-}
-
-.timeline-item span {
-  color: var(--resume-muted);
-  font-size: 0.75rem;
-  display: block;
-  margin-bottom: 0.75rem;
-}
-
-.timeline-item p {
-  margin: 0.75rem 0 0;
-  color: #4f5b63;
-  line-height: 1.7;
-  font-size: 0.75rem;
-}
-
-.timeline-item p strong {
-  color: var(--resume-accent);
-  font-weight: 600;
-  display: inline-block;
-  margin-right: 0.5rem;
-}
-
-.timeline-item__link {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(32, 52, 61, 0.08);
-}
-
-.course-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--resume-primary);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-}
-
-.course-link:hover {
-  color: var(--resume-accent);
-  transform: translateX(4px);
-}
-
-.course-link i {
-  font-size: 0.85rem;
-}
-
-.timeline-item h4 a:hover {
-  color: var(--resume-primary);
-  transition: color 0.3s ease;
-}
-
-.achievement-highlight strong a:hover {
-  color: var(--resume-primary) !important;
-}
-
-.achievement-highlight a img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
-}
-
-.timeline-item__highlights {
-  margin-top: 0.5rem;
-}
-
-.timeline-item__highlights p {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin: 0.75rem 0;
-  padding: 0.75rem;
-  background: rgba(176, 125, 103, 0.03);
-  border-radius: 8px;
-  border-left: 3px solid var(--resume-primary);
-  transition: all 0.3s ease;
-}
-
-.timeline-item__highlights p:hover {
-  background: rgba(176, 125, 103, 0.08);
-  transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.timeline-item__highlights p i {
-  color: var(--resume-primary);
-  font-size: 1rem;
-  margin-top: 0.15rem;
-  flex-shrink: 0;
-  width: 20px;
-  text-align: center;
-}
-
-.timeline-item__highlights p strong {
-  margin-right: 0.5rem;
-}
-
-/* Achievement Link Card - Compact */
-.achievement-link-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.1), rgba(176, 125, 103, 0.05));
-  border: 1.5px solid var(--resume-primary);
-  border-radius: 8px;
-  color: var(--resume-primary);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.75rem;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 6px rgba(176, 125, 103, 0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-.achievement-link-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.4s ease;
-}
-
-.achievement-link-card:hover {
-  background: linear-gradient(135deg, var(--resume-primary), rgba(176, 125, 103, 0.9));
-  color: #fff;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 4px 16px rgba(176, 125, 103, 0.25);
-  border-color: var(--resume-primary);
-}
-
-.achievement-link-card:hover::before {
-  left: 100%;
-}
-
-.achievement-link-card i {
-  font-size: 0.9rem;
-  transition: transform 0.25s ease;
-}
-
-.achievement-link-card:hover i {
-  transform: scale(1.15) rotate(5deg);
-}
-
-.achievement-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.2rem 0.55rem;
-  background: rgba(176, 125, 103, 0.15);
-  border-radius: 16px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--resume-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-left: 0.4rem;
-  border: 1px solid rgba(176, 125, 103, 0.3);
-}
-
-.achievement-highlight {
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.06), rgba(176, 125, 103, 0.02));
-  border-left: 3px solid var(--resume-primary);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-top: 0.5rem;
-  position: relative;
-}
-
-.achievement-highlight::after {
-  content: '✨';
-  position: absolute;
-  top: -6px;
-  right: 10px;
-  font-size: 1rem;
-  animation: sparkle 2s ease-in-out infinite;
-  opacity: 0.8;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-}
-
-
-.timeline-item ul {
-  margin: 0.75rem 0 0;
-  padding-left: 1.5rem;
-  color: #4f5b63;
-  line-height: 1.8;
-}
-
-.timeline-item ul li {
-  margin-bottom: 0.5rem;
-  font-size: 0.75rem;
-}
-
-.timeline-item ul li a {
-  color: var(--resume-primary);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.timeline-item ul li a:hover {
-  text-decoration: underline;
-}
-
-/* Projects Grid Inline - Inside Resume */
-.projects-grid-inline {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100px, 100%), 1fr));
-  gap: 0.75rem;
-  margin-top: 1rem;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-.project-inline-card {
-  display: block;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  text-decoration: none;
-  aspect-ratio: 1;
-  position: relative;
-  border: 1px solid rgba(32, 52, 61, 0.08);
-}
-
-.project-inline-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(176, 125, 103, 0.18);
-  border-color: var(--resume-primary);
-}
-
-.project-inline-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.project-inline-card:hover img {
-  transform: scale(1.08);
-}
-
-.project-inline-card--featured {
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.12), rgba(176, 125, 103, 0.05));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.75rem;
-  border: 2px solid var(--resume-primary);
-}
-
-.project-inline-card__content {
-  color: var(--resume-accent);
-}
-
-.project-inline-card__content h4 {
-  font-size: 0.65rem;
-  font-weight: 600;
-  margin: 0 0 0.3rem;
-  line-height: 1.3;
-  color: var(--resume-accent);
-}
-
-.project-inline-card__content span {
-  color: var(--resume-primary);
-  font-size: 0.6rem;
-  font-weight: 600;
-}
-
-.project-inline-card__overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
-  padding: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.project-inline-card:hover .project-inline-card__overlay {
-  opacity: 1;
-}
-
-.project-inline-card__overlay .project-title {
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  line-height: 1.2;
-}
-
-.project-inline-card__overlay .project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem;
-}
-
-.project-inline-card__overlay .project-tag {
-  background: rgba(176, 125, 103, 0.9);
-  color: #fff;
-  font-size: 0.45rem;
-  padding: 0.1rem 0.3rem;
-  border-radius: 3px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.project-inline-card__overlay span {
-  color: #fff;
-  font-size: 0.55rem;
-  font-weight: 600;
-}
-
-@media (min-width: 768px) {
-  .projects-grid-inline {
-    grid-template-columns: repeat(auto-fill, minmax(min(100px, 100%), 1fr));
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-}
-
-@media (max-width: 480px) {
-  .projects-grid-inline {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-  }
-}
-
-/* Publications List - Card Style */
-.publications-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.publication-card {
-  display: flex;
-  gap: 1.25rem;
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.25rem;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(32, 52, 61, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.publication-card:hover {
-  transform: translateX(4px);
-  box-shadow: 0 6px 20px rgba(176, 125, 103, 0.15);
-  border-color: var(--resume-primary);
-}
-
-.publication-card__image {
-  flex-shrink: 0;
-  width: 180px;
-  height: 120px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(176, 125, 103, 0.05);
-  border: 1px solid rgba(32, 52, 61, 0.1);
-}
-
-.publication-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.publication-card__image--placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.1), rgba(176, 125, 103, 0.05));
-}
-
-.publication-card__image--placeholder i {
-  font-size: 2rem;
-  color: var(--resume-primary);
-  opacity: 0.6;
-}
-
-.publication-card__content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
-.publication-card__title {
-  color: var(--resume-accent);
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 0 0 0.4rem;
-  line-height: 1.4;
-  font-style: italic;
-}
-
-.publication-card__authors {
-  color: #4f5b63;
-  font-size: 0.75rem;
-  margin: 0 0 0.2rem;
-  line-height: 1.4;
-}
-
-.publication-card__authors u {
-  color: var(--resume-primary);
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-.publication-card__venue {
-  color: var(--resume-muted);
-  font-size: 0.7rem;
-  margin: 0 0 0.4rem;
-}
-
-.publication-card__links {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.publication-card__links a {
-  color: var(--resume-primary);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.publication-card__links a:hover {
-  color: var(--resume-accent);
-  text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-  .publication-card {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .publication-card__image {
-    width: 100%;
-    height: 140px;
-  }
-  
-  .publication-card__title {
-    font-size: 0.8rem;
-  }
-  
-  .publication-card__authors,
-  .publication-card__venue {
-    font-size: 0.7rem;
-  }
-}
-
-/* Projects Grid */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-.project-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background: var(--resume-glass);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.project-card:hover img {
-  transform: scale(1.05);
-}
-
-.project-card-image {
-  width: 100%;
-  padding-top: 75%;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.1), rgba(176, 125, 103, 0.05));
-}
-
-.project-card-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.project-card-image .project-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
-  padding: 1rem;
-}
-
-.project-card-content {
-  padding: 1rem;
-}
-
-.project-card-content h4 {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: var(--resume-accent);
-  font-weight: 600;
-}
-
-.project-card-content p {
-  margin: 0;
-  font-size: 0.75rem;
-  color: var(--resume-muted);
-  line-height: 1.4;
-}
-
-/* Projects Showcase - Resume Style */
-.projects-showcase {
-  background: linear-gradient(180deg, rgba(255, 253, 251, 0.98), rgba(247, 245, 242, 0.95));
-  padding: clamp(1.5rem, 4vw, 3rem);
-  width: 100%;
-  position: relative;
-}
-
-.projects-showcase::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 10% 20%, rgba(176, 125, 103, 0.08), transparent 55%);
-  z-index: 0;
-}
-
-.projects-showcase__title {
-  text-align: left;
-  color: var(--resume-accent);
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin: 0 0 2rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 3px solid var(--resume-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  position: relative;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.projects-showcase__title::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: var(--resume-primary);
-}
-
-.projects-showcase__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr));
-  gap: 0.75rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-.project-showcase-card {
-  display: block;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  text-decoration: none;
-  aspect-ratio: 1;
-  position: relative;
-  border: 1px solid rgba(32, 52, 61, 0.08);
-}
-
-.project-showcase-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(176, 125, 103, 0.2);
-  border-color: var(--resume-primary);
-}
-
-.project-showcase-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.project-showcase-card:hover img {
-  transform: scale(1.08);
-}
-
-.project-showcase-card--featured {
-  background: linear-gradient(135deg, rgba(176, 125, 103, 0.15), rgba(176, 125, 103, 0.05));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1rem;
-  border: 2px solid var(--resume-primary);
-}
-
-.project-showcase-card__content {
-  color: var(--resume-accent);
-}
-
-.project-showcase-card__content h3 {
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem;
-  line-height: 1.4;
-  color: var(--resume-accent);
-}
-
-.project-showcase-card__link {
-  color: var(--resume-primary);
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.project-showcase-card:hover .project-showcase-card__link {
-  color: var(--resume-accent);
-}
-
-.project-showcase-card__overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  padding: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.project-showcase-card:hover .project-showcase-card__overlay {
-  opacity: 1;
-}
-
-.project-showcase-card__overlay span {
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 600;
-}
-
-@media (min-width: 768px) {
-  .projects-showcase__grid {
-    grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
-    gap: 1rem;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-}
-
-@media (min-width: 1200px) {
-  .projects-showcase__grid {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .projects-showcase__grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-  }
-  
-  .project-showcase-card--featured {
-    grid-column: span 1;
-  }
-  
-  .project-showcase-card__content h3 {
-    font-size: 0.6rem;
-  }
-}
-
-.resume__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
-  gap: 0.75rem;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.resume-pill {
-  background: rgba(176, 125, 103, 0.1);
-  border-radius: 8px;
-  padding: 0.6rem 1rem;
-  font-weight: 600;
-  color: var(--resume-accent);
-  font-size: 0.7rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(176, 125, 103, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.resume-pill .tech-logo {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  filter: brightness(0) saturate(100%) invert(27%) sepia(15%) saturate(1000%) hue-rotate(180deg) brightness(0.8);
-}
-
-.resume-pill:hover {
-  background: rgba(176, 125, 103, 0.15);
-  transform: translateY(-2px);
-}
-
-.resume-pill span {
-  display: inline-block;
-}
-
-.resume-quote {
-  border-left: 4px solid var(--resume-primary);
-  padding-left: 1rem;
-  color: var(--resume-accent);
-  font-style: italic;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-}
-
-@media (min-width: 1200px) {
-  .resume__body {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 1024px) {
-  .resume__body {
-    grid-template-columns: 1fr;
-  }
-  
-  .resume__sidebar {
-    display: none;
-  }
-  
-  .sidebar-nav {
-    display: none;
-  }
-  
-  .resume__hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  
-  .resume__hero img {
-    margin: 0 auto;
-  }
-  
-  .resume__meta {
-    text-align: center;
-  }
-  
-  .resume__contact {
-    justify-content: center;
-  }
-
-  .resume__stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  /* Move sidebar to bottom and Expertise section to very bottom on mobile */
-  .resume__sidebar {
-    display: flex;
-    flex-direction: column;
-    order: 2;
-  }
-
-  .resume__timeline {
-    order: 1;
-  }
-
-  #skills {
-    order: 999;
-  }
-
-}
-
-/* Tablet and medium screens: 769px to 1023px */
-@media (min-width: 769px) and (max-width: 1023px) {
-  html, body {
-    overflow-x: hidden !important;
-    max-width: 100vw;
-  }
-  
-  .resume {
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-  }
-  
-  .resume__hero {
-    overflow: hidden !important;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .resume__hero::after {
-    display: none;
-  }
-  
-  .resume__body {
-    padding: 2rem;
-    overflow-x: hidden !important;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .resume__timeline, .resume-section {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-  }
-  
-  .expertise-list {
-    grid-template-columns: repeat(2, 1fr) !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  
-  .resume__grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)) !important;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-  }
-  
-  .projects-showcase__grid {
-    grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr)) !important;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-  }
-  
-  .projects-grid-inline {
-    grid-template-columns: repeat(auto-fill, minmax(min(100px, 100%), 1fr)) !important;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-  }
-  
-  .publication-card {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .timeline-item {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .resume-card {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-}
-
-@media (max-width: 768px) {
-  html, body {
-    overflow-x: hidden !important;
-    max-width: 100vw;
-  }
-  
-  .resume__hero {
-    padding: 2rem 1.5rem;
-    overflow: hidden !important;
-    width: 100%;
-    max-width: 100vw;
-  }
-  
-  .resume__hero::after {
-    display: none; /* Hide decorative element on mobile to prevent overflow */
-  }
-  
-  .resume__body {
-    padding: 1.5rem;
-    gap: 1.5rem;
-    overflow-x: hidden !important;
-    width: 100%;
-    max-width: 100vw;
-  }
-  
-  .resume-card {
-    padding: 1.25rem;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .timeline-item {
-    padding-left: 2rem;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .resume__grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .expertise-list {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  
-  .resume__spotlight, .resume__timeline, .resume-section {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-  }
-  
-  .resume-pill {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.75rem;
-  }
-
-  .resume__stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.4rem;
-  }
-  
-  .resume__stat {
-    align-items: center;
-    text-align: center;
-    padding: 0.6rem 0.5rem;
-    min-height: auto;
-  }
-
-  .resume__stat-value {
-    font-size: 1.2rem;
-  }
-
-  .resume__stat-label {
-    font-size: 0.75rem;
-    line-height: 1.2;
-  }
-  
-  .resume__spotlight {
-    grid-template-columns: 1fr;
-  }
-
-  /* Move Expertise section to bottom on mobile */
-  .resume__sidebar {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #skills {
-    order: 999;
-  }
-
-  .resume__meta,
-  .resume__meta h1,
-  .resume__subtitle,
-  .resume__overview {
-    text-align: center;
-  }
-
-  .resume__contact {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .resume__contact::-webkit-scrollbar {
-    display: none;
-  }
-
-  .resume__contact a {
-    width: auto;
-    max-width: none;
-    justify-content: center;
-    text-align: center;
-    padding: 0.3rem 0.5rem;
-    font-size: 0.65rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  
-  .resume__stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.3rem;
-    margin-top: 1rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .resume__stat {
-    min-height: auto;
-    padding: 0.5rem 0.35rem;
-    gap: 0.25rem;
-    align-items: center;
-    text-align: center;
-  }
-
-  .resume__stat-value {
-    font-size: 0.9rem;
-  }
-
-  .resume__stat-label {
-    font-size: 0.6rem;
-    line-height: 1.2;
-  }
-
-  .achievement-highlight > div[style*="display: flex"] {
-    flex-direction: column !important;
-  }
-
-  .achievement-highlight img {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 0.75rem;
-  }
-}
-</style>
 
 <div class="resume">
   <header class="resume__hero scroll-animate fade-in-up">
@@ -2609,6 +45,56 @@ body.layout--home {
       </div>
     </div>
   </header>
+
+  <!-- Experience & Education Summary -->
+  <div class="resume-summary-section scroll-animate fade-in-up">
+    <div class="experience-summary-container">
+      <h3 class="resume-summary-title">Experience</h3>
+      <div class="experience-summary-list">
+        <div class="experience-summary-item">
+          <img src="/assets/images/posco-dx-logo.svg" alt="POSCO DX" class="summary-item-logo" 
+               onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/poscodx.com'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/posco-dx-logo.svg'; } else { img.style.display='none'; }">
+          <div class="experience-summary-content">
+            <div class="experience-summary-name">POSCO DX Inc.</div>
+            <div class="experience-summary-role">AI Research Engineer</div>
+            <div class="experience-summary-period">July 2024 - Present</div>
+          </div>
+        </div>
+        <div class="experience-summary-item">
+          <img src="/assets/images/vuno-logo.svg" alt="VUNO" class="summary-item-logo" 
+               onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/vuno.co'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/vuno-logo.svg'; } else { img.style.display='none'; }">
+          <div class="experience-summary-content">
+            <div class="experience-summary-name">VUNO Inc.</div>
+            <div class="experience-summary-role">AI Research Engineer</div>
+            <div class="experience-summary-period">May 2021 - July 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="education-summary-container">
+      <h3 class="resume-summary-title">Education</h3>
+      <div class="education-summary-list">
+        <div class="education-summary-item">
+          <img src="/assets/images/unist-logo.svg" alt="UNIST" class="summary-item-logo" 
+               onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/unist.ac.kr'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/unist-logo.svg'; } else { img.style.display='none'; }">
+          <div class="education-summary-content">
+            <div class="education-summary-name">UNIST</div>
+            <div class="education-summary-degree">M.S. in Computer Science</div>
+            <div class="education-summary-period">Mar 2019 - Mar 2021</div>
+          </div>
+        </div>
+        <div class="education-summary-item">
+          <img src="/assets/images/inje-university-logo.svg" alt="Inje University" class="summary-item-logo" 
+               onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/inje.ac.kr'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/inje-university-logo.svg'; } else { img.style.display='none'; }">
+          <div class="education-summary-content">
+            <div class="education-summary-name">Inje University</div>
+            <div class="education-summary-degree">B.S. in Biomedical Engineering</div>
+            <div class="education-summary-period">Mar 2014 - Aug 2018</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Top Horizontal Navigation -->
   <nav class="top-nav" id="topNav">
@@ -2676,58 +162,6 @@ body.layout--home {
     </aside>
 
     <section class="resume__timeline">
-      <!-- Experience & Education Summary - TEMPORARILY COMMENTED OUT -->
-      <!--
-      <div class="resume-summary-section scroll-animate fade-in-up">
-        <div class="experience-summary-container">
-          <h3 class="resume-summary-title">Experience</h3>
-          <div class="experience-summary-list">
-            <div class="experience-summary-item">
-              <img src="/assets/images/posco-dx-logo.svg" alt="POSCO DX" class="summary-item-logo" 
-                   onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/poscodx.com'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/posco-dx-logo.svg'; } else { img.style.display='none'; }">
-              <div class="experience-summary-content">
-                <div class="experience-summary-name">POSCO DX Inc.</div>
-                <div class="experience-summary-role">AI Research Engineer</div>
-                <div class="experience-summary-period">July 2024 - Present</div>
-              </div>
-            </div>
-            <div class="experience-summary-item">
-              <img src="/assets/images/vuno-logo.svg" alt="VUNO" class="summary-item-logo" 
-                   onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/vuno.co'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/vuno-logo.svg'; } else { img.style.display='none'; }">
-              <div class="experience-summary-content">
-                <div class="experience-summary-name">VUNO Inc.</div>
-                <div class="experience-summary-role">AI Research Engineer</div>
-                <div class="experience-summary-period">May 2021 - July 2024</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="education-summary-container">
-          <h3 class="resume-summary-title">Education</h3>
-          <div class="education-summary-list">
-            <div class="education-summary-item">
-              <img src="/assets/images/unist-logo.svg" alt="UNIST" class="summary-item-logo" 
-                   onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/unist.ac.kr'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/unist-logo.svg'; } else { img.style.display='none'; }">
-              <div class="education-summary-content">
-                <div class="education-summary-name">UNIST</div>
-                <div class="education-summary-degree">M.S. in Computer Science</div>
-                <div class="education-summary-period">Mar 2019 - Mar 2021</div>
-              </div>
-            </div>
-            <div class="education-summary-item">
-              <img src="/assets/images/inje-university-logo.svg" alt="Inje University" class="summary-item-logo" 
-                   onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/inje.ac.kr'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/inje-university-logo.svg'; } else { img.style.display='none'; }">
-              <div class="education-summary-content">
-                <div class="education-summary-name">Inje University</div>
-                <div class="education-summary-degree">B.S. in Biomedical Engineering</div>
-                <div class="education-summary-period">Mar 2014 - Aug 2018</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
-
       <!-- Experience Section -->
       <div class="resume-section scroll-animate fade-in-right" id="experience">
         <h3 class="resume-section__title">Experience</h3>
@@ -3309,344 +743,260 @@ body.layout--home {
 
 <script>
 (function() {
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px',
-    root: null // Use viewport as root
-  };
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animated');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Observe all scroll-animate elements
-  document.addEventListener('DOMContentLoaded', function() {
-    const animateElements = document.querySelectorAll('.scroll-animate');
-    animateElements.forEach(function(el) {
-      observer.observe(el);
-    });
-  });
-
-  // Add staggered delay for timeline items
-  document.addEventListener('DOMContentLoaded', function() {
-    const timelineItems = document.querySelectorAll('.timeline-item.scroll-animate');
-    timelineItems.forEach(function(item, index) {
-      item.style.transitionDelay = (index * 0.1) + 's';
-    });
-  });
-
-  // Sidebar navigation active state on scroll
-  document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('.sidebar-nav__link');
-    const sections = [];
+  'use strict';
+  
+  // ===== NAVIGATION SCROLL =====
+  function initNavigation() {
+    const NAV_OFFSET = 80;
     
-    // Build sections array
-    navLinks.forEach(function(link) {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const section = document.querySelector(href);
-        if (section) {
-          sections.push({ id: href.substring(1), element: section, link: link });
-        }
+    function smoothScrollTo(targetId) {
+      console.log('smoothScrollTo called with:', targetId);
+      const target = document.querySelector(targetId);
+      if (!target) {
+        console.warn('Target not found:', targetId);
+        return false;
       }
-    });
-
-    // Add click handlers for smooth scrolling
-    navLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
+      
+      console.log('Target found:', target, 'ID:', target.id);
+      
+      // Use scrollIntoView - works regardless of scroll container
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      console.log('scrollIntoView called');
+      return true;
+    }
+    
+    // Setup all navigation links with event delegation
+    function setupNavLinks() {
+      // Use event delegation on document for better reliability
+    document.addEventListener('click', function(e) {
+        // Find the clicked link (handles clicks on <i> tags inside links)
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      
+      // Check if it's a navigation link
+        const isTopNav = link.classList.contains('top-nav__link');
+        const isSidebarNav = link.classList.contains('sidebar-nav__link');
+        const isFloatingNav = link.closest('.floating-nav__menu');
+        
+        if (isTopNav || isSidebarNav || isFloatingNav) {
         e.preventDefault();
         e.stopPropagation();
+          e.stopImmediatePropagation();
         
-        const targetId = this.getAttribute('href');
-        if (!targetId || !targetId.startsWith('#')) return;
-        
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          const elementRect = targetSection.getBoundingClientRect();
-          const absoluteElementTop = elementRect.top + window.pageYOffset;
-          const offset = 80;
-          const scrollTarget = absoluteElementTop - offset;
+        const href = link.getAttribute('href');
+          console.log('Nav clicked:', href, 'Type:', isTopNav ? 'top' : isSidebarNav ? 'sidebar' : 'floating');
           
-          window.scrollTo({
-            top: Math.max(0, scrollTarget),
-            behavior: 'smooth'
-          });
+        if (smoothScrollTo(href)) {
+          // Close floating menu if open
+            if (isFloatingNav) {
+              const btn = document.getElementById('floatingNavBtn');
+              const menu = document.getElementById('floatingNavMenu');
+              if (btn) btn.classList.remove('active');
+              if (menu) menu.classList.remove('show');
+            }
+          } else {
+            console.warn('Failed to scroll to:', href);
+          }
         }
-      });
-    });
-
-    let sidebarScrollTimeout = null;
-    
-    function updateActiveNav() {
-      const scrollPosition = window.scrollY + 150;
+      }, true); // Use capture phase for higher priority
       
-      let currentSection = null;
-      sections.forEach(function(section) {
-        const sectionTop = section.element.offsetTop;
-        const sectionHeight = section.element.offsetHeight;
-        
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          currentSection = section;
-        }
+      // Also setup direct handlers as backup
+      const topLinks = document.querySelectorAll('.top-nav__link[href^="#"]');
+      console.log('Found top nav links:', topLinks.length);
+      topLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const href = this.getAttribute('href');
+          console.log('Direct handler - Top nav clicked:', href);
+          smoothScrollTo(href);
+        }, true);
       });
       
-      navLinks.forEach(function(link) {
-        link.classList.remove('active');
+      const sidebarLinks = document.querySelectorAll('.sidebar-nav__link[href^="#"]');
+      console.log('Found sidebar nav links:', sidebarLinks.length);
+      sidebarLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const href = this.getAttribute('href');
+          console.log('Direct handler - Sidebar nav clicked:', href);
+          smoothScrollTo(href);
+        }, true);
       });
       
-      if (currentSection) {
-        currentSection.link.classList.add('active');
-      }
-    }
-    
-    function throttledUpdateActiveNav() {
-      if (sidebarScrollTimeout) {
-        return;
-      }
-      sidebarScrollTimeout = requestAnimationFrame(function() {
-        updateActiveNav();
-        sidebarScrollTimeout = null;
-      });
-    }
-
-    window.addEventListener('scroll', throttledUpdateActiveNav, { passive: true });
-    updateActiveNav();
-  });
-
-  // Floating Navigation (Mobile)
-  document.addEventListener('DOMContentLoaded', function() {
-    const floatingBtn = document.getElementById('floatingNavBtn');
-    const floatingMenu = document.getElementById('floatingNavMenu');
-    
-    if (floatingBtn && floatingMenu) {
-      floatingBtn.addEventListener('click', function() {
-        floatingBtn.classList.toggle('active');
-        floatingMenu.classList.toggle('show');
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!floatingBtn.contains(e.target) && !floatingMenu.contains(e.target)) {
-          floatingBtn.classList.remove('active');
-          floatingMenu.classList.remove('show');
-        }
-      });
-      
-      // Close menu and scroll when clicking a link
-      const floatingLinks = floatingMenu.querySelectorAll('a');
+      const floatingLinks = document.querySelectorAll('.floating-nav__menu a[href^="#"]');
+      console.log('Found floating nav links:', floatingLinks.length);
       floatingLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          
-          const targetId = this.getAttribute('href');
-          if (!targetId || !targetId.startsWith('#')) return;
-          
-          const targetSection = document.querySelector(targetId);
-          if (targetSection) {
-            floatingBtn.classList.remove('active');
-            floatingMenu.classList.remove('show');
-            
-            const elementRect = targetSection.getBoundingClientRect();
-            const absoluteElementTop = elementRect.top + window.pageYOffset;
-            const offset = 80;
-            const scrollTarget = absoluteElementTop - offset;
-            
-            window.scrollTo({
-              top: Math.max(0, scrollTarget),
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-      
-      // Update active state on scroll
-      const floatingNavLinks = floatingMenu.querySelectorAll('a');
-      const floatingSections = [];
-      
-      floatingNavLinks.forEach(function(link) {
-        const href = link.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const section = document.querySelector(href);
-          if (section) {
-            floatingSections.push({ element: section, link: link });
-          }
-        }
-      });
-
-      let floatingScrollTimeout = null;
-      
-      function updateFloatingActiveNav() {
-        const scrollPosition = window.scrollY + 150;
-        
-        let currentSection = null;
-        floatingSections.forEach(function(section) {
-          const sectionTop = section.element.offsetTop;
-          const sectionHeight = section.element.offsetHeight;
-          
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            currentSection = section;
-          }
-        });
-        
-        floatingNavLinks.forEach(function(link) {
-          link.classList.remove('active');
-        });
-        
-        if (currentSection) {
-          currentSection.link.classList.add('active');
-        }
+          const href = this.getAttribute('href');
+          console.log('Direct handler - Floating nav clicked:', href);
+          if (smoothScrollTo(href)) {
+            const btn = document.getElementById('floatingNavBtn');
+            const menu = document.getElementById('floatingNavMenu');
+            if (btn) btn.classList.remove('active');
+            if (menu) menu.classList.remove('show');
       }
-      
-      function throttledUpdateFloatingActiveNav() {
-        if (floatingScrollTimeout) {
-          return;
-        }
-        floatingScrollTimeout = requestAnimationFrame(function() {
-          updateFloatingActiveNav();
-          floatingScrollTimeout = null;
-        });
-      }
-
-      window.addEventListener('scroll', throttledUpdateFloatingActiveNav, { passive: true });
-    }
-  });
-
-  // Top Navigation
-  document.addEventListener('DOMContentLoaded', function() {
-    const topNavLinks = document.querySelectorAll('.top-nav__link');
-    const topSections = [];
+    }, true);
+      });
+  }
+  
+    setupNavLinks();
+  }
+  
+  // ===== ACTIVE NAV STATE =====
+  function initActiveNav() {
+    const links = document.querySelectorAll('.top-nav__link, .sidebar-nav__link, .floating-nav__menu a');
+    const sections = [];
     
-    // Build sections array
-    topNavLinks.forEach(function(link) {
+    links.forEach(function(link) {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
         const section = document.querySelector(href);
-        if (section) {
-          topSections.push({ element: section, link: link });
+        if (section && !sections.find(s => s.id === href)) {
+          sections.push({ id: href, element: section });
         }
       }
     });
     
-    // Add click handlers for smooth scrolling
-    topNavLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const targetId = this.getAttribute('href');
-        if (!targetId || !targetId.startsWith('#')) return;
-        
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          // Calculate scroll position accounting for sticky nav
-          const elementRect = targetSection.getBoundingClientRect();
-          const absoluteElementTop = elementRect.top + window.pageYOffset;
-          const offset = 80; // Account for sticky nav height
-          const scrollTarget = absoluteElementTop - offset;
-          
-          window.scrollTo({
-            top: Math.max(0, scrollTarget),
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-
-    let scrollTimeout = null;
-    
-    function updateTopActiveNav() {
-      const scrollPosition = window.scrollY + 150;
+    function updateActive() {
+      const scrollPos = window.scrollY + 150;
+      let current = null;
       
-      let currentSection = null;
-      topSections.forEach(function(section) {
-        const sectionTop = section.element.offsetTop;
-        const sectionHeight = section.element.offsetHeight;
-        
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          currentSection = section;
+      sections.forEach(function(section) {
+        const top = section.element.offsetTop;
+        const height = section.element.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          current = section;
         }
       });
       
-      topNavLinks.forEach(function(link) {
+      links.forEach(function(link) {
         link.classList.remove('active');
-      });
-      
-      if (currentSection) {
-        currentSection.link.classList.add('active');
-        // Scroll nav link into view if needed
-        const navList = currentSection.link.closest('.top-nav__list');
-        if (navList) {
-          const linkRect = currentSection.link.getBoundingClientRect();
-          const navRect = navList.getBoundingClientRect();
-          
-          if (linkRect.left < navRect.left || linkRect.right > navRect.right) {
-            const scrollLeft = currentSection.link.offsetLeft - (navList.offsetWidth / 2) + (currentSection.link.offsetWidth / 2);
-            navList.scrollTo({
-              left: Math.max(0, scrollLeft),
-              behavior: 'smooth'
-            });
-          }
+        if (current && link.getAttribute('href') === current.id) {
+          link.classList.add('active');
         }
-      }
-    }
-    
-    function throttledUpdateTopActiveNav() {
-      if (scrollTimeout) {
-        return;
-      }
-      scrollTimeout = requestAnimationFrame(function() {
-        updateTopActiveNav();
-        scrollTimeout = null;
       });
     }
-
-    window.addEventListener('scroll', throttledUpdateTopActiveNav, { passive: true });
-    updateTopActiveNav();
-  });
-
-  // Tab Switching
-  document.addEventListener('DOMContentLoaded', function() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
     
-    tabButtons.forEach(function(button) {
+    let timeout = null;
+    function throttledUpdate() {
+      if (timeout) return;
+      timeout = requestAnimationFrame(function() {
+        updateActive();
+        timeout = null;
+      });
+    }
+    
+    window.addEventListener('scroll', throttledUpdate, { passive: true });
+    updateActive();
+  }
+  
+  // ===== FLOATING MENU =====
+  function initFloatingMenu() {
+    const btn = document.getElementById('floatingNavBtn');
+    const menu = document.getElementById('floatingNavMenu');
+    if (!btn || !menu) return;
+    
+    btn.addEventListener('click', function() {
+      btn.classList.toggle('active');
+      menu.classList.toggle('show');
+    });
+    
+    document.addEventListener('click', function(e) {
+      if (!btn.contains(e.target) && !menu.contains(e.target)) {
+        btn.classList.remove('active');
+        menu.classList.remove('show');
+      }
+    });
+  }
+  
+  // ===== SCROLL ANIMATIONS =====
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    
+    document.querySelectorAll('.scroll-animate').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+  
+  // ===== TABS =====
+  function initTabs() {
+    document.querySelectorAll('.tab-button').forEach(function(button) {
       button.addEventListener('click', function(e) {
         e.preventDefault();
-        
-        // Save current scroll position
-        const scrollY = window.scrollY;
-        const scrollX = window.scrollX;
-        
         const targetTab = this.getAttribute('data-tab');
         
-        // Remove active class from all buttons and contents
-        tabButtons.forEach(function(btn) {
+        document.querySelectorAll('.tab-button').forEach(function(btn) {
           btn.classList.remove('active');
         });
-        tabContents.forEach(function(content) {
+        document.querySelectorAll('.tab-content').forEach(function(content) {
           content.classList.remove('active');
         });
         
-        // Add active class to clicked button and corresponding content
         this.classList.add('active');
         const targetContent = document.getElementById(targetTab + '-tab');
         if (targetContent) {
           targetContent.classList.add('active');
         }
-        
-        // Restore scroll position after a brief delay to allow layout to settle
-        requestAnimationFrame(function() {
-          window.scrollTo(scrollX, scrollY);
-        });
       });
     });
-  });
+  }
+  
+  // ===== INIT =====
+  var initialized = false;
+  function init() {
+    if (initialized) {
+      console.log('Resume JS: Already initialized, skipping...');
+      return;
+    }
+    initialized = true;
+    
+    try {
+      console.log('=== Resume JS: Starting initialization ===');
+    initNavigation();
+    initActiveNav();
+    initFloatingMenu();
+    initScrollAnimations();
+    initTabs();
+      console.log('=== Resume JS: Initialization complete ===');
+    } catch (error) {
+      console.error('Resume JS: Error during initialization:', error);
+      initialized = false; // Allow retry on error
+    }
+  }
+  
+  // Multiple initialization strategies to ensure it runs
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Resume JS: DOMContentLoaded fired');
+      init();
+    });
+  } else {
+    // DOM already loaded - run immediately
+    console.log('Resume JS: DOM already loaded, initializing...');
+    setTimeout(init, 0);
+  }
+  
+  // Fallback: try again after a short delay
+  setTimeout(function() {
+    if (!initialized) {
+      console.log('Resume JS: Fallback initialization after delay...');
+    init();
+  }
+  }, 500);
 })();
 </script>

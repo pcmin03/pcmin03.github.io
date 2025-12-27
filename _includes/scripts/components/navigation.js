@@ -31,7 +31,19 @@
     });
 
     dropdownItems.forEach(function(item) {
-      var trigger = item.querySelector('> a');
+      // Find direct child <a> element (more compatible than querySelector with >)
+      var trigger = null;
+      // Try to find direct child <a> element
+      for (var i = 0; i < item.children.length; i++) {
+        if (item.children[i].tagName === 'A') {
+          trigger = item.children[i];
+          break;
+        }
+      }
+      // Fallback to any <a> element if direct child not found
+      if (!trigger) {
+        trigger = item.querySelector('a');
+      }
       if (!trigger) {
         return;
       }
