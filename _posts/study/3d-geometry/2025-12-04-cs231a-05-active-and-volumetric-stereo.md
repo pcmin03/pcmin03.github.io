@@ -1,7 +1,7 @@
 ---
 title: "[CS231A] Lecture 05: Active and Volumetric Stereo (능동 및 볼륨 스테레오)"
 categories: [3D Geometry]
-tags: [3D Vision, CS231A, Active, and, Volumetric, Stereo]
+tags: [3D Vision, CS231A, Active Stereo, Volumetric Stereo]
 article_header:
   type: overlay
   theme: dark
@@ -15,68 +15,77 @@ mathjax_autoNumber: true
 
 **Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition**
 
-이 포스트는 Stanford CS231A 강의의 05번째 강의 노트인 "Active and Volumetric Stereo"를 한글로 정리한 것입니다.
+이 포스트는 Stanford CS231A 강의의 다섯 번째 강의 노트인 "Active and Volumetric Stereo"를 정리한 것입니다.
 
 **원본 강의 노트**: [05-active-volumetric-stereo.pdf](https://web.stanford.edu/class/cs231a/course_notes/05-active-volumetric-stereo.pdf)
 
 <!--more-->
 
-## 강의 개요
-
-이 강의에서는 능동 및 볼륨 스테레오에 대해 다룹니다.
-
-
-## 강의 노트 페이지 이미지
-
-<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin: 2rem 0;'>
-  <div><img src='/assets/images/posts/cs231a-05/page_1.png' alt='Page 1' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_2.png' alt='Page 2' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_3.png' alt='Page 3' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_4.png' alt='Page 4' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_5.png' alt='Page 5' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_6.png' alt='Page 6' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_7.png' alt='Page 7' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_8.png' alt='Page 8' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_9.png' alt='Page 9' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_10.png' alt='Page 10' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_11.png' alt='Page 11' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-05/page_12.png' alt='Page 12' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-</div>
-
-
 ## 1. Introduction
 
-In traditional 스테레오, 주요 idea is to use corresponding points p and p' to estimate the location of a 3D 점 P by triangulation. A key challenge here, is to solve the correspondence problem: how do we know whether a point p actually corresponds to a point p' in another image? This problem is further accentuated by the fact that we need to handle the many 3D 점s that are present in the scene. The focus of these notes will discuss alternative techniques that work well in reconstructing the 3D structure.
-
+전통적인 스테레오에서 주요 아이디어는 대응하는 점 $p$와 $p'$를 사용하여 triangulation으로 3D 점 $P$의 위치를 추정하는 것입니다. 여기서 핵심 도전 과제는 **correspondence problem(대응 문제)**를 해결하는 것입니다: 점 $p$가 실제로 다른 이미지의 점 $p'$에 대응하는지 어떻게 알 수 있을까요? 이 문제는 장면에 존재하는 많은 3D 점들을 처리해야 한다는 사실로 인해 더욱 두드러집니다. 이 강의 노트의 초점은 3D 구조를 재구성하는 데 잘 작동하는 대안적인 기법들을 논의하는 것입니다.
 
 ## 2. Active stereo
 
-Figure 1: The active 스테레오 setup that projects a point into 3D space. First, wewillanintroduceatechniqueknownasactive 스테레오thathelps mitigate the correspondence problem in traditional 스테레오. The main idea of active 스테레오 is to replace one of the two cameras with a device that interacts 1 with the 3D environment, usually by projecting a pattern onto the object thatiseasilyidentifiablefromthesecondcamera. Thisnewprojector-camera pair defines the same 에피폴라 geometry that we introduced for camera pairs, wherebytheimageplaneofthereplacedcameraisreplacedwithaprojector virtual plane. In Figure 1, the projector is used to project a point p in the virtual plane onto the object in 3D space, producing a point in 3D space P. This 3D 점 P should be observed in the second camera as a point p'. Because we know what we are projecting (e.g. the position of p in the virtual plane, the color and intensity of the 투영, etc.), 우리는 할 수 있습니다 easily discover the corresponding observation in the second camera p'. Figure 2: The active 스테레오 setup that projects a line into 3D space. A common strategy in active 스테레오 is to project from the virtual plane a verticalstripesinsteadofasinglepoint. Thiscaseisverysimilartothepoint case, where the line s is projected to a stripe in 3D space S and observed as a line in the camera as s'. If the projector and camera are parallel or rectified, then 우리는 할 수 있습니다 discover the corresponding points easily by simply intersecting s' with the horizontal 에피폴라 lines. From the correspondences, 우리는 할 수 있습니다 use the triangulation methods introduced in the previous course notes to reconstruct all the 3D 점s on the stripe S. By swiping the line across the scene and repeating the process, 우리는 할 수 있습니다 recover the entire shape of all visible objects in the scene. Notice that one requirement for this algorithm to work is that the pro- jector and the camera need to be calibrated....
+전통적인 스테레오에서 대응 문제를 완화하는 데 도움이 되는 **active stereo(능동 스테레오)**라는 기법을 소개하겠습니다. active stereo의 주요 아이디어는 두 카메라 중 하나를 3D 환경과 상호작용하는 장치로 대체하는 것입니다. 일반적으로 객체에 패턴을 투영하여 두 번째 카메라에서 쉽게 식별할 수 있게 합니다. 이 새로운 프로젝터-카메라 쌍은 카메라 쌍에 대해 소개한 것과 동일한 에피폴라 기하학을 정의하며, 여기서 대체된 카메라의 이미지 평면은 프로젝터 **virtual plane(가상 평면)**으로 대체됩니다. Figure 1에서 프로젝터는 가상 평면의 점 $p$를 3D 공간의 객체에 투영하여 3D 공간의 점 $P$를 생성하는 데 사용됩니다. 이 3D 점 $P$는 두 번째 카메라에서 점 $p'$로 관찰되어야 합니다. 우리가 투영하는 것을 알고 있기 때문에(예: 가상 평면에서 $p$의 위치, 투영의 색상 및 강도 등), 두 번째 카메라에서 해당 관측값 $p'$를 쉽게 발견할 수 있습니다.
 
+active stereo에서 일반적인 전략은 단일 점 대신 가상 평면에서 수직 스트라이프 $s$를 투영하는 것입니다. 이 경우는 점 경우와 매우 유사하며, 여기서 선 $s$는 3D 공간의 스트라이프 $S$로 투영되고 카메라에서 선 $s'$로 관찰됩니다. 프로젝터와 카메라가 평행하거나 정렬된 경우, $s'$를 수평 에피폴라 선과 단순히 교차시켜 대응 점을 쉽게 발견할 수 있습니다. 대응으로부터 이전 강의 노트에서 소개한 triangulation 방법을 사용하여 스트라이프 $S$ 위의 모든 3D 점을 재구성할 수 있습니다. 선을 장면 전체로 스와이프하고 프로세스를 반복함으로써 장면의 모든 보이는 객체의 전체 모양을 복원할 수 있습니다.
+
+이 알고리즘이 작동하려면 프로젝터와 카메라가 보정되어야 한다는 요구 사항이 있습니다. active stereo 시스템은 이전 노트에서 설명한 것과 유사한 기법을 사용하여 보정할 수 있습니다. 먼저 보정 장치를 사용하여 카메라를 보정할 수 있습니다. 그런 다음 알려진 스트라이프를 보정 장치에 투영하고 새로 보정된 카메라에서 해당 관측값을 사용하여 프로젝터 내부 및 외부 파라미터를 추정하기 위한 제약 조건을 설정할 수 있습니다. 일단 보정되면, 이 active stereo 설정은 매우 정확한 결과를 생성할 수 있습니다. 2000년에 Stanford의 Marc Levoy와 그의 학생들은 정밀하게 조정된 레이저 스캐너를 사용하여 미켈란젤로의 피에타의 모양을 밀리미터 단위의 정확도로 복원할 수 있음을 입증했습니다.
+
+그러나 일부 경우에는 정밀하게 조정된 프로젝터가 너무 비싸거나 번거로울 수 있습니다. 훨씬 더 저렴한 설정을 사용하는 대안적인 접근 방식은 그림자를 활용하여 복원하려는 객체에 active 패턴을 생성합니다. 알려진 위치의 객체와 광원 사이에 막대를 배치함으로써 이전과 같이 객체에 스트라이프를 효과적으로 투영할 수 있습니다. 막대를 이동하면 객체에 다른 그림자 스트라이프를 투영하고 이전과 유사한 방식으로 객체를 복원할 수 있습니다. 이 방법은 훨씬 더 저렴하지만 막대, 카메라, 광원 간의 매우 좋은 보정이 필요하고 막대 그림자의 길이와 얇음 사이의 균형을 유지해야 하기 때문에 덜 정확한 결과를 생성하는 경향이 있습니다.
+
+단일 스트라이프를 객체에 투영하는 것의 한 가지 제한 사항은 프로젝터가 전체 객체를 가로질러 스와이프해야 하기 때문에 상당히 느리다는 것입니다. 또한 이것은 이 방법이 실시간으로 변형을 캡처할 수 없다는 것을 의미합니다. 자연스러운 확장은 대신 단일 프레임 또는 이미지에서 투영하여 객체를 재구성하려는 것입니다. 아이디어는 단일 스트라이프 대신 객체의 전체 보이는 부분에 다른 스트라이프의 알려진 패턴을 투영하는 것입니다. 이러한 스트라이프의 색상은 이미지에서 스트라이프를 고유하게 식별할 수 있도록 설계됩니다. Figure 3은 이 다중 색상 코딩된 스트라이프 방법을 설명합니다. 이 개념은 Microsoft Kinect의 원래 버전과 같은 현대적인 깊이 센서의 많은 버전을 구동했습니다. 실제로 이러한 센서는 적외선 레이저 프로젝터를 사용하여 모든 주변 광 조건에서 3D 비디오 데이터를 캡처할 수 있게 합니다.
 
 ## 3. Volumetric stereo
 
-Figure 4: The setup of volumetric 스테레오, which takes points from a limited, working volume and performs consistency checks to determine 3D shape. An alternative to both the traditional 스테레오 and active 스테레오 approach is volumetric 스테레오, which inverts the problem of using correspondences to find 3D structure. In volumetric 스테레오, we assume that the 3D 점 we are trying to estimate is within some contained, known volume. We then project the hypothesized 3D 점 back into the calibrated cameras and validate whether these 투영s are consistent across the multiple views. Figure 4 illustrates the general setup of the volumetric 스테레오 problem. Because these techniques assume that the points we want to reconstruct are contained by a limited volume, these techniques are mostly used for recovering the 3D models of specific objects as opposed to recovering models of a scene, which may be unbounded. The main tenet of any volumetric 스테레오 method is to first define what it means to be “consistent” when we reproject a 3D 점 in the contained volume back into the multiple image views. Thus, depending on the defi- nition of the concept of consistent observations, different techniques 될 수 있습니다 introduced. In these notes, we will briefly outline three major techniques, which are known as space carving, shadow carving, and voxel coloring. 4
+전통적인 스테레오와 active stereo 접근 방식 모두에 대한 대안은 **volumetric stereo(볼륨 스테레오)**입니다. 이것은 대응을 사용하여 3D 구조를 찾는 문제를 역전시킵니다. volumetric stereo에서 우리는 추정하려는 3D 점이 어떤 포함된 알려진 볼륨 내에 있다고 가정합니다. 그런 다음 가정된 3D 점을 보정된 카메라로 다시 투영하고 이러한 투영이 여러 시점에서 일관성이 있는지 검증합니다. Figure 4는 volumetric 스테레오 문제의 일반적인 설정을 설명합니다. 이러한 기법은 재구성하려는 점들이 제한된 볼륨에 포함되어 있다고 가정하기 때문에, 이러한 기법은 주로 무한할 수 있는 장면의 모델을 복원하는 것과 반대로 특정 객체의 3D 모델을 복원하는 데 사용됩니다.
 
+모든 volumetric 스테레오 방법의 주요 원칙은 포함된 볼륨의 3D 점을 여러 이미지 시점으로 다시 투영할 때 "일관성"이 무엇을 의미하는지 먼저 정의하는 것입니다. 따라서 일관된 관측의 개념 정의에 따라 다른 기법을 도입할 수 있습니다. 이 강의 노트에서는 **space carving**, **shadow carving**, **voxel coloring**으로 알려진 세 가지 주요 기법을 간략하게 설명하겠습니다.
 
-## 3.1. Space carving
+### 3.1 Space carving
 
-Figure 5: The silhouette of an object we want to reconstruct contains all pixels of the visible portion of the object in the image. The visual cone is the set of all possible points that can project into the silhouette of the object in the image. The idea of space carving is mainly derived from the observation that the contours of an object provide a rich source of geometric information about the object. In the context of multiple views, let us first set up the problem illustrated in Figure 5. Each camera observes some visible portion of an object, from which a contour 될 수 있습니다 determined. When projected into the 이미지 평면, this contour encloses a set of pixels known as the silhouette of the object in the 이미지 평면. Space carving ultimately uses the silhouettes of objects from multiple views to enforce consistency. However, if we do not have the information of the 3D object and only im- ages, then how can we obtain silhouette information? Luckily, one practical advantage of working with silhouettes is that they 될 수 있습니다 easily detected in images if we have control of the background behind the object that we want to reconstruct. For example, 우리는 할 수 있습니다 use a “green screen” behind the object to easily segment the object from its background. Now that we have the silhouettes, how can we actually use them? Recall that in volumetric 스테레오, we have an estimate of some volume that we guar- antee that the object can reside within. We now introduce the concept of a visual cone, which is the enveloping surface defined by the camera center and the object contour in the 이미지 평면. By construction, 그것은 guaranteed 5 that the object will lie completely in both the initial volume and the visual cone. Figure 6: The process of estimating the object from multiple views involves recovering the visual hull, which is the intersection of visual cones from each camera. Therefore, if we have multiple views, then 우리는 할 수 있습니다 compute visual cones for each view. Since, by definition, the object resides in each of these visual cones, then it must lie in the intersection of these visual cones, as illustrated in Figure 6....
+space carving의 아이디어는 주로 객체의 윤곽선이 객체에 대한 풍부한 기하학적 정보 소스를 제공한다는 관찰에서 파생됩니다. 여러 시점의 맥락에서 Figure 5에 설명된 문제를 먼저 설정하겠습니다. 각 카메라는 객체의 일부 보이는 부분을 관찰하며, 그로부터 윤곽선을 결정할 수 있습니다. 이미지 평면에 투영될 때, 이 윤곽선은 이미지 평면에서 객체의 **silhouette(실루엣)**로 알려진 픽셀 집합을 둘러쌉니다. Space carving은 궁극적으로 여러 시점에서 객체의 실루엣을 사용하여 일관성을 강제합니다.
 
+그러나 3D 객체의 정보가 없고 이미지만 있는 경우 실루엣 정보를 어떻게 얻을 수 있을까요? 다행히 실루엣으로 작업하는 것의 실용적인 장점 중 하나는 재구성하려는 객체 뒤의 배경을 제어할 수 있다면 이미지에서 쉽게 감지할 수 있다는 것입니다. 예를 들어, 객체 뒤에 "그린 스크린"을 사용하여 배경에서 객체를 쉽게 분할할 수 있습니다.
 
-## 3.2. Shadow carving
+이제 실루엣을 가지고 있으니 실제로 어떻게 사용할 수 있을까요? volumetric 스테레오에서 객체가 거주할 수 있다고 보장하는 어떤 볼륨의 추정값을 가지고 있다는 것을 기억하세요. 이제 **visual cone(시각 원뿔)**의 개념을 소개합니다. 이것은 카메라 중심과 이미지 평면의 객체 윤곽선으로 정의된 둘러싸는 표면입니다. 구성에 의해 객체가 초기 볼륨과 시각 원뿔 모두에 완전히 놓일 것이 보장됩니다.
 
-Tocircumventtheconcavityproblemposedbyspacecarving, weneedtolook to other forms of consistency checks. One important cue for determining the 3D shape of an object that 우리는 할 수 있습니다 use is the presence of self-shadows. Self- shadows are the shadows that an object projects on itself. For the case of concave objects, an object will often cast self-shadows in the concave region. Shadow carving at its core augments space carving with the idea of using self-shadows to better estimate the concavities. As shown in Figure 9, the general setup of shadow carving is very similar to space carving. An ob- ject is placed in a turntable that is viewed by a calibrated camera. However, there is an array of lights in known positions around the camera who states 될 수 있습니다 appropriately turned on and off. These lights will be used to make 8 Figure 9: The setup of shadow carving, which augments space carving by adding a new consistency check from an array of lights surrounding the cam- era. the object cast self-shadows. As shown in Figure 10, the shadow carving process begins with an initial voxel grid, which is trimmed down by using the same approach as in space carving. However, in each view, 우리는 할 수 있습니다 turn on and off each light in the array surrounding the camera. Each light will produce a different self-shadow on the object. Upon identifying the shadow in the 이미지 평면, 우리는 할 수 있습니다 then find the voxels on the surface of our trimmed voxel grid that are in the visual cone of the shadow. These surface voxels allow us to then make a new visual cone with the image source....
+따라서 여러 시점이 있다면 각 시점에 대해 시각 원뿔을 계산할 수 있습니다. 정의에 의해 객체가 이러한 각 시각 원뿔에 거주하므로, Figure 6에 설명된 대로 이러한 시각 원뿔의 교차점에 있어야 합니다. 이러한 교차점은 종종 **visual hull(시각 헐)**이라고 불립니다.
 
+실제로 우리는 먼저 객체가 포함되어 있다는 것을 알고 있는 작업 볼륨을 정의합니다. 예를 들어, 카메라가 객체를 둘러싸고 있다면, 작업 볼륨이 단순히 카메라로 둘러싸인 공간의 전체 내부라고 말할 수 있습니다. 우리는 이 볼륨을 **voxel(복셀)**로 알려진 작은 단위로 나누며, 이것은 **voxel grid(복셀 그리드)**로 알려진 것을 정의합니다. 우리는 복셀 그리드의 각 복셀을 취하여 각 시점으로 투영합니다. 복셀이 시점의 실루엣에 포함되지 않으면 버려집니다. 결과적으로 space carving 알고리즘의 끝에서 우리는 시각 헐 내에 포함된 복셀들을 남깁니다.
 
-## 3.3. Voxel coloring
+space carving 방법은 대응 문제를 피하고 상대적으로 간단하지만 여전히 많은 제한 사항이 있습니다. space carving의 한 가지 제한 사항은 복셀 그리드의 복셀 수에 대해 선형적으로 확장된다는 것입니다. 각 복셀의 크기를 줄이면 그리드에 필요한 복셀 수가 입방적으로 증가합니다. 따라서 더 세밀한 재구성 결과를 얻으려면 시간이 크게 증가합니다. 그러나 octree를 사용하는 것과 같은 일부 방법을 사용하여 이 문제를 완화할 수 있습니다. 관련되지만 더 간단한 방법에는 초기 복셀 그리드의 크기를 줄이기 위해 반복적인 carving을 수행하는 것이 포함됩니다.
 
-The last technique we cover in volumetric 스테레오 is voxel coloring, which uses color consistency instead of contour consistency in space carving. As illustrated in Figure 11, suppose that we are given images from multi- ple views of an object that we want to reconstruct. For each voxel, we look at its corresponding 투영s in each of the images and compare the color of each of these 투영s. If the colors of these 투영s sufficiently match, then we mark the voxel as part of the object. One benefit of voxel coloring not present in space carving is that color associated with the 투영s 될 수 있습니다 transferred to the voxel, giving a colored reconstruction. Overall, there are many methods that one could use for the color con- sistency check. One example would be to set a threshold between the color similarity between the 투영s. However, there exists a critical assump- tion for any color consistency check used: the object being reconstructed must be Lambertian, which means that the perceived luminance of any part of the object does not change with viewpoint location or pose. For 10 Figure 11: The setup of voxel coloring, which makes a consistency check of the color of all 투영s of a voxel. non-Lambertian objects, such as those made of highly reflective material, 그것은 easy to conceive that the color consistency check would fail on voxels that are actually part of the object. Figure 12: An example of an ambiguous case of vanilla voxel coloring. One drawback of vanilla voxel coloring is that it produces a solution that is not necessarily unique, as shown in Figure 12. Finding the true, unique solution complicates the problem of reconstruction by voxel coloring. 11 It is possible to remove the ambiguity in the reconstruction by introducing a visibility constraint on the voxel, which requires that the voxels be traversed in a particular order. In particular, we want to traverse the voxels layer by layer, starting with voxels closer to the cameras and then progress to further away voxels....
+또 다른 제한 사항은 space carving의 효능이 시점 수, 실루엣의 정확성, 그리고 재구성하려는 객체의 모양에 의존한다는 것입니다. 시점 수가 너무 낮으면 객체의 시각 헐에 대한 매우 느슨한 추정값으로 끝납니다. 시점 수가 증가할수록 일관성 검사를 통해 더 많은 불필요한 복셀을 제거할 수 있습니다. 또한 일관성 검사의 유효성은 실루엣이 정확하다고 믿는다는 사실에 의해서만 유지됩니다. 실루엣이 너무 보수적이고 필요한 것보다 더 많은 픽셀을 포함하면 우리의 carving이 정확하지 않을 수 있습니다. 잠재적으로 더 나쁜 경우, 실루엣이 실제 객체의 일부를 놓치면 과도하게 carved된 재구성으로 이어집니다. 마지막으로, space carving의 주요 단점은 Figure 8에 표시된 대로 객체의 특정 오목함을 모델링할 수 없다는 것입니다.
 
+### 3.2 Shadow carving
 
-## 요약
+space carving이 제기한 오목함 문제를 우회하기 위해 다른 형태의 일관성 검사를 찾아야 합니다. 사용할 수 있는 3D 객체 모양을 결정하는 중요한 단서 중 하나는 **self-shadows(자기 그림자)**의 존재입니다. 자기 그림자는 객체가 자신에게 투영하는 그림자입니다. 오목한 객체의 경우, 객체는 종종 오목한 영역에서 자기 그림자를 드리웁니다. Shadow carving은 핵심적으로 space carving을 자기 그림자를 사용하여 오목함을 더 잘 추정하는 아이디어로 보강합니다.
 
-이 강의에서는 능동 및 볼륨 스테레오의 주요 개념과 방법론을 다뤘습니다.
+Figure 9에 표시된 대로, shadow carving의 일반적인 설정은 space carving과 매우 유사합니다. 객체는 보정된 카메라가 보는 턴테이블에 배치됩니다. 그러나 카메라 주변의 알려진 위치에 있는 광원 배열이 있으며, 이는 적절하게 켜고 끌 수 있습니다. 이러한 광원은 객체가 자기 그림자를 드리우도록 만드는 데 사용됩니다.
+
+Figure 10에 표시된 대로, shadow carving 프로세스는 초기 복셀 그리드로 시작하며, space carving과 동일한 접근 방식을 사용하여 다듬어집니다. 그러나 각 시점에서 카메라 주변의 배열에서 각 광원을 켜고 끌 수 있습니다. 각 광원은 객체에 다른 자기 그림자를 생성합니다. 이미지 평면에서 그림자를 식별한 후, 다듬어진 복셀 그리드의 표면에서 그림자의 시각 원뿔에 있는 복셀을 찾을 수 있습니다. 이러한 표면 복셀을 통해 이미지 소스로 새로운 시각 원뿔을 만들 수 있습니다. 그런 다음 두 시각 원뿔 모두에 속한 복셀은 객체의 일부가 될 수 없다는 유용한 사실을 활용하여 오목함의 복셀을 제거합니다.
+
+space carving과 마찬가지로 shadow carving의 실행 시간은 복셀 그리드의 해상도에 의존합니다. 실행 시간은 복셀 그리드의 해상도에 대해 입방적으로 확장됩니다. 그러나 $N$개의 광원이 있다면, shadow carving은 각 복셀이 카메라와 $N$개의 광원 각각으로 투영되어야 하기 때문에 space carving보다 약 $N+1$배 더 오래 걸립니다.
+
+요약하면, shadow carving은 항상 오목함이 있는 3D 모양을 더 잘 재구성하는 보수적인 볼륨 추정값을 생성합니다. 결과의 품질은 시점 수와 광원 수 모두에 의존합니다. 이 접근 방식의 일부 단점은 객체가 반사적이거나 낮은 알베도 영역을 포함하는 경우를 처리할 수 없다는 것입니다. 이것은 그러한 조건에서 그림자를 정확하게 감지할 수 없기 때문입니다.
+
+### 3.3 Voxel coloring
+
+volumetric 스테레오에서 다루는 마지막 기법은 **voxel coloring(복셀 컬러링)**입니다. 이것은 space carving에서 윤곽선 일관성 대신 색상 일관성을 사용합니다. Figure 11에 설명된 대로, 재구성하려는 객체의 여러 시점에서 이미지가 주어졌다고 가정합니다. 각 복셀에 대해 각 이미지에서 해당 투영을 보고 이러한 투영 각각의 색상을 비교합니다. 이러한 투영의 색상이 충분히 일치하면 복셀을 객체의 일부로 표시합니다. space carving에 없는 voxel coloring의 한 가지 이점은 투영과 관련된 색상이 복셀에 전달되어 컬러 재구성을 제공할 수 있다는 것입니다.
+
+전반적으로 색상 일관성 검사에 사용할 수 있는 많은 방법이 있습니다. 한 예는 투영 간의 색상 유사성 사이에 임계값을 설정하는 것입니다. 그러나 사용되는 모든 색상 일관성 검사에 대한 중요한 가정이 있습니다: 재구성되는 객체는 **Lambertian(램버시안)**이어야 합니다. 이것은 객체의 어떤 부분의 인지된 휘도가 시점 위치나 포즈에 따라 변하지 않는다는 것을 의미합니다. 고도로 반사적인 재료로 만들어진 것과 같은 비램버시안 객체의 경우, 실제로 객체의 일부인 복셀에서 색상 일관성 검사가 실패할 수 있다는 것을 쉽게 상상할 수 있습니다.
+
+바닐라 voxel coloring의 한 가지 단점은 Figure 12에 표시된 대로 반드시 고유하지 않은 해를 생성한다는 것입니다. 진정한 고유 해를 찾는 것은 voxel coloring에 의한 재구성 문제를 복잡하게 만듭니다.
+
+재구성의 모호성을 제거하는 것은 복셀에 가시성 제약을 도입하여 복셀이 특정 순서로 순회되어야 한다는 것을 요구함으로써 가능합니다.
+
+특히, 카메라에 더 가까운 복셀부터 시작하여 더 먼 복셀로 진행하면서 복셀을 레이어별로 순회하고 싶습니다. 이 순서를 사용할 때 색상 일관성 검사를 수행합니다. 그런 다음 복셀이 최소 두 개의 카메라에 의해 볼 수 있는지 확인하며, 이것이 우리의 가시성 제약을 구성합니다. 복셀이 최소 두 개의 카메라에 의해 보이지 않으면 가려져 있어 객체의 일부가 아닙니다. 더 가까운 복셀을 처리하는 우리의 순서는 이 가시성 제약을 강제하기 위해 나중에 처리된 복셀을 가릴 수 있는 복셀을 유지하도록 합니다.
+
+결론적으로, voxel coloring은 객체의 모양과 텍스처를 동시에 캡처하는 장점이 있습니다. 일부 단점은 객체가 램버시안으로 가정되고 가시성 제약으로 인해 복셀이 특정 순서로 처리되어야 하기 때문에 카메라가 특정 위치에 있을 수 없다는 것을 포함합니다.
+
+---
 
 ## 참고 자료
 

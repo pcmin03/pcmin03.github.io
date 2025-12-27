@@ -1,7 +1,7 @@
 ---
 title: "[CS231A] Lecture 08: Monocular Depth Estimation (단안 깊이 추정)"
 categories: [3D Geometry]
-tags: [3D Vision, CS231A, Monocular, Depth, Estimation]
+tags: [3D Vision, CS231A, Depth Estimation, Feature Tracking]
 article_header:
   type: overlay
   theme: dark
@@ -15,107 +15,125 @@ mathjax_autoNumber: true
 
 **Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition**
 
-이 포스트는 Stanford CS231A 강의의 08번째 강의 노트인 "Monocular Depth Estimation"를 한글로 정리한 것입니다.
+이 포스트는 Stanford CS231A 강의의 여덟 번째 강의 노트인 "Monocular Depth Estimation and Feature Tracking"를 정리한 것입니다.
 
-**원본 강의 노트**: [08-monocular_depth_estimation.pdf](https://web.stanford.edu/class/cs231a/course_notes/08-monocular_depth_estimation.pdf)
+**원본 강의 노트**: [08-monocular-depth-estimation.pdf](https://web.stanford.edu/class/cs231a/course_notes/08-monocular-depth-estimation.pdf)
 
 <!--more-->
 
-## 강의 개요
-
-이 강의에서는 단안 깊이 추정에 대해 다룹니다.
-
-
-## 강의 노트 페이지 이미지
-
-<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin: 2rem 0;'>
-  <div><img src='/assets/images/posts/cs231a-08/page_1.png' alt='Page 1' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_2.png' alt='Page 2' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_3.png' alt='Page 3' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_4.png' alt='Page 4' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_5.png' alt='Page 5' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_6.png' alt='Page 6' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_7.png' alt='Page 7' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_8.png' alt='Page 8' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_9.png' alt='Page 9' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_10.png' alt='Page 10' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_11.png' alt='Page 11' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_12.png' alt='Page 12' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_13.png' alt='Page 13' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_14.png' alt='Page 14' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-08/page_15.png' alt='Page 15' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-</div>
-
-
-## 주요 수식
-
-이 강의에서 다루는 주요 수식들:
-
-**수식 1:**
-
-$$We can use similar triangles as illustrated in Figure 3 to obtai z = fb, where$$
-
-
 ## 1. Overview
 
-In the previous section, we discussed the idea of 표현 학습 which leverages unsupervised and self-supervised methods to learn an intermediate, low-dimensional표현ofhigh-dimensionalsensorydata. Theselearned features can then be used to solve downstream visual inference tasks. Here, we will examine how 표현 학습 in the context of two common 컴퓨터 비전 problems: monocular 깊이 추정 and feature tracking.
+이전 섹션에서 표현 학습의 아이디어를 논의했습니다. 이것은 비지도 및 자기 지도 방법을 활용하여 고차원 감각 데이터의 중간, 저차원 표현을 학습합니다. 이러한 학습된 특징은 그런 다음 다운스트림 시각 추론 작업을 해결하는 데 사용될 수 있습니다. 여기서는 두 가지 일반적인 컴퓨터 비전 문제의 맥락에서 표현 학습을 검토합니다: **monocular depth estimation(단안 깊이 추정)**과 **feature tracking(특징 추적)**입니다.
 
+## 2. Monocular Depth Estimation
 
-## 2.1. Background
+### 2.1 Background
 
-Depth 추정 is common 컴퓨터 비전 building block that is crucial to tackling more complex tasks, such as 3D reconstruction and spatial perception for grasping in robotics or navigation for autonomous vehicles. There are nu- merous active methods for 깊이 추정 such as structured light 스테레오 and LIDAR (3D 점 clouds), but we focus on 깊이 추정 through passive means here since it does not require specialized, possibly expensive hardware and can work better in outdoor situations. We can view 깊이 추정 as a special case of the correspondence problem, which is fundamental in 컴퓨터 비전. It involves finding the 2D locations corresponding to the 투영s of a physical 3D 점 onto multiple 2D images taken of a 3D scene. The 2D frames 될 수 있습니다 captured from multiple viewpoints either using a monocular or a 스테레오 camera. 1 Figure 1: Epipolar geometry setup with a 스테레오 camera. One way to solve for correspondences is through 에피폴라 geometry, illus- trated in Figure 1, as we have seen earlier in the course. Recall that given the camera centers O and O and a 3D 점 in the scene called P, p and p′ rep-
+**Depth estimation(깊이 추정)**은 로봇 공학에서 파악을 위한 3D 재구성 및 공간 인식 또는 자율 주행 차량을 위한 탐색과 같은 더 복잡한 작업을 해결하는 데 중요한 일반적인 컴퓨터 비전 빌딩 블록입니다. 구조화된 광 스테레오 및 LIDAR(3D 포인트 클라우드)와 같은 깊이 추정을 위한 수많은 능동 방법이 있지만, 여기서는 특수하고 비용이 많이 들 수 있는 하드웨어가 필요하지 않고 실외 상황에서 더 잘 작동할 수 있기 때문에 수동 수단을 통한 깊이 추정에 초점을 맞춥니다.
 
+우리는 깊이 추정을 **correspondence problem(대응 문제)**의 특수한 경우로 볼 수 있으며, 이것은 컴퓨터 비전에서 근본적입니다. 이것은 3D 장면의 여러 2D 이미지에 물리적 3D 점의 투영에 해당하는 2D 위치를 찾는 것을 포함합니다. 2D 프레임은 단안 또는 스테레오 카메라를 사용하여 여러 시점에서 캡처될 수 있습니다.
 
-## 1. 2
+Figure 1에 표시된 대로 대응을 해결하는 한 가지 방법은 이전 수업에서 본 대로 에피폴라 기하학을 통하는 것입니다. 카메라 중심 $O_1$과 $O_2$ 및 장면의 3D 점 $P$가 주어지면, $p$와 $p'$는 각각 왼쪽 및 오른쪽 카메라의 이미지 평면으로 $P$의 투영을 나타냅니다. 왼쪽 이미지에서 $p$가 주어지면, 오른쪽 이미지에서 해당 점 $p'$는 에피폴라 평면과 이미지 평면의 교차로 정의된 오른쪽 카메라의 에피폴라 선 위 어딘가에 있어야 한다는 것을 알고 있습니다. 이것은 두 카메라 사이의 fundamental(또는 essential) 행렬에 의해 캡슐화된 **epipolar constraint(에피폴라 제약)**로 알려져 있습니다. 왜냐하면 $F$가 알려진 에피폴라 선을 제공하기 때문입니다. 깊이 추정의 맥락에서, 우리는 종종 스테레오 설정과 정렬된 이미지를 다루고 있다고 가정합니다. 에피폴라 선은 수평이고 **disparity(시차)**는 $d = p'_u - p_u$ 및 $p_u + d = p'_u$와 같이 두 대응 점 사이의 (수평) 거리로 정의됩니다($p'_u > p_u$ for all $P$).
 
-resent the 투영 of P into the 이미지 평면s for the left and right cameras, respectively. Given p in the left image, we know that the corresponding point in the right image p′ must lie somewhere on the 에피폴라 line of the right cam- era, which we defined as the intersection of the 이미지 평면s with the 에피폴라 plane. This is known as the 에피폴라 constraint, which is encapsulated by thefundamental(oressential)matrixbetweenthetwocamerassinceF givesus the known 에피폴라 lines. In the context of 깊이 추정, we often assume that we are dealing with a 스테레오 setup and rectified images. The 에피폴라 lines are then horizontal and the disparity is defined as the (horizontal) distance between the two corresponding points such that d = p′ −p and p +d = p′ u u u u (note that p′ >p for all P). u u 2 Figure 2: Rectified setup with parallel 이미지 평면s and epipoles at infinity. We then see that there is simple inverse relationship between disparity and 깊이, whichisdefinedasthez-coordinateofP relativetothecameracenters. We can use similar triangles as illustrated in Figure 3 to obtai z = fb, where d f is the 초점 거리 of the cameras and b is the length of the baseline between the two cameras (yellow dashed line in Fig 2). Assuming b and the camera intrinsics K are known, we see that if we are able to find correspondences between two rectified images, illustrated in Figure 2, we know their disparity and thus their 깊이. One approach to identify correspondences p′ for p is to runasimple1D-searchalongthe에피폴라lineintheotherimage,usingpixelor patchsimilaritiestodeterminethelocationofthemostlikelyp′. However, such a naive method would run into issues such as occlusions, repetitive patterns, and homogeneous regions (i.e. lack of texture) on real-world images. We turn to modern 표현 학습 methods instead. Figure 3: Relationship between 깊이 and disparity. 3
+그런 다음 시차와 **depth(깊이)** 사이에 간단한 역 관계가 있다는 것을 봅니다. 이것은 카메라 중심에 상대적인 $P$의 $z$ 좌표로 정의됩니다. Figure 3에 설명된 대로 유사한 삼각형을 사용하여 $z = \frac{f b}{d}$를 얻을 수 있습니다. 여기서 $f$는 카메라의 초점 거리이고 $b$는 두 카메라 사이의 기준선 길이입니다(Figure 2의 노란색 점선). $b$와 카메라 내부 $K$가 알려져 있다고 가정하면, Figure 2에 설명된 대로 두 정렬된 이미지 간의 대응을 찾을 수 있다면 시차를 알고 따라서 깊이를 알 수 있습니다. $p$에 대한 대응 $p'$를 식별하는 한 가지 접근 방식은 다른 이미지의 에피폴라 선을 따라 간단한 1D 검색을 실행하여 픽셀 또는 패치 유사성을 사용하여 가장 가능성 높은 $p'$의 위치를 결정하는 것입니다. 그러나 그러한 순진한 방법은 실제 이미지에서 가림, 반복 패턴 및 동질 영역(즉, 텍스처 부족)과 같은 문제에 부딪힐 것입니다. 대신 현대적인 표현 학습 방법으로 전환합니다.
 
+### 2.2 Supervised Estimation
 
-## 2.2. Supervised Estimation
+여기서 우리는 **monocular (single-view) depth estimation(단안(단일 시점) 깊이 추정)** 작업에 초점을 맞춥니다: 테스트 시간에 단일 이미지만 사용 가능하며 장면 내용에 대한 가정이 없습니다. 대조적으로, 스테레오(다중 시점) 깊이 추정 방법은 여러 이미지로 추론을 수행합니다. 단안 깊이 추정은 기하학적으로 이미지의 각 픽셀의 깊이를 결정하는 것이 불가능한 미결정 문제입니다. 그러나 인간은 원근, 스케일링 및 조명과 가림을 통한 외관과 같은 단서를 활용하여 단일 눈으로 깊이를 잘 추정할 수 있습니다. 따라서 이러한 단서를 활용할 때 컴퓨터는 단일 이미지로 깊이를 추론할 수 있어야 합니다. Figure 4에 설명된 대로 완전 지도 학습 방법은 ground truth 깊이와 RGB 카메라 프레임 쌍에 대해 픽셀별 시차를 예측하도록 모델(CNN)을 학습시킵니다 [8, 11]. 훈련 손실은 예측된 깊이와 ground truth 깊이 사이의 유사성을 포착하며 학습 방법은 그 손실을 최소화하는 것을 목표로 합니다. 단안 방법은 스케일까지만 깊이를 캡처할 수 있기 때문에, [1]은 이전 단안 방법에 스케일 불변 오차를 사용하는 것을 제안합니다.
 
-Here, we focus on the task of monocular (single-view) 깊이 추정: weonlyhaveasingleimageavailableattesttime,andnoassumptionsaboutthe scenecontentsaremade. Incontrast,스테레오(multi-view)깊이추정 methods perform inference with multiple images. Monocular 깊이 추정 is an underconstrained problem, i.e. geometrically 그것은 impossible to determine the깊이ofeachpixelintheimage. However, humanscanestimate깊이well withasingleeyebyexploitingcuessuchasperspective,scaling,andappearance via lighting and occlusion. Therefore, when exploiting these cues, computers shouldbeabletoinfer깊이withjustasingleimage. Fullysupervised학습 methods, illustrated in Figure 4, rely on training models (CNNs) to learn to predict pixel-wise disparity over pairs of ground truth 깊이 and RGB camera frames [8, 11]. The training loss captures the similarity between the predicted and ground-truth 깊이 and the 학습 method aims to minimize that loss. Sincemonocularmethodscanonlycapture깊이up-to-scale,[1]proposesusing a scale-invariant error to prior monocular methods. Figure 4: Vanilla supervised 학습 setup used in [1, 8, 11]. Figure from [3].
+### 2.3 Unsupervised Estimation
 
+지도 학습 방법이 괜찮은 결과를 달성했지만, 대량의 ground truth 깊이 데이터가 사용 가능한 장면 유형으로 제한됩니다. 이것은 입력 RGB 프레임 데이터와 알려진 내부를 가진 스테레오 카메라만 필요로 하며 따라서 비용이 많이 드는 레이블링 노력의 필요성을 피하는 비지도 학습 방법을 동기 부여합니다. 여기서 우리는 [3]에서 제안한 접근 방식을 사례 연구로 검토합니다. 재구성된 깊이와 ground truth 깊이 사이의 차이를 손실로 사용하는 대신, 기본 비지도 공식은 자동 인코더를 사용하여 이미지 재구성을 통해 문제를 캐스팅하여 입력 참조 이미지와 재구성된 버전 $\tilde{I}_l$ 사이의 차이를 최소화합니다.
 
-## 2.3. Unsupervised Estimation
+Figure 5에 표시된 기본 네트워크는 왼쪽 이미지 $I_l$만 재구성합니다. 네트워크의 입력은 왼쪽 프레임 $I_l$입니다. CNN은 왼쪽 프레임을 출력 $d_l$로 매핑하며, 이것은 오른쪽 이미지 $I_r$를 왼쪽 이미지로 변환하는 데 필요한 시차(변위) 값입니다. 시차 값은 그런 다음 오른쪽 이미지에서 샘플링하여 왼쪽 이미지를 재구성하는 데 중간 표현으로 사용됩니다. 우리는 오른쪽 이미지에서 $\tilde{I}_l(u, v) = I_r(u - d_l(u, v), v)$로 샘플링할 수 있지만, $d_l(u, v)$가 반드시 정수는 아니므로 정확한 새 위치의 픽셀이 존재하지 않을 수 있습니다. 네트워크를 훈련시키기 위한 end-to-end 최적화를 수행하기 위해 완전히 (부분) 미분 가능한 bilinear sampler [6]가 사용됩니다.
 
-While supervised 학습 methods achieved decent results, they are limited to scene types where large quantities of ground 깊이 data are available. This motivates unsupervised 학습 methods which only require the input RGB frame data and a 스테레오 camera with known intrinsics, and thereby avoid the need for expensive labeling efforts. Here, we examine the approach proposed in [3] as a case study. Instead of using the difference between reconstructed andgroundtruth깊이astheloss,thebaseunsupervisedformulationcaststhe problemasimagereconstructionthroughtheuseofanautoencodertominimize thedifferencebetweentheinputreferenceimageandareconstructedversionI˜l. 4 Figure 5: Unsupervised baseline network. The differentiable sampler enables end-to-end optimization. The baseline network, shown in Figure 5, only reconstructs the left image Il. The input to the network is Il, the left frame. A CNN maps the left frame to an output to dl, the disparity (displacement) values required to warp the right image Ir into the left image. The disparity values are then used as an intermediate 표현 to reconstruct the left image, I˜l, by sampling from the right image. We could sample from the right image as I˜l(u,v) = Ir(u−dl(u,v),v), but dl(u,v) is not necessarily an integer so the pixel at the exact new location may not exist. To perform end-to-end optimization to train the network, a fully (sub-) differentiable bilinear sampler [6] is used, illustrated in Figure ??. Note that both the left and right images are used to train the network, but only the left image is required to infer the left-aligned 깊이 at test time. The network architecture is fully convolutional, consisting of an encoder followed by adecoder,whichoutputsmultipledisparitymapsatdoublingspatialscales. For instance, if the first disparity map is of resolution (D ,D ), the second output h w disparity map would be of resolution (2D ,2D )....
+네트워크를 훈련시키기 위해 왼쪽과 오른쪽 이미지가 모두 사용되지만, 테스트 시간에 왼쪽 정렬 깊이를 추론하는 데는 왼쪽 이미지만 필요합니다. 네트워크 아키텍처는 완전 컨볼루셔널이며, 인코더 다음에 디코더로 구성되며, 이것은 배가되는 공간 스케일에서 여러 시차 맵을 출력합니다. 예를 들어, 첫 번째 시차 맵이 해상도 $(D_h, D_w)$라면, 두 번째 출력 시차 맵은 해상도 $(2 D_h, 2 D_w)$일 것입니다.
 
+기본을 넘어서, [3]은 왼쪽과 오른쪽 프레임을 모두 재구성하는 새로운 아키텍처를 제안합니다. 이것은 Figure 6에 설명되어 있으며, 시차의 이미지 품질을 개선하기 위해 더 복잡한 손실 항을 도입할 수 있게 합니다.
 
-## 1. (cid:88)
+CNN은 입력 왼쪽 프레임 $I_l$을 받아 왼쪽 정렬 시차 $\tilde{d}_l^{i,j}$와 오른쪽 정렬 시차 $\tilde{d}_r^{i,j}$를 계산합니다. 오른쪽 정렬 시차 맵은 왼쪽 프레임에서 오른쪽 프레임을 재구성하는 데 필요한 수평 변위 값을 포함하며, 왼쪽 정렬 시차에 대해서도 마찬가지입니다. 이전의 샘플러를 사용하여 $d_l$에서 $\tilde{I}_l$을, $d_r$에서 $\tilde{I}_r$을 재구성하고 왼쪽과 오른쪽 입력 이미지 및 재구성된 이미지(총 4개의 이미지) 사이의 손실을 계산합니다. 총 손실 $C$는 각 스케일 $s$에서의 손실 합입니다: $C = \sum_s C_s$.
 
-Cl = |dl −dr | (4) lr N ij ij+dl ij i,j Theintuitionhereisthattheabsolutedistancebetweencorrespondingpixels intwoimageplanes,i.e. disparity,shouldbethesamewhethercomputedright to left or left to right. Therefore, we should penalize differences between the predicted disparities for the left and right images that are outputted from the network. To achieve this, we iterate through each pixel i,j and calculate the L1 distance between left-aligned disparity d˜l and corresponding right-aligned i,j disparity dr . Note here that we are using the disparities to ”sample” from i,j+dl ij the disparity maps, not the images. In the results, the authors demonstrate that this unsupervised setup outperforms both the baseline and existing state- of-the-art fully supervised methods.
+$$C_s = \alpha_{ap}(C^l_{ap} + C^r_{ap}) + \alpha_{ds}(C^l_{ds} + C^r_{ds}) + \alpha_{lr}(C^l_{lr} + C^r_{lr}) \tag{1}$$
 
+세 가지 구성 요소가 있음을 봅니다. 각각은 앞에 스케일링 인자가 있고 왼쪽과 오른쪽 변형이 있으므로, 다음 방정식은 왼쪽 재구성 이미지에 대한 절차를 설명하지만, $\tilde{I}_r$ 대신 $\tilde{I}_l$을 사용하여 오른쪽 이미지에 대해서도 동일한 방식으로 항을 계산한다는 것을 알고 있습니다.
 
-## 2.4. Self-Supervised Estimation
+첫 번째 항 $C_{ap}$는 재구성 손실입니다:
 
-Unsupervised methods have been followed by self-supervised 학습 for 깊이 추정; here we review a follow-up paper [4]. Here, the 깊이 추정 problem is framed as novel view synthesis prob- lem. Given a target image of a scene, the learned pipeline aims to predict what the scene would look like from another viewpoint. Depth is used as an interme- diate표현toobtainthenovelview,sothe깊이mapcanbeextracted fromthepipelineattesttimeforuseinothertasks. Inthemonocularsetup,we rely on monocular video as our supervisory signal: our target image is a color frame I at time t, and the images from other viewpoints, or the source views, t are the temporally adjacent frames I ∈ {I ,I }. Since we are predicting t′ t−1 t+1 futureandpastinputsfromthecurrentinput, asopposedtoreconstructingthe entire original input, 이것은 an example of self-supervised 학습. 7 Figure 7: Self-supervised 깊이 추정 pipeline. (a) is the 깊이 network architecture for extracting the 깊이 map, (b) predicts the pose transformation from frame to frame, and (c) describes the ambiguity in 깊이 for re투영 in all frames. The pipeline is illustrated in Figure 7. First, we obtain the intermediate 깊이 표현: given the color input I , we run it through a convolution t encoder-decoderarchitecturetoobtainthe깊이mapD ,asshowninFigure7a. t In parallel, as shown in Figure 7b, we iterate over the source past and future frames I and compute the relative pose T indicating the transformation t′ t→t′ fromIt toIt′. AssumingthesamecameraintrinsicsK foralltargetandsource views, 우리는 할 수 있습니다 obtain our novel views for t−1,t+1 through re투영, as shown in Figure 7c. Given K and the predicted 깊이 D for all pixels, we t can backproject specific 2D image coordinates (u,v) to the 3D 점 location. Since we know the relative pose T , 우리는 할 수 있습니다 then project our 3D 점 in the t→t′ 이미지 평면 of source view I to obtain the 2D coordinates (u′,v′) in the novel t 이미지 평면 I . Since we have the monocular video, the ground truth I is t′ t′ known....
+$$C^l_{ap} = \frac{1}{N} \sum_{i,j} \alpha \frac{1 - \text{SSIM}(I^l_{ij}, \tilde{I}^l_{ij})}{2} + (1 - \alpha) \|I^l_{ij}, \tilde{I}^l_{ij}\|_1 \tag{2}$$
 
+이것은 위치 $i, j$의 모든 픽셀을 반복하고 1) 재구성된 이미지와 ground truth 이미지 사이의 L1 차이와 2) 패치의 휘도, 대비 및 구조의 조합을 통해 픽셀을 중심으로 한 두 대응 패치 사이의 유사성을 계산하는 **Structural Similarity Index (SSIM)**의 음수를 가중 조합으로 계산합니다. 그런 다음 평균을 취합니다. 논문에서 $\alpha = 0.85$로, SSIM이 L1 차이보다 더 강조됨을 나타냅니다.
 
-## 4. Motivation
+다음으로, 두 번째 항 $C_{ds}$는 평활성 손실입니다:
 
-Givenasequenceofimages,thetaskof feature tracking involvestrackingthe locations of a set of 2D points across all the images, illustrated in Figure ??. Justlike깊이추정,wecanviewfeaturetrackingasyetanotherinstance of solving for correspondence problem across an image sequence. Figure 8: Feature point tracking over time. Featuretrackingcanbeusedtotracethemotionofobjectsinthescene. We make no assumptions about scene contents or camera motion; the camera may be moving or stationary, and the scene may contain multiple moving or static objects. Thechallengeinfeaturetrackingliesidentifyingwhichfeaturepointswecan efficientlytrackoverframes. Theappearanceofimagefeaturescanchangedras- tically over frames due to camera movement (feature completely disappears), shadows, or occlusion. Small errors can also accumulate as the appearance model for feature tracking is updated, leading to drift. Our goal is to identify distinct regions (called features or sometimes keypoints) that 우리는 할 수 있습니다 track eas- ilyandconsistently,andthenapplysimpletrackingmethodstocontinuallyfind these correspondences. 9 Figure 9: Descriptors for feature tracking. Traditionally, distinct features in images that are easy to track have been detected and tracked using hand-designed method [5, 10, 9, 12, 7]. Specifically, these good features then need to be encoded into a so-called descriptor that lends itself well for fast 매칭 with features in other images, i.e. finding correspondences. These methods are also sparse, only yielding descriptors for a subsetofpixelsintheimage. Inthissection,wewilllookathow표현 학습 can also be used to learn descriptors of image features rather than hand-designing them....
+$$C^l_{ds} = \frac{1}{N} \sum_{i,j} |\partial_x d^l_{ij}| e^{-\|\partial_x I^l_{ij}\|} + |\partial_y d^l_{ij}| e^{-\|\partial_y I^l_{ij}\|} \tag{3}$$
 
+손실이 다시 모든 픽셀 $x, y$를 반복하고 $x$ 및 $y$ 방향 모두에서 시차 맵의 기울기($\partial_x d^l_{ij}, \partial_y d^l_{ij}$)를 처벌함을 봅니다. 이것은 시차의 급격한 변화(높은 기울기)를 줄이는 효과가 있어 더 부드러운 시차 맵을 만듭니다. 그러나 특정 깊이의 한 객체에서 다른 깊이의 다른 객체로 전환할 때 객체 가장자리에서 높은 시차를 원합니다. 이를 고려하기 위해 원본 이미지에서 가장자리를 감지하면 평활성 처벌을 완화합니다: 이미지 기울기가 높으면 $e^{-\|\partial_x I^l_{ij}\|}, e^{-\|\partial_y I^l_{ij}\|}$가 작아집니다. 이미지 기울기의 L2를 취하지만 시차 맵 기울기의 L1을 취합니다.
 
-## 5. Learned Dense Descriptors
+마지막으로, 세 번째 항 $C_{lr}$는 좌우 일관성 손실입니다:
 
-We examine the method for 학습 dense descriptors proposed in [2]. 10 Figure 10: Representation of dense descriptors. Givenaninputcolorimage, wewanttolearnamappingf(·)thatoutputsa D-dimensionaldescriptorforeverypixelinthecolorimage. ”Dense”heremeans that we have a descriptor for every point in the input image, not just a sparse set. For visualization purposes in Figure 10, the D-dimensional descriptors are mappedtoRGBthroughdimensionalityreduction. Inpractice,f(·)isalearned neuralnetworkwithaconvolutionalencoder-decoderarchitecture. Thenetwork istrainedonpairsofimagesofthesameobjectfromdifferentviews(I ,I )using a b apixel-contrastive loss,whichattemptstomirrorthe“contrast”inpixelsby minimizing the distance for similar descriptors and maximizing the distance for different descriptors. Figure 11: Loss for matches. The blue arrow indicates a 매칭 correspon- dence between the two points at the end of the arrow. Weassumethatwearegivenalistofcorrespondences(herecalledmatches) for an image pair. We run the network to compute the descriptors for all pointsintheimage. Foreachgroundtruthmatch, wecalculatetheL2distance between the descriptors at the two corresponding points. We want to minimize the distance in descriptor space D(I ,u ,I ,u )2. a a b b 11
+$$C^l_{lr} = \frac{1}{N} \sum_{i,j} |d^l_{ij} - d^r_{i,j+d^l_{ij}}| \tag{4}$$
 
+여기서 직관은 두 이미지 평면에서 대응 픽셀 사이의 절대 거리, 즉 시차가 오른쪽에서 왼쪽으로 계산되든 왼쪽에서 오른쪽으로 계산되든 동일해야 한다는 것입니다. 따라서 네트워크에서 출력된 왼쪽과 오른쪽 이미지에 대한 예측 시차 간의 차이를 처벌해야 합니다. 이를 달성하기 위해 각 픽셀 $i, j$를 반복하고 왼쪽 정렬 시차 $\tilde{d}^l_{i,j}$와 대응하는 오른쪽 정렬 시차 $d^r_{i,j+d^l_{ij}}$ 사이의 L1 거리를 계산합니다. 여기서 시차 맵에서 "샘플링"하는 데 시차를 사용하고 있지 이미지가 아님을 주목하세요. 결과에서 저자들은 이 비지도 설정이 기본선과 기존 최첨단 완전 지도 방법 모두를 능가한다는 것을 입증합니다.
 
-## 1. (cid:88)
+### 2.4 Self-Supervised Estimation
 
-L (I ,I )= D(I ,u ,I ,u )2 (7) matches a b N a a b b matches Nmatches Figure 12: Loss for non-matches. The blue arrow a pair of non-corresponding points. For the contrastive part, we also compute the loss term for non-matches (pairs of points that do not correspond to each other). Here, we want to maxi- mize the distance between non-corresponding points (the max operation maxi- mizes this distance up to M, the maximum distance), given by
+비지도 방법은 깊이 추정을 위한 자기 지도 학습에 이어졌습니다. 여기서 우리는 후속 논문 [4]를 검토합니다.
 
+여기서 깊이 추정 문제는 **novel view synthesis(새로운 시점 합성)** 문제로 프레임화됩니다. 장면의 대상 이미지가 주어지면, 학습된 파이프라인은 다른 시점에서 장면이 어떻게 보일지 예측하는 것을 목표로 합니다. 깊이는 새로운 시점을 얻기 위한 중간 표현으로 사용되므로, 파이프라인에서 깊이 맵을 추출하여 테스트 시간에 다른 작업에 사용할 수 있습니다. 단안 설정에서 우리는 단안 비디오를 감독 신호로 사용합니다: 우리의 대상 이미지는 시간 $t$에서의 컬러 프레임 $I_t$이고, 다른 시점의 이미지 또는 소스 시점은 시간적으로 인접한 프레임 $I_{t'} \in \{I_{t-1}, I_{t+1}\}$입니다. 현재 입력에서 미래와 과거 입력을 예측하기 때문에 전체 원본 입력을 재구성하는 것과 반대로, 이것은 자기 지도 학습의 예입니다.
 
-## 1. (cid:88)
+파이프라인은 Figure 7에 설명되어 있습니다. 먼저 중간 깊이 표현을 얻습니다: 컬러 입력 $I_t$가 주어지면, Figure 7a에 표시된 대로 컨볼루션 인코더-디코더 아키텍처를 통해 실행하여 깊이 맵 $D_t$를 얻습니다. 병렬로, Figure 7b에 표시된 대로, 소스 과거 및 미래 프레임 $I_{t'}$를 반복하고 $I_t$에서 $I_{t'}$로의 변환을 나타내는 상대 포즈 $T_{t \to t'}$를 계산합니다. 모든 대상 및 소스 시점에 대해 동일한 카메라 내부 $K$를 가정하면, Figure 7c에 표시된 대로 재투영을 통해 $t-1, t+1$에 대한 새로운 시점을 얻을 수 있습니다. $K$와 모든 픽셀에 대한 예측 깊이 $D_t$가 주어지면, 특정 2D 이미지 좌표 $(u, v)$를 3D 점 위치로 역투영할 수 있습니다. 상대 포즈 $T_{t \to t'}$를 알고 있으므로, 소스 시점 $I_t$의 이미지 평면에서 3D 점을 투영하여 새로운 이미지 평면 $I_{t'}$에서 2D 좌표 $(u', v')$를 얻을 수 있습니다. 단안 비디오를 가지고 있으므로 ground truth $I_{t'}$가 알려져 있습니다. $I_{t'}$에 대한 우리의 "합성된" 시점은 $\tilde{I}_{t'}(u', v') = I_t(u, v)$가 될 것입니다. "합성된" 시점 $\tilde{I}_{t'}$와 ground truth 시점 $I_{t'}$ 사이의 이미지 패치는 시각적으로 유사해야 하며, 이것을 **photometric error(광도 오차)**로 측정합니다:
 
-L (I ,I )= max(0,M −D(I ,u ,I ,u )2) non-matches a b N a a b b non-matches Nnon-matches (8) Assuming the true correspondence is known for u , 그것은 easy to find pairs a of non-matches: 우리는 할 수 있습니다 just sample arbitrary points from I that are not the b corresponding point. Note that in Figure 12, u refers to a non-matched point, b whileinFigure7,u referstothematchedpoint. Thetotallossisthenthesum b of the two L(I ,I )=L (I ,I )+L (I ,I ) (9) a b matches a b non-matches a b The challenge lies in cheaply obtaining ground truth correspondences at scale with minimal human assistance. To this end, the authors propose using a robotic setup to perform autonomous and self-supervised data collection. 12 Figure 13: Robotic arm capturing different views and corresponding poses of a stationary object for training. A robotic arm is used to capture images of a stationary object at various poses, illustrated in Figure 13. Since the forward kinematics of this precise robotic arm are known, we have matched pairs of camera pose and the corre- sponding view. 3D reconstruction is performed using all views to obtain a 3D model of the object. Using the camera poses, 3D 점s, and images, 우리는 할 수 있습니다 now generate as many ground-truth correspondences as we want. The network is trained using Equation 9 in combination with several other tricks such as background randomization, data augmentation, and hard-negative scaling. 13 Figure 14: Cross-object loss. The two images at the bottom correspond to the distinct cluster in the plot on the right (blue, orange) when using the cross- object loss. If we only train on pairs of the same object, the learned descriptors for dif- ferent objects overlap when they shouldn’t since they correspond to completely different entities. If we incorporate a cross-object loss (pixels from images of two different objects are all non-matches), then we see distinct clusters forming in the descriptor space, as show in Figure 14. Figure 15: Class-consistent descriptors....
+$$pe(I_a, I_b) = \frac{\alpha}{2}(1 - \text{SSIM}(I_a, I_b)) + (1 - \alpha) \|I_a - I_b\|_1 \tag{5}$$
 
+광도 오차는 모든 2D 좌표에 대한 재투영 오차 $pe(\tilde{I}_{t'}(u', v'), I_{t'}(u', v'))$가 최소화되도록 최적의 깊이 맵 $D_t$를 찾습니다. 그런 다음 $(t, t')$ 쌍, $t' \in \{t-1, t+1\}$에 대해 광도 오차를 합산합니다:
 
-## 요약
+$$L_p = \sum_{t'} pe(I_t, I_{t' \to t}) \tag{6}$$
 
-이 강의에서는 단안 깊이 추정의 주요 개념과 방법론을 다뤘습니다.
+마지막 논문과 유사하게, 광도 오차 방정식 5는 구조적 유사성 지수와 L1 차이의 가중 조합입니다. 결과에서 저자들은 이 자기 지도 설정이 기존 비지도 및 다른 자기 지도 접근 방식을 능가하는 방법을 입증합니다.
+
+## 3. Feature Tracking
+
+### 3.1 Motivation
+
+이미지 시퀀스가 주어지면, **feature tracking(특징 추적)** 작업은 Figure 8에 설명된 대로 모든 이미지에 걸쳐 2D 점 집합의 위치를 추적하는 것을 포함합니다. 깊이 추정과 마찬가지로, 우리는 이미지 시퀀스에 걸쳐 대응 문제를 해결하는 또 다른 인스턴스로 특징 추적을 볼 수 있습니다.
+
+특징 추적은 장면에서 객체의 움직임을 추적하는 데 사용될 수 있습니다. 장면 내용이나 카메라 움직임에 대한 가정을 하지 않습니다. 카메라는 움직이거나 정지할 수 있으며, 장면은 여러 움직이는 또는 정적 객체를 포함할 수 있습니다.
+
+특징 추적의 도전은 프레임에 걸쳐 효율적으로 추적할 수 있는 특징 점을 식별하는 것에 있습니다. 이미지 특징의 외관은 카메라 움직임(특징이 완전히 사라짐), 그림자 또는 가림으로 인해 프레임에 걸쳐 극적으로 변경될 수 있습니다. 작은 오차도 특징 추적을 위한 외관 모델이 업데이트됨에 따라 누적되어 drift로 이어질 수 있습니다. 우리의 목표는 쉽고 일관되게 추적할 수 있는 뚜렷한 영역(특징 또는 때로는 keypoints라고 함)을 식별한 다음 이러한 대응을 지속적으로 찾기 위해 간단한 추적 방법을 적용하는 것입니다.
+
+전통적으로 추적하기 쉬운 이미지의 뚜렷한 특징은 수작업 방법 [5, 10, 9, 12, 7]을 사용하여 감지되고 추적되었습니다. 구체적으로, 이러한 좋은 특징은 다른 이미지의 특징과 빠른 매칭에 잘 맞는 소위 **descriptor(디스크립터)**로 인코딩되어야 합니다. 즉, 대응을 찾는 것입니다. 이러한 방법은 또한 sparse하며, 이미지의 픽셀 하위 집합에 대해서만 디스크립터를 생성합니다. 이 섹션에서 우리는 표현 학습이 수작업으로 설계하는 대신 이미지 특징의 디스크립터를 학습하는 데 어떻게 사용될 수 있는지 살펴보겠습니다.
+
+Figure 9에서 $D(k)$는 픽셀 $k$의 $D$ 차원 표현을 제공합니다(종종 인접 정보를 통합). $k, k'$가 동일한 3D 점에 해당하므로 시각적으로 유사할 것으로 예상되므로, 이미지가 다른 시점에서 캡처되었더라도 디스크립터가 동일해야 합니다: $D(k) = D(k')$. 그런 다음 디스크립터 간의 유사성을 기반으로 다른 프레임의 픽셀을 매칭할 수 있습니다.
+
+### 3.2 Learned Dense Descriptors
+
+우리는 [2]에서 제안한 dense 디스크립터 학습 방법을 검토합니다.
+
+입력 컬러 이미지가 주어지면, 입력 컬러 이미지의 모든 픽셀에 대해 $D$ 차원 디스크립터를 출력하는 매핑 $f(\cdot)$를 학습하고 싶습니다. 여기서 "Dense"는 sparse 집합이 아닌 입력 이미지의 모든 점에 대해 디스크립터가 있다는 것을 의미합니다. Figure 10에서 시각화 목적으로 $D$ 차원 디스크립터는 차원 축소를 통해 RGB로 매핑됩니다. 실제로 $f(\cdot)$는 컨볼루션 인코더-디코더 아키텍처를 가진 학습된 신경망입니다. 네트워크는 다른 시점에서 동일한 객체의 이미지 쌍 $(I_a, I_b)$에서 훈련되며 **pixel-contrastive loss(픽셀 대조 손실)**를 사용합니다. 이것은 유사한 디스크립터에 대한 거리를 최소화하고 다른 디스크립터에 대한 거리를 최대화하여 픽셀의 "대조"를 반영하려고 합니다.
+
+이미지 쌍에 대해 대응 목록(여기서는 matches라고 함)이 주어진다고 가정합니다. 네트워크를 실행하여 이미지의 모든 점에 대한 디스크립터를 계산합니다. 각 ground truth match에 대해 두 대응 점에서 디스크립터 간의 L2 거리를 계산합니다. 디스크립터 공간에서 거리 $D(I_a, u_a, I_b, u_b)^2$를 최소화하고 싶습니다:
+
+$$L_{\text{matches}}(I_a, I_b) = \frac{1}{N_{\text{matches}}} \sum^{N_{\text{matches}}} D(I_a, u_a, I_b, u_b)^2 \tag{7}$$
+
+대조 부분에 대해, non-matches(서로 대응하지 않는 점 쌍)에 대한 손실 항도 계산합니다. 여기서 non-corresponding 점 쌍 간의 거리를 최대화하고 싶습니다(max 연산은 최대 거리 $M$까지 이 거리를 최대화):
+
+$$L_{\text{non-matches}}(I_a, I_b) = \frac{1}{N_{\text{non-matches}}} \sum^{N_{\text{non-matches}}} \max(0, M - D(I_a, u_a, I_b, u_b)^2) \tag{8}$$
+
+$u_a$에 대한 실제 대응이 알려져 있다고 가정하면, non-matches 쌍을 찾는 것은 쉽습니다: 대응 점이 아닌 $I_b$에서 임의의 점을 샘플링할 수 있습니다. 총 손실은 두 항의 합입니다:
+
+$$L(I_a, I_b) = L_{\text{matches}}(I_a, I_b) + L_{\text{non-matches}}(I_a, I_b) \tag{9}$$
+
+도전은 최소한의 인간 지원으로 규모에 맞게 ground truth 대응을 저렴하게 얻는 것에 있습니다. 이를 위해 저자들은 자율적이고 자기 지도 데이터 수집을 수행하는 로봇 설정을 사용하는 것을 제안합니다.
+
+Figure 13에 설명된 대로 로봇 팔을 사용하여 다양한 포즈에서 정지 객체의 이미지를 캡처합니다. 이 정밀한 로봇 팔의 forward kinematics가 알려져 있으므로, 매칭된 카메라 포즈와 해당 시점 쌍을 가집니다. 모든 시점을 사용하여 3D 재구성이 수행되어 객체의 3D 모델을 얻습니다. 카메라 포즈, 3D 점 및 이미지를 사용하여 이제 원하는 만큼 많은 ground-truth 대응을 생성할 수 있습니다. 네트워크는 배경 무작위화, 데이터 증강 및 hard-negative 스케일링과 같은 여러 다른 트릭과 함께 방정식 9를 사용하여 훈련됩니다.
+
+동일한 객체 쌍에만 훈련하면, 다른 객체에 대한 학습된 디스크립터가 완전히 다른 엔티티에 해당하더라도 겹칩니다. cross-object 손실(두 개의 다른 객체 이미지의 픽셀은 모두 non-matches)을 통합하면, Figure 14에 표시된 대로 디스크립터 공간에서 뚜렷한 클러스터가 형성되는 것을 봅니다.
+
+대조적으로, 동일한 객체 클래스의 객체가 시각적 외관이 동일하지 않더라도 유사한 디스크립터를 나타내기를 원합니다. 우리의 네트워크가 이것을 학습할 수 있다는 것을 봅니다: 모자가 다른 색상과 디자인을 가지고 있지만, 그들의 디스크립터는 동일한 구조와 색상을 공유합니다.
+
+---
 
 ## 참고 자료
 
 - [Stanford CS231A Course Notes](https://web.stanford.edu/class/cs231a/course_notes.html)
-- [08-monocular_depth_estimation.pdf](https://web.stanford.edu/class/cs231a/course_notes/08-monocular_depth_estimation.pdf)
+- [08-monocular-depth-estimation.pdf](https://web.stanford.edu/class/cs231a/course_notes/08-monocular-depth-estimation.pdf)

@@ -1,0 +1,400 @@
+Total pages: 14
+=== Page 1 ===
+Optimal Estimation
+Bryan Chiang and Jeannette Bohg
+February 23, 2022
+1 State estimation
+Knowing the current state of the environment is crucial for artificial agents
+to reliably perform real-time decision-making. In state estimation , we
+aim to infer the latent state of the system at the current point in time by
+continuously combining measurements from different sensor sources (multi-
+modal perception).
+We first examine discrete-time dynamical systems from a proba-
+bilistic perspective. Figure 1 visualizes a partially observable Markov
+decision process (POMDP) in form of a graphical model.
+Figure 1: Graphical POMDP model.
+The directed edges indicate conditional dependence relations. xt∈Rnis
+the state at time tand it only depends on the previous state xt−1.zt∈Rkis
+a sensor observation that depends on the state at time t.ut∈Rmrepresents
+the control input applied at time t. For instance, the state of an artificial
+agent situated in some environment could be position, orientation, linear and
+angular velocity, or any combination of the above. Similarly, measurements
+1
+
+=== Page 2 ===
+derived from the state could be camera images or Lidar measurements of the
+environment that depend on the robot position and movement.
+The measurements and control inputs are known, but the hidden state
+history x0:tis unknown. We assume that the system evolves in a stochastic
+manner and that observations are stochastic. Therefore, we model the state
+Xtand observations Ztas random variables that can take on xtandztas
+possible values. To simplify notation, we write p(Xt=xt) as p(xt) and
+similarly for Zt.
+The goal of a state estimator is to compute or approximate the posterior
+probability distribution of the state xtgiven the available data (histories of
+measurements and control inputs) and known models for state transitions
+and observations. Specifically, we want to know the posterior distribution of
+the state p(xt|z1:t, u1:t), which assigns a probability to every possible value
+that the state can take on given the sequence of measurements and control
+inputs. The posterior is also called the belief about the state’s value at time
+t, represented by bel( t). The probabilistic formulation does not give an exact
+value for the state, but enables us to quantify our uncertainty about what
+the state may be.
+By representing a dynamical system using the graphical model in Figure 1,
+we assume that the state is complete . This assumptions leads to two key
+properties. First, we assume that the system is Markovian, i.e. the current
+state xtonly depends on the previous state xt−1and previous control input
+ut−1, as opposed to the entire history z1:t−1. This can be expressed as
+p(xt|x0:t−1, z1:t−1, u1:t) =p(xt|xt−1, ut) (1)
+which is also called the transition model , representing how likely the system
+transitions to state xtwhen currently in xt+1and given control input ut.
+Second, we assume that that current measurement ztonly depends on
+the current state xt, i.e. ztis conditionally independent of all previous states
+x0:t−1, measurements z1:t−1and control inputs u1:t. This can be expressed as
+p(zt|x0:t, z1:t−1, u1:t) =p(zt|xt) (2)
+This is also referred to as the measurement model , which represents how
+likely a measurement ztis given the state xt.
+2 Bayes filter
+A recursive filter continuously ingests new measurements to estimate the
+state posterior as illustrated in Figure (2). At each time step t, we compute
+2
+
+=== Page 3 ===
+our new posterior p(xt|z1:t, u0:t) using only our old posterior p(xt−1|z1:t−1, u0:t−1),
+new control input ut−1and new measurement zt. Thus, the complexity of a
+recursive filter is constant with respect to time; it does not depend on the
+size of the history and is suitable for real-time inference.
+Figure 2: Diagram of a general recursive filter.
+2.1 Conditional probability review
+We can factorize a joint probability distribution as p(A, B) =p(A|B)p(B),
+where AandBare random variables. If the joint distribution is conditioned
+on another random variable C, we can just pass the conditioning along as
+p(A, B|C) =p(A|B, C)p(B|C). We can marginalize a distribution as p(A) =R
+Bp(A, B)dB. Similar to before, we have p(A|C) =R
+Bp(A, B|C)dB. We
+can factorize a joint distribution in two separate ways, resulting in Bayes
+rule, which is p(A|B)p(B) =p(B|A)p(A).
+2.2 Derivation
+We now derive the Bayes filter , the simplest recursive filter. Our goal is
+to derive a recursive expression for the state posterior that only depends
+on previous posterior, the current measurement zt, control input ut, and
+the transition and measurement models. The models are assumed to be
+known and tractable to compute p(xt|xt−1, ut) and p(zt|xt). Bayes rule and
+conditional independence of measurements gives us:
+3
+
+=== Page 4 ===
+p(xt|z1:t, u1:t) =p(zt|xt, z1:t−1, u1:t)p(xt|z1:t−1, u1:t)
+p(zt|z1:t−1, u1:t)(3)
+=p(zt|xt)p(xt|z1:t−1, u1:t)
+p(zt|z1:t−1, u1:t)(4)
+We then simplify the two terms on the right hand side that still depend
+on the entire history of observations. Let us first look at the denominator.
+Marginalizing over xtand using the conditional independence of measure-
+ments gives:
+p(zt|z1:t−1, u1:t) =Z
+xtp(zt, xt|z1:t−1, u1:t)dxt
+=Z
+xtp(zt|xt, z1:t−1, u1:t)p(xt|z1:t−1, u1:t)dxt
+=Z
+xtp(zt|xt)p(xt|z1:t−1, u1:t)dxt
+Next, we can then simplify p(xt|z1:t−1, u1:t), which now appears twice in
+Equation 4. Marginalizing over xt−1and applying the Markov assumption
+gives:
+p(xt|z1:t−1, u1:t) =Z
+xt−1p(xt, xt−1|z1:t−1, u1:t)dxt−1
+=Z
+xt−1p(xt|xt−1, z1:t−1, u1:t)p(xt−1|z1:t−1, u1:t)dxt−1
+=Z
+xt−1p(xt|xt−1, ut)p(xt−1|z1:t−1, u1:t)dxt−1
+We can now put together the full form of the Bayes filter, illustrated in
+Figures (3) and (4).
+4
+
+=== Page 5 ===
+Figure 3: Diagram of the Bayes filter.
+Figure 4: Predict and update step equations in the Bayes filter.
+There are two steps. In the prediction step , we use our transition model
+p(xt|xt−1, ut) and previous posterior to predict the state posterior at the
+current time step p(xt|z1:t−1, u1:t). The prediction is represented as ˆbel(t−1),
+and it is our best guess for the distribution of xtwithout any new information.
+When t= 1, the previous posterior does not exist yet, so we use a prior p(x0)
+that represents our initial belief about how xis distributed at the start t= 0.
+In the update step , we refine the predicted belief by incorporating the new
+measurement zt. The measurement likelihood ,p(zt|xt), indicates how
+likely it would be to observe ztgiven the predicted xt. Thus, the numerator
+5
+
+=== Page 6 ===
+in the update step assigns a probability to a specified xtbased on both 1) how
+wellxtexplains our measurement ztand 2) how likely our dynamical system
+transitions from the previous posterior estimate xt−1toxt. The denominator
+is simply a normalization constant to ensure that our updated posterior
+distribution sums to 1. Once we predict and update our belief, we can repeat
+the process at t+ 1 as long as we have a new measurement zt+1.
+The Bayes filter is simple and generalizes to any probability distribution.
+In practice, however, it is limited since it is often intractable to compute the
+integral for the normalization constant. We need to know the entire prob-
+ability distribution (e.g., in a tabular form for every value on the domain),
+which is often only possible when dealing with discrete random variables or
+when assuming a particular functional form of the posterior distribution, e.g.
+Gaussian. Thus, it is more useful to think of the Bayes filter as a “proba-
+bilistic template” that we can adapt to different sets of systems with specific
+needs and assumptions.
+2.3 Discrete Bayes filter
+Let’s look at a practical implementation for the discrete case, where Xtand
+Zthave a finite number of outcomes. Assume Xtis a discrete random variable
+with Npossible values; the domain of Xtisxt∈ {1,2, . . . , N }. Similarly,
+Ztis a discrete random variable with Mpossible outcomes; the domain of
+Ztiszt∈ {1,2, . . . , M }. The predict and update equations for the discrete
+Bayes filter are the same as in the continuous case, except the integrals are
+replaced with summations.
+Equation (5) is the belief vector representing the entire state posterior
+distribution at time t.
+bel(t) =
+p(Xt= 1|z1:t, u1:t)
+p(Xt= 2|z1:t, u1:t)
+...
+p(Xt=N|z1:t, u1:t)
+(5)
+The predict step can then be implemented as a matrix multiplication:
+ˆbel(t−1) = T(ut)bel(t−1) (6)
+=
+p(Xt= 1|z1:t−1, u1:t)
+p(Xt= 2|z1:t−1, u1:t)
+...
+p(Xt=N|z1:t−1, u1:t)
+(7)
+6
+
+=== Page 7 ===
+with T(ut) representing the transition probabilities:
+T(ut) =
+p(Xt= 1|Xt−1= 1, ut). . . p (Xt= 1|Xt−1=N, u t)
+.........
+p(Xt=N|Xt−1= 1, ut). . . p (Xt=N|Xt−1=N, u t)
+.(8)
+Similarly, the update step can be implemented as a matrix multiplication:
+bel(t) =M(zt)ˆbel(t−1)
+1T(M(zt)ˆbel(t−1))(9)
+where Mrepresents the measurement model probabilities:
+M(zt) =
+p(Zt= 1|Xt= 1) . . . p (Zt= 1|Xt=N)
+.........
+p(Zt=M|Xt= 1) . . . p (Zt=M|Xt=N)
+ (10)
+In the denominator of Equation 5, 1Tis a vector where each entry is 1 and
+is used to sum the unnormalized probabilities.
+We can also apply this approach to continuous random variables by split-
+ting up the infinitely large state space into a finite number of regions with a
+single probability value representing the cumulative posterior. Discretizing
+a continuous state space results in the histogram filter .
+3 Kalman filter
+Earlier, we saw the state transition model p(xt|xt−1, ut) and measurement
+model p(zt|xt) represented as probability distributions. This is the Bayesian
+perspective. The transition and measurement models can also be viewed
+from a dynamical systems perspective where Equation (11) represent the
+dynamics model and Equation (12) the measurement model.
+xt=f(xt−1, ut) +wt−1 (11)
+zt=h(xt) +vt (12)
+f(·) is the dynamics of the system that encapsulates how the state
+evolves over time from xttoxt+1. Similarly, h(·) is a function that maps the
+state xtto the corresponding observation. wtandvtare the process noise
+(random disturbances in the system) and measurement noise (within the
+sensor), respectively, that arise naturally in dynamical systems. We assume
+7
+
+=== Page 8 ===
+that the dynamics and measurement model as well as the noise statistics
+Dw, Dv(such that w∼Dw, v∼Dv) are known. The dynamical system
+equations are consistent with the graphical model in Figure 1 and our as-
+sumption that the state is complete: xtonly depends on xt−1andut, and zt
+only depends on xt.
+3.1 Gaussian distributions
+IfX∈RNis a random vector sampled from a multivariate Gaussian dis-
+tribution (also known as a normal distribution), we say that X∼ N(µ,Σ),
+where µ∈RNis the mean vector and Σ ∈RN×Nis the positive semi-
+definite covariance matrix (analogous to the variance in the univariate
+case). The corresponding probability density function (PDF) is:
+p(X) =p(µ,Σ) =1p
+(2πN|Σ|exp(−1
+2(x−µ)TΣ−1(x−µ)) (13)
+Figure (5) illustrates both the physical shape of the distribution and level
+sets, where the probability is constant along each ellipse.
+Figure 5: The multivariate Gaussian shape on the left [2], and the contour
+ellipses on the right.
+We see that Σ indicates the ”spread” of the distribution in each direction;
+the eigenvectors of Σ are the axis directions and the scaling is based on the
+eigenvalues. Large eigenvalues indicate a high degree of uncertainty in the di-
+rection of the corresponding eigenvector, and vice versa for small eigenvalues.
+Not only does the covariance matrix represent the distribution confidence,
+it also indirectly captures the correlation between different components of
+the state, which is useful for estimation. For more details on multivariate
+8
+
+=== Page 9 ===
+Gaussians, please refer to the CS 229 notes [2, 1] and Berkeley CS 189 notes
+[3].
+TheKalman filter is the adaptation of the Bayes filter to linear-
+Gaussian systems . As the name implies, linear-Gaussian systems make
+two key assumptions. First, we assume that all random variables involved
+(e.g. state, measurements, posteriors, noise) are multivariate Gaussians. Sec-
+ond, we assume that all variables are linear in their parent variables; f(·) and
+h(·) are linear (in the form y=Ax). Equations (14) and (15) illustrate the
+linear-Gaussian system model.
+xt=Atxt−1+Btut+wt (14)
+zt=Ctxt+vt (15)
+We assume the process noise and measurement noise are Gaussian white
+noise with zero mean, that is wt∼ N (0, Qt) and vt∼ N (0, Rt), and for
+times t, τsuch that t̸=τ, Cov( wt, wτ) = 0 and Cov( vt, vτ) = 0. Our initial
+condition, or the prior, is represented as x0∼ N (µ0|0,Σ0|0). We further
+assume that Cov( x0, vt) = 0 ,Cov(x0, wt) = 0 for all t, and Cov( wt, vτ) = 0
+for all t, τ.
+While the Kalman filter is limited to linear-Gaussian systems, it enables
+us to efficiently deal with continuous random variables and vectors (infinitely
+many outcomes). This is because as long as we have µand Σ, we have the
+entire probability distribution. Thus, instead of predicting and updating the
+entire distribution p(x) (for all possible x) as we did for the Bayes filter, we
+simply need to predict and update our mean vector and covariance matrix at
+each time step, which we can do with closed-form equations. Here, we only
+lay the Kalman filter equations and interpret them to explain the underly-
+ing intuition. There are numerous derivations online from the probabilistic
+perspective by applying the expectation definitions for mean and covariance,
+or from a optimization perspective as the best linear unbiased estimator in
+terms of mean-squared error.
+Similar to the Bayes filter, the Kalman filter consists of a predict and
+update step.
+In the predict step, we compute the mean and covariance of the predicted
+posterior p(xt|z1:t−1, u1:t)∼ N(µt|t−1,Σt|t−1) from our previous posterior and
+knowledge of the system’s process model:
+µt|t−1=Atµt−1|t−1+Btut (16)
+Σt|t−1=At−1Σt−1|t−1AT
+t−1+Qt−1 (17)
+9
+
+=== Page 10 ===
+The previous posterior is p(xt−1|z1:t−1, u1:t−1)∼ N(µt−1|t−1,Σt−1|t−1). To
+predict the mean µt|t−1, we plug µt−1|t−1into Equation 14 to get Equation 16.
+The noise term wtin Equation 14 has zero mean so it does not affect µt|t−1.
+To derive the covariance prediction in Equation 17, we first make use of the
+fact that given a random variable xwith covariance Σ, Cov( Ax) =AΣAT.
+Then, to account for any possible disturbances as the system evolves over
+time, we add in the covariance Qof the process noise. Since all covariance
+matrices are positive definite, this summation leads to larger predicted co-
+variance values representing increased uncertainty. Because we are making a
+prediction about the state at time twith data only up to t−1, we are now
+less confident about the state distribution.
+In the update step, we refine the predicted mean and covariance with the
+new measurement zt. The mean and covariance update equations are:
+µt|t=µt|t−1+Kt(zt−Ctµt|t−1) (18)
+Σt|t= Σ t|t−1−KtCtΣt|t−1 (19)
+Kt= Σ t|t−1CT
+t(CtΣt|t−1CT
+t+Rt)−1(20)
+We can see that the update step is trickier than the predict step from the
+equations alone. Starting with the mean update, ztis our sensor measure-
+ment and Ctµt|t−1is our predicted measurement (if the state was what we
+predicted, this is the measurement we would have). Thus, the measurement
+residual, zt−Ctµt|t−1, also known as the innovation , represents how much
+our predicted measurement differs from the actual observation we obtained
+through sensors. The mean update therefore attempts to refine and recon-
+cile our predicted mean µt|t−1with this measurement residual. This is done
+through the Kalman Gain Kt, which can be viewed as a ”weighting factor”
+that informs us of how much we need to revise our estimate. Let’s rewrite
+Ktas:
+Kt=C−1
+tCtΣt|t−1CT
+t
+CtΣt|t−1CT
+t+Rt(21)
+Let us analyze the fraction on the right hand side for two extreme cases.
+First, the case that Rtapproaches zero in the limit means that we believe
+there is little measurement noise. The fraction approaches 1 and Kis simply
+C−1
+t, and therefore µt|t=C−1
+tzt. No noise means we are confident that our
+measurement ztis highly accurate, and we can simply invert our measurement
+model to obtain the true state. Furthermore, the covariance is updated to
+beKt= Σ t|t−1−Σt|t−1= 0, indicating our high confidence about the value
+of the state. The second case is that Σ tapproaches zero in the limit, which
+10
+
+=== Page 11 ===
+means that there is little process noise. The fraction approaches 0, K= 0,
+the updated mean is µt|t=µt|t−1and the updated covariance is Σ t|t= Σ t|t−1.
+This means that because there are no disturbances in the system, the process
+model alone is sufficient to propagate the state across time so we do not
+need to incorporate the measurement at all (assuming we initialize the filter
+with a good prior). In practice, neither of these two cases ever occur; the
+filter attempts to update the mean and covariance to use both the actual
+measurement and the predicted measurement, as illustrated in Figure (6) for
+the case of a 2D state.
+Figure 6: Kalman filter update from the distributions perspective.
+The axes in Figure 6 are the components of the state; we are looking at the
+distributions from top-down. The ellipse in orange represents the distribution
+for our predicted measurement, given by N(Ctµt|t−1, CtΣt|t−1CT
+t). The ellipse
+in blue represents the distribution for the actual measurement, given by
+N(zt, Rt). The Kalman filter multiplies both of these distributions to find
+the overlapping region under which xtis likely for both distributions (recall
+p(x1, x2) =p(x1)p(x2). This turns out to be our updated distribution, which
+is another Gaussian represented by the green ellipse, given by N(µt|t,Σt|t).
+Since we’re taking the overlap, notice how the updated distribution is smaller
+compared to the two parent distributions. While the predict step increases
+the covariance (uncertainty), the update step uses the new measurement zt
+to reduce the covariance. Thus, the covariance alternates between increasing
+11
+
+=== Page 12 ===
+and decreasing after the predict and update step. Overall, the covariance
+decreases until it converges.
+4 Extended Kalman filter (EKF)
+We mentioned earlier the Kalman filter holds for linear-Gaussian systems.
+Linear process and measurement models ensure that the predicted and up-
+dated distributions are also Gaussian.
+Figure 7: Pushing a Gaussian distribution through a linear mapping [4].
+Figure (7) shows how applying a linear mapping to a random variable
+xstill results in a Gaussian distribution after the transformation. On the
+other hand, Figure (8) shows how applying a non-linear mapping results in
+a non-Gaussian distribution and the previous predict and update equations
+cannot be applied anymore.
+12
+
+=== Page 13 ===
+Figure 8: Pushing a Gaussian distribution through a non-linear mapping.
+Theextended Kalman filter handles non-linear dynamics and mea-
+surement functions by linearizing them about the input at each time t.
+We do this with a first-order Taylor series expansion around f(µt−1|t−1, ut)
+andg(µt|t−1).
+The predict step then becomes:
+µt|t−1=f(µt−1|t−1, ut) (22)
+Σt|t−1=At−1Σt−1|t−1AT
+t−1+Qt−1 (23)
+The update step becomes:
+µt|t=µt|t−1+Kt(zt−g(µt|t−1)) (24)
+Σt|t= Σ t|t−1−KtCtΣt|t−1 (25)
+Kt= Σ t|t−1CT
+t(CtΣt|t−1CT
+t+Rt)−1(26)
+AtandCtare the Jacobians of the nonlinear dynamics and measurement
+model with respect to x:
+At(µt−1|t−1, ut) =∂f(xt, ut)
+∂xt|xt=µt−1|t−1 (27)
+Ct(µt|t−1, ut) =∂g(xt, ut)
+∂xt|xt=µt|t−1 (28)
+13
+
+=== Page 14 ===
+5 Acknowledgements
+References
+[1] Chuong B Do. More on multivariate gaussians. URL http://cs229. stan-
+ford. edu/section/more ongaussians. pdf.[Online] , 2008.
+[2] Chuong B Do. The multivariate gaussian distribution. Section Notes,
+Lecture on Machine Learning, CS , 229, 2008.
+[3] Jonathan R. Shewchuk. Eigenvectors and the anisotropic multivariate
+normal distribution. Lecture Notes, CS , 189, 2019.
+[4] Cyrill Stachniss. Extended kalman filter. http://ais.informatik.
+uni-freiburg.de/teaching/ws13/mapping/pdf/slam04-ekf.pdf ,
+2013. Accessed: 2022-01-31.
+14
+

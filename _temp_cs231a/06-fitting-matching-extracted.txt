@@ -1,0 +1,368 @@
+Total pages: 13
+=== Page 1 ===
+Fitting and Matching
+Bryan Chiang and Silvio Savarese
+June 19, 2022
+1 Overview
+The goal of fitting is to find a parametric model that best describes the
+observed data. We obtain the optimal parameters of such a model by mini-
+mizing a chosen fitting error betwee the data and a particular estimate of
+the model parameters. A classic example is fitting a line to a set of given
+(x, y) points. Other examples we’ve seen in this class include computing a
+2D homography Hbetween set of point correspondences in different images
+or computing the fundamental matrix Fusing the eight-point algorithm.
+2 Least-squares
+Given a series of N2D points {(xi, yi)}N
+i=1, the method of least-squares
+fitting attempts to find a line y=mx+bsuch that the squared error in the
+ydimension is minimized, as illustrated in Figure (1).
+Figure 1: Ordinary least squares.
+1
+
+=== Page 2 ===
+Specifically, we want to find model parameters w=
+m bTto minimize
+the sum of squared residuals between yiand the model estimate ˆ yi=mxi+b,
+given in Equation (1). We define the residual as yi−ˆyi.
+E=NX
+i=1(yi−ˆyi)2(1)
+=NX
+i=1(yi−mxi−b)2(2)
+We can write this in matrix notation as:
+E=NX
+i=1(yi−
+xi1m
+b
+)2(3)
+=∥
+y1
+...
+yN
+−
+x11
+......
+xN1
+m
+b
+∥2(4)
+=∥Y−Xw∥2(5)
+The residual is now r=y−Xw, we assume Xto be skinny and full rank.
+We want to find the Bthat minimizes the norm of the residual squared,
+which we can write as:
+∥r∥2=rTr (6)
+= (y−Xw)T(y−Xw) (7)
+=yTy−2yTXw+wTXTXw (8)
+We then set the gradient of the residual with respect to wequal to 0.
+Recall XTXis symmetric.
+∇w∥r∥2=−2XTy+ 2XTXw (9)
+= 0 (10)
+This leads to the normal equations.
+XTXw=XTy (11)
+2
+
+=== Page 3 ===
+We now have a closed-form solution for win Equation (12). Ais full rank
+soATAis invertible.
+w= (XTX)−1XTy (12)
+However, note that this method fails completely for fitting points that
+describe a vertical line ( mundefined). In this case, mwould be set to ex-
+tremely large number, leading to numerically unstable solutions. To fix this,
+we can use an alternate line formulation of the form ax+by+d= 0. We can
+obtain a vertical line by setting b= 0. Here’s one way to think about this
+line representation. The line direction (slope) is given by ⃗n; the set of ( x, y)
+satisfying ( x, y)·(a, b) =xa+by= 0 is the line orthogonal to ⃗n. However,
+the line can also be arbitrarily shifted to location ( x0, y0), so we have
+a(x−x0) +b(y−y0) =ax+by−ax0−by0 (13)
+=ax+by+c (14)
+= 0 (15)
+where c=−ax0−by0. The slope of line is then m=−a
+b, which now may be
+undefined. Earlier our residual was only in the y-axis. However, now that our
+new line parameterization accounts for error in the both the x- and y-axes,
+our new error is the sum of squared orthogonal distances, as illustrated in
+Figure (2).
+Figure 2: Total least squares.
+Given a 2D data point P= (xi, yi) and a point on the line Q= (x, y),
+the distance from Pto the line is equivalent to the length of the projection
+3
+
+=== Page 4 ===
+of− →QPonto the normal vector ⃗northogonal to the line. We have− →QP=
+(xi−x, yi−y),⃗n= (a, b), which gives:
+d=|− →QP·⃗n|
+∥⃗n∥(16)
+=|a(xi−x) +b(yi−y)|√
+a2+b2(17)
+=|axi+byi+c|√
+a2+b2(18)
+Recall Qlies on the line, so c=−ax−by.
+Figure 3: Distance between a point and a line.
+Our new set of parameters is now w=
+a b cT. To simplify the error,
+we make the solution unique and remove the denominator by constraining
+∥⃗n∥2= 1, so the new error is
+E(a, b, x 0, y0) =NX
+i=1(a(xi−x0) +b(yi−y0))2(19)
+=NX
+i=1(axi+byi+c)2(20)
+where a2+b2= 1. However, putting this into matrix notation is still
+tricky due to the presence of cwhen the constraint is only on a, b. To simplify
+4
+
+=== Page 5 ===
+further, we note that the resulting line of best fit that minimizes Emust pass
+through the data centroid (¯ x,¯y), defined as
+¯x=1
+NNX
+i=1xi (21)
+¯y=1
+NNX
+i=1yi (22)
+For every ⃗nand every possible set of points {(xi, yi)}N
+i=1,Eis minimized
+when we set c=−a¯x−b¯x. In other words, given every point ( x0, y0)∈R2,
+we have
+E(a, b, x 0, y0)≥E(a, b,¯x,¯y) (23)
+To see why this is true, we define vectors w, zsuch that
+wi=a(xi−x0) +b(yi−y0) (24)
+zi=a(xi−¯x) +b(yi−¯y) (25)
+We can then write the errors as
+E(a, b, x 0, y0) =∥w∥2(26)
+E(a, b,¯x,¯y) =∥z∥2(27)
+The relationship between wandzis then
+w=z+h1 (28)
+where h=a(¯x−x0) +b(¯y−y0)∈Rand1is a vector of all ones. zis
+orthogonal to 1since
+z·1=NX
+i=1zi (29)
+=aNX
+i=1(xi−¯x) +bNX
+i=1(yi−¯y) (30)
+=a(NX
+i=1xi−N(1
+NNX
+i=1xi)) +b(NX
+i=1yi−N(1
+NNX
+i=1yi)) (31)
+= 0a+ 0b= 0 (32)
+5
+
+=== Page 6 ===
+Thus, by the Pythagorean theorem, we have
+E(a, b, x 0, y0) =∥w∥2(33)
+=||z||2+h2N (34)
+≥ ||z||2=E(a, b,¯x,¯y) (35)
+We have shown that the line of best fit must pass through (¯ x,¯y), so we
+can constrain cas
+c=−a¯x−b¯y (36)
+We can then eliminate cby shifting all points to be centered around the
+data centroid (setting ( x0, y0) = (¯x,¯y)), which allows us to finally formulate
+the error as a matrix product.
+E=NX
+i=1(a(xi−¯x) +b(yi−¯y))2(37)
+=∥
+x1−¯x y 1−¯y
+......
+xN−¯x y N−¯y
+a
+b
+∥2(38)
+=∥Xw∥2(39)
+where w=
+a bTand∥w∥2= 1. This is a constrained least-squares
+problem that we’ve seen before in previous lectures. By SVD ( Xfull rank),
+we have
+X=USVT(40)
+U∈RN×M, VT∈RM×Mare both orthonormal matrices, while S∈
+RM×Mis a diagonal matrix containing the singular values of Xin descending
+order. M= 2 here. Since U, V are orthonormal, we know that
+∥USVTw∥=∥SVTw∥ (41)
+∥VTw∥=∥w∥ (42)
+Setting v=VTw, we can now minimize ∥SVTw∥with the new but
+equivalent constraint that ∥v∥2= 1.∥SVTw∥=∥Sv∥is minimized when
+6
+
+=== Page 7 ===
+v=
+0 1Tsince the diagonal of Sis sorted in descending order. Finally,
+we obtain w=V VTw=V v, so the wthat minimizes the error is the last
+column in V.
+Interpreting this from a gain perspective, we can write the SVD X=
+USVTas
+X=MX
+i=1σiuivT
+i (43)
+v1, . . . , v Mare columns of V,σiare the diagonal values of S= diag( σ1, . . . , σ M),
+andu1, . . . , u Mare the columns of U. Multiplying wby the SVD, USVTw,
+can then be viewed as first computing the components of walong the input
+directions v1, . . . , v M, scaling the components by σi, and then reconstituting
+along the output directions u1, . . . , u M.VTwgives the projection of walong
+each column in V(recall ∥vi∥2= 1). Similarly, Uw′can be seen as a linear
+combination of the output directions, u1w′
+1+···+uMw′
+M. Thus, to find w
+that minimizes Xwsubject to ∥w∥2= 1 is simply choosing the input direc-
+tion that minimizes the magnitude of the output vector, which is the last
+column of V.
+In practice, least-squares fitting handles noisy data well but is susceptible
+to outliers. To see why, if we write the residual for the i-th data point as
+ui=axi+byi+c, and the cost as C(ui), our error can be generalized to
+E=NX
+i=1C(ui) (44)
+The quadratic growth of the squared error C(ui) =u2
+ithat we’ve been
+using so far (illustrated on the left side of Figure (4) means that outliers with
+large residuals uiexert an outsized influence on cost minimum.
+7
+
+=== Page 8 ===
+Figure 4: Cost functions: squared residual (left) vs. robust cost function
+(right). The x-axis error is the residual ui, and the y-axis is the cost C(ui).
+We can penalize large residuals (outliers) less by a robust cost function
+(right half of Figure (4)), such as
+C(ui, σ) =u2
+i
+σ2+u2
+i(45)
+When the residual uiis large, the cost Csaturates to 1 such that their
+contribution to the cost is limited, but when uis small, the cost function
+resembles the squared error. However, now we need to choose σ, also known
+as the scale parameter .σcontrols how much weight is given to potential
+outliers, illustrated in Figure (5). A large σwidens the quadratic curve in
+the center, penalizing outliers more relative to other points (similar to the
+original squared error function). A small σnarrows the quadratic curve,
+penalizing outliers less. If σis too small, then most of the residuals will be
+treated as outliers even when they are not, leading to a poor fit. If σis too
+large, then we do not benefit from the robust cost function and end up with
+the least-squares fit.
+Figure 5: Comparison of different scale parameters.
+8
+
+=== Page 9 ===
+Since the robust cost functions are non-linear, they are optimized with
+iterative methods. In practice, the closed-form least-squares solution is often
+used as a starting point, followed by iteratively fitting the parameters with
+a robust non-linear cost function. For further details on robust estimators,
+please refer to Appendix 6.8 “Robust cost function” in [HZ]. In addition,
+while we derived least-squares fitting for a line in the notes; section 4.1 in
+[HZ] concisely covers the direct linear transformation (DLT) algorithm
+which is used to compute a homography using the same constrained least-
+squares optimization procedure.
+3 RANSAC
+Another fitting method called RANSAC , which stands for random sample
+consensus, is designed to be robust to outliers and missing data. We demon-
+strate using RANSAC to perform line fitting, but it generalizes to many
+different fitting contexts.
+Figure 6: RANSAC procedure for line fitting.
+We again have a series of N2D points X={(xi, yi)}N
+i=1that we want to
+fit a line to, illustrated by the dots in Figure (6). The first step in RANSAC
+is to randomly select the minimum number of points needed to fit a model.
+A line requires at least two points, so we choose the two points in green. If
+we were estimating the fundamental matrix F, we would need to choose 8
+correspondences to use the eight-point algorithm. If we wanted to compute a
+9
+
+=== Page 10 ===
+homography H∈R3×3, we would need 4 correspondences (we have two x, y
+coordinates for each correspondence) to cover the 8 degrees of freedom up to
+scale. The second step in RANSAC is to fit a model to the random sample set.
+Here, the two points in green are fitted (i.e., a line is drawn between them)
+to obtain the line in black. The third step step is to use the fitted model to
+compute the inlier set from the entire dataset. Given the model parameters
+w, we define the inlier set as P={(xi, yi)|r(p= (xi, yi), w)< δ}, where
+theris the residual between a data point and the model and δis some
+arbitrary threshold. Here, the inlier set is represented by the green and blue
+points. The size of the inlier set, |P|, indicates how much of the entire set of
+points agrees with the fitted model. With P, we can also obtain the outlier
+set, defined as O=X\P. The outlier set here is comprised of the red
+points. We repeat these steps for a finite number of iterations Mwith a new
+random sample each time until the size of the inlier set is maximized. While
+RANSAC is simple and easy to implement for different fitting scenarios, we
+need to tuen several parameters such as the number of times to sample nand
+the tolerance threshold δ. RANSAC also assumes that there are a sufficient
+number of inliers to agree on a good model, and there is no upper bound on
+number of times to compute the parameters (except until exhaustion, which
+is often computationally unfeasible).
+However, it’s unecessary try every possible sample. We can estimate the
+number of iterations nto guarantee with probability pat least one random
+sample with an inlier set free of “real” outliers for a given s(minimum number
+of points required to fit a model) and ϵ∈[0,1] (proportion of outliers). Now,
+we have that the chance that a single random sample of spoints contains
+all inliers is (1 −ϵ)s, so the chance that a single random sample contains at
+least one outlier is 1 −(1−ϵ)s. Now, the chance that all nsamples contain
+at least one outlier is (1 −(1−ϵ)s)n, so the chance that at least one of the
+nsamples does not contain any outliers is p= 1−(1−(1−ϵ)s)n. We can
+now derive nas f
+1−p= (1−(1−ϵ)s)n(46)
+log(1−p) =nlog(1−(1−ϵ)s) (47)
+n=log(1−p)
+log(1−(1−ϵ)s)(48)
+4 Hough transform
+We introduce another fitting method known as the Hough transform ,
+which is another voting procedure.
+10
+
+=== Page 11 ===
+Figure 7: Hough transform.
+We again want to fit a line of the form y=m′x+n′to a series of points
+{(xi, yi)}N
+i=1in an image, illustrated on the left half of Figure (7). To find
+this line, we consider the dual parameter, or Hough space , illustrated on
+the right half of Figure (7). A point ( xi, yi) in the image space (on the line
+yi=mxi+n) becomes a line in the parameter space defined by n=−xim+yi.
+Similarly, a point in the parameter space ( m, n) is a line in the image space
+given by y=mx+n.
+We see that a line in the parameter space n=−xim+yirepresents all
+of the different possible lines in the image space that pass through the point
+(xi, yi) in the image space. Thus, to find the line in the image space that fits
+both image points ( x1, y1) and ( x1, y1), we associate both points with lines in
+the Hough space and find the point of intersection ( m′, n′). This point in the
+Hough space represents the line in the image space that passes through both
+points in the image space. In practice, we would divide the Hough space
+into a discrete grid of square cells with width wfor the parameter space.
+We would maintain a grid of counts for every w×wcell centered at ( m, n)
+denoted A(m, n) = 0 for all ( m, n) initially. For every data point ( xi, yi)
+in the image space, we would find all ( m, n) satisfying n=−xim+yiand
+increment the count by 1. After we do this for all data points, the point
+(m, n) in the Hough space with the highest count represent the fitted lines
+in the image space. We now see why this is a voting procedure: each data
+element ( xi, yi) can contribute up to one vote for each candidate line in the
+image space ( m, n).
+However, there is a major limitation with the existing parameterization.
+As we discussed before with least-squares, the slope of a line in the image
+space is unbounded −∞< m < ∞. This makes Hough voting an computa-
+11
+
+=== Page 12 ===
+tionally and memory intensive algorithm in practice since there is no limit on
+the size of the parameter space that we are maintaining counts for. To solve
+this, we turn to the polar parameterization of a line, illustrated in Figure
+(8).
+xcos(θ) +ysin(θ) =ρ (49)
+Figure 8: Polar representation of the parameter space.
+The left half of Figure (8) shows that ρis minimum distance from the
+origin to the line (bounded by the image size or maximum distance between
+any two points in the dataset), and θis the angle between the x-axis and
+and normal vector of the line (bounded between 0 and π). We use the same
+Hough voting procedure as before, but now all possible lines in the Cartesian
+space going through a specific ( xi, yi) corresond to sinusodial profile in the
+Hough space, as illustrated in the right half of of Figure (8).
+In practice, noisy data points means that sinusoidal profiles in the Hough
+space that correspond to points on the same line in the image space, may not
+necessarily intersect at the same point in the Hough space. To sol ve this,
+we can increase the width wof the grid cells, which increases the tolerance
+to imperfect intersections, illustrated in Figure (9). While this can help deal
+with noisy data, it introduces yet another parameter that we need to tune.
+Small grid sizes may result in missed image space lines due to noise, while
+large grid sizes may merge different lines and reduce estimation accuracy
+since all ρ, θwithin a cell are possible lines.
+12
+
+=== Page 13 ===
+Figure 9: Increase grid cell size for Hough voting to deal with noise.
+In addition, with uniform noise in the image space, there will be spurious
+peaks in the Hough space and no clear consensus of an appropiate model.
+13
+
