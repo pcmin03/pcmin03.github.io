@@ -42,6 +42,17 @@ body.layout--home {
   position: relative;
 }
 
+/* Force hide Summary section if it exists */
+#summary,
+.experience-summary-banner,
+[id*="summary"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
 .layout--home .page,
 .layout--home .page__content {
   background: transparent;
@@ -3281,72 +3292,7 @@ body.layout--home {
 
     </section>
 
-    <!-- Summary Section - TEMPORARILY COMMENTED OUT (causing mobile overflow issues) -->
-    <!--
-    <div class="resume-section scroll-animate fade-in-right" id="summary" style="margin-top: 3rem;">
-      <h3 class="resume-section__title">Summary</h3>
-      
-      <div class="experience-summary-banner" style="background: linear-gradient(135deg, rgba(176, 125, 103, 0.08), rgba(176, 125, 103, 0.03)); border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 2rem; border-left: 4px solid var(--resume-primary);">
-        <p style="margin: 0; color: var(--resume-accent); font-size: 0.95rem; line-height: 1.6; font-weight: 500;">
-          <i class="fas fa-quote-left" style="color: var(--resume-primary); margin-right: 0.5rem; opacity: 0.6;"></i>
-          Applied vision is my craft: architect data + sensing stacks, train pure CV/SSL models that tolerate drift, and own the reliability playbook from prototype to robotics fleets.
-        </p>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1.5rem; width: 100%; max-width: 100%; overflow-x: hidden; box-sizing: border-box;">
-        <div style="background: #fff; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--resume-border); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(176, 125, 103, 0.15), rgba(176, 125, 103, 0.05)); display: flex; align-items: center; justify-content: center;">
-              <i class="fas fa-cube" style="color: var(--resume-primary); font-size: 1.2rem;"></i>
-            </div>
-            <h4 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--resume-accent);">3D Vision & Sensor Fusion · Smart Industry</h4>
-          </div>
-          <p style="margin: 0 0 1rem; font-size: 0.85rem; line-height: 1.6; color: #4f5b63;">
-            Engineer LiDAR·ToF·IMU·RGB fusion stacks, depth/pose pipelines, and PLC/L2 integrations that keep robotics, inspection, and autonomous lines reliable even under factory drift.
-          </p>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">3D Vision</span>
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Sensor Fusion</span>
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Edge AI</span>
-          </div>
-        </div>
-
-        <div style="background: #fff; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--resume-border); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(176, 125, 103, 0.15), rgba(176, 125, 103, 0.05)); display: flex; align-items: center; justify-content: center;">
-              <i class="fas fa-rocket" style="color: var(--resume-primary); font-size: 1.2rem;"></i>
-            </div>
-            <h4 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--resume-accent);">Applied AI Engineer · Productization & Ops</h4>
-          </div>
-          <p style="margin: 0 0 1rem; font-size: 0.85rem; line-height: 1.6; color: #4f5b63;">
-            Own the full cycle from data engines and labeling ops to deployment—building monitoring, rollout guardrails, and zero-downtime update paths so perception products stay reliable in the wild.
-          </p>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Productization</span>
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">MLOps</span>
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Reliability</span>
-          </div>
-        </div>
-
-        <div style="background: #fff; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--resume-border); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(176, 125, 103, 0.15), rgba(176, 125, 103, 0.05)); display: flex; align-items: center; justify-content: center;">
-              <i class="fas fa-flask" style="color: var(--resume-primary); font-size: 1.2rem;"></i>
-            </div>
-            <h4 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--resume-accent);">Domain-Specific AI Research · Robust Learning</h4>
-          </div>
-          <p style="margin: 0 0 1rem; font-size: 0.85rem; line-height: 1.6; color: #4f5b63;">
-            Research domain adaptation, noise-robust training, and SSL tailored to factory/robotics data—crafting objectives that stabilize embeddings and become playbooks for future deployments.
-          </p>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Domain Adaptation</span>
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Noise Robustness</span>
-            <span style="background: rgba(176, 125, 103, 0.12); color: var(--resume-primary); font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 12px; font-weight: 600;">Self-Supervised</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
+    <!-- Summary Section - REMOVED (causing mobile overflow issues) -->
   </div>
 </div>
 
