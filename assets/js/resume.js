@@ -12,18 +12,34 @@
         return false;
       }
 
-      // Prefer scrollIntoView because it works even if the page uses an internal scroll container.
-      // Then adjust by offset for sticky UI.
-      try {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Offset only makes sense for window scrolling; harmless otherwise.
-        window.scrollBy({ top: -NAV_OFFSET, left: 0, behavior: 'smooth' });
-      } catch (_) {
-        // Very old browsers fallback
+      // IMPORTANT: Avoid scrollIntoView() because it may also scroll horizontally on mobile/tablet,
+      // which can make the whole page "shift" left/right. We scroll vertically only.
+      function getScrollContainer() {
+        const main = document.querySelector('.page__main');
+        if (!main) return window;
+        const style = window.getComputedStyle(main);
+        const overflowY = style.overflowY;
+        const canScrollY = (overflowY === 'auto' || overflowY === 'scroll') && main.scrollHeight > main.clientHeight + 2;
+        return canScrollY ? main : window;
+      }
+
+      const scroller = getScrollContainer();
+      const behavior = 'smooth';
+
+      if (scroller === window) {
         const rect = target.getBoundingClientRect();
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-        const targetPosition = rect.top + scrollTop - NAV_OFFSET;
-        window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
+        const targetTop = rect.top + scrollTop - NAV_OFFSET;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior });
+        // Hard clamp horizontal scroll to avoid "shift"
+        if (document.documentElement) document.documentElement.scrollLeft = 0;
+        if (document.body) document.body.scrollLeft = 0;
+      } else {
+        const scrollerRect = scroller.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const targetTop = (targetRect.top - scrollerRect.top) + scroller.scrollTop - NAV_OFFSET;
+        scroller.scrollTo({ top: Math.max(0, targetTop), behavior });
+        scroller.scrollLeft = 0;
       }
 
       // Keep URL hash in sync (so refresh/share works)
