@@ -11,6 +11,17 @@
   --resume-border: rgba(32, 52, 61, 0.08);
 }
 
+/* Dark Mode Variables */
+html.dark-mode {
+  --resume-bg: #121212;
+  --resume-primary: #d4a574;
+  --resume-accent: #e0e0e0;
+  --resume-muted: #a0a0a0;
+  --resume-hero-gradient: linear-gradient(135deg, rgba(18, 18, 18, 0.98) 0%, rgba(30, 20, 30, 0.95) 55%, rgba(40, 30, 25, 0.95) 100%);
+  --resume-glass: rgba(30, 30, 30, 0.85);
+  --resume-border: rgba(255, 255, 255, 0.1);
+}
+
 html {
   overflow-x: hidden !important;
   max-width: 100vw;
@@ -35,6 +46,300 @@ body.layout--home {
   overflow-y: auto;
   max-width: 100vw;
   position: relative;
+  transition: background 0.3s ease;
+}
+
+html.dark-mode {
+  background: var(--resume-bg) !important;
+}
+
+html.dark-mode body {
+  background: var(--resume-bg) !important;
+}
+
+html.dark-mode body.layout--home {
+  background: radial-gradient(140% 140% at 0% 0%, #0a0a0a 0%, #050505 60%, #000000 100%) !important;
+}
+
+html.dark-mode .root {
+  background: var(--resume-bg) !important;
+}
+
+html.dark-mode .page__main-inner {
+  background-color: var(--resume-bg) !important;
+}
+
+/* Dark Mode Overrides */
+html.dark-mode {
+  .spotlight-card p,
+  .timeline-item ul,
+  .timeline-item ul li,
+  .publication-card__content p {
+    color: var(--resume-muted);
+  }
+  
+  .timeline-item {
+    background: var(--resume-glass) !important;
+    border-color: var(--resume-border) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .timeline-item h4 {
+    color: var(--resume-accent) !important;
+  }
+  
+  .timeline-item > span {
+    color: #888888 !important;
+  }
+  
+  .timeline-achievements li {
+    color: var(--resume-muted) !important;
+  }
+  
+  .timeline-achievements li a {
+    color: var(--resume-primary) !important;
+  }
+  
+  .timeline-tools {
+    color: var(--resume-muted) !important;
+  }
+  
+  .timeline-tools strong {
+    color: var(--resume-accent) !important;
+  }
+  
+  .publication-card,
+  .recent-post-card,
+  .expertise-item {
+    background: var(--resume-glass) !important;
+    border-color: var(--resume-border) !important;
+  }
+  
+  .expertise-item:hover {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%);
+  }
+  
+  .recent-post-card {
+    background: var(--resume-glass);
+  }
+  
+  .resume__timeline,
+  .resume-section,
+  .resume__body {
+    background: transparent !important;
+  }
+  
+  .page,
+  .page__content,
+  .page__main,
+  .page__main-inner,
+  .main,
+  .layout--home .page,
+  .layout--home .page__content,
+  .layout--home .page__main,
+  .layout--home .page__main-inner {
+    background: var(--resume-bg) !important;
+    background-color: var(--resume-bg) !important;
+  }
+  
+  .resume-section__title,
+  .resume-section h3,
+  #experience .resume-section__title,
+  #education .resume-section__title,
+  #projects .resume-section__title,
+  #seminar .resume-section__title,
+  #publications .resume-section__title,
+  #skills .resume-section__title,
+  #awards .resume-section__title,
+  #recent-posts .resume-section__title {
+    color: var(--resume-accent) !important;
+    border-bottom-color: var(--resume-primary) !important;
+  }
+  
+  .resume-section__title::after {
+    background: var(--resume-primary) !important;
+  }
+  
+  .resume__stat-label {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .resume-list {
+    background: transparent !important;
+  }
+  
+  .resume-list li {
+    color: var(--resume-accent) !important;
+  }
+  
+  .resume-list li span {
+    color: var(--resume-accent) !important;
+  }
+  
+  .resume-list li a {
+    color: var(--resume-primary) !important;
+  }
+  
+  .resume-tag {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--resume-accent) !important;
+    border: 1px solid var(--resume-border) !important;
+  }
+  
+  .resume {
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(12, 12, 12, 0.95)) !important;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5) !important;
+    border-color: var(--resume-border) !important;
+  }
+  
+  .resume::before {
+    background: radial-gradient(circle at 10% 20%, rgba(212, 165, 116, 0.05), transparent 55%) !important;
+  }
+  
+  .resume__hero {
+    background: var(--resume-hero-gradient) !important;
+  }
+  
+  .resume__body {
+    background: transparent !important;
+  }
+  
+  .resume__sidebar {
+    background: transparent !important;
+  }
+  
+  .expertise-item {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(25, 25, 25, 0.8) 100%) !important;
+  }
+  
+  .expertise-item:hover {
+    background: linear-gradient(135deg, rgba(35, 35, 35, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%) !important;
+  }
+  
+  .project-inline-card {
+    background: var(--resume-glass) !important;
+  }
+  
+  .recent-post-card {
+    background: var(--resume-glass) !important;
+  }
+  
+  .publication-card {
+    background: var(--resume-glass) !important;
+  }
+  
+  .publication-card__authors {
+    color: var(--resume-muted) !important;
+  }
+  
+  .publication-card__venue {
+    color: var(--resume-muted) !important;
+  }
+  
+  .publication-card__content p {
+    color: var(--resume-muted) !important;
+  }
+  
+  .top-nav__link:hover {
+    background: rgba(212, 165, 116, 0.15) !important;
+  }
+  
+  .top-nav__link.active {
+    background: var(--resume-primary) !important;
+    color: #000 !important;
+  }
+  
+  .tab-button:hover {
+    background: rgba(212, 165, 116, 0.1) !important;
+  }
+  
+  .tab-button.active {
+    background: rgba(212, 165, 116, 0.15) !important;
+  }
+  
+  .resume__hero img {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  .resume__stat {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .resume__contact a {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  .resume__overview-card {
+    background: rgba(30, 30, 30, 0.6) !important;
+    border-color: var(--resume-border) !important;
+  }
+  
+  .resume__overview-card:hover {
+    background: rgba(35, 35, 35, 0.7) !important;
+  }
+  
+  .resume__overview-card-header i {
+    background: rgba(212, 165, 116, 0.15) !important;
+  }
+  
+  .resume__overview-quote {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: var(--resume-border) !important;
+  }
+  
+  .resume__overview-tags span {
+    background: rgba(212, 165, 116, 0.2) !important;
+    color: var(--resume-primary) !important;
+  }
+  
+  .resume-pill {
+    background: rgba(212, 165, 116, 0.1) !important;
+    border-color: rgba(212, 165, 116, 0.2) !important;
+    color: var(--resume-accent) !important;
+  }
+  
+  .resume-pill:hover {
+    background: rgba(212, 165, 116, 0.15) !important;
+  }
+  
+  .tab-navigation {
+    border-bottom-color: var(--resume-border) !important;
+  }
+  
+  .spotlight-card p {
+    color: var(--resume-muted) !important;
+  }
+  
+  .timeline-item p {
+    color: var(--resume-muted) !important;
+  }
+  
+  .timeline-item ul li {
+    color: var(--resume-muted) !important;
+  }
+  
+  .timeline-item p strong {
+    color: var(--resume-accent) !important;
+  }
+  
+  .resume__badge {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  .course-link {
+    color: var(--resume-primary) !important;
+  }
+  
+  .course-link:hover {
+    color: var(--resume-accent) !important;
+  }
+  
+  .timeline-item__link {
+    border-top-color: var(--resume-border) !important;
+  }
 }
 
 .layout--home .page,
@@ -1134,6 +1439,36 @@ body.layout--home {
   }
 }
 
+.resume-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.resume-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-weight: 500;
+  color: var(--resume-accent);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.resume-list li span {
+  color: var(--resume-accent);
+}
+
+.resume-list li a {
+  color: var(--resume-primary);
+  text-decoration: none;
+}
+
 .resume-list li a:hover {
   text-decoration: underline;
 }
@@ -1145,6 +1480,7 @@ body.layout--home {
   font-size: 0.7rem;
   font-weight: 600;
   white-space: nowrap;
+  color: var(--resume-accent);
 }
 
 /* Expertise Section Styles - Compact Grid */
@@ -1432,8 +1768,8 @@ body.layout--home {
   display: none;
 }
 
-.timeline-item span {
-  color: var(--resume-muted);
+.timeline-item > span {
+  color: #888888;
   font-size: 0.75rem;
   display: block;
   margin-bottom: 0.75rem;

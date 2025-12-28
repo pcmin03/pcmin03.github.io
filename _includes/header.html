@@ -19,6 +19,12 @@
         {%- if site.search.provider -%}
           <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
         {%- endif -%}
+        <button class="button button--secondary button--circle theme-toggle js-theme-toggle" 
+                type="button"
+                aria-label="Toggle dark mode"
+                title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
         {%- if site.data.navigation.header -%}
         <button class="button button--secondary button--circle menu-toggle js-menu-toggle d-lg-none"
                 type="button"
