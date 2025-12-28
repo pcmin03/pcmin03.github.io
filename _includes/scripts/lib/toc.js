@@ -51,13 +51,43 @@
           });
           $tocLi = $tocUl.children('li');
           $tocUl.on('click', 'a', function(e) {
-            e.preventDefault();
             var $this = $(this);
+            var href = $this.attr('href');
+            // Prefer smooth scrolling when available, but never break basic anchor navigation.
+            if ($scroller && typeof $scroller.scrollToAnchor === 'function') {
+              e.preventDefault();
+              scrolling = true;
+              setState($this.parent());
+              try {
+                $scroller.scrollToAnchor(href, 400, function() {
+                  scrolling = false;
+                });
+              } catch (err) {
+                // Fallback to native behavior if smooth scroll fails.
+                scrolling = false;
+                try {
+                  if (href && href.charAt(0) === '#') {
+                    var id = href.slice(1);
+                    try { id = decodeURIComponent(id); } catch (e2) {}
+                    var el = document.getElementById(id);
+                    if (el && typeof el.scrollIntoView === 'function') {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      window.history.replaceState(null, '', window.location.href.split('#')[0] + href);
+                    } else {
+                      window.location.hash = href;
+                    }
+                  }
+                } catch (e3) {}
+              }
+              return;
+            }
+
+            // No smooth scrolling available; let the browser handle the hash normally.
+            // (Do not preventDefault.)
             scrolling = true;
             setState($this.parent());
-            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
-              scrolling = false;
-            });
+            // If we didn't preventDefault, scrolling state will be cleared on next tick.
+            setTimeout(function() { scrolling = false; }, 0);
           });
         }
         hasRendered = true;
