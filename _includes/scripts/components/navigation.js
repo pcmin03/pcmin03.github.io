@@ -1,5 +1,7 @@
 (function() {
-  window.pageLoad.then(function() {
+  // Bind as early as possible; waiting for full `load` makes navigation feel broken
+  // (especially on pages with many images/resources).
+  function init() {
     var menuToggle = document.querySelector('.js-menu-toggle');
     var navigation = document.querySelector('.js-navigation');
     var dropdownItems = document.querySelectorAll('.navigation__item--dropdown');
@@ -49,10 +51,16 @@
       }
       trigger.addEventListener('click', function(event) {
         if (window.innerWidth < 1024) {
-          event.preventDefault();
           var dropdown = item.querySelector('.navigation__dropdown');
           if (dropdown) {
-            dropdown.classList.toggle('navigation__dropdown--open');
+            var willOpen = !dropdown.classList.contains('navigation__dropdown--open');
+            // Mobile UX:
+            // - First tap opens the dropdown
+            // - Second tap (when already open) follows the link
+            if (willOpen) {
+              event.preventDefault();
+            }
+            dropdown.classList.toggle('navigation__dropdown--open', willOpen);
           }
         }
       });
@@ -81,5 +89,11 @@
     });
 
     toggleState(false);
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

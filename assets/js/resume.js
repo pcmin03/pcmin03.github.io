@@ -3,7 +3,7 @@
   
   // ===== UNIFIED NAVIGATION SYSTEM =====
   function initNavigation() {
-    const NAV_OFFSET = 80;
+    const NAV_OFFSET = 96;
     
     // Universal smooth scroll function
     function smoothScrollTo(targetId) {
@@ -11,15 +11,27 @@
       if (!target) {
         return false;
       }
-      
-      const rect = target.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-      const targetPosition = rect.top + scrollTop - NAV_OFFSET;
-      
-      window.scrollTo({
-        top: Math.max(0, targetPosition),
-        behavior: 'smooth'
-      });
+
+      // Prefer scrollIntoView because it works even if the page uses an internal scroll container.
+      // Then adjust by offset for sticky UI.
+      try {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Offset only makes sense for window scrolling; harmless otherwise.
+        window.scrollBy({ top: -NAV_OFFSET, left: 0, behavior: 'smooth' });
+      } catch (_) {
+        // Very old browsers fallback
+        const rect = target.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const targetPosition = rect.top + scrollTop - NAV_OFFSET;
+        window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
+      }
+
+      // Keep URL hash in sync (so refresh/share works)
+      try {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + targetId);
+      } catch (_) {
+        // ignore
+      }
       return true;
     }
     
