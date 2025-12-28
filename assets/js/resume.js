@@ -225,6 +225,62 @@
       });
     });
   }
+
+  // ===== TOP NAV HORIZONTAL DRAG SCROLL (DESKTOP + TOUCH) =====
+  function initTopNavDragScroll() {
+    const navList = document.querySelector('.top-nav__list');
+    if (!navList) return;
+
+    // If it doesn't overflow, no need to attach handlers.
+    const hasOverflow = () => navList.scrollWidth > navList.clientWidth + 2;
+    if (!hasOverflow()) return;
+
+    let isPointerDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let didDrag = false;
+
+    // Make it feel draggable on desktop.
+    navList.style.cursor = 'grab';
+
+    navList.addEventListener('pointerdown', function(e) {
+      // Only primary button for mouse; allow touch/pen.
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      isPointerDown = true;
+      didDrag = false;
+      startX = e.clientX;
+      startScrollLeft = navList.scrollLeft;
+      navList.setPointerCapture && navList.setPointerCapture(e.pointerId);
+      navList.style.cursor = 'grabbing';
+    });
+
+    navList.addEventListener('pointermove', function(e) {
+      if (!isPointerDown) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 3) didDrag = true;
+      navList.scrollLeft = startScrollLeft - dx;
+      // Prevent the page from selecting text / scrolling vertically while dragging.
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+
+    function endDrag() {
+      isPointerDown = false;
+      navList.style.cursor = 'grab';
+    }
+
+    navList.addEventListener('pointerup', endDrag);
+    navList.addEventListener('pointercancel', endDrag);
+    navList.addEventListener('pointerleave', endDrag);
+
+    // If the user dragged, swallow the click so links don't accidentally open.
+    navList.addEventListener('click', function(e) {
+      if (didDrag) {
+        e.preventDefault();
+        e.stopPropagation();
+        didDrag = false;
+      }
+    }, true);
+  }
   
   // ===== INITIALIZE ALL =====
   function init() {
@@ -233,6 +289,7 @@
     initFloatingMenu();
     initScrollAnimations();
     initTabs();
+    initTopNavDragScroll();
   }
   
   // Ensure DOM is ready

@@ -251,9 +251,10 @@ layout: base
   {%- include scripts/page.js -%}
 </script>
 
-{%- if _header != false and site.data.navigation.header -%}
-<script>{%- include scripts/components/navigation.js -%}</script>
-{%- endif -%}
+{%- comment -%}
+  navigation.js is already included in _layouts/base.html.
+  Including it again here causes double event binding (e.g. mobile menu toggles twice and appears broken).
+{%- endcomment -%}
 
 {%- if page.sidebar -%}
 <script>{%- include scripts/components/sidebar.js -%}</script>

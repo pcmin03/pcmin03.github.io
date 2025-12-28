@@ -1318,7 +1318,8 @@ html.dark-mode {
 /* Top Horizontal Navigation */
 .top-nav {
   position: sticky;
-  top: 0;
+  /* Keep it below the global header (prevents header overlay blocking clicks/drags) */
+  top: 5rem;
   z-index: 100;
   background: var(--resume-glass);
   backdrop-filter: blur(20px);
@@ -1328,6 +1329,13 @@ html.dark-mode {
   display: block;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Small screens use the compact header height */
+@media (max-width: 1023px) {
+  .top-nav {
+    top: 3rem;
+  }
 }
 
 .top-nav__list {
