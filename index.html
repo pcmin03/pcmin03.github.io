@@ -365,16 +365,16 @@ full_width: true
         
         <div class="publications-list">
           <!-- FastCampus -->
-          <a href="https://fastcampus.co.kr/data_online_medicalai" target="_blank" rel="noopener" class="publication-card" style="text-decoration: none;">
+          <a href="https://fastcampus.co.kr/data_online_medicalai" target="_blank" rel="noopener" class="publication-card">
             <div class="publication-card__image">
               <img src="/assets/images/medical-ai-course.png" alt="FastCampus Medical AI Course" />
             </div>
             <div class="publication-card__content">
-              <h4 class="publication-card__title" style="font-style: normal;">딥러닝을 활용한 의료 영상 처리 & 모델 개발</h4>
+              <h4 class="publication-card__title">딥러닝을 활용한 의료 영상 처리 & 모델 개발</h4>
               <p class="publication-card__authors">Part-Time Instructor · FastCampus Inc.</p>
               <p class="publication-card__venue">Seoul, Korea · Sep 2023 - Dec 2023</p>
               <div class="publication-card__links">
-                <span style="color: var(--resume-primary);">[Online Course]</span>
+                <span>[Online Course]</span>
               </div>
             </div>
           </a>
@@ -385,10 +385,10 @@ full_width: true
               <img src="/assets/images/inje-mentoring-card.png" alt="Inje University Mentoring" />
             </div>
             <div class="publication-card__content">
-              <h4 class="publication-card__title" style="font-style: normal;">의용공학과에서 AI연구원되기까지</h4>
+              <h4 class="publication-card__title">의용공학과에서 AI연구원되기까지</h4>
               <p class="publication-card__authors">Career Mentor · Inje University</p>
               <p class="publication-card__venue">Gimhae, Korea · 2023 - 2024</p>
-              <p style="font-size: 0.7rem; color: #4f5b63; margin: 0.3rem 0 0;">Provided guidance and mentorship to students in computer vision and machine learning projects.</p>
+              <p>Provided guidance and mentorship to students in computer vision and machine learning projects.</p>
             </div>
           </div>
 
@@ -398,10 +398,10 @@ full_width: true
               <img src="/assets/images/gachon-ml-card.png" alt="Gachon University ML Course" />
             </div>
             <div class="publication-card__content">
-              <h4 class="publication-card__title" style="font-style: normal;">Image Classification · Machine Learning Course</h4>
+              <h4 class="publication-card__title">Image Classification · Machine Learning Course</h4>
               <p class="publication-card__authors">Instructor · Gachon University (VUNO)</p>
               <p class="publication-card__venue">Seongnam, Korea · 2023 - 2024</p>
-              <p style="font-size: 0.7rem; color: #4f5b63; margin: 0.3rem 0 0;">Taught machine learning fundamentals and applications to university students.</p>
+              <p>Taught machine learning fundamentals and applications to university students.</p>
             </div>
           </div>
         </div>
@@ -497,7 +497,7 @@ full_width: true
           </div>
         </div>
 
-        <div class="timeline-item" style="margin-top: 2rem;">
+        <div class="timeline-item timeline-item--patents">
           <h4>Patents</h4>
           <ul>
             <li>Method for analyzing medical image (Application number: 1020210139898)</li>
@@ -523,7 +523,7 @@ full_width: true
 
         <!-- Expertise Tab Content -->
         <div class="tab-content active" id="expertise-tab">
-          <div class="expertise-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 1rem; width: 100%; max-width: 100%; overflow-x: hidden; box-sizing: border-box;">
+          <div class="expertise-list">
             <div class="expertise-item">
               <div class="expertise-item__icon">
                 <i class="fas fa-crosshairs"></i>
@@ -678,7 +678,7 @@ full_width: true
           <li><span>🥇 HealthHub Datathon - 1st Place</span><span class="resume-tag">2020</span></li>
           <li><span>🏆 Video Recognition: Google - Isolated Sign Language Recognition</span></li>
           <li><span>🥇 Instance Segmentation: HealthHub Datathon Track B - 1st Place</span><span class="resume-tag">2020</span></li>
-          <li><span>🎯 Object Detection: Lesion Detection AI Competition</span> <a href="#" target="_blank" rel="noopener" style="color: var(--resume-primary); text-decoration: none; font-size: 0.85rem;">Code Link</a></li>
+          <li><span>🎯 Object Detection: Lesion Detection AI Competition</span> <a href="#" target="_blank" rel="noopener">Code Link</a></li>
           <li><span>🏅 Tabular Classification: Autonomous Driving Sensor - Top 8%</span></li>
           <li><span>Inje Creative Comprehensive Design Contest</span><span class="resume-tag">🥇 Gold</span></li>
           <li><span>2017 Engineering Festival Competition</span><span class="resume-tag">🥉 Bronze</span></li>
@@ -743,262 +743,4 @@ full_width: true
   </div>
 </div>
 
-<script>
-(function() {
-  'use strict';
-  
-  // ===== NAVIGATION SCROLL =====
-  function initNavigation() {
-    const NAV_OFFSET = 80;
-    
-    function smoothScrollTo(targetId) {
-      console.log('smoothScrollTo called with:', targetId);
-      const target = document.querySelector(targetId);
-      if (!target) {
-        console.warn('Target not found:', targetId);
-        return false;
-      }
-      
-      console.log('Target found:', target, 'ID:', target.id);
-      
-      // Use scrollIntoView - works regardless of scroll container
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-      
-      console.log('scrollIntoView called');
-      return true;
-    }
-    
-    // Setup all navigation links with event delegation
-    function setupNavLinks() {
-      // Use event delegation on document for better reliability
-    document.addEventListener('click', function(e) {
-        // Find the clicked link (handles clicks on <i> tags inside links)
-      const link = e.target.closest('a[href^="#"]');
-      if (!link) return;
-      
-      // Check if it's a navigation link
-        const isTopNav = link.classList.contains('top-nav__link');
-        const isSidebarNav = link.classList.contains('sidebar-nav__link');
-        const isFloatingNav = link.closest('.floating-nav__menu');
-        
-        if (isTopNav || isSidebarNav || isFloatingNav) {
-        e.preventDefault();
-        e.stopPropagation();
-          e.stopImmediatePropagation();
-        
-        const href = link.getAttribute('href');
-          console.log('Nav clicked:', href, 'Type:', isTopNav ? 'top' : isSidebarNav ? 'sidebar' : 'floating');
-          
-        if (smoothScrollTo(href)) {
-          // Close floating menu if open
-            if (isFloatingNav) {
-              const btn = document.getElementById('floatingNavBtn');
-              const menu = document.getElementById('floatingNavMenu');
-              if (btn) btn.classList.remove('active');
-              if (menu) menu.classList.remove('show');
-            }
-          } else {
-            console.warn('Failed to scroll to:', href);
-          }
-        }
-      }, true); // Use capture phase for higher priority
-      
-      // Also setup direct handlers as backup
-      const topLinks = document.querySelectorAll('.top-nav__link[href^="#"]');
-      console.log('Found top nav links:', topLinks.length);
-      topLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const href = this.getAttribute('href');
-          console.log('Direct handler - Top nav clicked:', href);
-          smoothScrollTo(href);
-        }, true);
-      });
-      
-      const sidebarLinks = document.querySelectorAll('.sidebar-nav__link[href^="#"]');
-      console.log('Found sidebar nav links:', sidebarLinks.length);
-      sidebarLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const href = this.getAttribute('href');
-          console.log('Direct handler - Sidebar nav clicked:', href);
-          smoothScrollTo(href);
-        }, true);
-      });
-      
-      const floatingLinks = document.querySelectorAll('.floating-nav__menu a[href^="#"]');
-      console.log('Found floating nav links:', floatingLinks.length);
-      floatingLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const href = this.getAttribute('href');
-          console.log('Direct handler - Floating nav clicked:', href);
-          if (smoothScrollTo(href)) {
-            const btn = document.getElementById('floatingNavBtn');
-            const menu = document.getElementById('floatingNavMenu');
-            if (btn) btn.classList.remove('active');
-            if (menu) menu.classList.remove('show');
-      }
-    }, true);
-      });
-  }
-  
-    setupNavLinks();
-  }
-  
-  // ===== ACTIVE NAV STATE =====
-  function initActiveNav() {
-    const links = document.querySelectorAll('.top-nav__link, .sidebar-nav__link, .floating-nav__menu a');
-    const sections = [];
-    
-    links.forEach(function(link) {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const section = document.querySelector(href);
-        if (section && !sections.find(s => s.id === href)) {
-          sections.push({ id: href, element: section });
-        }
-      }
-    });
-    
-    function updateActive() {
-      const scrollPos = window.scrollY + 150;
-      let current = null;
-      
-      sections.forEach(function(section) {
-        const top = section.element.offsetTop;
-        const height = section.element.offsetHeight;
-        if (scrollPos >= top && scrollPos < top + height) {
-          current = section;
-        }
-      });
-      
-      links.forEach(function(link) {
-        link.classList.remove('active');
-        if (current && link.getAttribute('href') === current.id) {
-          link.classList.add('active');
-        }
-      });
-    }
-    
-    let timeout = null;
-    function throttledUpdate() {
-      if (timeout) return;
-      timeout = requestAnimationFrame(function() {
-        updateActive();
-        timeout = null;
-      });
-    }
-    
-    window.addEventListener('scroll', throttledUpdate, { passive: true });
-    updateActive();
-  }
-  
-  // ===== FLOATING MENU =====
-  function initFloatingMenu() {
-    const btn = document.getElementById('floatingNavBtn');
-    const menu = document.getElementById('floatingNavMenu');
-    if (!btn || !menu) return;
-    
-    btn.addEventListener('click', function() {
-      btn.classList.toggle('active');
-      menu.classList.toggle('show');
-    });
-    
-    document.addEventListener('click', function(e) {
-      if (!btn.contains(e.target) && !menu.contains(e.target)) {
-        btn.classList.remove('active');
-        menu.classList.remove('show');
-      }
-    });
-  }
-  
-  // ===== SCROLL ANIMATIONS =====
-  function initScrollAnimations() {
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animated');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    
-    document.querySelectorAll('.scroll-animate').forEach(function(el) {
-      observer.observe(el);
-    });
-  }
-  
-  // ===== TABS =====
-  function initTabs() {
-    document.querySelectorAll('.tab-button').forEach(function(button) {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetTab = this.getAttribute('data-tab');
-        
-        document.querySelectorAll('.tab-button').forEach(function(btn) {
-          btn.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-content').forEach(function(content) {
-          content.classList.remove('active');
-        });
-        
-        this.classList.add('active');
-        const targetContent = document.getElementById(targetTab + '-tab');
-        if (targetContent) {
-          targetContent.classList.add('active');
-        }
-      });
-    });
-  }
-  
-  // ===== INIT =====
-  var initialized = false;
-  function init() {
-    if (initialized) {
-      console.log('Resume JS: Already initialized, skipping...');
-      return;
-    }
-    initialized = true;
-    
-    try {
-      console.log('=== Resume JS: Starting initialization ===');
-    initNavigation();
-    initActiveNav();
-    initFloatingMenu();
-    initScrollAnimations();
-    initTabs();
-      console.log('=== Resume JS: Initialization complete ===');
-    } catch (error) {
-      console.error('Resume JS: Error during initialization:', error);
-      initialized = false; // Allow retry on error
-    }
-  }
-  
-  // Multiple initialization strategies to ensure it runs
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Resume JS: DOMContentLoaded fired');
-      init();
-    });
-  } else {
-    // DOM already loaded - run immediately
-    console.log('Resume JS: DOM already loaded, initializing...');
-    setTimeout(init, 0);
-  }
-  
-  // Fallback: try again after a short delay
-  setTimeout(function() {
-    if (!initialized) {
-      console.log('Resume JS: Fallback initialization after delay...');
-    init();
-  }
-  }, 500);
-})();
-</script>
+<script src="{{ '/assets/js/resume.js' | relative_url }}"></script>

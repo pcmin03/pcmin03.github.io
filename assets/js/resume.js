@@ -9,7 +9,6 @@
     function smoothScrollTo(targetId) {
       const target = document.querySelector(targetId);
       if (!target) {
-        console.warn('Target not found:', targetId);
         return false;
       }
       
@@ -229,13 +228,11 @@
   
   // ===== INITIALIZE ALL =====
   function init() {
-    console.log('Resume JS: Initializing...');
     initNavigation();
     initActiveNav();
     initFloatingMenu();
     initScrollAnimations();
     initTabs();
-    console.log('Resume JS: Initialization complete');
   }
   
   // Ensure DOM is ready

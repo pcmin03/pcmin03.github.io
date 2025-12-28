@@ -1486,12 +1486,13 @@ html.dark-mode {
 /* Expertise Section Styles - Compact Grid */
 .expertise-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: 1rem;
   width: 100%;
-  box-sizing: border-box;
+  max-width: 100%;
   overflow-x: hidden;
+  box-sizing: border-box;
+  margin-top: 0.5rem;
 }
 
 .expertise-item {
@@ -2081,6 +2082,31 @@ html.dark-mode {
   transition: all 0.3s ease;
   border: 1px solid rgba(32, 52, 61, 0.08);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+}
+
+.publication-card__title {
+  font-style: normal;
+}
+
+.publication-card__links span {
+  color: var(--resume-primary);
+}
+
+.publication-card__content > p:not(.publication-card__authors):not(.publication-card__venue) {
+  font-size: 0.7rem;
+  color: #4f5b63;
+  margin: 0.3rem 0 0;
+}
+
+.timeline-item--patents {
+  margin-top: 2rem;
+}
+
+.resume-list li a {
+  color: var(--resume-primary);
+  text-decoration: none;
+  font-size: 0.85rem;
 }
 
 .publication-card:hover {
