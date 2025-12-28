@@ -305,6 +305,7 @@
     let startScrollLeft = 0;
     let didDrag = false;
     let movedPx = 0;
+    let hasPointerCapture = false;
 
     // Make it feel draggable on desktop.
     navList.style.cursor = 'grab';
@@ -315,9 +316,9 @@
       isPointerDown = true;
       didDrag = false;
       movedPx = 0;
+      hasPointerCapture = false;
       startX = e.clientX;
       startScrollLeft = navList.scrollLeft;
-      navList.setPointerCapture && navList.setPointerCapture(e.pointerId);
       navList.style.cursor = 'grabbing';
     });
 
@@ -332,17 +333,35 @@
         return;
       }
 
+      // Only capture the pointer once we are sure it's a drag.
+      // Capturing on pointerdown can retarget the subsequent click away from <a>,
+      // making navigation links appear "dead" on some browsers.
+      if (!hasPointerCapture && navList.setPointerCapture) {
+        try {
+          navList.setPointerCapture(e.pointerId);
+          hasPointerCapture = true;
+        } catch (_) {
+          hasPointerCapture = false;
+        }
+      }
+
       didDrag = true;
       navList.scrollLeft = startScrollLeft - dx;
       // Prevent the page from selecting text / scrolling vertically while dragging.
       if (e.cancelable) e.preventDefault();
     }, { passive: false });
 
-    function endDrag() {
+    function endDrag(e) {
       // Also consider actual scroll delta (more reliable than pointer jitter alone).
       if (Math.abs(navList.scrollLeft - startScrollLeft) > 6) {
         didDrag = true;
       }
+      if (hasPointerCapture && navList.releasePointerCapture && e && e.pointerId !== undefined) {
+        try {
+          navList.releasePointerCapture(e.pointerId);
+        } catch (_) {}
+      }
+      hasPointerCapture = false;
       isPointerDown = false;
       navList.style.cursor = 'grab';
     }
