@@ -7,7 +7,23 @@
     
     // Universal smooth scroll function
     function smoothScrollTo(targetId) {
-      const target = document.querySelector(targetId);
+      const targetHash = String(targetId || '');
+      let target = null;
+
+      // Prefer id lookup (safe even if id contains special chars)
+      if (targetHash.charAt(0) === '#') {
+        let id = targetHash.slice(1);
+        try { id = decodeURIComponent(id); } catch (_) {}
+        target = document.getElementById(id);
+      }
+      // Fallback to querySelector for non-id selectors
+      if (!target) {
+        try {
+          target = document.querySelector(targetHash);
+        } catch (_) {
+          target = null;
+        }
+      }
       if (!target) {
         return false;
       }
@@ -15,12 +31,20 @@
       // IMPORTANT: Avoid scrollIntoView() because it may also scroll horizontally on mobile/tablet,
       // which can make the whole page "shift" left/right. We scroll vertically only.
       function getScrollContainer() {
-        const main = document.querySelector('.page__main');
-        if (!main) return window;
-        const style = window.getComputedStyle(main);
-        const overflowY = style.overflowY;
-        const canScrollY = (overflowY === 'auto' || overflowY === 'scroll') && main.scrollHeight > main.clientHeight + 2;
-        return canScrollY ? main : window;
+        const main = document.querySelector('.js-page-main') || document.querySelector('.page__main');
+        if (main) {
+          const style = window.getComputedStyle(main);
+          const overflowY = style.overflowY || '';
+          const overflow = style.overflow || '';
+          const overflowAllowsScroll = /auto|scroll/i.test(overflowY) || /auto|scroll/i.test(overflow);
+          const canScrollY = main.scrollHeight > main.clientHeight + 2;
+          if (overflowAllowsScroll && canScrollY) return main;
+        }
+        // If the document itself scrolls, prefer the scrolling element.
+        if (document.scrollingElement && document.scrollingElement.scrollHeight > document.scrollingElement.clientHeight + 2) {
+          return window;
+        }
+        return window;
       }
 
       const scroller = getScrollContainer();
@@ -28,7 +52,8 @@
 
       if (scroller === window) {
         const rect = target.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const scrollTop = (document.scrollingElement && document.scrollingElement.scrollTop) ||
+          window.pageYOffset || document.documentElement.scrollTop || 0;
         const targetTop = rect.top + scrollTop - NAV_OFFSET;
         window.scrollTo({ top: Math.max(0, targetTop), behavior });
         // Hard clamp horizontal scroll to avoid "shift"
@@ -38,13 +63,17 @@
         const scrollerRect = scroller.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
         const targetTop = (targetRect.top - scrollerRect.top) + scroller.scrollTop - NAV_OFFSET;
-        scroller.scrollTo({ top: Math.max(0, targetTop), behavior });
+        if (typeof scroller.scrollTo === 'function') {
+          scroller.scrollTo({ top: Math.max(0, targetTop), behavior });
+        } else {
+          scroller.scrollTop = Math.max(0, targetTop);
+        }
         scroller.scrollLeft = 0;
       }
 
       // Keep URL hash in sync (so refresh/share works)
       try {
-        window.history.replaceState(null, '', window.location.href.split('#')[0] + targetId);
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + targetHash);
       } catch (_) {
         // ignore
       }
@@ -60,7 +89,9 @@
           e.preventDefault();
           e.stopPropagation();
           const href = this.getAttribute('href');
-          smoothScrollTo(href);
+          if (!smoothScrollTo(href)) {
+            window.location.hash = href;
+          }
         });
       });
       
@@ -71,7 +102,9 @@
           e.preventDefault();
           e.stopPropagation();
           const href = this.getAttribute('href');
-          smoothScrollTo(href);
+          if (!smoothScrollTo(href)) {
+            window.location.hash = href;
+          }
         });
       });
       
@@ -88,6 +121,8 @@
             const floatingMenu = document.getElementById('floatingNavMenu');
             if (floatingBtn) floatingBtn.classList.remove('active');
             if (floatingMenu) floatingMenu.classList.remove('show');
+          } else {
+            window.location.hash = href;
           }
         });
       });
@@ -118,6 +153,8 @@
               floatingMenu.classList.remove('show');
             }
           }
+        } else {
+          window.location.hash = href;
         }
       }
     }, true);
@@ -267,6 +304,8 @@
     let startX = 0;
     let startScrollLeft = 0;
     let didDrag = false;
+    let movedPx = 0;
+    let hasPointerCapture = false;
 
     // Make it feel draggable on desktop.
     navList.style.cursor = 'grab';
@@ -276,22 +315,53 @@
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       isPointerDown = true;
       didDrag = false;
+      movedPx = 0;
+      hasPointerCapture = false;
       startX = e.clientX;
       startScrollLeft = navList.scrollLeft;
-      navList.setPointerCapture && navList.setPointerCapture(e.pointerId);
       navList.style.cursor = 'grabbing';
     });
 
     navList.addEventListener('pointermove', function(e) {
       if (!isPointerDown) return;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > 3) didDrag = true;
+      movedPx = Math.max(movedPx, Math.abs(dx));
+
+      // Treat tiny jitter as a click, not a drag.
+      // (On trackpads/touch, pointermove often fires with a few px movement.)
+      if (movedPx < 8) {
+        return;
+      }
+
+      // Only capture the pointer once we are sure it's a drag.
+      // Capturing on pointerdown can retarget the subsequent click away from <a>,
+      // making navigation links appear "dead" on some browsers.
+      if (!hasPointerCapture && navList.setPointerCapture) {
+        try {
+          navList.setPointerCapture(e.pointerId);
+          hasPointerCapture = true;
+        } catch (_) {
+          hasPointerCapture = false;
+        }
+      }
+
+      didDrag = true;
       navList.scrollLeft = startScrollLeft - dx;
       // Prevent the page from selecting text / scrolling vertically while dragging.
       if (e.cancelable) e.preventDefault();
     }, { passive: false });
 
-    function endDrag() {
+    function endDrag(e) {
+      // Also consider actual scroll delta (more reliable than pointer jitter alone).
+      if (Math.abs(navList.scrollLeft - startScrollLeft) > 6) {
+        didDrag = true;
+      }
+      if (hasPointerCapture && navList.releasePointerCapture && e && e.pointerId !== undefined) {
+        try {
+          navList.releasePointerCapture(e.pointerId);
+        } catch (_) {}
+      }
+      hasPointerCapture = false;
       isPointerDown = false;
       navList.style.cursor = 'grab';
     }
