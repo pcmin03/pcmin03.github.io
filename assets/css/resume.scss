@@ -284,6 +284,14 @@ html.dark-mode {
     background: rgba(212, 165, 116, 0.15) !important;
   }
   
+  .expertise-item__icon .emoji-fallback {
+    display: block;
+  }
+  
+  .expertise-item__icon i + .emoji-fallback {
+    display: none !important;
+  }
+  
   .resume__overview-quote {
     background: rgba(255, 255, 255, 0.03) !important;
     border-color: var(--resume-border) !important;
@@ -1578,6 +1586,19 @@ html.dark-mode {
   color: var(--resume-primary);
   font-size: 0.85rem;
   transition: all 0.25s ease;
+  position: relative;
+}
+
+.expertise-item__icon .emoji-fallback {
+  position: absolute;
+  font-size: 0.9rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Hide emoji fallback when Font Awesome icon is present */
+.expertise-item__icon i.fas + .emoji-fallback {
+  display: none;
 }
 
 .expertise-item:hover .expertise-item__icon {
