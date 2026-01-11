@@ -974,6 +974,18 @@ html.dark-mode {
   border-radius: 10px;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.resume__contact a i {
+  font-size: 0.85rem;
+}
+
+/* Hide emoji fallback when Font Awesome icon is present */
+.resume__contact a i + .emoji-fallback {
+  display: none;
 }
 
 .resume__contact a:hover {
@@ -1463,6 +1475,22 @@ html.dark-mode {
   font-size: 0.75rem;
   line-height: 1.5;
   margin-bottom: 0.5rem;
+}
+
+.resume-list li span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.resume-list li span i {
+  font-size: 0.7rem;
+}
+
+.resume-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .resume-list li span {
