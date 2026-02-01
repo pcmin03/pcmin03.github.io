@@ -30,7 +30,19 @@
 
       // IMPORTANT: Avoid scrollIntoView() because it may also scroll horizontally on mobile/tablet,
       // which can make the whole page "shift" left/right. We scroll vertically only.
-      function getScrollContainer() {
+      function getScrollContainer(element) {
+        // Walk up the DOM to find the nearest scrollable ancestor.
+        let current = element;
+        while (current && current !== document.body && current !== document.documentElement) {
+          const style = window.getComputedStyle(current);
+          const overflowY = style.overflowY || '';
+          const overflow = style.overflow || '';
+          const overflowAllowsScroll = /auto|scroll/i.test(overflowY) || /auto|scroll/i.test(overflow);
+          const canScrollY = current.scrollHeight > current.clientHeight + 2;
+          if (overflowAllowsScroll && canScrollY) return current;
+          current = current.parentElement;
+        }
+
         const main = document.querySelector('.js-page-main') || document.querySelector('.page__main');
         if (main) {
           const style = window.getComputedStyle(main);
@@ -40,15 +52,20 @@
           const canScrollY = main.scrollHeight > main.clientHeight + 2;
           if (overflowAllowsScroll && canScrollY) return main;
         }
-        // If the document itself scrolls, prefer the scrolling element.
+
         if (document.scrollingElement && document.scrollingElement.scrollHeight > document.scrollingElement.clientHeight + 2) {
           return window;
         }
         return window;
       }
 
-      const scroller = getScrollContainer();
+      const scroller = getScrollContainer(target);
       const behavior = 'smooth';
+
+      const startTop = scroller === window
+        ? ((document.scrollingElement && document.scrollingElement.scrollTop) ||
+          window.pageYOffset || document.documentElement.scrollTop || 0)
+        : scroller.scrollTop;
 
       if (scroller === window) {
         const rect = target.getBoundingClientRect();
@@ -77,6 +94,21 @@
       } catch (_) {
         // ignore
       }
+
+      // Fallback: if scroll didn't move, try native behavior.
+      setTimeout(function() {
+        const endTop = scroller === window
+          ? ((document.scrollingElement && document.scrollingElement.scrollTop) ||
+            window.pageYOffset || document.documentElement.scrollTop || 0)
+          : scroller.scrollTop;
+        if (Math.abs(endTop - startTop) < 2) {
+          try {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } catch (_) {
+            window.location.hash = targetHash;
+          }
+        }
+      }, 60);
       return true;
     }
     
@@ -398,4 +430,3 @@
     setTimeout(init, 100);
   }
 })();
-
