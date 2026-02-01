@@ -18,3 +18,10 @@
   url: /pages/3d-geometry.html
   tags: [3D Geometry, Computer Graphics, Visualization]
   excerpt: Understanding 3D geometry, transformations, and rendering techniques for computer graphics applications.
+
+- title: ROS2
+  cover: /assets/images/study/deep-learning.jpg
+  description: Robot Operating System 2
+  url: /pages/ros2.html
+  tags: [ROS2, Robotics, Robot Operating System]
+  excerpt: ROS2 (Robot Operating System 2) 로봇 소프트웨어 개발을 위한 오픈소스 프레임워크 학습.

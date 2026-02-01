@@ -114,6 +114,8 @@ header:
         url: /pages/deep-learning.html
       - title: 3D Geometry
         url: /pages/3d-geometry.html
+      - title: ROS2
+        url: /pages/ros2.html
 
   - titles:
       # @start locale config
