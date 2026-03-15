@@ -25,6 +25,13 @@
                 title="Toggle dark mode">
           <i class="fas fa-moon"></i>
         </button>
+        <button class="button button--secondary button--pill language-toggle js-language-toggle"
+                type="button"
+                aria-label="Switch to Korean"
+                title="Switch to Korean">
+          <i class="fas fa-language"></i>
+          <span class="js-language-toggle-label">KO</span>
+        </button>
         {%- if site.data.navigation.header -%}
         <button class="button button--secondary button--circle menu-toggle js-menu-toggle d-lg-none"
                 type="button"
@@ -44,9 +51,11 @@
             {%- include snippets/get-nav-url.html path=page.url -%}
             {%- assign _page_url = __return -%}
             {%- include snippets/get-string-from-locale-config.html locale=_item.titles -%}
+            {%- assign _nav_label_en = _item.title | default: _item.titles.en | default: _item.titles['en-US'] -%}
+            {%- assign _nav_label_ko = _item.title | default: _item.titles.ko | default: _item.titles['ko-KR'] | default: _nav_label_en -%}
             {%- if _item.children -%}
               <li class="navigation__item navigation__item--dropdown {%- if _nav_url == _page_url or page.nav_key and _item.key and page.nav_key == _item.key -%}navigation__item--active{%- endif -%}">
-                <a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%} <i class="fas fa-chevron-down"></i></a>
+                <a href="{{ _nav_url }}"><span class="js-language-nav-text" data-locale-en="{{ _nav_label_en | escape }}" data-locale-ko="{{ _nav_label_ko | escape }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</span> <i class="fas fa-chevron-down"></i></a>
                 <ul class="navigation__dropdown">
                   {%- for _child in _item.children -%}
                     {%- include snippets/get-nav-url.html path=_child.url -%}
@@ -60,9 +69,9 @@
                 </ul>
               </li>
             {%- elsif _nav_url == _page_url or page.nav_key and _item.key and page.nav_key == _item.key -%}
-              <li class="navigation__item navigation__item--active"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+              <li class="navigation__item navigation__item--active"><a href="{{ _nav_url }}"><span class="js-language-nav-text" data-locale-en="{{ _nav_label_en | escape }}" data-locale-ko="{{ _nav_label_ko | escape }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</span></a></li>
             {%- else -%}
-              <li class="navigation__item"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+              <li class="navigation__item"><a href="{{ _nav_url }}"><span class="js-language-nav-text" data-locale-en="{{ _nav_label_en | escape }}" data-locale-ko="{{ _nav_label_ko | escape }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</span></a></li>
             {%- endif -%}
           {%- endfor -%}
           {%- if site.search.provider -%}

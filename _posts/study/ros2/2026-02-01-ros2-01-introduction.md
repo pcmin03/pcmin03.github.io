@@ -15,15 +15,47 @@ mathjax_autoNumber: true
 
 **ROS2 (Robot Operating System 2) 학습 시리즈**
 
-이 포스트는 ROS2의 기본 개념과 구조를 정리한 것입니다.
+ROS2에 대한 기본적인 내용에 대해서 정리하고 설명하고자 한다. 
 
 <!--more-->
 
 ## 1. Introduction
 
-**ROS2 (Robot Operating System 2)**는 로봇 소프트웨어 개발을 위한 오픈소스 프레임워크입니다. 원래 ROS1의 후속 버전으로 개발되었으며, **실시간 성능**, **DDS(Data Distribution Service) 기반 통신**, **멀티 플랫폼 지원** 등의 개선사항을 포함합니다.
+**ROS2 (Robot Operating System 2)**는 로봇 소프트웨어 개발을 위한 오픈소스 프레임워크입니다. 원래 ROS1의 후속 버전으로 개발되었으며, **실시간 성능**, **DDS(Data Distribution Service) 기반 통신**, **멀티 플랫폼 지원** 등의 개선사항을 포함시킴
 
 ## 2. ROS2의 주요 특징
+
+### 2.0 ROS 1 vs ROS 2 비교 요약
+
+#### 표 1
+
+| Features | ROS 1 | ROS 2 |
+| --- | --- | --- |
+| Platforms | Linux, macOS | Linux, macOS, Windows |
+| Real-time | External frameworks like OROCOS | Real-time nodes when using a proper RTOS with carefully written user code |
+| Security | SROS | SROS 2, DDS-Security, Robotic Systems Threat Model |
+| Communication | XMLRPC + TCPROS | DDS (RTPS) |
+| Middleware interface | - | rmw |
+| Node manager (discovery) | ROS Master | No, use DDS's dynamic discovery |
+| Languages | C++03, Python 2.7 | C++14 (C++17), Python 3.5+ |
+| Client library | roscpp, rospy, rosjava, rosnodejs, and more | rclcpp, rclpy, rcljava, rcljs, and more |
+| Build system | rosbuild → catkin (CMake) | ament (CMake), Python setuptools (full support) |
+| Build tool | catkin_make, catkin_tools | colcon |
+
+#### 표 2
+
+| Features | ROS 1 | ROS 2 |
+| --- | --- | --- |
+| Build options | - | Multiple workspace, no non-isolated build, no devel space |
+| Version control system | rosws → wstool, rosinstall (*.rosinstall) | vcs tool (*.repos) |
+| Life cycle | - | Node life cycle |
+| Multiple nodes | One node in a process | Multiple nodes in a process |
+| Threading model | Single-threaded or multi-threaded execution | Custom executors |
+| Messages (topic, service, action) | *.msg, *.srv, *.action | *.msg, *.srv, *.action, *.idl |
+| Command line interface | rosrun, roslaunch, rostopic ... | ros2 run, ros2 launch, ros2 topic ... |
+| roslaunch | XML | Python, XML, YAML |
+| Graph API | Remapping at startup time only | Remapping at runtime |
+| Embedded systems | rosserial, mROS | microROS, XEL Network, ros2arduino, Renesas DDS-XRCE (Micro-XRCE-DDS), AWS ARCLM |
 
 ### 2.1 아키텍처
 

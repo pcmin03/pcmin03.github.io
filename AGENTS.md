@@ -1,38 +1,31 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Jekyll theme sources live in `_layouts/`, `_includes/`, `_sass/`, and `_data/`.
-- Site content examples are in `_posts/`, `pages/`, and top-level `.html`/`.md` pages (e.g., `index.html`).
-- Documentation site sources live under `docs/` (separate config in `docs/_config.yml`).
-- A demo/test site exists in `test/` with its own `_config.yml` and content.
-- Build output typically goes to `_site/` (Jekyll default).
-- Assets such as images, fonts, and compiled CSS/JS live in `assets/`.
+This repository is a Jekyll theme with a local site layered on top. Theme templates live in `_layouts/` and reusable Liquid partials in `_includes/`. Styles are organized under `_sass/`, with shared components in `_sass/common/` and skin variants in `_sass/skins/`. Client-side scripts live in `_includes/scripts/`. Root-level content such as `_posts/`, `assets/`, and `_config.yml` powers the local site, while `docs/` contains the theme demo/documentation site and `test/` contains a fixture site used to exercise the gem-based theme.
 
 ## Build, Test, and Development Commands
-- `bundle install` installs Ruby/Jekyll dependencies from `Gemfile`.
-- `bundle exec jekyll serve -H 0.0.0.0` runs the theme locally.
-- `npm run dev` serves the docs site using `docs/_config.dev.yml`.
-- `npm run demo-dev` serves the docs/demo site using `docs/_config.yml`.
-- `npm run build` builds the production site with `JEKYLL_ENV=production`.
-- `npm run eslint` and `npm run stylelint` run JS and SCSS linting.
-- Docker workflows are available via `npm run docker-dev:default` and related scripts in `package.json`.
+Install dependencies with `bundle install` and `npm install`.
+
+- `npm run dev`: serve the documentation/demo site with `docs/_config.dev.yml`.
+- `npm run default`: serve the root site with live rebuilds.
+- `npm run build`: production Jekyll build.
+- `npm run eslint`: lint JavaScript in `_includes/**/*.js`.
+- `npm run stylelint`: lint SCSS in `_sass/**/*.scss`.
+- `npm run eslint-fix` / `npm run stylelint-fix`: apply safe autofixes.
+
+Use `npm run demo-dev` when you need the demo configuration from `docs/_config.yml`.
 
 ## Coding Style & Naming Conventions
-- JavaScript linting is enforced by ESLint (`.eslintrc`): 2-space indent, single quotes, semicolons, no `console`, camelCase, and trailing commas disallowed.
-- SCSS linting is enforced by Stylelint (`.stylelintrc`) with ordered properties and double quotes.
-- Jekyll naming follows standard conventions: layouts in `_layouts/`, includes in `_includes/`, posts as `_posts/YYYY-MM-DD-title.md`.
+Follow `.editorconfig`: UTF-8, LF endings, final newline, and 2-space indentation. JavaScript follows `.eslintrc`: single quotes, required semicolons, camelCase identifiers, and 2-space indents. SCSS is checked by Stylelint; keep declarations ordered consistently and prefer lowercase short hex colors. Match existing naming patterns such as `_sass/common/components/_button.scss`, `_includes/scripts/components/search.js`, and BEM-like classes like `.button--primary`.
 
 ## Testing Guidelines
-- There is no automated test framework configured; rely on local Jekyll builds and linting.
-- Use the demo site in `test/` or `docs/` to validate layout changes.
+There is no formal unit-test suite in this repository. Validation is done through linting and manual preview checks.
+
+- Run `npm run eslint` and `npm run stylelint` before opening a PR.
+- Preview affected pages with `npm run dev` or `npm run default`.
+- For theme-level changes, also verify the gem fixture under `test/` still renders correctly.
 
 ## Commit & Pull Request Guidelines
-- Commit messages follow Conventional Commits via commitlint (`.commitlintrc.js`).
-  Example: `feat(layout): add hero banner`.
-- Valid types include `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `build`, and `release`.
-- Keep headers <= 72 chars and use lowercase type/scope.
-- PRs should include a brief description, linked issues when applicable, and screenshots for visual changes.
+Commits are enforced by Husky and Commitlint, so prefer Conventional Commits such as `fix(nav): prevent horizontal shift` or `docs(readme): clarify demo setup`. Keep subjects imperative and under 72 characters.
 
-## Configuration Tips
-- Use `JEKYLL_ENV=production|beta` for environment-specific behavior.
-- When editing docs content, update both `docs/` content and configs as needed.
+PRs should include a short summary, linked issue when applicable, and screenshots or GIFs for layout, styling, or interaction changes. Note any config updates and list the commands you ran to validate the change.

@@ -8,6 +8,9 @@
   .main {
     @include flexbox();
     position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     @include media-breakpoint-down(md) {
       @include flex-direction(column);
     }
@@ -39,6 +42,7 @@
   @include align-items(center);
   @include flex-wrap(nowrap);
   @include flex(1);
+  min-width: 0;
   height: map-get($layout, header-height);
   margin-right: map-get($spacers, 3);
   white-space: nowrap;
@@ -73,11 +77,28 @@
       @include justify-content(center);
     }
   }
+  & > .language-toggle {
+    margin-left: map-get($spacers, 2);
+    padding: 0 map-get($spacers, 3);
+    min-width: 74px;
+    height: 42px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.04);
+    font-size: map-get($base, font-size-sm);
+    letter-spacing: .04em;
+    @include inline-flex();
+    @include align-items(center);
+    @include justify-content(center);
+    i {
+      margin-right: .45rem;
+    }
+  }
 }
 
 .header__brand {
   @include flexbox();
   @include align-items(center);
+  min-width: 0;
   & > svg {
     width: map-get($base, font-size-h4) * 1.6;
     height: map-get($base, font-size-h4) * 1.6;
@@ -91,6 +112,10 @@
   & > a {
     display: inline-block;
     font-size: map-get($base, font-size-h4);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     @include media-breakpoint-down(md) {
       font-size: map-get($base, font-size-h4-small);
     }
@@ -279,8 +304,10 @@
   visibility: hidden;
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
+  left: auto;
   min-width: 180px;
+  max-width: calc(100vw - 2rem);
   background: #fff !important;
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -331,5 +358,24 @@
   .navigation__dropdown-item--active a {
     color: $main-color-1 !important;
     background-color: rgba($main-color-1, 0.1) !important;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .header__title {
+    gap: map-get($spacers, 1);
+  }
+
+  .header__title > .search-button,
+  .header__title > .theme-toggle,
+  .header__title > .language-toggle,
+  .header__title > .menu-toggle {
+    @include flex(0 0 auto);
+  }
+
+  .header__title > .language-toggle {
+    min-width: auto;
+    padding: 0 map-get($spacers, 2);
+    height: 36px;
   }
 }

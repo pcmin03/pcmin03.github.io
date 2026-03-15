@@ -411,6 +411,190 @@
       }
     }, true);
   }
+
+  // ===== TIMELINE LINK PREVIEW =====
+  function initLinkPreviews() {
+    const selector = '.timeline-link[href]';
+    let activeLink = null;
+    let tooltip = document.querySelector('.js-link-preview');
+    const previewMetadata = {
+      'https://kidd.co.kr/news/245144': {
+        title: '포스코DX, 비전 AI로 철강 원료 항만 하역 무인화',
+        image: 'https://pimg3.daara.co.kr/kidd/photo/2026/03/04/1772607405_93.jpg',
+        domain: 'kidd.co.kr'
+      },
+      'https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday': {
+        title: '포스코 그룹, 메타버스 기반 마케팅 디지털 전환 추진',
+        image: 'https://cdn.digitaltoday.co.kr/news/photo/202401/500285_465879_5231.jpg',
+        domain: 'digitaltoday.co.kr'
+      },
+      'https://fastcampus.co.kr/data_online_medicalai': {
+        title: '딥러닝을 활용한 의료 영상 처리 & 모델 개발',
+        image: '/assets/images/medical-ai-course.png',
+        domain: 'fastcampus.co.kr'
+      },
+      'https://www.docdocdoc.co.kr/news/articleView.html?idxno=3013245': {
+        title: '뷰노 "뷰노메드 흉부 CT AI, 일본서 보험급여 인정"',
+        image: 'https://cdn.docdocdoc.co.kr/news/thumbnail/202401/3013245_3015112_2119_v150.jpg',
+        domain: 'www.docdocdoc.co.kr'
+      },
+      'https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html': {
+        title: 'CNG-SFDA: Clean-and-Noisy Region Guided Online-Offline Source-Free Domain Adaptation',
+        image: '/assets/images/publications/cng-sfda.png',
+        domain: 'openaccess.thecvf.com'
+      },
+      'https://tiger.grand-challenge.org/Home/': {
+        title: 'TIGER Challenge',
+        image: '/assets/images/posts/tiger-challenge/segmentation-patch-selection.png',
+        domain: 'tiger.grand-challenge.org'
+      },
+      'https://www.vuno.co/news/view/810': {
+        title: '뷰노, 디지털 병리 분석 AI 솔루션 뷰노메드 패스퀀트 식약처 인증 획득',
+        image: 'https://www.vuno.co/data/files/2021-06/5be1819c1a924312dc242203946d8c06.jpg',
+        domain: 'www.vuno.co'
+      },
+      'https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/': {
+        title: '[인터뷰] 미래를 여는 혁신 기술 개발! 2025 포스코 기술대상 수상자들을 만나다',
+        image: '',
+        domain: 'newsroom.posco.com'
+      }
+    };
+
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.className = 'link-preview js-link-preview';
+      tooltip.setAttribute('aria-hidden', 'true');
+      tooltip.innerHTML = '' +
+        '<img class="link-preview__image js-link-preview-image" alt=\"Link preview image\">' +
+        '<div class="link-preview__body">' +
+        '<span class="link-preview__label">Link Preview</span>' +
+        '<span class="link-preview__title js-link-preview-title"></span>' +
+        '<span class="link-preview__domain js-link-preview-domain"></span>' +
+        '<span class="link-preview__url js-link-preview-url"></span>' +
+        '</div>';
+      document.body.appendChild(tooltip);
+    }
+
+    const tooltipUrl = tooltip.querySelector('.js-link-preview-url');
+    const tooltipTitle = tooltip.querySelector('.js-link-preview-title');
+    const tooltipDomain = tooltip.querySelector('.js-link-preview-domain');
+    const tooltipImage = tooltip.querySelector('.js-link-preview-image');
+
+    function getLinkPreviewText(link) {
+      const href = link.getAttribute('href') || '';
+      if (!href || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) {
+        return '';
+      }
+      return href;
+    }
+
+    function getPreviewMetadata(href) {
+      const normalizedHref = String(href || '');
+      if (previewMetadata[normalizedHref]) {
+        return previewMetadata[normalizedHref];
+      }
+      try {
+        const url = new URL(normalizedHref, window.location.origin);
+        return {
+          title: '',
+          image: '',
+          domain: url.hostname
+        };
+      } catch (_) {
+        return {
+          title: '',
+          image: '',
+          domain: ''
+        };
+      }
+    }
+
+    function positionTooltip(event) {
+      if (!activeLink) return;
+      const offset = 18;
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const maxLeft = Math.max(12, window.innerWidth - tooltipRect.width - 12);
+      const maxTop = Math.max(12, window.innerHeight - tooltipRect.height - 12);
+      const left = Math.min(maxLeft, Math.max(12, event.clientX + offset));
+      const top = Math.min(maxTop, Math.max(12, event.clientY + offset));
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    }
+
+    function showTooltip(link, event) {
+      const previewText = getLinkPreviewText(link);
+      const metadata = getPreviewMetadata(previewText);
+      if (!previewText) {
+        hideTooltip();
+        return;
+      }
+
+      activeLink = link;
+      tooltipUrl.textContent = previewText;
+      tooltipTitle.textContent = metadata.title || '';
+      tooltipDomain.textContent = metadata.domain || '';
+      tooltip.classList.toggle('link-preview--rich', Boolean(metadata.title || metadata.image));
+      if (metadata.image) {
+        tooltipImage.src = metadata.image;
+        tooltipImage.alt = metadata.title || 'Link preview image';
+      } else {
+        tooltipImage.removeAttribute('src');
+        tooltipImage.alt = 'Link preview image';
+      }
+      tooltip.classList.add('link-preview--visible');
+      tooltip.setAttribute('aria-hidden', 'false');
+      if (event) {
+        positionTooltip(event);
+      }
+    }
+
+    function hideTooltip() {
+      activeLink = null;
+      tooltip.classList.remove('link-preview--visible');
+      tooltip.classList.remove('link-preview--rich');
+      tooltip.setAttribute('aria-hidden', 'true');
+    }
+
+    document.addEventListener('mouseover', function(event) {
+      const link = event.target.closest(selector);
+      if (!link) {
+        return;
+      }
+      showTooltip(link, event);
+    });
+
+    document.addEventListener('mousemove', function(event) {
+      if (activeLink) {
+        positionTooltip(event);
+      }
+    });
+
+    document.addEventListener('mouseout', function(event) {
+      if (!activeLink) return;
+      const currentLink = event.target.closest(selector);
+      if (!currentLink || currentLink !== activeLink) return;
+      if (event.relatedTarget && activeLink.contains(event.relatedTarget)) return;
+      hideTooltip();
+    });
+
+    document.addEventListener('focusin', function(event) {
+      const link = event.target.closest(selector);
+      if (!link) return;
+      const rect = link.getBoundingClientRect();
+      showTooltip(link, {
+        clientX: rect.left,
+        clientY: rect.bottom
+      });
+    });
+
+    document.addEventListener('focusout', function(event) {
+      const link = event.target.closest(selector);
+      if (link && link === activeLink) {
+        hideTooltip();
+      }
+    });
+  }
   
   // ===== INITIALIZE ALL =====
   function init() {
@@ -420,6 +604,7 @@
     initScrollAnimations();
     initTabs();
     initTopNavDragScroll();
+    initLinkPreviews();
   }
   
   // Ensure DOM is ready
