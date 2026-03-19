@@ -28,19 +28,19 @@ show_title: false
 articles:
   data_source: page.filtered_posts
   article_type: BlogPosting
-  show_cover: false
+  show_cover: true
   show_excerpt: true
   show_readmore: true
   show_info: true
+  cover_size: sm
 ---
 
 {%- assign filtered_posts = site.posts | where_exp: "post", "post.categories contains 'Image Retrieval'" -%}
 {%- assign page.filtered_posts = filtered_posts -%}
 
 <div class="layout--home">
-  {%- include article-list.html articles=filtered_posts type='item' article_type='BlogPosting' show_cover=false show_excerpt=true show_readmore=true show_info=true -%}
+  {%- include article-list.html articles=filtered_posts type='item' article_type='BlogPosting' show_cover=true cover_size='sm' show_excerpt=true show_readmore=true show_info=true -%}
 </div>
 <script>
   {%- include scripts/home.js -%}
 </script>
-
