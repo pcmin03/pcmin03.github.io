@@ -1,0 +1,606 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e5]:
+    - banner [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e10]:
+            - img "ChanMin Park's Blog" [ref=e11]
+            - link "ChanMin Park's Blog" [ref=e12] [cursor=pointer]:
+              - /url: /
+          - text: 
+          - button "Toggle morning/evening mode" [ref=e13] [cursor=pointer]:
+            - generic [ref=e14]: 
+          - button "Switch to Korean" [ref=e15] [cursor=pointer]:
+            - generic [ref=e16]: 
+            - generic [ref=e17]: KO
+          - text: 
+        - navigation [ref=e18]:
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - link "Home" [ref=e21] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e22]:
+              - link "Project" [ref=e23] [cursor=pointer]:
+                - /url: /project.html
+            - listitem [ref=e24]:
+              - link "Research " [ref=e25] [cursor=pointer]:
+                - /url: /research.html
+                - text: Research
+                - generic [ref=e26]: 
+              - list [ref=e27]:
+                - listitem [ref=e28]:
+                  - link "Image Retrieval" [ref=e29] [cursor=pointer]:
+                    - /url: /pages/image-retrieval.html
+                - listitem [ref=e30]:
+                  - link "3D Vision" [ref=e31] [cursor=pointer]:
+                    - /url: /pages/3dvision.html
+            - listitem [ref=e32]:
+              - link "Study " [ref=e33] [cursor=pointer]:
+                - /url: /study.html
+                - text: Study
+                - generic [ref=e34]: 
+              - list [ref=e35]:
+                - listitem [ref=e36]:
+                  - link "Image Processing" [ref=e37] [cursor=pointer]:
+                    - /url: /pages/image-processing.html
+                - listitem [ref=e38]:
+                  - link "Deep Learning" [ref=e39] [cursor=pointer]:
+                    - /url: /pages/deep-learning.html
+                - listitem [ref=e40]:
+                  - link "3D Geometry" [ref=e41] [cursor=pointer]:
+                    - /url: /pages/3d-geometry.html
+                - listitem [ref=e42]:
+                  - link "ROS2" [ref=e43] [cursor=pointer]:
+                    - /url: /pages/ros2.html
+            - listitem [ref=e44]:
+              - link "Graph" [ref=e45] [cursor=pointer]:
+                - /url: /graph/
+            - listitem [ref=e46]:
+              - link "Portfolio" [ref=e47] [cursor=pointer]:
+                - /url: https://smoggy-fibula-4b3.notion.site/My-Portfolio-Chan-Min-Park-195c3ffbc67f4f67a80eca8b9a506a3b?pvs=74
+            - listitem [ref=e48]:
+              - button "" [ref=e49] [cursor=pointer]:
+                - generic [ref=e50]: 
+    - article [ref=e54]:
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - img "ChanMin Park" [ref=e58]
+            - generic [ref=e59]:
+              - heading "ChanMin Park" [level=1] [ref=e60]
+              - paragraph [ref=e61]: Vision Research Engineer
+              - generic [ref=e62]:
+                - paragraph [ref=e63]: "I build industrial and medical vision systems end to end: from Physical AI and domain adaptation to 3D detection, MLOps, and production deployment."
+                - generic [ref=e64]:
+                  - generic [ref=e65]:
+                    - generic [ref=e66]:
+                      - generic [ref=e67]: 
+                      - generic [ref=e68]: Physical AI · Spatial Intelligence
+                    - paragraph [ref=e69]: Build Physical AI, sim-to-real, and autonomous vision systems for manufacturing processes.
+                    - generic [ref=e70]:
+                      - generic [ref=e71]: Physical AI
+                      - generic [ref=e72]: Spatial Intelligence
+                      - generic [ref=e73]: Vision Control
+                  - generic [ref=e74]:
+                    - generic [ref=e75]:
+                      - generic [ref=e76]: 
+                      - generic [ref=e77]: System Engineering · MLOps
+                    - paragraph [ref=e78]: Design end-to-end vision systems from data and model pipelines to packaging, deployment, and reliable operations.
+                    - generic [ref=e79]:
+                      - generic [ref=e80]: System Engineering
+                      - generic [ref=e81]: MLOps
+                      - generic [ref=e82]: Deployment
+                  - generic [ref=e83]:
+                    - generic [ref=e84]:
+                      - generic [ref=e85]: 
+                      - generic [ref=e86]: Sim2Real · SSL · Domain Adaptation
+                    - paragraph [ref=e87]: Develop sim-to-real, self-supervised learning, and domain adaptation workflows that keep vision models stable under domain shift.
+                    - generic [ref=e88]:
+                      - generic [ref=e89]: Sim2Real
+                      - generic [ref=e90]: Self-Supervised
+                      - generic [ref=e91]: Domain Adaptation
+              - generic [ref=e92]:
+                - link "010-3999-3403" [ref=e93] [cursor=pointer]:
+                  - /url: tel:+821039993403
+                  - generic [ref=e94]: 
+                  - text: 010-3999-3403
+                - link "Email" [ref=e95] [cursor=pointer]:
+                  - /url: mailto:pcmin03@gmail.com
+                  - generic [ref=e96]: 
+                  - generic [ref=e97]: Email
+                - link "LinkedIn" [ref=e98] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/chan-min-park-0abab713b/
+                  - generic [ref=e99]: 
+                  - text: LinkedIn
+                - link "GitHub" [ref=e100] [cursor=pointer]:
+                  - /url: https://github.com/pcmin03
+                  - generic [ref=e101]: 
+                  - text: GitHub
+                - link "CV" [ref=e102] [cursor=pointer]:
+                  - /url: /MY_CV_final.pdf
+                  - generic [ref=e103]: 
+                  - generic [ref=e104]: CV
+              - generic [ref=e105]:
+                - generic [ref=e106]:
+                  - generic [ref=e107]: 5+
+                  - generic [ref=e108]: Years in CV & Industry
+                - generic [ref=e109]:
+                  - generic [ref=e110]: 5+
+                  - generic [ref=e111]: Major projects
+                - generic [ref=e112]:
+                  - generic [ref=e113]: 5+
+                  - generic [ref=e114]: Patents
+                - generic [ref=e115]:
+                  - generic [ref=e116]: "6"
+                  - generic [ref=e117]: Vision papers
+          - navigation [ref=e118]:
+            - list [ref=e119]:
+              - listitem [ref=e120]:
+                - link " Experience" [ref=e121] [cursor=pointer]:
+                  - /url: "#experience"
+                  - generic [ref=e122]: 
+                  - generic [ref=e123]: Experience
+              - listitem [ref=e124]:
+                - link " Education" [ref=e125] [cursor=pointer]:
+                  - /url: "#education"
+                  - generic [ref=e126]: 
+                  - generic [ref=e127]: Education
+              - listitem [ref=e128]:
+                - link " Projects" [ref=e129] [cursor=pointer]:
+                  - /url: "#projects"
+                  - generic [ref=e130]: 
+                  - generic [ref=e131]: Projects
+              - listitem [ref=e132]:
+                - link " Seminar" [ref=e133] [cursor=pointer]:
+                  - /url: "#seminar"
+                  - generic [ref=e134]: 
+                  - generic [ref=e135]: Seminar
+              - listitem [ref=e136]:
+                - link " Publications" [ref=e137] [cursor=pointer]:
+                  - /url: "#publications"
+                  - generic [ref=e138]: 
+                  - generic [ref=e139]: Publications
+              - listitem [ref=e140]:
+                - link " Expertise & Tools" [ref=e141] [cursor=pointer]:
+                  - /url: "#skills"
+                  - generic [ref=e142]: 
+                  - generic [ref=e143]: Expertise & Tools
+              - listitem [ref=e144]:
+                - link " Awards" [ref=e145] [cursor=pointer]:
+                  - /url: "#awards"
+                  - generic [ref=e146]: 
+                  - generic [ref=e147]: Awards
+              - listitem [ref=e148]:
+                - link " Recent Posts" [ref=e149] [cursor=pointer]:
+                  - /url: "#recent-posts"
+                  - generic [ref=e150]: 
+                  - generic [ref=e151]: Recent Posts
+          - generic [ref=e152]:
+            - text:        
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - heading "Experience" [level=3] [ref=e155]
+                - generic [ref=e156]:
+                  - heading "POSCO DX AX Technology R&D Group · Spatial Intelligence Vision Engineer · POSCO DX" [level=4] [ref=e157]:
+                    - img "POSCO DX" [ref=e158]
+                    - generic [ref=e159]: AX Technology R&D Group · Spatial Intelligence Vision Engineer · POSCO DX
+                  - generic [ref=e160]: Pangyo, Korea · July 2024 - Present
+                  - generic "POSCO DX key technologies" [ref=e161]:
+                    - generic [ref=e162]: Physical AI
+                    - generic [ref=e163]: Isaac Sim
+                    - generic [ref=e164]: PLC Integration
+                    - generic [ref=e165]: Dataiku
+                    - generic [ref=e166]: MLOps
+                    - generic [ref=e167]: Image Retrieval
+                  - list [ref=e168]:
+                    - listitem [ref=e169]:
+                      - text: •
+                      - link "Isaac Sim·PLC·Sim2Real" [ref=e170] [cursor=pointer]:
+                        - /url: https://kidd.co.kr/news/245144
+                      - text: ": Built physical-AI training environments that mirrored steel-site conditions and iterated models against real deployment constraints."
+                    - listitem [ref=e171]:
+                      - text: •
+                      - link "Dataiku·SDD·MLOps" [ref=e172] [cursor=pointer]:
+                        - /url: https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday
+                      - text: ": Advanced Digital Transformation (DX) from smart factory to intelligence factory by building SDD-driven image retrieval and automated MLOps pipelines for steel vision systems."
+                    - listitem [ref=e173]:
+                      - text: •
+                      - link "Autonomous Steelmaking·L2 Integration·Vision AI" [ref=e174] [cursor=pointer]:
+                        - /url: https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/
+                      - text: ": Integrated L2 communications and control signals to apply vision-based anomaly detection in autonomous steelmaking operations."
+                  - generic [ref=e175]:
+                    - strong [ref=e176]: "Tools used:"
+                    - generic "POSCO DX tool stack" [ref=e177]:
+                      - generic [ref=e178]:
+                        - img "Isaac Sim" [ref=e179]
+                        - generic [ref=e180]: Isaac Sim
+                      - generic [ref=e181]:
+                        - img "PyTorch" [ref=e182]
+                        - generic [ref=e183]: PyTorch
+                      - generic [ref=e184]:
+                        - img "Dataiku" [ref=e185]
+                        - generic [ref=e186]: Dataiku
+                      - generic [ref=e187]:
+                        - img "Docker" [ref=e188]
+                        - generic [ref=e189]: Docker
+                      - generic [ref=e190]:
+                        - img "MLflow" [ref=e191]
+                        - generic [ref=e192]: MLflow
+                - generic [ref=e193]:
+                  - heading "VUNO AI Research Engineer · VUNO Inc." [level=4] [ref=e194]:
+                    - img "VUNO" [ref=e195]
+                    - generic [ref=e196]: AI Research Engineer · VUNO Inc.
+                  - generic [ref=e197]: Seoul, Korea · May 2021 - July 2024
+                  - generic "VUNO key technologies" [ref=e198]:
+                    - generic [ref=e199]: Medical AI
+                    - generic [ref=e200]: PyTorch
+                    - generic [ref=e201]: Domain Adaptation
+                    - generic [ref=e202]: Self-Supervised Learning
+                    - generic [ref=e203]: 3D Detection
+                    - generic [ref=e204]: Applied Engineering
+                    - generic [ref=e205]: MLflow
+                  - list [ref=e206]:
+                    - listitem [ref=e207]:
+                      - text: •
+                      - link "Test-Time Adaptation·Domain Adaptation·ACCV 2024" [ref=e208] [cursor=pointer]:
+                        - /url: https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html
+                      - text: ": Developed adaptation strategies for medical imaging domain shifts and contributed to the CNG-SFDA research line published at ACCV 2024."
+                    - listitem [ref=e209]:
+                      - text: •
+                      - link "Self-Supervised Learning·Universal Segmentation·TIGER Challenge" [ref=e210] [cursor=pointer]:
+                        - /url: https://tiger.grand-challenge.org/Home/
+                      - text: ": Conducted segmentation-oriented SSL research, built pathology workflows around it, and applied the stack to achieve 1st place in the TIGER Challenge."
+                    - listitem [ref=e211]:
+                      - text: •
+                      - link "Lung CT·3D Tiny Object Detection·MLOps" [ref=e212] [cursor=pointer]:
+                        - /url: https://www.docdocdoc.co.kr/news/articleView.html?idxno=3013245
+                      - text: ": Built and deployed lung nodule detection pipelines for 3D tiny-object modeling, with production-grade monitoring and release workflows in real service environments."
+                    - listitem [ref=e213]:
+                      - text: •
+                      - link "PathQuant·End-to-End Delivery·Applied Engineering" [ref=e214] [cursor=pointer]:
+                        - /url: https://www.vuno.co/news/view/810
+                      - text: ": Owned the full cycle from data collection and model refinement to packaging and final deployment, demonstrating strong applied-engineer execution in medical imaging products."
+                  - generic [ref=e215]:
+                    - strong [ref=e216]: "Tools used:"
+                    - generic "VUNO tool stack" [ref=e217]:
+                      - generic [ref=e218]:
+                        - img "PyTorch" [ref=e219]
+                        - generic [ref=e220]: PyTorch
+                      - generic [ref=e221]:
+                        - img "Docker" [ref=e222]
+                        - generic [ref=e223]: Docker
+                      - generic [ref=e224]:
+                        - img "MLflow" [ref=e225]
+                        - generic [ref=e226]: MLflow
+              - generic [ref=e227]:
+                - heading "Education" [level=3] [ref=e228]
+                - generic [ref=e229]:
+                  - heading "UNIST M.S. in Computer Science · UNIST" [level=4] [ref=e230]:
+                    - img "UNIST" [ref=e231]
+                    - text: M.S. in Computer Science · UNIST
+                  - generic [ref=e232]: Ulsan, Korea · Mar 2019 - Mar 2021
+                  - paragraph [ref=e233]: "Cumulative GPA 3.28/4.3, Scholarships: Academic excellence for 4 semesters (2019-2021)"
+                  - paragraph [ref=e234]:
+                    - strong [ref=e235]: "Thesis:"
+                    - text: Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors
+                  - paragraph [ref=e236]:
+                    - strong [ref=e237]: "Domestic Patent:"
+                    - text: Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium
+                - generic [ref=e238]:
+                  - heading "Inje University B.S. in Biomedical Engineering · Inje University" [level=4] [ref=e239]:
+                    - img "Inje University" [ref=e240]
+                    - text: B.S. in Biomedical Engineering · Inje University
+                  - generic [ref=e241]: Gimhae, Korea · Mar 2014 - Aug 2018
+                  - paragraph [ref=e242]: "Cumulative GPA 3.89/4.5, Scholarships: Academic excellence for 8 semesters (2014-2018)"
+                  - paragraph [ref=e243]:
+                    - strong [ref=e244]: "Awards:"
+                    - text: "Gold Prize: Inje Creative Comprehensive Design Contest; Bronze Prize: 2017 Engineering Festival Competition; Good Capstone Design Contest"
+              - generic [ref=e245]:
+                - heading "Projects" [level=3] [ref=e246]
+                - generic [ref=e247]:
+                  - link "Steel Defect Detection [Detail] Steel Defect Detection PyTorch GAN Anomaly Detection" [ref=e248] [cursor=pointer]:
+                    - /url: https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday
+                    - generic [ref=e249]:
+                      - heading "Steel Defect Detection" [level=4] [ref=e250]
+                      - text: "[Detail]"
+                    - generic [ref=e251]:
+                      - generic [ref=e252]: Steel Defect Detection
+                      - generic [ref=e253]:
+                        - generic [ref=e254]: PyTorch
+                        - generic [ref=e255]: GAN
+                        - generic [ref=e256]: Anomaly Detection
+                  - link "2D Pathology Object Detection Pathology Detection PyTorch Object Detection Whole Slide Image" [ref=e257] [cursor=pointer]:
+                    - /url: /projects/path-quant.html
+                    - img "2D Pathology Object Detection" [ref=e258]
+                    - generic [ref=e259]:
+                      - generic [ref=e260]: Pathology Detection
+                      - generic [ref=e261]:
+                        - generic [ref=e262]: PyTorch
+                        - generic [ref=e263]: Object Detection
+                        - generic [ref=e264]: Whole Slide Image
+                  - link "3D Lung CT Nodule Detection Lung CT Detection 3D CNN Nodule Detection Medical AI" [ref=e265] [cursor=pointer]:
+                    - /url: /projects/lungct-ai.html
+                    - img "3D Lung CT Nodule Detection" [ref=e266]
+                    - generic [ref=e267]:
+                      - generic [ref=e268]: Lung CT Detection
+                      - generic [ref=e269]:
+                        - generic [ref=e270]: 3D CNN
+                        - generic [ref=e271]: Nodule Detection
+                        - generic [ref=e272]: Medical AI
+                  - link "TIGER Challenge TIGER Challenge Multi-Task Segmentation Grand Challenge" [ref=e273] [cursor=pointer]:
+                    - /url: https://github.com/vuno/tiger_challenge
+                    - img "TIGER Challenge" [ref=e274]
+                    - generic [ref=e275]:
+                      - generic [ref=e276]: TIGER Challenge
+                      - generic [ref=e277]:
+                        - generic [ref=e278]: Multi-Task
+                        - generic [ref=e279]: Segmentation
+                        - generic [ref=e280]: Grand Challenge
+                  - link "MRI Image Analysis MRI Analysis MRI Registration Brain Analysis" [ref=e281] [cursor=pointer]:
+                    - /url: /projects/mri-image-analysis.html
+                    - img "MRI Image Analysis" [ref=e282]
+                    - generic [ref=e283]:
+                      - generic [ref=e284]: MRI Analysis
+                      - generic [ref=e285]:
+                        - generic [ref=e286]: MRI
+                        - generic [ref=e287]: Registration
+                        - generic [ref=e288]: Brain Analysis
+                  - link "Universal Segmentation Segmentation U-Net Semantic Seg Multi-Organ" [ref=e289] [cursor=pointer]:
+                    - /url: /projects/universal-segmentation.html
+                    - img "Universal Segmentation" [ref=e290]
+                    - generic [ref=e291]:
+                      - generic [ref=e292]: Segmentation
+                      - generic [ref=e293]:
+                        - generic [ref=e294]: U-Net
+                        - generic [ref=e295]: Semantic Seg
+                        - generic [ref=e296]: Multi-Organ
+                  - link "Medical Image Reconstruction Image Reconstruction WGAN-GP Super Resolution CT/MRI" [ref=e297] [cursor=pointer]:
+                    - /url: /projects/medical-image-reconstruction.html
+                    - img "Medical Image Reconstruction" [ref=e298]
+                    - generic [ref=e299]:
+                      - generic [ref=e300]: Image Reconstruction
+                      - generic [ref=e301]:
+                        - generic [ref=e302]: WGAN-GP
+                        - generic [ref=e303]: Super Resolution
+                        - generic [ref=e304]: CT/MRI
+                  - link "Test Time Adaptation Test-Time Adaptation Domain Adaptation CNG-SFDA Self-Training" [ref=e305] [cursor=pointer]:
+                    - /url: /projects/test-time-adaptation.html
+                    - img "Test Time Adaptation" [ref=e306]
+                    - generic [ref=e307]:
+                      - generic [ref=e308]: Test-Time Adaptation
+                      - generic [ref=e309]:
+                        - generic [ref=e310]: Domain Adaptation
+                        - generic [ref=e311]: CNG-SFDA
+                        - generic [ref=e312]: Self-Training
+                  - link "Video Action Recognition Video Action Video Action Recognition Temporal" [ref=e313] [cursor=pointer]:
+                    - /url: /projects/video-action.html
+                    - img "Video Action Recognition" [ref=e314]
+                    - generic [ref=e315]:
+                      - generic [ref=e316]: Video Action
+                      - generic [ref=e317]:
+                        - generic [ref=e318]: Video
+                        - generic [ref=e319]: Action Recognition
+                        - generic [ref=e320]: Temporal
+              - generic [ref=e321]:
+                - heading "Seminar & Teaching" [level=3] [ref=e322]
+                - generic [ref=e323]:
+                  - link "FastCampus Medical AI Course 딥러닝을 활용한 의료 영상 처리 & 모델 개발 Part-Time Instructor · FastCampus Inc. Seoul, Korea · Sep 2023 - Dec 2023 [Online Course]" [ref=e324] [cursor=pointer]:
+                    - /url: https://fastcampus.co.kr/data_online_medicalai
+                    - img "FastCampus Medical AI Course" [ref=e326]
+                    - generic [ref=e327]:
+                      - heading "딥러닝을 활용한 의료 영상 처리 & 모델 개발" [level=4] [ref=e328]
+                      - paragraph [ref=e329]: Part-Time Instructor · FastCampus Inc.
+                      - paragraph [ref=e330]: Seoul, Korea · Sep 2023 - Dec 2023
+                      - generic [ref=e332]: "[Online Course]"
+                  - generic [ref=e333]:
+                    - img "Inje University Mentoring" [ref=e335]
+                    - generic [ref=e336]:
+                      - heading "의용공학과에서 AI연구원되기까지" [level=4] [ref=e337]
+                      - paragraph [ref=e338]: Career Mentor · Inje University
+                      - paragraph [ref=e339]: Gimhae, Korea · 2023 - 2024
+                      - paragraph [ref=e340]: Provided guidance and mentorship to students in computer vision and machine learning projects.
+                  - generic [ref=e341]:
+                    - img "Gachon University ML Course" [ref=e343]
+                    - generic [ref=e344]:
+                      - heading "Image Classification · Machine Learning Course" [level=4] [ref=e345]
+                      - paragraph [ref=e346]: Instructor · Gachon University (VUNO)
+                      - paragraph [ref=e347]: Seongnam, Korea · 2023 - 2024
+                      - paragraph [ref=e348]: Taught machine learning fundamentals and applications to university students.
+              - generic [ref=e349]:
+                - heading "Publications & Research" [level=3] [ref=e350]
+                - generic [ref=e351]:
+                  - generic [ref=e352]:
+                    - img "CNG-SFDA" [ref=e354]
+                    - generic [ref=e355]:
+                      - 'heading "CNG-SFDA: Clean-and-Noisy Region Guided Online-Offline Source-Free Domain Adaptation" [level=4] [ref=e356]'
+                      - paragraph [ref=e357]: Cho, H., Park, C., Kim, D. H., Kim, J., & Kim, W. H.
+                      - paragraph [ref=e358]: ACCV 2024
+                      - link "[PDF]" [ref=e360] [cursor=pointer]:
+                        - /url: https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html
+                  - generic [ref=e361]:
+                    - img "JEPA-SSL" [ref=e363]
+                    - generic [ref=e364]:
+                      - heading "Joint-Embedding Predictive Architecture for Self-Supervised Learning of Mask Classification Architecture" [level=4] [ref=e365]
+                      - paragraph [ref=e366]: Dong, H., Jo, D., Cho, H., Park, C., & Kim, W. H.
+                      - paragraph [ref=e367]: arXiv, 2024
+                      - link "[PDF]" [ref=e369] [cursor=pointer]:
+                        - /url: https://arxiv.org/abs/2407.10733
+                  - generic [ref=e370]:
+                    - img "Neuron Segmentation" [ref=e372]
+                    - generic [ref=e373]:
+                      - heading "Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors" [level=4] [ref=e374]
+                      - paragraph [ref=e375]: Park, Chanmin, et al.
+                      - paragraph [ref=e376]: ISBI 2021
+                      - link "[PDF]" [ref=e378] [cursor=pointer]:
+                        - /url: https://ieeexplore.ieee.org/document/9433902
+                  - generic [ref=e379]:
+                    - img "TIGER Challenge" [ref=e381]
+                    - generic [ref=e382]:
+                      - 'heading "Tumor-infiltrating lymphocytes in breast cancer through artificial intelligence: biomarker analysis from the results of the TIGER challenge" [level=4] [ref=e383]'
+                      - paragraph [ref=e384]: van Rijthoven, M., ... Park, C., ... & Ciompi, F.
+                      - paragraph [ref=e385]: medRxiv, 2025
+                      - link "[PDF]" [ref=e387] [cursor=pointer]:
+                        - /url: "#"
+                  - generic [ref=e388]:
+                    - generic [ref=e390]: 
+                    - generic [ref=e391]:
+                      - heading "데이터 기반 동적 필터링이 포인트 클라우드 객체 증분 학습에 미치는 영향도 분석" [level=4] [ref=e392]
+                      - paragraph [ref=e393]: 진종현, 박찬민, 윤일용
+                      - paragraph [ref=e394]: 한국정보과학회 학술발표논문집, 2025
+                  - generic [ref=e395]:
+                    - generic [ref=e397]: 
+                    - generic [ref=e398]:
+                      - heading "Development of a KFDA-certified Deep Learning Algorithm for Quantitative Analysis of Ki-67 Immunohistochemical Stains" [level=4] [ref=e399]
+                      - paragraph [ref=e400]: Park, C., et al.
+                      - paragraph [ref=e401]: 대한병리학회 (Domestic Conference)
+                - generic [ref=e402]:
+                  - heading "Patents" [level=4] [ref=e403]
+                  - list [ref=e404]:
+                    - listitem [ref=e405]: "Method for analyzing medical image (Application number: 1020210139898)"
+                    - listitem [ref=e406]: "Method For Analyzing Medical Image based on deep learning (Application number: 1020210139897)"
+                    - listitem [ref=e407]: "Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium (Registration number: 1020210139898)"
+              - generic [ref=e408]:
+                - heading "Expertise & Tools" [level=3] [ref=e409]
+                - generic [ref=e410]:
+                  - button " Expertise" [ref=e411] [cursor=pointer]:
+                    - generic [ref=e412]: 
+                    - text: Expertise
+                  - button " Tools & Technologies" [ref=e413] [cursor=pointer]:
+                    - generic [ref=e414]: 
+                    - text: Tools & Technologies
+                - generic [ref=e416]:
+                  - generic [ref=e417]:
+                    - generic [ref=e419]: 
+                    - generic [ref=e421]: Object Detection & Segmentation
+                  - generic [ref=e422]:
+                    - generic [ref=e424]: 
+                    - generic [ref=e426]: 3D Vision · Depth · Pose
+                  - generic [ref=e427]:
+                    - generic [ref=e429]: 
+                    - generic [ref=e431]: Sensor Fusion & Robotics Perception
+                  - generic [ref=e432]:
+                    - generic [ref=e434]: 
+                    - generic [ref=e436]: Video Recognition & Tracking
+                  - generic [ref=e437]:
+                    - generic [ref=e439]: 
+                    - generic [ref=e441]: Self-Supervised Vision (DINO/MoCo/MAE)
+                  - generic [ref=e442]:
+                    - generic [ref=e444]: 
+                    - generic [ref=e446]: Embedding & Metric Learning
+                  - generic [ref=e447]:
+                    - generic [ref=e449]: 
+                    - generic [ref=e451]: Domain Adaptation & Continual Eval
+                  - generic [ref=e452]:
+                    - generic [ref=e454]: 
+                    - generic [ref=e456]: Large-Scale Data Pipelines
+                  - generic [ref=e457]:
+                    - generic [ref=e459]: 
+                    - generic [ref=e461]: Edge Deployment & MLOps
+              - generic [ref=e462]:
+                - heading "Awards & Competitions" [level=3] [ref=e463]
+                - list [ref=e464]:
+                  - listitem [ref=e465]:
+                    - generic [ref=e466]:
+                      - generic [ref=e467]: 
+                      - generic [ref=e468]: 🥇
+                      - text: TIGER Challenge - 1st Place
+                    - generic [ref=e469]: VUNO
+                  - listitem [ref=e470]:
+                    - generic [ref=e471]:
+                      - generic [ref=e472]: 
+                      - generic [ref=e473]: 🥇
+                      - text: HealthHub Datathon - 1st Place
+                    - generic [ref=e474]: "2020"
+                  - listitem [ref=e475]:
+                    - generic [ref=e476]:
+                      - generic [ref=e477]: 
+                      - generic [ref=e478]: 🏆
+                      - text: "Video Recognition: Google - Isolated Sign Language Recognition"
+                  - listitem [ref=e479]:
+                    - generic [ref=e480]:
+                      - generic [ref=e481]: 
+                      - generic [ref=e482]: 🥇
+                      - text: "Instance Segmentation: HealthHub Datathon Track B - 1st Place"
+                    - generic [ref=e483]: "2020"
+                  - listitem [ref=e484]:
+                    - generic [ref=e485]:
+                      - generic [ref=e486]: 
+                      - generic [ref=e487]: 🎯
+                      - text: "Object Detection: Lesion Detection AI Competition"
+                    - link "Code Link" [ref=e488] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=e489]:
+                    - generic [ref=e490]:
+                      - generic [ref=e491]: 
+                      - generic [ref=e492]: 🏅
+                      - text: "Tabular Classification: Autonomous Driving Sensor - Top 8%"
+                  - listitem [ref=e493]:
+                    - generic [ref=e494]: Inje Creative Comprehensive Design Contest
+                    - generic [ref=e495]:
+                      - generic [ref=e496]: 
+                      - generic [ref=e497]: 🥇
+                      - generic [ref=e498]: Gold
+                  - listitem [ref=e499]:
+                    - generic [ref=e500]: 2017 Engineering Festival Competition
+                    - generic [ref=e501]:
+                      - generic [ref=e502]: 
+                      - generic [ref=e503]: 🥉
+                      - generic [ref=e504]: Bronze
+                  - listitem [ref=e505]:
+                    - generic [ref=e506]: Good Capstone Design Contest
+                    - generic [ref=e507]:
+                      - generic [ref=e508]: 
+                      - generic [ref=e509]: 🏅
+                      - generic [ref=e510]: Excellence
+              - generic [ref=e511]:
+                - heading "Recent Posts" [level=3] [ref=e512]
+                - generic [ref=e513]:
+                  - 'link "2026-02-01 [ROS2] 01: Introduction (ROS2 소개) ROS2 (Robot Operating System 2) 학습 시리즈 ROS2에 대한 기본적인 내용에 대해서 정리하고 설명하고자 한다.... ROS2" [ref=e514] [cursor=pointer]':
+                    - /url: /ros2/2026/02/01/ros2-01-introduction.html
+                    - generic [ref=e515]: 2026-02-01
+                    - 'heading "[ROS2] 01: Introduction (ROS2 소개)" [level=4] [ref=e516]'
+                    - paragraph [ref=e517]: ROS2 (Robot Operating System 2) 학습 시리즈 ROS2에 대한 기본적인 내용에 대해서 정리하고 설명하고자 한다....
+                    - generic [ref=e519]: ROS2
+                  - 'link "2025-12-04 [CS231A] Lecture 10: Optimal Estimation (최적 추정) Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition 이 포스트는 Stanford CS231A 강의의 열... 3D Geometry" [ref=e520] [cursor=pointer]':
+                    - /url: /3d%20geometry/2025/12/04/cs231a-10-optimal-estimation.html
+                    - generic [ref=e521]: 2025-12-04
+                    - 'heading "[CS231A] Lecture 10: Optimal Estimation (최적 추정)" [level=4] [ref=e522]'
+                    - paragraph [ref=e523]: "Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition 이 포스트는 Stanford CS231A 강의의 열..."
+                    - generic [ref=e525]: 3D Geometry
+                  - 'link "2025-12-04 [CS231A] Lecture 09: Optical and Scene Flow (광학 및 장면 흐름) Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition 이 포스트는 Stanford CS231A 강의의 아홉... 3D Geometry" [ref=e526] [cursor=pointer]':
+                    - /url: /3d%20geometry/2025/12/04/cs231a-09-optical-and-scene-flow.html
+                    - generic [ref=e527]: 2025-12-04
+                    - 'heading "[CS231A] Lecture 09: Optical and Scene Flow (광학 및 장면 흐름)" [level=4] [ref=e528]'
+                    - paragraph [ref=e529]: "Stanford CS231A: Computer Vision, From 3D Reconstruction to Recognition 이 포스트는 Stanford CS231A 강의의 아홉..."
+                    - generic [ref=e531]: 3D Geometry
+                - link "More " [ref=e533] [cursor=pointer]:
+                  - /url: /archive.html
+                  - generic [ref=e534]: More
+                  - generic [ref=e535]: 
+        - text: 
+    - contentinfo [ref=e537]:
+      - generic [ref=e538]:
+        - list [ref=e542]:
+          - listitem "Send me an Email." [ref=e543]:
+            - link "" [ref=e544] [cursor=pointer]:
+              - /url: mailto:pcmin03@gmail.com
+              - generic [ref=e545]: 
+          - listitem "Follow me on Linkedin." [ref=e546]:
+            - link [ref=e547] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/chan-min-park-0abab713b
+              - img [ref=e549]
+          - listitem "Follow me on Github." [ref=e551]:
+            - link [ref=e552] [cursor=pointer]:
+              - /url: https://github.com/https://github.com/pcmin03
+              - img [ref=e554]
+        - generic [ref=e557]:
+          - text: © ChanMin Park's Blog 2021, Powered by
+          - link "Jekyll" [ref=e558] [cursor=pointer]:
+            - /url: http://jekyllrb.com/
+          - text: "&"
+          - link "TeXt Theme" [ref=e559] [cursor=pointer]:
+            - /url: https://github.com/kitian616/jekyll-TeXt-theme
+          - text: .
+  - generic:
+    - generic:
+      - generic: Link Preview
