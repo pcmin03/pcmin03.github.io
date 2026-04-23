@@ -37,11 +37,6 @@ mathjax_autoNumber: true
   <div><img src='/assets/images/posts/cs231a-02/page_7.png' alt='Page 7' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
   <div><img src='/assets/images/posts/cs231a-02/page_8.png' alt='Page 8' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
   <div><img src='/assets/images/posts/cs231a-02/page_9.png' alt='Page 9' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-02/page_10.png' alt='Page 10' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-02/page_11.png' alt='Page 11' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-02/page_12.png' alt='Page 12' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-02/page_13.png' alt='Page 13' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
-  <div><img src='/assets/images/posts/cs231a-02/page_14.png' alt='Page 14' style='width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);'></div>
 </div>
 
 ## 주요 수식
