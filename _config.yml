@@ -120,7 +120,19 @@ sharing:
 ## => Comments
 ##############################
 comments:
-  provider: false # false (default), "disqus", "gitalk", "valine", "custom"
+  provider: giscus # false (default), "disqus", "gitalk", "giscus", "valine", "custom"
+
+  ## Giscus (GitHub Discussions)
+  # please refer to https://giscus.app for more info.
+  # Comments render only when repo, repo_id, category and category_id are all set.
+  giscus:
+    repo        : pcmin03/pcmin03.github.io
+    repo_id     : R_kgDOQcwl1w
+    category    : Comments # Discussions category name
+    category_id : # e.g. DIC_kwDO... (copy from https://giscus.app after enabling Discussions)
+    mapping     : pathname # "pathname" (default), "url", "title", "og:title"
+    theme       : preferred_color_scheme
+    lang        : ko
 
   ## Disqus
   disqus:
