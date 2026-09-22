@@ -239,6 +239,22 @@ exclude:
   - /screenshots
   - /test
   - /vendor
+  # local drafts / tooling / stray files (kept in repo, not published)
+  - AGENTS.md
+  - pros.md
+  - image-retrieval-page.md
+  - install.sh
+  - download_paper_images.py
+  - Dockerfile.dev
+  - /docker
+  - /tools
+  - /jekyll_resume_structure
+  - chan.jpg
+  - images.jpeg
+  - screenshot.jpg
+  - main-page-desktop.png
+  - 2011950_2015334_2056.jpg
+  - 42672_53567_3534.jpg
 
 defaults:
   - scope:
