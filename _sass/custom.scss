@@ -204,4 +204,17 @@
   }
 }
 
+
+/* Google AdSense units (see _includes/adsense/unit.html) */
+.ad {
+  margin: map-get($spacers, 4) 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.ad--aside {
+  margin-top: map-get($spacers, 4);
+  min-height: 250px;
+}
+
 /* end custom scss snippet */

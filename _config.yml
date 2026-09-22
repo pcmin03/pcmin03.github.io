@@ -158,6 +158,21 @@ comments:
     meta        : # "[nick, mail, link]" (default) nickname, E-mail, Personal-site
 
 
+## => Google AdSense
+##############################
+# Keep enabled: false until the site is approved by AdSense.
+# After approval: set client (ca-pub-...), enabled: true, and optionally slot ids.
+# With only client set, "Auto ads" configured in the AdSense dashboard will work.
+# Set `adsense: false` in a post's front matter to hide manual ad units on that page.
+adsense:
+  enabled : false
+  client  : # "ca-pub-XXXXXXXXXXXXXXXX"
+  slots:
+    article_top    : # ad unit slot id shown above the article body
+    article_bottom : # ad unit slot id shown below the article body
+    aside          : # vertical ad unit under the TOC (wide screens only)
+
+
 ## => Pageview
 ##############################
 pageview:

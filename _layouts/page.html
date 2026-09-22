@@ -184,6 +184,7 @@ layout: base
                 {%- if page.aside -%}
                   <aside class="page__aside js-page-aside">
                     {%- include aside/toc.html -%}
+                    {%- include adsense/unit.html slot=site.adsense.slots.aside class='ad--aside' format='vertical' -%}
                   </aside>
                 {%- endif -%}
               </div>
