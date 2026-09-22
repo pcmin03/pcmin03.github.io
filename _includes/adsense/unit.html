@@ -1,8 +1,9 @@
 {%- comment -%}
   Usage: {%- include adsense/unit.html slot=site.adsense.slots.article_top class='ad--article-top' -%}
-  Renders nothing unless AdSense is enabled, a client id is set and the slot id is given.
+  Renders nothing unless AdSense is enabled, a client id is set, the slot id is given
+  and the page is a blog post.
 {%- endcomment -%}
-{%- if site.adsense.enabled and site.adsense.client and include.slot and page.adsense != false and jekyll.environment != 'development' -%}
+{%- if site.adsense.enabled and site.adsense.client and include.slot and page.collection == 'posts' and page.adsense != false and jekyll.environment != 'development' -%}
 <div class="ad {{ include.class }} d-print-none">
   <ins class="adsbygoogle"
     style="display:block"

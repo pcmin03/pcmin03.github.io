@@ -1,0 +1,22 @@
+{%- if site.comments.waline.server_url -%}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.css" />
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js';
+    init({
+      el: '#waline',
+      serverURL: '{{ site.comments.waline.server_url }}',
+      path: window.location.pathname,
+      lang: '{{ site.comments.waline.lang | default: "ko" }}',
+      dark: false,
+      login: 'enable',
+      meta: ['nick', 'mail'],
+      requiredMeta: ['nick'],
+      emoji: ['https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/tw-emoji'],
+      imageUploader: false,
+      search: false,
+      reaction: false,
+      pageSize: 10,
+    });
+  </script>
+{%- endif -%}

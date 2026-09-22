@@ -1,10 +1,13 @@
-{%- if jekyll.environment != 'development' -%}
+{%- comment -%} Comments on blog posts only, not on portfolio/listing pages. {%- endcomment -%}
+{%- if jekyll.environment != 'development' and page.collection == 'posts' -%}
   {%- if site.comments.provider == 'disqus' -%}
     {%- include comments-providers/disqus.html -%}
   {%- elsif site.comments.provider == 'gitalk' -%}
     {%- include comments-providers/gitalk.html -%}
   {%- elsif site.comments.provider == 'giscus' -%}
     {%- include comments-providers/giscus.html -%}
+  {%- elsif site.comments.provider == 'waline' -%}
+    {%- include comments-providers/waline.html -%}
   {%- elsif site.comments.provider == 'valine' -%}
     {%- include comments-providers/valine.html -%}
   {%- elsif site.comments.provider == 'custom' -%}

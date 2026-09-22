@@ -134,6 +134,13 @@ comments:
     theme       : preferred_color_scheme
     lang        : ko
 
+  ## Waline (anonymous comments, self-hosted on Vercel)
+  # please refer to https://waline.js.org for more info.
+  # Comments render only when server_url is set. Admin dashboard: <server_url>/ui
+  waline:
+    server_url : # e.g. https://your-waline.vercel.app
+    lang       : ko
+
   ## Disqus
   disqus:
     shortname: # the Disqus shortname for the site
@@ -163,7 +170,8 @@ comments:
 # Keep enabled: false until the site is approved by AdSense.
 # After approval: set client (ca-pub-...), enabled: true, and optionally slot ids.
 # With only client set, "Auto ads" configured in the AdSense dashboard will work.
-# Set `adsense: false` in a post's front matter to hide manual ad units on that page.
+# Ads load on blog posts only (home/about/projects/CV pages never get the AdSense script).
+# Set `adsense: false` in a post's front matter to hide ads on that post.
 adsense:
   enabled : false
   client  : # "ca-pub-XXXXXXXXXXXXXXXX"

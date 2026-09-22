@@ -1,3 +1,4 @@
-{%- if site.adsense.enabled and site.adsense.client and jekyll.environment != 'development' -%}
+{%- comment -%} Load AdSense only on blog posts, never on portfolio pages. {%- endcomment -%}
+{%- if site.adsense.enabled and site.adsense.client and page.collection == 'posts' and page.adsense != false and jekyll.environment != 'development' -%}
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}" crossorigin="anonymous"></script>
 {%- endif -%}
