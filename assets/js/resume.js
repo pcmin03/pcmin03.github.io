@@ -443,6 +443,11 @@
         image: '/assets/images/publications/cng-sfda.png',
         domain: 'openaccess.thecvf.com'
       },
+      '/capt/': {
+        title: 'CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval (WACV 2027)',
+        image: '/capt/assets/fig/method.webp',
+        domain: 'pcmin03.github.io'
+      },
       'https://tiger.grand-challenge.org/Home/': {
         title: 'TIGER Challenge',
         image: '/assets/images/posts/tiger-challenge/segmentation-patch-selection.png',

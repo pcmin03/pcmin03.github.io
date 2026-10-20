@@ -109,7 +109,8 @@
               date: 'Pangyo, Korea · July 2024 - Present',
               bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·PLC·Sim2Real</a>: Built physical-AI training environments that mirrored steel-site conditions and iterated models against real deployment constraints.',
               bullet2Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Dataiku·SDD·MLOps</a>: Advanced Digital Transformation (DX) from smart factory to intelligence factory by building SDD-driven image retrieval and automated MLOps pipelines for steel vision systems.',
-              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous Steelmaking·L2 Integration·Vision AI</a>: Integrated L2 communications and control signals to apply vision-based anomaly detection in autonomous steelmaking operations.'
+              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous Steelmaking·L2 Integration·Vision AI</a>: Integrated L2 communications and control signals to apply vision-based anomaly detection in autonomous steelmaking operations.',
+              bullet4Html: '<a href="/capt/" class="timeline-link">Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027</a>: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.'
             },
             vuno: {
               title: 'AI Research Engineer · VUNO Inc.',
@@ -225,7 +226,8 @@
               date: '판교, 대한민국 · 2024년 7월 - 현재',
               bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·PLC·Sim2Real</a>: 철강 현장과 유사한 물리 환경을 구성하고, 시뮬레이션 기반 학습 결과를 실제 적용 조건에 맞춰 검증·고도화했습니다.',
               bullet2Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Dataiku·SDD·MLOps</a>: 스마트팩토리에서 인텔리전스 팩토리로 이어지는 Digital Transformation(DX) 맥락에서, SDD를 활용한 image retrieval 파이프라인과 자동화된 MLOps 체계를 구축했습니다.',
-              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous 조업·L2 통신·Vision AI</a>: 2제강 autonomous 조업에 필요한 L2 레벨 통신과 제어 통합을 구축하고, vision 기반 anomaly detection을 적용했습니다.'
+              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous 조업·L2 통신·Vision AI</a>: 2제강 autonomous 조업에 필요한 L2 레벨 통신과 제어 통합을 구축하고, vision 기반 anomaly detection을 적용했습니다.',
+              bullet4Html: '<a href="/capt/" class="timeline-link">Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027</a>: 공동 1저자로 CAPT를 제안했습니다. CLIP을 완전히 동결한 채 1.35M 이하의 학습 파라미터만으로 DomainNet, Sketchy, TU-Berlin에서 SOTA를 달성했습니다.'
             },
             vuno: {
               title: 'AI 연구 엔지니어 · VUNO',

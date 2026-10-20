@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval (WACV 2027).">
+  <meta name="keywords" content="CAPT, UCDR, universal cross-domain retrieval, CLIP, prompt tuning, WACV 2027">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CAPT · WACV 2027</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;700&family=Castoro&display=swap">
+
+  <link rel="stylesheet" href="assets/vendor/bulma/bulma.min.css">
+  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+  <script defer src="assets/vendor/katex/katex.min.js"></script>
+  <script defer src="assets/vendor/katex/auto-render.min.js"></script>
+
+  <style>
+    /* ---- Nerfies template (static/css/index.css) ---- */
+    body { font-family: 'Noto Sans', sans-serif; }
+    .footer .icon-link { font-size: 25px; color: #000; }
+    .link-block a { margin-top: 5px; margin-bottom: 5px; }
+    .dnerf { font-variant: small-caps; }
+    .teaser .hero-body { padding-top: 0; padding-bottom: 3rem; }
+    .teaser { font-family: 'Google Sans', sans-serif; }
+    .publication-title { font-family: 'Google Sans', sans-serif; }
+    .publication-authors { font-family: 'Google Sans', sans-serif; }
+    .publication-venue { color: #555; width: fit-content; font-weight: bold; }
+    .publication-authors a { color: hsl(204, 86%, 53%) !important; }
+    .publication-authors a:hover { text-decoration: underline; }
+    .author-block { display: inline-block; }
+    .results-carousel { overflow: hidden; }
+    .results-carousel .item { margin: 5px; overflow: hidden; border: 1px solid #bbb; border-radius: 10px; padding: 0; font-size: 0; }
+    .results-carousel video { margin: 0; }
+    .interpolation-panel { background: #f5f5f5; border-radius: 10px; }
+
+    /* ---- page additions ---- */
+    :root { --capt: #D2462F; --clip: #7a7a7a; --ok: #2E9C5A; --bad: #E0453A; --tile: #e6e6e6; --ink: #363636; --muted: #6b6b6b; }
+    html, body { background: #fff; color: #4a4a4a; }
+    .section, .hero-body, .footer {
+      padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+      padding-right: max(1.5rem, env(safe-area-inset-right, 0px)); }
+    @media (max-width: 768px) {
+      .section, .hero-body, .footer {
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px)); } }
+    .columns > .column { min-width: 0; }
+    .icon svg { width: 1em; height: 1em; }
+    .aff-logo { height: 30px; vertical-align: middle; margin: 4px 0 2px; }
+    .publication-venue { margin: 0.6rem auto 0.2rem; }
+    .button[disabled] { pointer-events: none; }
+    #teaser { width: 100%; border-radius: 10px; display: block; aspect-ratio: 16 / 9; background: #f5f5f5; }
+    .teaser .subtitle { margin-top: 1rem; }
+    .teaser-note { font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: -0.75rem; }
+    .content.has-text-justified p { hyphens: auto; }
+    h2.title, h3.title { text-wrap: balance; }
+
+    /* results carousel (scroll-snap stand-in for bulma-carousel) */
+    .carousel-wrap { position: relative; }
+    .results-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 0; }
+    .results-carousel::-webkit-scrollbar { display: none; }
+    .results-carousel .item { flex: 0 0 calc((100% - 30px) / 3); scroll-snap-align: start; background: #fff; }
+    .results-carousel video { width: 100%; display: block; aspect-ratio: 16 / 9; }
+    .results-carousel .cap { font-size: 0.9rem; padding: 0.45rem 0.75rem; color: var(--ink); font-family: 'Google Sans', sans-serif; }
+    .results-carousel .cap b { text-transform: capitalize; }
+    .car-nav { position: absolute; top: calc(50% - 30px); width: 40px; height: 40px; border-radius: 50%; border: 0; background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18); cursor: pointer; display: grid; place-items: center; z-index: 2; color: #363636; }
+    .car-nav svg { width: 18px; height: 18px; }
+    .car-nav.prev { left: -8px; } .car-nav.next { right: -8px; }
+    .car-dots { display: flex; justify-content: center; gap: 8px; margin-top: 0.75rem; }
+    .car-dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; padding: 0; background: #ccc; cursor: pointer; }
+    .car-dots button[aria-current="true"] { background: #4a4a4a; }
+    @media (max-width: 1023px) { .results-carousel .item { flex-basis: calc((100% - 20px) / 2); } }
+    @media (max-width: 768px) { .results-carousel .item { flex-basis: calc(100% - 10px); } .car-nav { display: none; } }
+
+    /* retrieval explorer */
+    .tabs.is-toggle a { font-family: 'Google Sans', sans-serif; }
+    .tabs.is-toggle li.is-active a { background-color: #363636; border-color: #363636; }
+    .explorer { padding: 1.25rem; }
+    .dstats { display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center; font-size: 0.875rem; color: var(--muted); margin: 0.25rem 0 0.75rem; justify-content: center; }
+    .dstats b { color: var(--ink); }
+    .meter { display: inline-flex; align-items: center; gap: 8px; }
+    .meter .bar { width: 110px; height: 8px; border-radius: 4px; background: #e2e2e2; overflow: hidden; display: inline-block; }
+    .meter .bar i { display: block; height: 100%; border-radius: 4px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .rail { display: flex; gap: 8px; overflow-x: auto; padding: 6px 2px 10px; scrollbar-width: thin; }
+    .rail button { flex: 0 0 60px; height: 60px; border-radius: 8px; border: 2px solid transparent; padding: 0; cursor: pointer; background-color: var(--tile); background-repeat: no-repeat; }
+    .rail button[aria-pressed="true"] { border-color: var(--capt); }
+    .stage { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 18px; margin-top: 6px; }
+    .qbox { display: flex; flex-direction: column; gap: 8px; }
+    .qimg { width: 100%; aspect-ratio: 1; border-radius: 10px; background-color: var(--tile); background-repeat: no-repeat; border: 3px solid #363636; position: relative; overflow: hidden; }
+    .qimg .scan { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(32,156,238,0) 40%, rgba(32,156,238,.45) 50%, rgba(32,156,238,0) 60%, transparent 100%); transform: translateY(-100%); pointer-events: none; }
+    .qimg.scanning .scan { animation: scan .7s ease-in-out; }
+    @keyframes scan { to { transform: translateY(100%); } }
+    .qmeta { font-size: 0.8rem; color: var(--muted); }
+    .qmeta b { display: block; font-size: 1.05rem; color: var(--ink); text-transform: capitalize; font-family: 'Google Sans', sans-serif; }
+    .rows { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+    .row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: center; }
+    .row .who { font-weight: 700; font-size: 0.95rem; line-height: 1.2; font-family: 'Google Sans', sans-serif; }
+    .row .who small { display: block; font-weight: 400; font-size: 0.75rem; color: var(--muted); }
+    .row.capt .who { color: var(--capt); } .row.clip .who { color: var(--clip); }
+    .hits { font-size: 0.8rem; margin-top: 4px; color: var(--muted); }
+    .hits b { font-size: 1.1rem; color: var(--ink); }
+    .tiles { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; min-width: 0; }
+    .t { position: relative; aspect-ratio: 1; border-radius: 6px; background-color: var(--tile); background-repeat: no-repeat; opacity: 0; transform: translateY(10px) scale(.92); }
+    .t.in { animation: pop .42s cubic-bezier(.2,.9,.3,1.25) forwards; }
+    @keyframes pop { to { opacity: 1; transform: none; } }
+    .t::after { content: ""; position: absolute; inset: 0; border-radius: 6px; border: 3px solid transparent; }
+    .t.ok::after { border-color: var(--ok); } .t.bad::after { border-color: var(--bad); }
+    .t .rk { position: absolute; left: 4px; top: 2px; font-size: 10px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.8); }
+    .t .sc { position: absolute; right: 3px; bottom: 2px; font-size: 9.5px; color: #fff; background: rgba(0,0,0,.55); padding: 0 3px; border-radius: 3px; }
+    .t .tip { position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); white-space: nowrap; background: #363636; color: #fff; font-size: 12px; padding: 2px 7px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity .12s; z-index: 3; }
+    .t:hover .tip { opacity: 1; }
+    .ctrl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-top: 0.9rem; font-size: 0.8rem; color: var(--muted); }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; }
+    .legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; border: 3px solid; }
+    .legend .lok::before { border-color: var(--ok); } .legend .lbad::before { border-color: var(--bad); }
+    .legend .lnone::before { display: none; }
+
+    /* feature space */
+    .emb { padding: 1.25rem; }
+    .plot { position: relative; aspect-ratio: 1.7; width: 100%; max-width: 100%; border-radius: 6px; background: #fff; overflow: hidden; }
+    .plot canvas { width: 100%; height: 100%; display: block; }
+    .plot .ptip { position: absolute; pointer-events: none; background: #363636; color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 4px; opacity: 0; transition: opacity .1s; white-space: nowrap; }
+    .end-label { font-family: 'Google Sans', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); }
+    .end-label small { display: block; font-weight: 400; font-size: 0.8rem; color: var(--muted); }
+    .end-label .v { font-size: 1.6rem; display: block; margin-top: 0.25rem; }
+    #morph { width: 100%; accent-color: #363636; margin-top: 0.75rem; height: 1.5rem; cursor: pointer; }
+    .slider-row { display: flex; align-items: center; gap: 10px; }
+    .slider-row span { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+    .clist { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: 0.8rem; margin-top: 0.6rem; }
+    .clist span { display: inline-flex; align-items: center; gap: 6px; text-transform: capitalize; }
+    .clist i { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* sensitivity */
+    .sweep { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 16px; }
+    .sweep svg { width: 100%; height: auto; display: block; }
+    @media (max-width: 768px) { .sweep { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    /* method + results */
+    .fig-img { width: 100%; display: block; border-radius: 6px; background: #fff; }
+    .fig-cap { font-size: 0.875rem; color: var(--muted); margin-top: 0.5rem; margin-bottom: 1rem; }
+    .eq { overflow-x: auto; overflow-y: hidden; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; margin: 0.6em 0; }
+    .mod-name { font-variant: small-caps; color: var(--ink); }
+    .table-container { margin-bottom: 0.5rem; }
+    .table { font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+    .table th:not(:first-child), .table td:not(:first-child) { text-align: right; }
+    .table th.l, .table td.l { text-align: left; color: var(--muted); font-size: 0.8rem; }
+    .table thead tr + tr th { text-align: right; }
+    .table th.grp { text-align: center !important; border-bottom-width: 1px; }
+    .table tr.ours td { background: #f5f5f5; font-weight: 700; }
+    .table td u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .table td .sd { font-size: 0.7rem; font-weight: 400; color: var(--muted); margin-left: 1px; }
+    .table td.tie { color: #a0a0a0; }
+    .fig-cap u { text-underline-offset: 3px; }
+    .bib-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    #BibTeX pre { white-space: pre; overflow-x: auto; }
+
+    @media (prefers-reduced-motion: reduce) { .t.in { animation: none; opacity: 1; transform: none; } .qimg.scanning .scan { animation: none; } }
+    @media (max-width: 768px) {
+      .stage { grid-template-columns: 1fr; }
+      .qbox { flex-direction: row; align-items: center; }
+      .qimg { width: 110px; flex: 0 0 110px; }
+      .row { grid-template-columns: 1fr; gap: 6px; }
+      .row > div:first-child { display: flex; gap: 10px; align-items: baseline; }
+      .tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .publication-title.is-1 { font-size: 2.1rem; }
+      .emb .plotcol { order: 2; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Chanmin Park<sup>*</sup>,</span>
+            <span class="author-block">Minyoung Kang<sup>*</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><img class="aff-logo" src="assets/poscodx_logo.svg" alt="POSCO DX"></span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+          </div>
+          <div class="is-size-5 publication-venue">WACV 2027</div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="paper/CAPT_main_cameraready.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Supplementary Link. -->
+              <span class="link-block">
+                <a href="paper/CAPT_supplementary_cameraready.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg></span>
+                  <span>Supplementary</span>
+                </a>
+              </span>
+              <!-- Poster Link. -->
+              <span class="link-block">
+                <a href="poster/CAPT_WACV2027_poster.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                  <span>Poster</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="assets/video/capt_retrieval.mp4" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg></span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. Enable when the repository is public: add href, remove disabled. -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" disabled title="Code will be made publicly available">
+                  <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%" poster="assets/video/capt_retrieval_poster.jpg">
+        <source src="assets/video/capt_retrieval.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">CAPT</span> adapts a frozen CLIP to retrieve real photos for queries from unseen domains and unseen classes.
+      </h2>
+      <p class="teaser-note">For each held-out domain, the clip shows the query with the most correct results among 30 random queries. P@10 under each clip is averaged over all queries of that domain.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="carousel-wrap">
+        <button class="car-nav prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div id="results-carousel" class="carousel results-carousel"></div>
+        <button class="car-nav next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="car-dots" id="car-dots"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Universal Cross-Domain Retrieval (UCDR) aims to retrieve relevant images from unseen domains and categories,
+            requiring generalization under both domain and semantic shifts.
+            Recent methods improve UCDR by learning or simulating source-domain prompt components, but such source-based
+            adaptation may still entangle class semantics with domain-specific visual cues.
+            We instead propose <b>CAPT</b> (Cross-modal Anchored Prompt Tuning), a parameter-efficient framework that adapts
+            a fully frozen CLIP backbone without domain-specific prompts or backbone fine-tuning.
+          </p>
+          <p>
+            The key module, <b>DSIP</b> (Deep Self-Instance Prompting), reads out layer-wise instance-specific visual prompts
+            from CLIP's frozen text-class anchors, constraining per-image adaptation to convex combinations of those anchors
+            rather than to free visual features or source prompts.
+            For cross-domain feature alignment, <b>PACE</b> (Per-sample Alignment via Cross-domain Gap Estimation) routes each
+            sample between contrastive alignment and prototype anchoring using a residual domain gap, measured by the
+            similarity difference between same-domain and cross-domain class prototypes.
+            Routing on this gap removes the hand-tuned loss weight between the two objectives and chiefly protects
+            U<sup>d</sup>CDR retrieval.
+          </p>
+          <p>
+            Across DomainNet, Sketchy, and TU-Berlin, CAPT sets a new state of the art with only &le;&thinsp;1.35M trainable
+            parameters. Code will be made publicly available.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Retrieval examples. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths"><h2 class="title is-3">Retrieval Examples</h2></div>
+    </div>
+    <div class="content has-text-justified">
+      <p>
+        Pick a held-out domain and a query. Both rows search the same real-photo gallery of unseen classes:
+        <b style="color:var(--capt)">CAPT</b> and the <b style="color:var(--clip)">frozen CLIP</b> it starts from.
+        Queries are a seeded random sample, one per class. Hover a result to see its class and cosine similarity.
+      </p>
+    </div>
+    <div class="interpolation-panel explorer">
+      <div class="tabs is-toggle is-small is-centered"><ul id="dtabs"></ul></div>
+      <div class="dstats" id="dstats"></div>
+      <div class="rail" id="rail" aria-label="Query images"></div>
+      <div class="stage">
+        <div class="qbox">
+          <div class="qimg" id="qimg"><div class="scan"></div></div>
+          <div class="qmeta" id="qmeta"></div>
+        </div>
+        <div class="rows">
+          <div class="row capt"><div><div class="who">CAPT<small>ours</small></div><div class="hits" id="hc"></div></div><div class="tiles" id="tc"></div></div>
+          <div class="row clip"><div><div class="who">Frozen CLIP<small>ViT-B/32</small></div><div class="hits" id="hz"></div></div><div class="tiles" id="tz"></div></div>
+        </div>
+      </div>
+      <div class="ctrl">
+        <div class="legend"><span class="lok">correct class</span><span class="lbad">wrong class</span><span class="lnone">hover a result for its class · score = cosine similarity</span></div>
+        <div class="buttons are-small" style="margin:0">
+          <button class="button is-rounded" id="shuffle" style="margin-bottom:0">Random query</button>
+          <button class="button is-rounded is-dark" id="tour" aria-pressed="false" style="margin-bottom:0">▶ Auto tour</button>
+        </div>
+      </div>
+    <!--/ Retrieval examples. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+      </div>
+    </div>
+    <img class="fig-img" src="assets/fig/method.webp" alt="CAPT overview: DSIP prompt generator and PACE loss">
+    <p class="fig-cap">Overview of CAPT. DSIP reads layer-wise visual prompts from image-conditioned frozen text-class anchors and injects them into the frozen CLIP ViT-B/32 image encoder. PACE aligns the output features by routing each sample between CDCM and CDPA by its residual domain gap.</p>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Both CLIP encoders are frozen during training. We update only DSIP, a lightweight output-refinement layer
+            (a residual MLP, about 0.26M parameters), and a small text context for image&ndash;text supervision,
+            about 1.35M trainable parameters in total. At inference time, retrieval uses only the final image embeddings.
+          </p>
+
+          <h3 class="title is-4">Deep Self-Instance Prompting (DSIP)</h3>
+          <p>
+            The anchor bank $A\in\mathbb R^{C\times d_t}$ encodes &ldquo;a photo of a [class]&rdquo; for the $C$ seen classes with
+            the frozen CLIP text encoder, so it uses no unseen-class names. At layer $\ell$, the anchors and the current patch tokens
+            are projected to a bottleneck of width $r$, $\tilde A=AW_a$ and $\bar H^{\ell}=[h^{\ell}_1,\dots,h^{\ell}_N]W_h$, and the
+            anchors are conditioned on the image by a gated attention with a learnable scalar gate $\sigma(\gamma)$:
+          </p>
+          $$\hat A^{\ell}=\tilde A+\sigma(\gamma)\,\mathrm{softmax}\!\Big(\frac{\tilde A(\bar H^{\ell})^{\top}}{\sqrt r}\Big)\bar H^{\ell}.$$
+          <p>
+            Static learnable queries $Q_0\in\mathbb R^{P_q\times r}$ then read out the visual prompt from the conditioned anchors.
+            $Q_0$ is shared across images, but $P^{\ell}$ is image-specific because $\hat A^{\ell}$ is conditioned on the current image:
+          </p>
+          $$P^{\ell}=\mathrm{MHA}_{\ell}\big(Q_0,\hat A^{\ell},\hat A^{\ell}\big)\,W_u^{\ell}\in\mathbb R^{P_q\times d}.$$
+          <p>The prompt is appended to the token sequence at every transformer layer, $H^{\ell+1}=\mathrm{CLIPBlock}^{\ell}([H^{\ell};P^{\ell}])$. No domain prompt or domain label is used, so the same generator applies directly to unseen domains.</p>
+
+          <h3 class="title is-4">Per-sample Alignment via Cross-domain Gap Estimation (PACE)</h3>
+          <p>
+            PACE keeps a FIFO feature bank with class and domain labels. Domain labels are used only at training time; inference is label-free.
+            <b>CDCM</b> treats same-class samples from other domains as positives, $\mathcal P(i)=\{a: y_a=y_i,\ e_a\neq e_i\}$,
+            with the $K=256$ hardest negatives from the bank in the denominator. <b>CDPA</b> pulls each sample toward its flat class
+            prototype, $\mathcal L^{i}_{\mathrm{CDPA}}=1-z_i^{\top}\mu_{y_i}$. CDCM spreads, CDPA compacts, so a fixed balance is not
+            optimal for every sample. PACE uses the prototype confidence $s_i=z_i^{\top}\mu_{y_i}$ and the residual domain gap
+          </p>
+          $$g_i=z_i^{\top}\nu_{y_i,e_i}-z_i^{\top}\mu_{y_i},$$
+          <p>where $\nu_{y_i,e_i}$ is the same-domain prototype of class $y_i$ in domain $e_i$. Both signals are standardized in the mini-batch, and</p>
+          $$w_i=\mathrm{sg}\big[\sigma(\tilde s_i-\tilde g_i)\big],\qquad \mathcal L^{i}_{\mathrm{PACE}}=(1-w_i)\,\mathcal L^{i}_{\mathrm{CDCM}}+w_i\,\mathcal L^{i}_{\mathrm{CDPA}}.$$
+          <p>
+            A larger gap increases the CDCM contribution, while a confident and already aligned sample receives more CDPA.
+            The full objective is $\mathcal L=\mathcal L_{\mathrm{ITC}}+\lambda\,\frac{1}{|S|}\sum_i\mathcal L^{i}_{\mathrm{PACE}}$ with $\lambda=0.5$.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths"><h2 class="title is-3">Results</h2></div>
+    </div>
+
+    <h3 class="title is-4">DomainNet</h3>
+    <div class="content has-text-justified">
+      <p>
+        Leave-one-domain-out with the SnMpNet split (245 / 55 / 45 classes); Real is always the gallery. <i>Unseen</i> and
+        <i>Mixed</i> use queries from the held-out domain and unseen classes, and differ only in whether the gallery also
+        contains seen-class distractors. <i>U<sup>d</sup>CDR</i> uses held-out-domain queries from seen classes.
+      </p>
+    </div>
+    <div class="tabs is-toggle is-small is-centered"><ul id="rtabs"></ul></div>
+    <div class="table-container"><table class="table is-fullwidth is-narrow" id="rtable"></table></div>
+    <p class="fig-cap">mAP@200 / Prec@200. <b>Bold</b> and <u>underline</u> mark the best and runner-up. &dagger; reproduced. CAPT-deep is the mean &plusmn; std over three training seeds; baselines are single runs under their published protocols.</p>
+    <div class="content has-text-justified">
+      <p>
+        Against DePro, the strongest prior method, CAPT-deep wins 21 of the 30 cells, including every Unseen and Mixed cell.
+        The average margins are modest (Unseen mAP 0.6364 &rarr; 0.6428, Mixed 0.5686 &rarr; 0.5753) and DePro stays ahead on
+        average U<sup>d</sup>CDR mAP (0.6881 vs. 0.6829). Over three seeds on the sketch holdout, the Unseen and Mixed gains over
+        DePro are roughly 3&ndash;4&times; the seed standard deviation, while U<sup>d</sup>CDR mAP stays within noise.
+      </p>
+    </div>
+
+    <div class="columns">
+      <div class="column is-6">
+        <h3 class="title is-5">Frozen-backbone comparison</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-narrow">
+            <thead><tr><th>Method</th><th>Unseen</th><th>Mixed</th><th>U<sup>d</sup>CDR</th></tr></thead>
+            <tbody>
+              <tr><td>DePro-Frozen</td><td>.6132/.5783</td><td>.5426/.5163</td><td>.6765/.4257</td></tr>
+              <tr><td>DePro-LN</td><td>.6364/.5996</td><td>.5686/.5398</td><td><b>.6881</b>/<b>.4282</b></td></tr>
+              <tr class="ours"><td>CAPT</td><td>.6428/.6057</td><td>.5753/.5473</td><td>.6829/.4240</td></tr>
+              <tr><td>CAPT+LN</td><td>.6455/.6081</td><td>.5781/.5501</td><td>.6853/.4248</td></tr>
+              <tr><td>CAPT+LN+bias</td><td><b>.6458</b>/<b>.6085</b></td><td><b>.5782</b>/<b>.5502</b></td><td>.6877/.4260</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fig-cap">DomainNet average. DePro's entry above tunes CLIP's LayerNorm affines; DePro-Frozen removes this. With the backbone fully frozen, CAPT wins 26 of 30 cells. Giving CAPT the same freedom (LN+bias, 1.55M parameters) closes the U<sup>d</sup>CDR mAP gap to 0.0004.</p>
+      </div>
+      <div class="column is-6">
+        <h3 class="title is-5">Cross-dataset (sketch to image)</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-narrow">
+            <thead><tr><th rowspan="2" style="vertical-align:bottom">Method</th><th colspan="2" class="grp">Sketchy</th><th colspan="2" class="grp">TU-Berlin</th></tr><tr><th>mAP@200</th><th>Prec@200</th><th>mAP@all</th><th>Prec@100</th></tr></thead>
+            <tbody>
+              <tr><td>ProS&dagger;</td><td>.7151</td><td>.6739</td><td>.6138</td><td>.7037</td></tr>
+              <tr><td>DePro&dagger;</td><td>.7515</td><td>.7177</td><td>.6629</td><td>.7203</td></tr>
+              <tr><td>UCDR-Adapter&dagger;</td><td>.6933</td><td>.6490</td><td>.6314</td><td>.7099</td></tr>
+              <tr class="ours"><td>CAPT</td><td><b>.7638</b></td><td><b>.7291</b></td><td><b>.6641</b></td><td><b>.7305</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fig-cap">Unseen classes. &dagger; our reimplementation in the same environment (frozen CLIP ViT-B/32, identical data and training). Our ProS matches its published Sketchy mAP@200 on the 100-image-per-class subset (0.6993 vs. 0.6991); the table uses the full gallery.</p>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <img class="fig-img" src="assets/fig/fig_paramperf.webp" alt="Average Unseen mAP@200 versus trainable parameters">
+        <p class="fig-cap">Average Unseen mAP@200 over the five held-out domains vs. trainable parameters. CAPT trains about 1.35M parameters (DePro and ProS 18.5M, UCDR-Adapter 2.37M, DeFT-LoRA 1.29M).</p>
+      </div>
+    </div>
+    <!--/ Results. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Analysis. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths"><h2 class="title is-3">Analysis</h2></div>
+    </div>
+    <div class="columns">
+      <div class="column is-6">
+        <h3 class="title is-5">Build-up</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-narrow">
+            <thead><tr><th>Variant</th><th>Unseen</th><th>Mixed</th><th>U<sup>d</sup>CDR</th></tr></thead>
+            <tbody>
+              <tr><td>Frozen + ITC</td><td>.3901/.3105</td><td>.3391/.2644</td><td>.4468/.2530</td></tr>
+              <tr><td>+ read-out</td><td>.6602/.6209</td><td>.5867/.5539</td><td>.7551/.4998</td></tr>
+              <tr><td>+ image-cond. (DSIP)</td><td>.6688/.6300</td><td>.5880/.5586</td><td>.7669/.5113</td></tr>
+              <tr><td>+ CDCM</td><td><b>.6770</b>/.6342</td><td><b>.5981</b>/.5656</td><td>.7712/.5084</td></tr>
+              <tr class="ours"><td>+ PACE (full)</td><td>.6766/<b>.6362</b></td><td>.5962/<b>.5665</b></td><td><b>.7729</b>/<b>.5131</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fig-cap">Sketch holdout, seed 0, components added cumulatively. The anchored read-out gives most of the gain; CDCM lowers U<sup>d</sup>CDR precision and PACE recovers it. This build-up ran on an earlier code revision, so its last row and Table 1 (0.6944) are not a matched pair.</p>
+      </div>
+      <div class="column is-6">
+        <h3 class="title is-5">Design ablations</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-narrow">
+            <thead><tr><th>Variant</th><th>Unseen</th><th>Mixed</th><th>U<sup>d</sup>CDR</th></tr></thead>
+            <tbody>
+              <tr><td>linear read-out (no MHA)</td><td>.6899/.6483</td><td>.6092/.5792</td><td>.7897/.5191</td></tr>
+              <tr><td>free prompts (VPT-Deep)</td><td>.6854/.6450</td><td>.6044/.5752</td><td>.7906/.5183</td></tr>
+              <tr><td>random anchor basis</td><td>.6923/.6508</td><td>.6118/.5815</td><td>.7897/.5211</td></tr>
+              <tr><td>vision-only anchors</td><td>.6903/.6481</td><td>.6090/.5779</td><td><b>.7954</b>/<b>.5256</b></td></tr>
+              <tr class="ours"><td>CAPT (text anchors)</td><td><b>.6944</b>/<b>.6527</b></td><td><b>.6141</b>/<b>.5841</b></td><td>.7926/.5212</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fig-cap">One component changed at a time (sketch, seed 0). The structured, image-conditioned read-out matters most. Text anchors add a consistent but modest prior: 0.0021 Unseen mAP over a random basis.</p>
+      </div>
+    </div>
+
+    <h3 class="title is-5">Routing</h3>
+    <div class="table-container">
+      <table class="table is-fullwidth is-narrow">
+        <thead><tr><th>Routing rule replaced by</th><th>Unseen</th><th>Mixed</th><th>U<sup>d</sup>CDR</th><th>wins</th><th>p<sub>Holm</sub></th></tr></thead>
+        <tbody>
+          <tr><td>shuffled $w_i$ within batch</td><td>+0.8</td><td>+1.5</td><td>+1.2</td><td>13/15</td><td>0.022</td></tr>
+          <tr><td>fixed $w=0.3$</td><td>+0.5</td><td>+0.8</td><td>+2.6</td><td>14/15</td><td>0.006</td></tr>
+          <tr><td>fixed $w=0.5$</td><td>+1.0</td><td>+1.8</td><td>+1.2</td><td>14/15</td><td>0.006</td></tr>
+          <tr><td>fixed $w=0.7$</td><td>+2.8</td><td>+3.9</td><td>+0.6</td><td>15/15</td><td>0.0005</td></tr>
+          <tr><td>domain gap only $\sigma(-\tilde g_i)$</td><td>+0.9</td><td>+1.7</td><td>+1.3</td><td>14/15</td><td>0.006</td></tr>
+          <tr><td>confidence only $\sigma(\tilde s_i)$</td><td class="tie">&minus;0.4</td><td class="tie">&minus;0.4</td><td class="tie">&minus;0.1</td><td>4/13</td><td>0.53</td></tr>
+          <tr><td>focal shaping</td><td class="tie">&minus;1.3</td><td class="tie">&minus;1.7</td><td class="tie">&minus;0.4</td><td>5/15</td><td>0.53</td></tr>
+          <tr><td>uncertainty weighting</td><td>+11.7</td><td>+12.0</td><td>+2.2</td><td>15/15</td><td>0.0005</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-cap">Advantage of the reported rule in 10<sup>&minus;3</sup> mAP (&gt;0: ours better) over five holdouts and three seeds. Grey: statistical tie.</p>
+    <div class="content has-text-justified">
+      <p>
+        No constant weight is competitive, and shuffling $w_i$ within the batch costs as much as freezing it, so the per-sample
+        assignment carries the information. Confidence-only routing is indistinguishable from the combined rule. Stated precisely,
+        PACE's Unseen gain is +0.0026 (not significant, p=0.19) while its U<sup>d</sup>CDR mAP gain is +0.0077 (p=0.005):
+        PACE removes a loss weight and protects U<sup>d</sup>CDR rather than raising the Unseen score.
+      </p>
+    </div>
+
+    <h3 class="title is-5">Sensitivity</h3>
+    <div class="sweep" id="sweep"></div>
+    <p class="fig-cap">Change from the default in 10<sup>&minus;3</sup> mAP@200; <span style="color:#05507D">&#9679; Unseen</span>, <span style="color:#23874A">&#9650; Mixed</span>, dashed line = default. Sketch holdout, except injection depth $L$ (clipart). Data from Fig. 5 of the paper.</p>
+
+    <h3 class="title is-5">Limitations</h3>
+    <div class="content has-text-justified">
+      <p>
+        DePro with LayerNorm tuning stays slightly stronger on a few U<sup>d</sup>CDR precision cells, and PACE's prototypes
+        degrade under severe class imbalance. The output-refinement layer is not a contribution, but it matters for the aggregate:
+        in a matched re-evaluation, removing it moves the tally against DePro from 22/30 to 14/30, mostly on infograph.
+        On ViT-B/16 both methods improve and the ranking depends on the stopping rule, so we do not claim the margin transfers.
+      </p>
+    </div>
+    <!--/ Analysis. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Visualizations. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths"><h2 class="title is-3">Visualizations</h2></div>
+    </div>
+    <img class="fig-img" src="assets/fig/retrieval_compare_depro.webp" alt="CAPT versus DePro top-10 retrieval on infograph">
+    <p class="fig-cap">Top-10 retrieval on shared infograph queries from unseen classes. CAPT improves airplane from 5/10 to 8/10, asparagus from 8/10 to 9/10 and bandage from 4/10 to 6/10, and matches DePro on axe.</p>
+    <br>
+    <img class="fig-img" src="assets/fig/attn_final_combined.webp" alt="Attention visualization">
+    <p class="fig-cap">Attention visualization. Left: [CLS]-to-patch attention for &ldquo;airplane&rdquo; on sketch, painting and clipart queries for frozen CLIP, ProS and CAPT. Right: attention from one query patch at layers 1, 6 and 12 on unseen-domain, unseen-class images, growing from local to global.</p>
+    <br>
+
+    <h3 class="title is-4">Feature space</h3>
+    <div class="content has-text-justified">
+      <p>
+        t-SNE of eight unseen classes: held-out-domain queries (circles) and real photos (squares). Move the slider to
+        interpolate between the frozen CLIP embedding and the CAPT embedding of the same images.
+      </p>
+    </div>
+    <div class="interpolation-panel emb">
+      <div class="tabs is-toggle is-small is-centered"><ul id="etabs"></ul></div>
+      <div class="columns is-vcentered is-mobile is-multiline">
+        <div class="column is-2-tablet is-6-mobile has-text-centered end-label">Frozen CLIP<small>same-class 10-NN</small><span class="v" id="sc-clip">&ndash;</span></div>
+        <div class="column is-8-tablet is-12-mobile plotcol">
+          <div class="plot" id="plot"><canvas id="cv"></canvas><div class="ptip" id="ptip"></div></div>
+          <div class="slider-row">
+            <span>Frozen CLIP</span>
+            <input id="morph" type="range" min="0" max="100" step="1" value="0" aria-label="Interpolate from frozen CLIP to CAPT">
+            <span>CAPT</span>
+          </div>
+          <div class="clist" id="clist"></div>
+        </div>
+        <div class="column is-2-tablet is-6-mobile has-text-centered end-label">CAPT<small>same-class 10-NN</small><span class="v" id="sc-capt">&ndash;</span></div>
+      </div>
+      <p class="fig-cap has-text-centered">Each domain uses its CAPT checkpoint from Table 1. Same-class 10-NN is the share of each point's ten nearest neighbours that share its class, measured in the original 512-d space.</p>
+    </div>
+    <!--/ Visualizations. -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="bib-head"><h2 class="title">BibTeX</h2><button class="button is-small" id="copybib">Copy</button></div>
+    <pre><code id="bib">@inproceedings{park2027capt,
+  title     = {CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval},
+  author    = {Park, Chanmin and Kang, Minyoung},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year      = {2027}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="paper/CAPT_main_cameraready.pdf" aria-label="Paper PDF">
+        <svg viewBox="0 0 384 512" width="20" height="25" aria-hidden="true"><path fill="currentColor" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            Datasets: DomainNet, Sketchy, TU-Berlin; images belong to their original owners.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DOMS = ["sketch", "painting", "clipart", "infograph", "quickdraw"];
+const NT = 21; // tiles per sprite: query + 10 CAPT + 10 CLIP
+const PAL = ["#E07A2E", "#2C7FB8", "#7A4FB5", "#2E9C6A", "#C23B6A", "#B8A01F", "#3A3A3A", "#1BA6B5"];
+const $ = s => document.querySelector(s);
+const cache = {};
+async function load(d) { if (!cache[d]) { const r = await fetch(`assets/demo/${d}.json`); cache[d] = await r.json(); } return cache[d]; }
+function spriteBg(el, src, i) { el.style.backgroundImage = `url(${src})`; el.style.backgroundSize = `${NT * 100}% 100%`; el.style.backgroundPosition = `${i / (NT - 1) * 100}% 0`; }
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+function makeTabs(host, keys, onPick, active, label = cap) {
+  host.innerHTML = "";
+  keys.forEach(d => { const li = document.createElement('li'); if (d === active) li.className = 'is-active';
+    const a = document.createElement('a'); a.href = '#'; a.textContent = label(d); a.setAttribute('role', 'tab'); a.setAttribute('aria-selected', d === active);
+    a.onclick = e => { e.preventDefault(); onPick(d); }; li.appendChild(a); host.appendChild(li); });
+}
+
+/* ---------- results carousel ---------- */
+(function () {
+  const car = $('#results-carousel'), dots = $('#car-dots');
+  DOMS.forEach((d, k) => {
+    const it = document.createElement('div'); it.className = 'item';
+    it.innerHTML = `<video poster="assets/video/clip_${d}.jpg" autoplay muted loop playsinline preload="metadata"><source src="assets/video/clip_${d}.mp4" type="video/mp4"></video>` +
+      `<div class="cap"><b>${d}</b> queries, real-photo gallery</div>`;
+    car.appendChild(it);
+    const b = document.createElement('button'); b.setAttribute('aria-label', `Show ${d}`);
+    b.onclick = () => car.scrollTo({ left: it.offsetLeft - car.offsetLeft - 5, behavior: 'smooth' }); dots.appendChild(b);
+  });
+  const step = () => car.children[0].getBoundingClientRect().width + 10;
+  document.querySelector('.car-nav.prev').onclick = () => car.scrollBy({ left: -step(), behavior: 'smooth' });
+  document.querySelector('.car-nav.next').onclick = () => {
+    if (car.scrollLeft + car.clientWidth >= car.scrollWidth - 4) car.scrollTo({ left: 0, behavior: 'smooth' });
+    else car.scrollBy({ left: step(), behavior: 'smooth' }); };
+  const mark = () => { const i = Math.round(car.scrollLeft / step()); [...dots.children].forEach((b, k) => b.setAttribute('aria-current', k === i)); };
+  car.addEventListener('scroll', () => requestAnimationFrame(mark)); mark();
+})();
+
+/* ---------- retrieval explorer ---------- */
+let cur = { d: "sketch", i: 0 }, tourTimer = null, renderTok = 0;
+function meter(label, v, color) { return `<span class="meter">${label} <span class="bar"><i style="width:${v * 100}%;background:${color}"></i></span><b class="mono">${(v * 100).toFixed(1)}%</b></span>`; }
+async function pickDomain(d, keepTour) {
+  if (!keepTour) stopTour();
+  cur.d = d; const D = await load(d);
+  makeTabs($('#dtabs'), DOMS, pickDomain, d);
+  $('#dstats').innerHTML = `<span><b>${D.n_query.toLocaleString()}</b> ${d} queries &rarr; <b>${D.n_gallery.toLocaleString()}</b> real photos</span>` +
+    meter('P@10 · CAPT', D.p10.capt, 'var(--capt)') + meter('Frozen CLIP', D.p10.clip, 'var(--clip)') + `<span>(all queries)</span>`;
+  const rail = $('#rail'); rail.innerHTML = "";
+  D.items.forEach((it, i) => { const b = document.createElement('button'); b.title = it.cls; b.setAttribute('aria-label', `${d} query: ${it.cls}`);
+    spriteBg(b, it.sprite, 0); b.onclick = () => { stopTour(); showQuery(i); }; rail.appendChild(b); });
+  showQuery(0);
+}
+function fillRow(host, list, src, offset, tok) {
+  host.innerHTML = "";
+  list.forEach((r, k) => { const t = document.createElement('div'); t.className = 't ' + (r.ok ? 'ok' : 'bad'); spriteBg(t, src, offset + k);
+    t.innerHTML = `<span class="rk">${k + 1}</span><span class="sc">${r.s.toFixed(2)}</span><span class="tip">${r.c}</span>`; host.appendChild(t);
+    setTimeout(() => { if (tok === renderTok) t.classList.add('in'); }, 380 + k * 70); });
+}
+function countUp(el, n, tok, delay) { el.innerHTML = `<b>0</b>/10 correct`; let c = 0;
+  const stepf = () => { if (tok !== renderTok) return; el.innerHTML = `<b>${c}</b>/10 correct`; if (c < n) { c++; setTimeout(stepf, 70); } };
+  setTimeout(stepf, delay); }
+async function showQuery(i) {
+  const D = await load(cur.d); cur.i = i; const it = D.items[i]; const tok = ++renderTok;
+  [...$('#rail').children].forEach((b, k) => b.setAttribute('aria-pressed', k === i));
+  const rail = $('#rail'), btn = rail.children[i];
+  if (btn) rail.scrollTo({ left: btn.offsetLeft - rail.offsetLeft - rail.clientWidth / 2 + 30, behavior: 'smooth' });
+  const q = $('#qimg'); spriteBg(q, it.sprite, 0); q.classList.remove('scanning'); void q.offsetWidth; q.classList.add('scanning');
+  $('#qmeta').innerHTML = `<b>${it.cls}</b>${cur.d} · unseen class`;
+  fillRow($('#tc'), it.capt, it.sprite, 1, tok); fillRow($('#tz'), it.clip, it.sprite, 11, tok);
+  countUp($('#hc'), it.capt.filter(r => r.ok).length, tok, 380); countUp($('#hz'), it.clip.filter(r => r.ok).length, tok, 380);
+}
+function stopTour() { if (tourTimer) { clearInterval(tourTimer); tourTimer = null; } const b = $('#tour'); if (b) { b.setAttribute('aria-pressed', 'false'); b.textContent = '▶ Auto tour'; } }
+$('#tour').onclick = () => {
+  if (tourTimer) { stopTour(); return; }
+  $('#tour').setAttribute('aria-pressed', 'true'); $('#tour').textContent = '❚❚ Pause';
+  tourTimer = setInterval(async () => { const D = await load(cur.d); let n = cur.i + 1;
+    if (n >= D.items.length || n % 6 === 0) { const nd = DOMS[(DOMS.indexOf(cur.d) + 1) % DOMS.length]; await pickDomain(nd, true); return; }
+    showQuery(n); }, 2600);
+};
+$('#shuffle').onclick = async () => { stopTour(); const D = await load(cur.d); let n; do { n = Math.floor(Math.random() * D.items.length); } while (n === cur.i && D.items.length > 1); showQuery(n); };
+
+/* ---------- feature space (slider) ---------- */
+let E = { d: "sketch", data: null, t: 0, hover: -1, pos: null };
+function draw() {
+  const cv = $('#cv'), r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  if (!r.width) return;
+  if (cv.width !== Math.round(r.width * dpr)) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); }
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, r.width, r.height);
+  const T = E.data.tsne, e = E.t, pad = 22;
+  E.pos = T.clip.map((p, i) => { const q = T.capt[i]; return [pad + (p[0] * (1 - e) + q[0] * e) * (r.width - 2 * pad), pad + (p[1] * (1 - e) + q[1] * e) * (r.height - 2 * pad)]; });
+  E.pos.forEach(([x, y], i) => { g.fillStyle = PAL[T.label[i]]; g.globalAlpha = (E.hover < 0 || T.label[i] === T.label[E.hover]) ? .88 : .15;
+    if (T.dom[i] === 0) { g.beginPath(); g.arc(x, y, 4.4, 0, 7); g.fill(); } else { g.fillRect(x - 3.8, y - 3.8, 7.6, 7.6); } });
+  g.globalAlpha = 1;
+}
+async function pickEmb(d) {
+  E.d = d; E.data = await load(d); makeTabs($('#etabs'), DOMS, pickEmb, d);
+  const sc = E.data.tsne.score; $('#sc-clip').textContent = `${(sc.clip * 100).toFixed(0)}%`; $('#sc-capt').textContent = `${(sc.capt * 100).toFixed(0)}%`;
+  $('#clist').innerHTML = E.data.tsne.classes.map((c, i) => `<span><i style="background:${PAL[i]}"></i>${c}</span>`).join('');
+  draw();
+}
+$('#morph').addEventListener('input', ev => { E.t = ev.target.value / 100; draw(); });
+$('#cv').addEventListener('mousemove', ev => { if (!E.pos) return; const r = $('#cv').getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+  let best = -1, bd = 144; E.pos.forEach(([px, py], i) => { const d = (px - x) ** 2 + (py - y) ** 2; if (d < bd) { bd = d; best = i; } });
+  if (best !== E.hover) { E.hover = best; draw(); } const tip = $('#ptip');
+  if (best >= 0) { const T = E.data.tsne; tip.textContent = `${T.classes[T.label[best]]}, ${T.dom[best] === 0 ? E.d : 'real'}`; tip.style.left = Math.min(x + 12, r.width - 120) + 'px'; tip.style.top = (y - 8) + 'px'; tip.style.opacity = 1; } else tip.style.opacity = 0; });
+$('#cv').addEventListener('mouseleave', () => { E.hover = -1; $('#ptip').style.opacity = 0; if (E.data) draw(); });
+window.addEventListener('resize', () => { if (E.data) draw(); });
+
+/* ---------- Table 1 (camera-ready numbers; std from the paper) ---------- */
+const SD = { Clipart: [17, 15, 12, 14, 27, 11], Sketch: [20, 21, 24, 23, 14, 5], Infograph: [17, 14, 16, 16, 49, 29],
+  Painting: [7, 3, 10, 6, 17, 7], Quickdraw: [55, 48, 28, 25, 56, 26], Average: [10, 9, 8, 8, 8, 1] };
+const REP = { "ProS": "ProS†", "UCDR-Adapter": "UCDR-Adapter†", "DePro": "DePro†" };
+let T1 = null;
+async function pickRes(dom) {
+  if (!T1) T1 = await (await fetch('assets/table1.json')).json();
+  makeTabs($('#rtabs'), Object.keys(T1), pickRes, dom, s => s);
+  const rows = T1[dom], rank = [0, 1, 2, 3, 4, 5].map(c => [...new Set(rows.map(r => r.x[c]))].sort((a, b) => b - a));
+  $('#rtable').innerHTML = `<thead><tr><th rowspan="2" style="vertical-align:bottom">Method</th><th rowspan="2" class="l"></th><th colspan="2" class="grp">Unseen</th><th colspan="2" class="grp">Mixed</th><th colspan="2" class="grp">U<sup>d</sup>CDR</th></tr><tr><th>mAP</th><th>Prec</th><th>mAP</th><th>Prec</th><th>mAP</th><th>Prec</th></tr></thead><tbody>` +
+    rows.map(r => { const ours = r.m === 'CAPT-deep';
+      return `<tr class="${ours ? 'ours' : ''}"><td>${REP[r.m] || r.m}</td><td class="l">${r.v}</td>` + r.x.map((v, c) => {
+        let s = v.toFixed(4).slice(1); if (v === rank[c][0]) s = `<b>${s}</b>`; else if (v === rank[c][1]) s = `<u>${s}</u>`;
+        if (ours) s += `<span class="sd">&plusmn;.${String(SD[dom][c]).padStart(4, '0')}</span>`;
+        return `<td>${s}</td>`; }).join('') + `</tr>`; }).join('') + `</tbody>`;
+}
+
+/* ---------- sensitivity (paper Fig. 5 data, Unseen / Mixed mAP@200) ---------- */
+const SW = [
+  { t: 'PACE λ', x: [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1], d: .5, u: [.6808, .6831, .6841, .6852, .6858, .6857, .6848, .6844, .679, .6775], m: [.6059, .6083, .6094, .6109, .6118, .6119, .6115, .6113, .6061, .6047] },
+  { t: 'PACE τ', x: [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1], d: .1, u: [.6858, .6828, .6823, .6813, .6812, .6813, .6806, .6807, .6807, .681], m: [.6118, .6076, .6068, .6052, .6054, .6054, .6045, .6046, .6047, .6047] },
+  { t: 'Injection depth L', x: [1, 3, 6, 9, 12], d: 12, u: [.7844, .7820, .7926, .7955, .8002], m: [.7319, .7292, .7411, .7423, .7452] },
+  { t: 'Prompt tokens Pq', x: [2, 4, 8, 16], d: 8, u: [.6895, .6918, .6944, .6898], m: [.6078, .6102, .6141, .6085] },
+  { t: 'Bottleneck r', x: [16, 32, 64, 128], d: 64, u: [.6930, .6897, .6944, .6843], m: [.6131, .6069, .6141, .6016] },
+  { t: 'Bank size M (k)', x: [2.5, 5, 10, 20], d: 10, u: [.6916, .6910, .6944, .6911], m: [.6127, .6123, .6141, .6129] }];
+(function () {
+  const host = $('#sweep'), W = 240, H = 170, L = 34, R = 14, Tp = 26, B = 28;
+  SW.forEach(p => {
+    const k = p.x.indexOf(p.d), du = p.u.map(v => (v - p.u[k]) * 1000), dm = p.m.map(v => (v - p.m[k]) * 1000);
+    const all = du.concat(dm), lo = Math.min(-1, ...all), hi = Math.max(1, ...all), n = p.x.length;
+    const X = i => L + i * (W - L - R) / (n - 1), Y = v => Tp + (hi - v) * (H - Tp - B) / (hi - lo);
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${p.t}"><text x="${W / 2}" y="17" text-anchor="middle" font-size="14" font-weight="600" fill="#363636">${p.t}</text>`;
+    s += `<line x1="${L}" x2="${W - R}" y1="${Y(0)}" y2="${Y(0)}" stroke="#dbdbdb"/>`;
+    s += `<line x1="${X(k)}" x2="${X(k)}" y1="${Tp}" y2="${H - B}" stroke="#05507D" stroke-dasharray="3 3"/>`;
+    [Math.ceil(lo), 0].filter((v, i, a) => a.indexOf(v) === i).forEach(v => { s += `<text x="${L - 5}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="#6b6b6b">${v}</text>`; });
+    p.x.forEach((x, i) => { if (n <= 5 || i % 3 === 0 || i === n - 1) s += `<text x="${X(i)}" y="${H - 9}" text-anchor="middle" font-size="11" fill="#6b6b6b">${x}</text>`; });
+    const line = (a, c) => `<polyline fill="none" stroke="${c}" stroke-width="1.8" points="${a.map((v, i) => X(i) + ',' + Y(v)).join(' ')}"/>`;
+    s += line(du, '#05507D') + line(dm, '#23874A');
+    du.forEach((v, i) => { s += `<circle cx="${X(i)}" cy="${Y(v)}" r="3.2" fill="#05507D"/>`; });
+    dm.forEach((v, i) => { const x = X(i), y = Y(v); s += `<path d="M${x},${y - 4} L${x + 3.8},${y + 2.8} L${x - 3.8},${y + 2.8}Z" fill="#23874A"/>`; });
+    host.insertAdjacentHTML('beforeend', s + '</svg>');
+  });
+})();
+
+/* ---------- misc ---------- */
+$('#copybib').onclick = async () => { const t = $('#bib').textContent;
+  try { await navigator.clipboard.writeText(t); $('#copybib').textContent = 'Copied'; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents($('#bib')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $('#copybib').textContent = 'Selected, press Ctrl+C'; }
+  setTimeout(() => $('#copybib').textContent = 'Copy', 1800); };
+document.addEventListener('DOMContentLoaded', () => { if (window.renderMathInElement) renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }] }); });
+pickDomain('sketch'); pickEmb('sketch'); pickRes('Average');
+</script>
+</body>
+</html>
