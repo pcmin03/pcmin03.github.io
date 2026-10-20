@@ -1,0 +1,302 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage{kotex}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+\usepackage[default]{pslatex}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\normalsize\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+% \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+%   \textbf{\href{http://sourabhbajaj.com/}{\Large Sourabh Bajaj}} & Email : \href{mailto:sourabh@sourabhbajaj.com}{sourabh@sourabhbajaj.com}\\
+%   \href{http://sourabhbajaj.com/}{http://www.sourabhbajaj.com} & Mobile : +1-123-456-7890 \\
+% \end{tabular*}
+
+\begin{center}
+    {\scshape \Large\textbf{ChanMin Park}} \\ \vspace{1pt}
+    Seoul, Republic of Korea \\ \vspace{1pt}
+    \small \raisebox{-0.1\height}\faPhone\ +82 10 3999 3403 ~ \href{mailto:x@gmail.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{pcmin03@gmail.com}} ~ 
+    \href{https://linkedin.com/in//}{\raisebox{-0.2\height}\faLinkedin\ \underline{linkedin.com/in/pcmin03}}  ~
+    \href{https://github.com/}{\raisebox{-0.2\height}\faGithub\ \underline{github.com/pcmin03}} ~
+    \href{https://smoggy-fibula-4b3.notion.site/My-Portfolio-Chan-Min-Park-195c3ffbc67f4f67a80eca8b9a506a3b?pvs=4}{\raisebox{-0.2\height}\faHome\ \underline{Portfolio}}
+    \vspace{-8pt}
+\end{center}
+
+%-----------SUMMARY-----------
+\section{Summary}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{As a computer vision AI Research Engineer with three years of experience, I apply AI to solve diverse problems across various domains, including 2D/3D images, tablur, and videos, while also enjoying participating in competitions.
+    }}
+ \end{itemize}
+ \vspace{-10pt}
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {PoscoDX Inc.}{July 2024 -- Present}
+      { AI Research Engineer}{Pangyo, Korea}
+      \resumeItemListStart
+        \resumeItem{\underline{3D AI \& Sensor Fusion}: Working as a 3D AI engineer integrating LiDAR, ToF, and RGB sensors to build fused perception systems and environment understanding models for steel production sites.}
+        \resumeItem{\underline{AI Systems Engineering (PLC/L2 Service)}: Designing and implementing AI-driven PLC/L2-style service systems that connect AI models with real-time factory control, monitoring, and automated pipeline execution.}
+        \resumeItem{\underline{Domain Adaptation \& Retrieval Research}: Conducting data-centric research on domain adaptation, clustering, and retrieval to improve cross-line and cross-facility generalization of AI models.}
+        \resumeItem{\underline{Steel Defect Detection \& MLOps}: Developed SDD models and built MLOps Level 1 with Continuous Training (CT) using Dataiku for real-time quality improvement.}
+      \resumeItemListEnd
+    \resumeSubheading
+      {VUNO Inc.}{May 2021 -- July 2024 }
+      {AI Research Enginner, Vision team}{Seoul, Korea}
+      \resumeItemListStart
+        \resumeItem{\underline{2D object detection}: Developed a model to detect cell objects in gigapixel pathology images, optimizing it for fast inference.}
+        \resumeItem{\underline{SW Productization}: Obtained KFDA certification for a Deep Learning Algorithm and scheduled evaluations involving over 20 labelers, resulting in the acquisition of two patent certifications.}
+        \resumeItem{\underline{3D object detection} : Engineered a model for tiny nodule detection in 3D image domains, employing self and semi-supervised learning methods.}
+        \resumeItem{\underline{Multi-Task Learning}: Participated in an international competition by Radboudumc, achieving 3rd place on Leaderboard1 with segmentation and detection ensembled, and 1st place on Leaderboard2 for score prediction.}
+        \resumeItem{\underline{Machine Learning Engineering}: Experience in model deployment and packaging using Torch script, CI, Docker, and Mlflow.}
+      \resumeItemListEnd
+    \resumeSubheading
+      {FastCampus Inc.}{Sep 2023 -- Dec 2023}
+      {Part time instructor}{Seoul, Korea}
+      \resumeItemListStart
+        \resumeItem{I conducted sessions on concepts, recent papers, and practical exercises in medical image and computer vision.}
+    \resumeItemListEnd
+    
+  \resumeSubHeadingListEnd
+\vspace{-15pt}
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Ulsan National Institute of Science and Technology(UNIST)}{Mar 2019 -- Mar 2021}
+      {M.S \ in Computer Science}{Ulsan , S.Korea}
+      \resumeItemListStart
+      \resumeItem{Cumulative GPA 3.28/4.3, Scholarships: Academic excellence for 4 semesters (2019-2021)}
+      \resumeItem{\textbf{Thesis}: Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors}
+      \resumeItem{\textbf{Domestic patent}: Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium;}
+      \resumeItemListEnd
+      \vspace{7pt}
+      
+    \resumeSubheading
+      {Inje University}{Mar. 2014 -- Aug. 2018}
+      {B.S \ in Bio Medical Enginnering}{Kimhae , S.Korea}
+      \resumeItemListStart
+      \resumeItem{Cumulative GPA 3.89/4.5, Scholarships: Academic excellence for 8 semesters (2014-2018)}
+      \resumeItem{\textbf{Gold Prize}: Inje Creative Comprehensive Design Contest; \textbf{Bronze Prize}: 2017 Engineering Festival Competition; \textbf{Awarded}: Good Capstone Design contes \& Gyeongnam area preliminary for the creative comprehensive design contest;}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+%-----------PROJECTS-----------
+\section{Publication \& Competitions}
+    \vspace{-5pt}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{UnderReview} }{}
+          \resumeItemListStart
+            \resumeItem{Cho, H., \underline{Park, C}., Kim, J., \& Kim, W. H. (2024). CNA-TTA: Clean and Noisy Region Aware Feature Learning within Clusters for Online-Offline Test-Time Adaptation. arXiv preprint arXiv:2401.14587. \href{https://arxiv.org/abs/2401.14587}{\underline{Paper Link}}}
+            \resumeItem{Dong, H., Jo, D., Cho, H., \underline{Park, C}., \& Kim, W. H. (2024). Joint-Embedding Predictive Architecture for Self-Supervised Learning of Mask Classification Architecture.}
+          \resumeItemListEnd
+          \vspace{-15pt}
+      \resumeProjectHeading
+          {\textbf{International \& Domastic Conference} }{}
+          \resumeItemListStart
+            \resumeItem{Park, Chanmin, et al. "Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors." 2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI). IEEE, 2021.\href{https://ieeexplore.ieee.org/document/9434102}{\underline{Paper Link}} \href{https://github.com/pcmin03/main_codeCode Link}{\underline{Code }}}
+          \resumeItem{"Development of a KFDA-certified Deep Learning Algorithm for Quantitative Analysis of Ki-67 Immunohistochemical Stains", 대한병리학회}
+          \resumeItemListEnd 
+          \vspace{-15pt}
+    \resumeProjectHeading
+      {\textbf{Award \& Competition}}{}
+    \resumeItemListStart
+        \resumeItem{\underline{Video recognition}: Google - Isolated Sign Language Recognition}
+        \resumeItem{\underline{Segmentation \& Ranking \& Detection}: Tumor-InfiltratinG lymphocytes in breast cancER (TIGER) \href{https://github.com/vuno/tiger_challenge}{\underline{Code Link}}}
+        \resumeItem{\underline{Instance segmentation}: Achieved 1st place in Track B of the 2020 HealthHub Datathon using Unet}
+        \resumeItem{\underline{Object detection}: Lesion Detection AI Competition using ensembled YOLOv5 \href{https://dacon.io/competitions/official/235855/codeshare/3743?page=1&dtype=recent}{\underline{Code Link}}}
+        \resumeItem{\underline{Tabular classification}: Ranked in the Top 8\% in the Autonomous Driving Sensor Antenna Performance Prediction AI Competition}
+    \resumeItemListEnd
+    
+    % ---- Add your award here ----
+    \resumeProjectHeading
+      {\textbf{AI Technology Excellence Award – PoscoDX}}{Sep. 2025}
+    \resumeItemListStart
+        \resumeItem{Recognized for significant contributions to automating steelmaking processes by applying computer vision and deep learning technologies, improving quality, safety, and operational efficiency in production lines.}
+    \resumeItemListEnd
+% \vspace{-10pt}
+
+\section{Other Skills}
+    \begin{itemize}[leftmargin=0in, label={}]
+    \small{\item{
+     \textbf{Skills}: Python, Linux, Docker, MongoDB, GitHub, VS Code, Google Cloud Platform, Pytorch, Pytorch ligthing, Tensorflow, Mlflow, AimStack}}
+    \end{itemize}
+    \vspace{-17pt}
+    
+    \begin{itemize}[leftmargin=0in, label={}]
+    \small{\item{
+     \textbf{Project \& Communite}: Work beta reviewer of "캐글 메달리스트가 알려주는 캐글 노하우" ; Join with Pseudo lab member and make \href{https://pseudo-lab.github.io/SegCrew-Book/docs/index.html}{\underline{segmentation papers review page}}}}
+    \end{itemize}
+    \vspace{-17pt}
+    
+    \begin{itemize}[leftmargin=0in, label={}]
+    \small{\item{
+     \textbf{Domestic Patent}\\Method for analyzing for medical image (Application number : 1020210139898)\\Method For Analyzing Medical Image based on deep learning (Application number : 1020210139897)\\Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium : (Registration number : 1020210139898)}}
+    \end{itemize}
+    
+    % \textbf{Domestic Patent}
+    % \vspace{-5pt}
+    %   \resumeItemListStart
+    %     \resumeItem{Method for analyzing for medical image (Application number : 1020210139898)}
+    %     \resumeItem{Method For Analyzing Medical Image based on deep learning (Application number : 1020210139897)}
+    %     \resumeItem{Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium : (Registration number : 1020210139898)}
+    %   \resumeItemListEnd
+      %     \resumeItemListEnd
+      %     \vspace{-15pt}
+      % \resumeProjectHeading
+      %     {\textbf{Project \& Communite} }{}
+      %     \resumeItemListStart
+      %       \resumeItem{Work beta reviewer of "캐글 메달리스트가 알려주는 캐글 노하우" ; Join with Pseudo lab member and make \href{https://pseudo-lab.github.io/SegCrew-Book/docs/index.html}{\underline{segmentation papers review page}}}
+      %     \resumeItemListEnd
+      %     \vspace{-15pt}
+      % \resumeProjectHeading
+      %     {\textbf{Domestic Patent} }{}
+      %     \resumeItemListStart
+      %       \resumeItem{Method for analyzing for medical image (Application number : 1020210139898)}
+      %       \resumeItem{Method For Analyzing Medical Image based on deep learning (Application number : 1020210139897)}
+      %       \resumeItem{Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium : (Registration number : 1020210139898)}
+      %     \resumeItemListEnd
+      %     \vspace{-15pt}
+
+%
+%-----------PROGRAMMING SKILLS-----------
+% \section{Other Skills}
+%  \begin{itemize}[leftmargin=0.15in, label={}]
+%     \small{\item{
+%      \textbf{Skills}{: Python,  Linux, Docker,GitHub; Deep learning tools : VS Code, Google Cloud Platform, Pytorch, Pytorch lligthing, Tensorflow} \\
+%      \textbf{Project \& Communite}{: Work beta reviewer of "캐글 메달리스트가 알려주는 캐글 노하우" ; Join with Pseudo lab member and make \href{https://pseudo-lab.github.io/SegCrew-Book/docs/index.html}{\underline{segmentation papers review page}}}
+%      \\
+%      \textbf{Domestic Patent}{:Work beta reviewer of "캐글 메달리스트가 알려주는 캐글 노하우" ; Join with Pseudo lab member and make \href{https://pseudo-lab.github.io/SegCrew-Book/docs/index.html}{\underline{segmentation papers review page}}}
+%      \\
+%     }}
+%  \end{itemize}
+ \vspace{-10pt}
+
+
+% %-----------INVOLVEMENT---------------
+% \section{Leadership / Extracurricular}
+%     \resumeSubHeadingListStart
+%         \resumeSubheading{Fraternity}{Spring 2020 -- Present}{President}{University Name}
+%             \resumeItemListStart
+%                 \resumeItem{Achieved a 4 star fraternity ranking by the Office of Fraternity and Sorority Affairs (highest possible ranking).}
+%                 \resumeItem{Managed executive board of 5 members and ran weekly meetings to oversee progress in essential parts of the chapter.}
+%                 \resumeItem{Led chapter of 30+ members to work towards goals that improve and promote community service, academics, and unity.}
+%             \resumeItemListEnd
+        
+%     \resumeSubHeadingListEnd
+
+
+\end{document}
