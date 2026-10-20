@@ -1,9 +1,3 @@
-- title: CAPT (WACV 2027)
-  cover: /capt/assets/video/capt_retrieval_poster.jpg
-  description: Research / Universal Cross-Domain Retrieval
-  url: /capt/
-  tags: [Research, Retrieval, CLIP]
-
 - title: Path-Quant
   cover: /assets/images/projects/path-quant.jpg
   description: Development / Detection
