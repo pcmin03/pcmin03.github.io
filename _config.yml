@@ -256,6 +256,7 @@ exclude:
   - Dockerfile.dev
   - /docker
   - /tools
+  - /cv
   - /jekyll_resume_structure
   - chan.jpg
   - images.jpeg

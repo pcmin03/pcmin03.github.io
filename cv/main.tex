@@ -21,9 +21,11 @@
 \usepackage{tabularx}
 \usepackage{fontawesome5}
 \usepackage{multicol}
+\usepackage{iftex}
 \setlength{\multicolsep}{-3.0pt}
 \setlength{\columnsep}{-1pt}
-\input{glyphtounicode}
+\ifPDFTeX\input{glyphtounicode}\fi
+\ifXeTeX\setmainhangulfont{AppleMyungjo}\xetexkofontregime{latin}\fi
 
 
 %----------FONT OPTIONS----------
@@ -32,7 +34,8 @@
 % \usepackage[sfdefault]{roboto}
 % \usepackage[sfdefault]{noto-sans}
 % \usepackage[default]{sourcesanspro}
-\usepackage[default]{pslatex}
+\usepackage{pslatex} % "default" option dropped: pslatex has none and it errored
+\ifXeTeX\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]\fi % Times clone for local XeTeX (tectonic) builds
 
 % serif
 % \usepackage{CormorantGaramond}
@@ -64,7 +67,7 @@
 }{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
 
 % Ensure that generate pdf is machine readable/ATS parsable
-\pdfgentounicode=1
+\ifPDFTeX\pdfgentounicode=1\fi
 
 %-------------------------
 % Custom commands
@@ -127,9 +130,9 @@
 \begin{center}
     {\scshape \Large\textbf{ChanMin Park}} \\ \vspace{1pt}
     Seoul, Republic of Korea \\ \vspace{1pt}
-    \small \raisebox{-0.1\height}\faPhone\ +82 10 3999 3403 ~ \href{mailto:x@gmail.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{pcmin03@gmail.com}} ~ 
-    \href{https://linkedin.com/in//}{\raisebox{-0.2\height}\faLinkedin\ \underline{linkedin.com/in/pcmin03}}  ~
-    \href{https://github.com/}{\raisebox{-0.2\height}\faGithub\ \underline{github.com/pcmin03}} ~
+    \small \raisebox{-0.1\height}\faPhone\ +82 10 3999 3403 ~ \href{mailto:pcmin03@gmail.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{pcmin03@gmail.com}} ~ 
+    \href{https://www.linkedin.com/in/chan-min-park-0abab713b/}{\raisebox{-0.2\height}\faLinkedin\ \underline{LinkedIn}}  ~
+    \href{https://github.com/pcmin03}{\raisebox{-0.2\height}\faGithub\ \underline{github.com/pcmin03}} ~
     \href{https://smoggy-fibula-4b3.notion.site/My-Portfolio-Chan-Min-Park-195c3ffbc67f4f67a80eca8b9a506a3b?pvs=4}{\raisebox{-0.2\height}\faHome\ \underline{Portfolio}}
     \vspace{-8pt}
 \end{center}
@@ -137,7 +140,7 @@
 %-----------SUMMARY-----------
 \section{Summary}
  \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{As a computer vision AI Research Engineer with three years of experience, I apply AI to solve diverse problems across various domains, including 2D/3D images, tablur, and videos, while also enjoying participating in competitions.
+    \small{\item{As a computer vision AI Research Engineer with five years of experience, I apply AI to solve diverse problems across various domains, including 2D/3D images, tabular data, and videos, while also enjoying participating in competitions.
     }}
  \end{itemize}
  \vspace{-10pt}
@@ -150,12 +153,12 @@
       \resumeItemListStart
         \resumeItem{\underline{3D AI \& Sensor Fusion}: Working as a 3D AI engineer integrating LiDAR, ToF, and RGB sensors to build fused perception systems and environment understanding models for steel production sites.}
         \resumeItem{\underline{AI Systems Engineering (PLC/L2 Service)}: Designing and implementing AI-driven PLC/L2-style service systems that connect AI models with real-time factory control, monitoring, and automated pipeline execution.}
-        \resumeItem{\underline{Domain Adaptation \& Retrieval Research}: Conducting data-centric research on domain adaptation, clustering, and retrieval to improve cross-line and cross-facility generalization of AI models.}
+        \resumeItem{\underline{Domain Adaptation \& Retrieval Research}: Conducting data-centric research on domain adaptation, clustering, and retrieval to improve cross-line and cross-facility generalization of AI models; co-first-authored CAPT (WACV 2027) on universal cross-domain retrieval.}
         \resumeItem{\underline{Steel Defect Detection \& MLOps}: Developed SDD models and built MLOps Level 1 with Continuous Training (CT) using Dataiku for real-time quality improvement.}
       \resumeItemListEnd
     \resumeSubheading
       {VUNO Inc.}{May 2021 -- July 2024 }
-      {AI Research Enginner, Vision team}{Seoul, Korea}
+      {AI Research Engineer, Vision team}{Seoul, Korea}
       \resumeItemListStart
         \resumeItem{\underline{2D object detection}: Developed a model to detect cell objects in gigapixel pathology images, optimizing it for fast inference.}
         \resumeItem{\underline{SW Productization}: Obtained KFDA certification for a Deep Learning Algorithm and scheduled evaluations involving over 20 labelers, resulting in the acquisition of two patent certifications.}
@@ -187,10 +190,10 @@
       
     \resumeSubheading
       {Inje University}{Mar. 2014 -- Aug. 2018}
-      {B.S \ in Bio Medical Enginnering}{Kimhae , S.Korea}
+      {B.S \ in Bio Medical Engineering}{Kimhae , S.Korea}
       \resumeItemListStart
       \resumeItem{Cumulative GPA 3.89/4.5, Scholarships: Academic excellence for 8 semesters (2014-2018)}
-      \resumeItem{\textbf{Gold Prize}: Inje Creative Comprehensive Design Contest; \textbf{Bronze Prize}: 2017 Engineering Festival Competition; \textbf{Awarded}: Good Capstone Design contes \& Gyeongnam area preliminary for the creative comprehensive design contest;}
+      \resumeItem{\textbf{Gold Prize}: Inje Creative Comprehensive Design Contest; \textbf{Bronze Prize}: 2017 Engineering Festival Competition; \textbf{Awarded}: Good Capstone Design contest \& Gyeongnam area preliminary for the creative comprehensive design contest;}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
 %-----------PROJECTS-----------
@@ -198,18 +201,21 @@
     \vspace{-5pt}
     \resumeSubHeadingListStart
       \resumeProjectHeading
-          {\textbf{UnderReview} }{}
+          {\textbf{Journal \& International Conference} }{}
           \resumeItemListStart
-            \resumeItem{Cho, H., \underline{Park, C}., Kim, J., \& Kim, W. H. (2024). CNA-TTA: Clean and Noisy Region Aware Feature Learning within Clusters for Online-Offline Test-Time Adaptation. arXiv preprint arXiv:2401.14587. \href{https://arxiv.org/abs/2401.14587}{\underline{Paper Link}}}
-            \resumeItem{Dong, H., Jo, D., Cho, H., \underline{Park, C}., \& Kim, W. H. (2024). Joint-Embedding Predictive Architecture for Self-Supervised Learning of Mask Classification Architecture.}
+            \resumeItem{\underline{Park, C}.*, \& Kang, M.* (2027). CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval. IEEE/CVF Winter Conference on Applications of Computer Vision (WACV 2027). *Equal contribution. \href{https://pcmin03.github.io/capt/}{\underline{Project Page}}}
+            \resumeItem{van Rijthoven, M., Aswolinskiy, W., Tessier, L., Salgado, R., van der Laak, J., Ciompi, F., \& TIGER consortium (incl. \underline{Park, C}.) (2026). Analysis of computational tumor-infiltrating lymphocytes in breast cancer from the results of the TIGER challenge. Nature Communications, 17, 6480. \href{https://doi.org/10.1038/s41467-026-72956-x}{\underline{Paper Link}}}
+            \resumeItem{Cho, H., \underline{Park, C}., Kim, D. H., Kim, J., \& Kim, W. H. (2024). CNG-SFDA: Clean-and-Noisy Region Guided Online-Offline Source-Free Domain Adaptation. Asian Conference on Computer Vision (ACCV 2024). \href{https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html}{\underline{Paper Link}}}
+            \resumeItem{\underline{Park, C}., et al. (2021). Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors. IEEE 18th International Symposium on Biomedical Imaging (ISBI 2021). \href{https://ieeexplore.ieee.org/document/9434102}{\underline{Paper Link}} \href{https://github.com/pcmin03/main_code}{\underline{Code Link}}}
           \resumeItemListEnd
           \vspace{-15pt}
       \resumeProjectHeading
-          {\textbf{International \& Domastic Conference} }{}
+          {\textbf{Preprint \& Domestic Conference} }{}
           \resumeItemListStart
-            \resumeItem{Park, Chanmin, et al. "Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors." 2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI). IEEE, 2021.\href{https://ieeexplore.ieee.org/document/9434102}{\underline{Paper Link}} \href{https://github.com/pcmin03/main_codeCode Link}{\underline{Code }}}
-          \resumeItem{"Development of a KFDA-certified Deep Learning Algorithm for Quantitative Analysis of Ki-67 Immunohistochemical Stains", 대한병리학회}
-          \resumeItemListEnd 
+            \resumeItem{Dong, H., Jo, D., Cho, H., \underline{Park, C}., \& Kim, W. H. (2024). Joint-Embedding Predictive Architecture for Self-Supervised Learning of Mask Classification Architecture. arXiv:2407.10733. \href{https://arxiv.org/abs/2407.10733}{\underline{Paper Link}}}
+            \resumeItem{진종현, \underline{박찬민}, 윤일용 (2025). 데이터 기반 동적 필터링이 포인트 클라우드 객체 증분 학습에 미치는 영향도 분석. 한국정보과학회 학술발표논문집.}
+            \resumeItem{"Development of a KFDA-certified Deep Learning Algorithm for Quantitative Analysis of Ki-67 Immunohistochemical Stains", 대한병리학회}
+          \resumeItemListEnd
           \vspace{-15pt}
     \resumeProjectHeading
       {\textbf{Award \& Competition}}{}
@@ -227,18 +233,19 @@
     \resumeItemListStart
         \resumeItem{Recognized for significant contributions to automating steelmaking processes by applying computer vision and deep learning technologies, improving quality, safety, and operational efficiency in production lines.}
     \resumeItemListEnd
+  \resumeSubHeadingListEnd
 % \vspace{-10pt}
 
 \section{Other Skills}
     \begin{itemize}[leftmargin=0in, label={}]
     \small{\item{
-     \textbf{Skills}: Python, Linux, Docker, MongoDB, GitHub, VS Code, Google Cloud Platform, Pytorch, Pytorch ligthing, Tensorflow, Mlflow, AimStack}}
+     \textbf{Skills}: Python, Linux, Docker, MongoDB, GitHub, VS Code, Google Cloud Platform, Pytorch, Pytorch Lightning, Tensorflow, Mlflow, AimStack}}
     \end{itemize}
     \vspace{-17pt}
     
     \begin{itemize}[leftmargin=0in, label={}]
     \small{\item{
-     \textbf{Project \& Communite}: Work beta reviewer of "캐글 메달리스트가 알려주는 캐글 노하우" ; Join with Pseudo lab member and make \href{https://pseudo-lab.github.io/SegCrew-Book/docs/index.html}{\underline{segmentation papers review page}}}}
+     \textbf{Project \& Community}: Work beta reviewer of "캐글 메달리스트가 알려주는 캐글 노하우" ; Join with Pseudo lab member and make \href{https://pseudo-lab.github.io/SegCrew-Book/docs/index.html}{\underline{segmentation papers review page}}}}
     \end{itemize}
     \vspace{-17pt}
     
