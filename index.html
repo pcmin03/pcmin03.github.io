@@ -6,816 +6,489 @@ show_posts: false
 full_width: true
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/assets/css/resume.css' | relative_url }}">
 
-
-<div class="resume">
-  <header class="resume__hero scroll-animate fade-in-up">
-    <img src="/assets/mstile-310x310.png" alt="ChanMin Park">
-    <div class="resume__meta">
-      <h1>ChanMin Park</h1>
-      <p class="resume__subtitle" data-i18n="home.subtitle">Vision Research Engineer</p>
-      <div class="resume__overview">
-        <p class="resume__overview-quote" data-i18n="home.quote">
-          <i class="fas fa-quote-left"></i>
-          I build industrial and medical vision systems end to end: from Physical AI and domain adaptation to 3D detection, MLOps, and production deployment.
-        </p>
-        
-        <div class="resume__overview-cards">
-          <div class="resume__overview-card">
-            <div class="resume__overview-card-header">
-              <i class="fas fa-cube"></i>
-              <span data-i18n="home.cards.vision.title">Physical AI · Spatial Intelligence</span>
-            </div>
-            <p data-i18n="home.cards.vision.body">Build Physical AI, sim-to-real, and autonomous vision systems for manufacturing processes.</p>
-            <div class="resume__overview-tags">
-              <span data-i18n="home.cards.vision.tag1">Physical AI</span>
-              <span data-i18n="home.cards.vision.tag2">Spatial Intelligence</span>
-              <span data-i18n="home.cards.vision.tag3">Vision Control</span>
-            </div>
-          </div>
-
-          <div class="resume__overview-card">
-            <div class="resume__overview-card-header">
-              <i class="fas fa-rocket"></i>
-              <span data-i18n="home.cards.product.title">System Engineering · MLOps</span>
-            </div>
-            <p data-i18n="home.cards.product.body">Design end-to-end vision systems from data and model pipelines to packaging, deployment, and reliable operations.</p>
-            <div class="resume__overview-tags">
-              <span data-i18n="home.cards.product.tag1">System Engineering</span>
-              <span data-i18n="home.cards.product.tag2">MLOps</span>
-              <span data-i18n="home.cards.product.tag3">Deployment</span>
-            </div>
-          </div>
-
-          <div class="resume__overview-card">
-            <div class="resume__overview-card-header">
-              <i class="fas fa-flask"></i>
-              <span data-i18n="home.cards.research.title">Sim2Real · SSL · Domain Adaptation</span>
-            </div>
-            <p data-i18n="home.cards.research.body">Develop sim-to-real, self-supervised learning, and domain adaptation workflows that keep vision models stable under domain shift.</p>
-            <div class="resume__overview-tags">
-              <span data-i18n="home.cards.research.tag1">Sim2Real</span>
-              <span data-i18n="home.cards.research.tag2">Self-Supervised</span>
-              <span data-i18n="home.cards.research.tag3">Domain Adaptation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="resume__contact">
-        <a href="tel:+821039993403"><i class="fas fa-phone" aria-hidden="true"></i><span class="emoji-fallback">📞</span> 010-3999-3403</a>
-        <a href="mailto:pcmin03@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i><span class="emoji-fallback">✉️</span> <span data-i18n="home.contact.email">Email</span></a>
-        <a href="https://www.linkedin.com/in/chan-min-park-0abab713b/" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i><span class="emoji-fallback">💼</span> LinkedIn</a>
-        <a href="https://github.com/pcmin03" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i><span class="emoji-fallback">💻</span> GitHub</a>
-        <a href="/MY_CV_final.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf" aria-hidden="true"></i><span class="emoji-fallback">📄</span> <span data-i18n="home.contact.cv">CV</span></a>
-      </div>
-      <div class="resume__stats">
-        <div class="resume__stat">
-          <span class="resume__stat-value">5+</span>
-          <span class="resume__stat-label" data-i18n="home.stats.years">Years in CV & Industry</span>
-        </div>
-        <div class="resume__stat">
-          <span class="resume__stat-value">5+</span>
-          <span class="resume__stat-label" data-i18n="home.stats.projects">Major projects</span>
-        </div>
-        <div class="resume__stat">
-          <span class="resume__stat-value">5+</span>
-          <span class="resume__stat-label" data-i18n="home.stats.patents">Patents</span>
-        </div>
-        <div class="resume__stat">
-          <span class="resume__stat-value">7</span>
-          <span class="resume__stat-label" data-i18n="home.stats.papers">Vision papers</span>
-        </div>
+<div class="portfolio">
+  <aside class="profile-sidebar" aria-label="Profile sidebar">
+    <div class="profile-sidebar__top">
+      <img class="profile-sidebar__avatar" src="/assets/mstile-310x310.png" alt="ChanMin Park">
+      <div>
+        <h1 class="profile-sidebar__name">ChanMin Park</h1>
+        <p class="profile-sidebar__role"><span data-i18n="home.subtitle">Vision Research Engineer</span><br>POSCO DX</p>
       </div>
     </div>
-  </header>
 
-  <!-- Top Horizontal Navigation -->
-  <nav class="top-nav" id="topNav">
-    <ul class="top-nav__list">
-      <li><a href="#experience" class="top-nav__link"><i class="fas fa-briefcase"></i> <span data-i18n="home.nav.experience">Experience</span></a></li>
-      <li><a href="#education" class="top-nav__link"><i class="fas fa-graduation-cap"></i> <span data-i18n="home.nav.education">Education</span></a></li>
-      <li><a href="#projects" class="top-nav__link"><i class="fas fa-folder-open"></i> <span data-i18n="home.nav.projects">Projects</span></a></li>
-      <li><a href="#seminar" class="top-nav__link"><i class="fas fa-chalkboard-teacher"></i> <span data-i18n="home.nav.seminar">Seminar</span></a></li>
-      <li><a href="#publications" class="top-nav__link"><i class="fas fa-file-alt"></i> <span data-i18n="home.nav.publications">Publications</span></a></li>
-      <li><a href="#skills" class="top-nav__link"><i class="fas fa-brain"></i> <span data-i18n="home.nav.skills">Expertise & Tools</span></a></li>
-      <li><a href="#awards" class="top-nav__link"><i class="fas fa-trophy"></i> <span data-i18n="home.nav.awards">Awards</span></a></li>
-      <li><a href="#recent-posts" class="top-nav__link"><i class="fas fa-blog"></i> <span data-i18n="home.nav.recentPosts">Recent Posts</span></a></li>
-    </ul>
-  </nav>
+    <div class="tag-row" aria-label="Research interests">
+      <span data-i18n="home.cards.vision.tag1">Physical AI</span>
+      <span data-i18n="home.cards.vision.tag2">Spatial Intelligence</span>
+      <span data-i18n="home.cards.research.tag3">Domain Adaptation</span>
+      <span data-i18n="home.cards.product.tag2">MLOps</span>
+    </div>
 
-  <div class="resume__body">
-    <aside class="resume__sidebar">
-      <!-- Navigation Shortcuts -->
-      <nav class="sidebar-nav scroll-animate fade-in-left">
-        <div class="sidebar-nav__title" data-i18n="home.quickNav">Quick Navigation</div>
-        <ul class="sidebar-nav__list">
-          <li class="sidebar-nav__item">
-            <a href="#experience" class="sidebar-nav__link">
-              <i class="fas fa-briefcase"></i>
-              <span data-i18n="home.nav.experience">Experience</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#education" class="sidebar-nav__link">
-              <i class="fas fa-graduation-cap"></i>
-              <span data-i18n="home.nav.education">Education</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#projects" class="sidebar-nav__link">
-              <i class="fas fa-folder-open"></i>
-              <span data-i18n="home.nav.projects">Projects</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#seminar" class="sidebar-nav__link">
-              <i class="fas fa-chalkboard-teacher"></i>
-              <span data-i18n="home.nav.seminar">Seminar</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#publications" class="sidebar-nav__link">
-              <i class="fas fa-file-alt"></i>
-              <span data-i18n="home.nav.publications">Publications</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#skills" class="sidebar-nav__link">
-              <i class="fas fa-brain"></i>
-              <span data-i18n="home.nav.skills">Expertise & Tools</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#awards" class="sidebar-nav__link">
-              <i class="fas fa-trophy"></i>
-              <span data-i18n="home.nav.awards">Awards</span>
-            </a>
-          </li>
-          <li class="sidebar-nav__item">
-            <a href="#recent-posts" class="sidebar-nav__link">
-              <i class="fas fa-blog"></i>
-              <span data-i18n="home.nav.recentPosts">Recent Posts</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+    <nav class="sidebar-nav" aria-label="Homepage sections">
+      <a href="#about" class="sidebar-nav__link" data-i18n="home.nav.about">About</a>
+      <a href="#experience" class="sidebar-nav__link" data-i18n="home.nav.experience">Experience</a>
+      <a href="#publications" class="sidebar-nav__link" data-i18n="home.nav.publications">Publications</a>
+      <a href="#projects" class="sidebar-nav__link" data-i18n="home.nav.projects">Projects</a>
+      <a href="#education" class="sidebar-nav__link" data-i18n="home.nav.education">Education</a>
+      <a href="#seminar" class="sidebar-nav__link" data-i18n="home.nav.seminar">Seminar</a>
+      <a href="#skills" class="sidebar-nav__link" data-i18n="home.nav.skills">Skills</a>
+      <a href="#awards" class="sidebar-nav__link" data-i18n="home.nav.awards">Awards</a>
+      <a href="#recent-posts" class="sidebar-nav__link" data-i18n="home.nav.recentPosts">Posts</a>
+    </nav>
 
-    <section class="resume__timeline">
-      <!-- Experience Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="experience">
-        <h3 class="resume-section__title" data-i18n="home.sections.experience">Experience</h3>
-        
-        <div class="timeline-item">
-          <h4>
-            <img src="/assets/images/posco-dx-logo.svg" alt="POSCO DX" class="company-logo" 
-                 onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/poscodx.com'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/posco-dx-logo.svg'; } else { img.style.display='none'; }">
-            <span data-i18n="home.experience.posco.title">AX Technology R&D Group · Spatial Intelligence Vision Engineer · POSCO DX</span>
-          </h4>
-          <span data-i18n="home.experience.posco.date">Pangyo, Korea · July 2024 - Present</span>
-          <div class="timeline-signals" aria-label="POSCO DX key technologies">
-            <span class="timeline-chip timeline-chip--accent">Physical AI</span>
-            <span class="timeline-chip">Sim2Real</span>
-            <span class="timeline-chip">Isaac Sim</span>
-            <span class="timeline-chip">Vision Control</span>
-            <span class="timeline-chip">3D Sensor Fusion</span>
-          </div>
-          <ul class="timeline-achievements">
-            <li data-i18n-html="home.experience.posco.bullet1Html"><a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·Sim2Real·Vision Control</a>: Built physical-AI training environments that mirrored steel-site conditions and iterated models against real deployment constraints.</li>
-            <li data-i18n-html="home.experience.posco.bullet2Html"><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Steel Defect Detection·Factory DX</a>: Advanced Digital Transformation (DX) from smart factory to intelligence factory by building SDD-driven image retrieval and automated MLOps pipelines for steel vision systems.</li>
-            <li data-i18n-html="home.experience.posco.bullet3Html"><a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous Steelmaking·L2 Integration·Vision AI</a>: Integrated L2 communications and control signals to apply vision-based anomaly detection in autonomous steelmaking operations.</li>
-            <li data-i18n-html="home.experience.posco.bullet4Html">Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.</li>
-          </ul>
-          <div class="timeline-tools">
-            <strong data-i18n="home.labels.toolsUsed">사용한 tools:</strong>
-            <div class="timeline-tool-logos" aria-label="POSCO DX tool stack">
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nvidia.svg" alt="Isaac Sim" class="tech-logo">
-                <span>Isaac Sim</span>
-              </div>
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg" alt="PyTorch" class="tech-logo">
-                <span>PyTorch</span>
-              </div>
-              <div class="resume-pill">
-                <img src="/assets/images/dataiku-logo.svg" alt="Dataiku" class="tech-logo">
-                <span>Dataiku</span>
-              </div>
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg" alt="Docker" class="tech-logo">
-                <span>Docker</span>
-              </div>
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/databricks.svg" alt="MLflow" class="tech-logo">
-                <span>MLflow</span>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="action-banner" aria-label="Quick links">
+      <div class="action-links">
+        <a href="mailto:pcmin03@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> <span data-i18n="home.contact.email">Mail</span></a>
+        <a class="action-links__primary" href="/MY_CV_final.pdf" target="_blank" rel="noopener"><i class="fas fa-file-alt" aria-hidden="true"></i> <span data-i18n="home.contact.cv">CV</span></a>
+        <a href="https://www.linkedin.com/in/chan-min-park-0abab713b/" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+        <a href="https://github.com/pcmin03" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+        <a href="/archive.html"><i class="fas fa-pen-nib" aria-hidden="true"></i> <span data-i18n="home.labels.blog">Blog</span></a>
+      </div>
+    </div>
+  </aside>
 
-        <div class="timeline-item">
-          <h4>
-            <img src="/assets/images/vuno-logo.svg" alt="VUNO" class="company-logo" 
-                 onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/vuno.co'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/vuno-logo.svg'; } else { img.style.display='none'; }">
-            <span data-i18n="home.experience.vuno.title">AI Research Engineer · VUNO Inc.</span>
-          </h4>
-          <span data-i18n="home.experience.vuno.date">Seoul, Korea · May 2021 - July 2024</span>
-          <div class="timeline-signals" aria-label="VUNO key technologies">
-            <span class="timeline-chip timeline-chip--accent">Medical AI</span>
-            <span class="timeline-chip">PyTorch</span>
-            <span class="timeline-chip">Domain Adaptation</span>
-            <span class="timeline-chip">Self-Supervised Learning</span>
-            <span class="timeline-chip">3D Detection</span>
-            <span class="timeline-chip">Applied Engineering</span>
-            <span class="timeline-chip">MLflow</span>
-          </div>
-          <ul class="timeline-achievements">
-            <li data-i18n-html="home.experience.vuno.bullet1Html"><a href="https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html" target="_blank" rel="noopener" class="timeline-link">Test-Time Adaptation·Domain Adaptation·ACCV 2024</a>: Developed adaptation strategies for medical imaging domain shifts and contributed to the CNG-SFDA research line published at ACCV 2024.</li>
-            <li data-i18n-html="home.experience.vuno.bullet2Html"><a href="https://tiger.grand-challenge.org/Home/" target="_blank" rel="noopener" class="timeline-link">Self-Supervised Learning·Universal Segmentation·TIGER Challenge</a>: Conducted segmentation-oriented SSL research, built pathology workflows around it, and applied the stack to achieve 1st place in the TIGER Challenge.</li>
-            <li data-i18n-html="home.experience.vuno.bullet3Html"><a href="https://www.docdocdoc.co.kr/news/articleView.html?idxno=3013245" target="_blank" rel="noopener" class="timeline-link">Lung CT·3D Tiny Object Detection·MLOps</a>: Built and deployed lung nodule detection pipelines for 3D tiny-object modeling, with production-grade monitoring and release workflows in real service environments.</li>
-            <li data-i18n-html="home.experience.vuno.bullet4Html"><a href="https://www.vuno.co/news/view/810" target="_blank" rel="noopener" class="timeline-link">PathQuant·End-to-End Delivery·Applied Engineering</a>: Owned the full cycle from data collection and model refinement to packaging and final deployment, demonstrating strong applied-engineer execution in medical imaging products.</li>
-          </ul>
-          <div class="timeline-tools">
-            <strong data-i18n="home.labels.toolsUsed">사용한 tools:</strong>
-            <div class="timeline-tool-logos" aria-label="VUNO tool stack">
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg" alt="PyTorch" class="tech-logo">
-                <span>PyTorch</span>
-              </div>
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg" alt="Docker" class="tech-logo">
-                <span>Docker</span>
-              </div>
-              <div class="resume-pill">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/databricks.svg" alt="MLflow" class="tech-logo">
-                <span>MLflow</span>
-              </div>
-            </div>
-          </div>
-        </div>
+  <main class="portfolio__main">
 
+    <!-- About -->
+    <section class="section intro" id="about">
+      <span class="section-kicker" data-i18n="home.kickers.about">About me</span>
+      <p class="hero-lede" data-i18n="home.quote">I build industrial and medical vision systems end to end: from Physical AI and domain adaptation to 3D detection, MLOps, and production deployment.</p>
+      <div class="hero-body">
+        <p data-i18n="home.about.p1">I am a Spatial Intelligence Vision Engineer in the AX Technology R&amp;D Group at POSCO DX, where I build Physical AI and sim-to-real vision systems for steel manufacturing.</p>
+        <p data-i18n="home.about.p2">Before that I spent three years as an AI Research Engineer at VUNO, shipping medical imaging products in pathology and lung CT, and I completed my M.S. in Computer Science at UNIST on neuron segmentation with noisy labels.</p>
       </div>
 
-      <!-- Education Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="education">
-        <h3 class="resume-section__title" data-i18n="home.sections.education">Education</h3>
-        
-        <div class="timeline-item">
-          <h4>
-            <img src="/assets/images/unist-logo.svg" alt="UNIST" class="company-logo" 
-                 onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/unist.ac.kr'; } else { img.style.display='none'; }">
-            M.S. in Computer Science · UNIST
-          </h4>
-          <span>Ulsan, Korea · Mar 2019 - Mar 2021</span>
-          <p>
-            Cumulative GPA 3.28/4.3, Scholarships: Academic excellence for 4 semesters (2019-2021)
-          </p>
-          <p>
-            <strong data-i18n="home.labels.thesis">Thesis:</strong> Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors
-          </p>
-          <p>
-            <strong data-i18n="home.labels.domesticPatent">Domestic Patent:</strong> Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium
-          </p>
-        </div>
-
-        <div class="timeline-item">
-          <h4>
-            <img src="/assets/images/inje-university-logo.svg" alt="Inje University" class="company-logo" 
-                 onerror="var img = this; if(img.src.indexOf('clearbit') === -1) { img.src='https://logo.clearbit.com/inje.ac.kr'; } else if(img.src.indexOf('svg') === -1) { img.src='/assets/images/inje-university-logo.svg'; } else { img.style.display='none'; }">
-            B.S. in Biomedical Engineering · Inje University
-          </h4>
-          <span>Gimhae, Korea · Mar 2014 - Aug 2018</span>
-          <p>
-            Cumulative GPA 3.89/4.5, Scholarships: Academic excellence for 8 semesters (2014-2018)
-          </p>
-          <p>
-            <strong data-i18n="home.labels.awards">Awards:</strong> Gold Prize: Inje Creative Comprehensive Design Contest; Bronze Prize: 2017 Engineering Festival Competition; Good Capstone Design Contest
-          </p>
-        </div>
+      <div class="focus-grid">
+        <article class="focus-card">
+          <div class="focus-card__head"><i class="fas fa-cube" aria-hidden="true"></i><span data-i18n="home.cards.vision.title">Physical AI · Spatial Intelligence</span></div>
+          <p data-i18n="home.cards.vision.body">Build Physical AI, sim-to-real, and autonomous vision systems for manufacturing processes.</p>
+        </article>
+        <article class="focus-card">
+          <div class="focus-card__head"><i class="fas fa-rocket" aria-hidden="true"></i><span data-i18n="home.cards.product.title">System Engineering · MLOps</span></div>
+          <p data-i18n="home.cards.product.body">Design end-to-end vision systems from data and model pipelines to packaging, deployment, and reliable operations.</p>
+        </article>
+        <article class="focus-card">
+          <div class="focus-card__head"><i class="fas fa-flask" aria-hidden="true"></i><span data-i18n="home.cards.research.title">Sim2Real · SSL · Domain Adaptation</span></div>
+          <p data-i18n="home.cards.research.body">Develop sim-to-real, self-supervised learning, and domain adaptation workflows that keep vision models stable under domain shift.</p>
+        </article>
       </div>
 
-      <!-- Projects Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="projects">
-        <h3 class="resume-section__title" data-i18n="home.sections.projects">Projects</h3>
-        
-        <div class="projects-grid-inline">
-          <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="project-inline-card project-inline-card--featured">
-            <div class="project-inline-card__content">
-              <h4>Steel Defect Detection</h4>
-              <span>[Detail]</span>
-            </div>
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Steel Defect Detection</span>
-              <div class="project-tags">
-                <span class="project-tag">PyTorch</span>
-                <span class="project-tag">GAN</span>
-                <span class="project-tag">Anomaly Detection</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/path-quant.html" class="project-inline-card">
-            <img src="/assets/images/projects/path-quant.jpg" alt="2D Pathology Object Detection" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Pathology Detection</span>
-              <div class="project-tags">
-                <span class="project-tag">PyTorch</span>
-                <span class="project-tag">Object Detection</span>
-                <span class="project-tag">Whole Slide Image</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/lungct-ai.html" class="project-inline-card">
-            <img src="/assets/images/projects/lungct-ai.jpg" alt="3D Lung CT Nodule Detection" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Lung CT Detection</span>
-              <div class="project-tags">
-                <span class="project-tag">3D CNN</span>
-                <span class="project-tag">Nodule Detection</span>
-                <span class="project-tag">Medical AI</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="https://github.com/vuno/tiger_challenge" target="_blank" rel="noopener" class="project-inline-card">
-            <img src="/assets/images/posts/tiger-challenge/segmentation-patch-selection.png" alt="TIGER Challenge" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">TIGER Challenge</span>
-              <div class="project-tags">
-                <span class="project-tag">Multi-Task</span>
-                <span class="project-tag">Segmentation</span>
-                <span class="project-tag">Grand Challenge</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/mri-image-analysis.html" class="project-inline-card">
-            <img src="/assets/images/projects/mri-image-analysis.jpg" alt="MRI Image Analysis" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">MRI Analysis</span>
-              <div class="project-tags">
-                <span class="project-tag">MRI</span>
-                <span class="project-tag">Registration</span>
-                <span class="project-tag">Brain Analysis</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/universal-segmentation.html" class="project-inline-card">
-            <img src="/assets/images/projects/universal-segmentation.jpg" alt="Universal Segmentation" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Segmentation</span>
-              <div class="project-tags">
-                <span class="project-tag">U-Net</span>
-                <span class="project-tag">Semantic Seg</span>
-                <span class="project-tag">Multi-Organ</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/medical-image-reconstruction.html" class="project-inline-card">
-            <img src="/assets/images/projects/medical-image-reconstruction.jpg" alt="Medical Image Reconstruction" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Image Reconstruction</span>
-              <div class="project-tags">
-                <span class="project-tag">WGAN-GP</span>
-                <span class="project-tag">Super Resolution</span>
-                <span class="project-tag">CT/MRI</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/test-time-adaptation.html" class="project-inline-card">
-            <img src="/assets/images/projects/test-time-adaptation.jpg" alt="Test Time Adaptation" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Test-Time Adaptation</span>
-              <div class="project-tags">
-                <span class="project-tag">Domain Adaptation</span>
-                <span class="project-tag">CNG-SFDA</span>
-                <span class="project-tag">Self-Training</span>
-              </div>
-            </div>
-          </a>
-          
-          <a href="/projects/video-action.html" class="project-inline-card">
-            <img src="/assets/images/projects/video-action.jpg" alt="Video Action Recognition" />
-            <div class="project-inline-card__overlay">
-              <span class="project-title">Video Action</span>
-              <div class="project-tags">
-                <span class="project-tag">Video</span>
-                <span class="project-tag">Action Recognition</span>
-                <span class="project-tag">Temporal</span>
-              </div>
-            </div>
-          </a>
-        </div>
+      <div class="stat-row">
+        <div class="stat-row__item"><span class="stat-row__value">5+</span><span class="stat-row__label" data-i18n="home.stats.years">Years in CV &amp; Industry</span></div>
+        <div class="stat-row__item"><span class="stat-row__value">7</span><span class="stat-row__label" data-i18n="home.stats.papers">Vision papers</span></div>
+        <div class="stat-row__item"><span class="stat-row__value">5+</span><span class="stat-row__label" data-i18n="home.stats.patents">Patents</span></div>
+        <div class="stat-row__item"><span class="stat-row__value">5+</span><span class="stat-row__label" data-i18n="home.stats.projects">Major projects</span></div>
       </div>
-
-      <!-- Seminar Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="seminar">
-        <h3 class="resume-section__title" data-i18n="home.sections.seminar">Seminar & Teaching</h3>
-        
-        <div class="publications-list">
-          <!-- FastCampus -->
-          <a href="https://fastcampus.co.kr/data_online_medicalai" target="_blank" rel="noopener" class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/medical-ai-course.png" alt="FastCampus Medical AI Course" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">딥러닝을 활용한 의료 영상 처리 & 모델 개발</h4>
-              <p class="publication-card__authors">Part-Time Instructor · FastCampus Inc.</p>
-              <p class="publication-card__venue">Seoul, Korea · Sep 2023 - Dec 2023</p>
-              <div class="publication-card__links">
-                <span data-i18n="home.labels.onlineCourse">[Online Course]</span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Inje Mentoring -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/inje-mentoring-card.png" alt="Inje University Mentoring" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">의용공학과에서 AI연구원되기까지</h4>
-              <p class="publication-card__authors">Career Mentor · Inje University</p>
-              <p class="publication-card__venue">Gimhae, Korea · 2023 - 2024</p>
-              <p data-i18n="home.seminar.mentoringDesc">Provided guidance and mentorship to students in computer vision and machine learning projects.</p>
-            </div>
-          </div>
-
-          <!-- Gachon ML Course -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/gachon-ml-card.png" alt="Gachon University ML Course" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">Image Classification · Machine Learning Course</h4>
-              <p class="publication-card__authors">Instructor · Gachon University (VUNO)</p>
-              <p class="publication-card__venue">Seongnam, Korea · 2023 - 2024</p>
-              <p data-i18n="home.seminar.gachonDesc">Taught machine learning fundamentals and applications to university students.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publications & Research Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="publications">
-        <h3 class="resume-section__title" data-i18n="home.sections.publications">Publications & Research</h3>
-        
-        <div class="publications-list">
-          <!-- CAPT -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/capt/assets/fig/method.webp" alt="CAPT method overview" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval</h4>
-              <p class="publication-card__authors"><u>Park, C.*</u>, & Kang, M.* (*equal contribution)</p>
-              <p class="publication-card__venue">WACV 2027</p>
-            </div>
-          </div>
-
-          <!-- TIGER Challenge -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/posts/tiger-challenge/segmentation-patch-selection.png" alt="TIGER Challenge" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">Analysis of computational tumor-infiltrating lymphocytes in breast cancer from the results of the TIGER challenge</h4>
-              <p class="publication-card__authors">van Rijthoven, M., Aswolinskiy, W., Tessier, L., Salgado, R., van der Laak, J., Ciompi, F., & TIGER consortium (incl. <u>Park, C.</u>)</p>
-              <p class="publication-card__venue">Nature Communications, 2026</p>
-              <div class="publication-card__links">
-                <a href="https://doi.org/10.1038/s41467-026-72956-x" target="_blank" rel="noopener">[PDF]</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- CNG-SFDA -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/publications/cng-sfda.png" alt="CNG-SFDA" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">CNG-SFDA: Clean-and-Noisy Region Guided Online-Offline Source-Free Domain Adaptation</h4>
-              <p class="publication-card__authors"><u>Cho, H.</u>, <u>Park, C.</u>, Kim, D. H., Kim, J., & Kim, W. H.</p>
-              <p class="publication-card__venue">ACCV 2024</p>
-              <div class="publication-card__links">
-                <a href="https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html" target="_blank" rel="noopener">[PDF]</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- JEPA-SSL -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/publications/jepa-ssl.png" alt="JEPA-SSL" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">Joint-Embedding Predictive Architecture for Self-Supervised Learning of Mask Classification Architecture</h4>
-              <p class="publication-card__authors">Dong, H., Jo, D., Cho, H., <u>Park, C.</u>, & Kim, W. H.</p>
-              <p class="publication-card__venue">arXiv, 2024</p>
-              <div class="publication-card__links">
-                <a href="https://arxiv.org/abs/2407.10733" target="_blank" rel="noopener">[PDF]</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Neuron Segmentation -->
-          <div class="publication-card">
-            <div class="publication-card__image">
-              <img src="/assets/images/publications/neuron-segmentation.jpg" alt="Neuron Segmentation" />
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors</h4>
-              <p class="publication-card__authors"><u>Park, Chanmin</u>, et al.</p>
-              <p class="publication-card__venue">ISBI 2021</p>
-              <div class="publication-card__links">
-                <a href="https://ieeexplore.ieee.org/document/9434102" target="_blank" rel="noopener">[PDF]</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Domestic -->
-          <div class="publication-card">
-            <div class="publication-card__image publication-card__image--placeholder">
-              <i class="fas fa-file-alt"></i>
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">데이터 기반 동적 필터링이 포인트 클라우드 객체 증분 학습에 미치는 영향도 분석</h4>
-              <p class="publication-card__authors">진종현, <u>박찬민</u>, 윤일용</p>
-              <p class="publication-card__venue">한국정보과학회 학술발표논문집, 2025</p>
-            </div>
-          </div>
-
-          <!-- KFDA -->
-          <div class="publication-card">
-            <div class="publication-card__image publication-card__image--placeholder">
-              <i class="fas fa-microscope"></i>
-            </div>
-            <div class="publication-card__content">
-              <h4 class="publication-card__title">Development of a KFDA-certified Deep Learning Algorithm for Quantitative Analysis of Ki-67 Immunohistochemical Stains</h4>
-              <p class="publication-card__authors"><u>Park, C.</u>, et al.</p>
-              <p class="publication-card__venue">대한병리학회 (Domestic Conference)</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item timeline-item--patents">
-          <h4 data-i18n="home.sections.patents">Patents</h4>
-          <ul>
-            <li>Method for analyzing medical image (Application number: 1020210139898)</li>
-            <li>Method For Analyzing Medical Image based on deep learning (Application number: 1020210139897)</li>
-            <li>Brain Neural Network Structure Image Processing System, Brain Neural Network Structure Image Processing Method, and a computer-readable storage medium (Registration number: 1020210139898)</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Expertise & Tools Section with Tabs -->
-      <div class="resume-section scroll-animate fade-in-right" id="skills">
-        <h3 class="resume-section__title" data-i18n="home.sections.skills">Expertise & Tools</h3>
-        
-        <!-- Tab Navigation -->
-        <div class="tab-navigation">
-          <button class="tab-button active" data-tab="expertise">
-            <i class="fas fa-brain"></i> <span data-i18n="home.tabs.expertise">Expertise</span>
-          </button>
-          <button class="tab-button" data-tab="tools">
-            <i class="fas fa-tools"></i> <span data-i18n="home.tabs.tools">Tools & Technologies</span>
-          </button>
-        </div>
-
-        <!-- Expertise Tab Content -->
-        <div class="tab-content active" id="expertise-tab">
-          <div class="expertise-list">
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-crosshairs" aria-hidden="true"></i>
-                <span class="emoji-fallback">🎯</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item1">Object Detection & Segmentation</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-cube" aria-hidden="true"></i>
-                <span class="emoji-fallback">📦</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item2">3D Vision · Depth · Pose</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-robot" aria-hidden="true"></i>
-                <span class="emoji-fallback">🤖</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item3">Sensor Fusion & Robotics Perception</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-video" aria-hidden="true"></i>
-                <span class="emoji-fallback">🎥</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item4">Video Recognition & Tracking</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-dna" aria-hidden="true"></i>
-                <span class="emoji-fallback">🧬</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item5">Self-Supervised Vision (DINO/MoCo/MAE)</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-project-diagram" aria-hidden="true"></i>
-                <span class="emoji-fallback">🕸️</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item6">Embedding & Metric Learning</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-exchange-alt" aria-hidden="true"></i>
-                <span class="emoji-fallback">🔄</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item7">Domain Adaptation & Continual Eval</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-database" aria-hidden="true"></i>
-                <span class="emoji-fallback">💾</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item8">Large-Scale Data Pipelines</span>
-              </div>
-            </div>
-            
-            <div class="expertise-item">
-              <div class="expertise-item__icon">
-                <i class="fas fa-rocket" aria-hidden="true"></i>
-                <span class="emoji-fallback">🚀</span>
-              </div>
-              <div class="expertise-item__content">
-                <span class="expertise-item__title" data-i18n="home.expertise.item9">Edge Deployment & MLOps</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tools Tab Content -->
-        <div class="tab-content" id="tools-tab">
-          <div class="resume__grid">
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg" alt="Python" class="tech-logo">
-              <span>Python</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg" alt="PyTorch" class="tech-logo">
-              <span>PyTorch</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tensorflow.svg" alt="TensorFlow" class="tech-logo">
-              <span>TensorFlow</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg" alt="Docker" class="tech-logo">
-              <span>Docker</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linux.svg" alt="Linux" class="tech-logo">
-              <span>Linux</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg" alt="MongoDB" class="tech-logo">
-              <span>MongoDB</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazonaws.svg" alt="AWS" class="tech-logo">
-              <span>AWS</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/databricks.svg" alt="MLflow" class="tech-logo">
-              <span>MLflow</span>
-            </div>
-            <div class="resume-pill">
-              <img src="/assets/images/dataiku-logo.svg" alt="Dataiku" class="tech-logo">
-              <span>Dataiku</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/ros.svg" alt="ROS2" class="tech-logo">
-              <span>ROS2</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nvidia.svg" alt="Isaac Sim" class="tech-logo">
-              <span>Isaac Sim</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg" alt="Git" class="tech-logo">
-              <span>Git</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/confluence.svg" alt="Confluence" class="tech-logo">
-              <span>Confluence</span>
-            </div>
-            <div class="resume-pill">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jira.svg" alt="Jira" class="tech-logo">
-              <span>Jira</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Awards & Competitions Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="awards">
-        <h3 class="resume-section__title" data-i18n="home.sections.awards">Awards & Competitions</h3>
-        <ul class="resume-list">
-          <li><span><i class="fas fa-trophy" aria-hidden="true"></i><span class="emoji-fallback">🥇</span> TIGER Challenge - 1st Place</span><span class="resume-tag">VUNO</span></li>
-          <li><span><i class="fas fa-trophy" aria-hidden="true"></i><span class="emoji-fallback">🥇</span> HealthHub Datathon - 1st Place</span><span class="resume-tag">2020</span></li>
-          <li><span><i class="fas fa-medal" aria-hidden="true"></i><span class="emoji-fallback">🏆</span> Video Recognition: Google - Isolated Sign Language Recognition</span></li>
-          <li><span><i class="fas fa-trophy" aria-hidden="true"></i><span class="emoji-fallback">🥇</span> Instance Segmentation: HealthHub Datathon Track B - 1st Place</span><span class="resume-tag">2020</span></li>
-          <li><span><i class="fas fa-bullseye" aria-hidden="true"></i><span class="emoji-fallback">🎯</span> Object Detection: Lesion Detection AI Competition</span> <a href="#" target="_blank" rel="noopener" data-i18n="home.awards.codeLink">Code Link</a></li>
-          <li><span><i class="fas fa-medal" aria-hidden="true"></i><span class="emoji-fallback">🏅</span> Tabular Classification: Autonomous Driving Sensor - Top 8%</span></li>
-          <li><span>Inje Creative Comprehensive Design Contest</span><span class="resume-tag"><i class="fas fa-trophy" aria-hidden="true"></i><span class="emoji-fallback">🥇</span> <span data-i18n="home.awards.gold">Gold</span></span></li>
-          <li><span>2017 Engineering Festival Competition</span><span class="resume-tag"><i class="fas fa-medal" aria-hidden="true"></i><span class="emoji-fallback">🥉</span> <span data-i18n="home.awards.bronze">Bronze</span></span></li>
-          <li><span>Good Capstone Design Contest</span><span class="resume-tag"><i class="fas fa-medal" aria-hidden="true"></i><span class="emoji-fallback">🏅</span> <span data-i18n="home.awards.excellence">Excellence</span></span></li>
-        </ul>
-      </div>
-
-      <!-- Recent Posts Section -->
-      <div class="resume-section scroll-animate fade-in-right" id="recent-posts">
-        <h3 class="resume-section__title" data-i18n="home.sections.recentPosts">Recent Posts</h3>
-        <div class="recent-posts-grid">
-          {% assign recent_posts = site.posts | limit: 3 %}
-          {% for post in recent_posts %}
-          <a href="{{ post.url | relative_url }}" class="recent-post-card">
-            <div class="recent-post-date">{{ post.date | date: "%Y-%m-%d" }}</div>
-            <h4 class="recent-post-title">{{ post.title }}</h4>
-            {% if post.excerpt %}
-            <p class="recent-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
-            {% endif %}
-            <div class="recent-post-meta">
-              <span class="recent-post-category">
-                {% if post.categories.first %}
-                  {{ post.categories.first }}
-                {% else %}
-                  Blog
-                {% endif %}
-              </span>
-            </div>
-          </a>
-          {% endfor %}
-        </div>
-        <div class="recent-posts-more">
-          <a href="/archive.html" class="recent-posts-more-btn">
-            <span data-i18n="home.labels.more">더보기</span>
-            <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
     </section>
 
-    <!-- Summary Section - REMOVED (causing mobile overflow issues) -->
-  </div>
-</div>
+    <!-- Experience -->
+    <section class="section" id="experience">
+      <span class="section-kicker" data-i18n="home.kickers.experience">Experience</span>
+      <div class="section-heading-row">
+        <h2 data-i18n="home.sections.experience">Experience</h2>
+        <p data-i18n="home.sections.experienceNote">Industrial and medical vision work, from research prototypes to production deployment.</p>
+      </div>
 
-<!-- Floating Navigation (Mobile) -->
-<div class="floating-nav">
-  <button class="floating-nav__btn" id="floatingNavBtn" aria-label="Navigation Menu" data-i18n-aria-label="controls.floatingMenu">
-    <i class="fas fa-compass"></i>
-  </button>
-  <div class="floating-nav__menu" id="floatingNavMenu">
-    <ul>
-      <li><a href="#experience"><i class="fas fa-briefcase"></i> <span data-i18n="home.nav.experience">Experience</span></a></li>
-      <li><a href="#education"><i class="fas fa-graduation-cap"></i> <span data-i18n="home.nav.education">Education</span></a></li>
-      <li><a href="#projects"><i class="fas fa-folder-open"></i> <span data-i18n="home.nav.projects">Projects</span></a></li>
-      <li><a href="#seminar"><i class="fas fa-chalkboard-teacher"></i> <span data-i18n="home.nav.seminar">Seminar</span></a></li>
-      <li><a href="#publications"><i class="fas fa-file-alt"></i> <span data-i18n="home.nav.publications">Publications</span></a></li>
-      <li><a href="#skills"><i class="fas fa-brain"></i> <span data-i18n="home.nav.skills">Expertise & Tools</span></a></li>
-      <li><a href="#awards"><i class="fas fa-trophy"></i> <span data-i18n="home.nav.awards">Awards</span></a></li>
-      <li><a href="#recent-posts"><i class="fas fa-blog"></i> <span data-i18n="home.nav.recentPosts">Recent Posts</span></a></li>
-    </ul>
-  </div>
+      <div class="career-list">
+        <article class="experience-card highlight">
+          <img class="institution-logo" src="/assets/images/posco-dx-logo.svg" alt="POSCO DX">
+          <div class="experience-meta">
+            <span data-i18n="home.experience.posco.date">Pangyo, Korea · July 2024 - Present</span>
+          </div>
+          <h3 data-i18n="home.experience.posco.title">Spatial Intelligence Vision Engineer</h3>
+          <p class="institution">AX Technology R&amp;D Group · POSCO DX</p>
+          <div class="chip-row">
+            <span class="chip--accent">Physical AI</span>
+            <span>Sim2Real</span>
+            <span>Isaac Sim</span>
+            <span>Vision Control</span>
+            <span>3D Sensor Fusion</span>
+          </div>
+          <ul class="compact-list">
+            <li data-i18n-html="home.experience.posco.bullet1Html"><a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener">Isaac Sim · Sim2Real · Vision Control</a>: Built physical-AI training environments that mirrored steel-site conditions and iterated models against real deployment constraints.</li>
+            <li data-i18n-html="home.experience.posco.bullet2Html"><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener">Steel Defect Detection · Factory DX</a>: Advanced Digital Transformation (DX) from smart factory to intelligence factory by building SDD-driven image retrieval and automated MLOps pipelines for steel vision systems.</li>
+            <li data-i18n-html="home.experience.posco.bullet3Html"><a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener">Autonomous Steelmaking · L2 Integration · Vision AI</a>: Integrated L2 communications and control signals to apply vision-based anomaly detection in autonomous steelmaking operations.</li>
+            <li data-i18n-html="home.experience.posco.bullet4Html">Universal Cross-Domain Retrieval · CLIP Prompt Tuning · WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.</li>
+          </ul>
+          <div class="tool-row" aria-label="POSCO DX tool stack">
+            <span class="tool-row__label" data-i18n="home.labels.toolsUsed">Tools</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nvidia.svg" alt="">Isaac Sim</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg" alt="">PyTorch</span>
+            <span class="tool-pill"><img src="/assets/images/dataiku-logo.svg" alt="">Dataiku</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg" alt="">Docker</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/databricks.svg" alt="">MLflow</span>
+          </div>
+        </article>
+
+        <article class="experience-card">
+          <img class="institution-logo" src="/assets/images/vuno-logo.svg" alt="VUNO">
+          <div class="experience-meta">
+            <span data-i18n="home.experience.vuno.date">Seoul, Korea · May 2021 - July 2024</span>
+          </div>
+          <h3 data-i18n="home.experience.vuno.title">AI Research Engineer</h3>
+          <p class="institution">VUNO Inc.</p>
+          <div class="chip-row">
+            <span class="chip--accent">Medical AI</span>
+            <span>Domain Adaptation</span>
+            <span>Self-Supervised Learning</span>
+            <span>3D Detection</span>
+            <span>Applied Engineering</span>
+          </div>
+          <ul class="compact-list">
+            <li data-i18n-html="home.experience.vuno.bullet1Html"><a href="https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html" target="_blank" rel="noopener">Test-Time Adaptation · Domain Adaptation · ACCV 2024</a>: Developed adaptation strategies for medical imaging domain shifts and contributed to the CNG-SFDA research line published at ACCV 2024.</li>
+            <li data-i18n-html="home.experience.vuno.bullet2Html"><a href="https://tiger.grand-challenge.org/Home/" target="_blank" rel="noopener">Self-Supervised Learning · Universal Segmentation · TIGER Challenge</a>: Conducted segmentation-oriented SSL research, built pathology workflows around it, and applied the stack to achieve 1st place in the TIGER Challenge.</li>
+            <li data-i18n-html="home.experience.vuno.bullet3Html"><a href="https://www.docdocdoc.co.kr/news/articleView.html?idxno=3013245" target="_blank" rel="noopener">Lung CT · 3D Tiny Object Detection · MLOps</a>: Built and deployed lung nodule detection pipelines for 3D tiny-object modeling, with production-grade monitoring and release workflows in real service environments.</li>
+            <li data-i18n-html="home.experience.vuno.bullet4Html"><a href="https://www.vuno.co/news/view/810" target="_blank" rel="noopener">PathQuant · End-to-End Delivery · Applied Engineering</a>: Owned the full cycle from data collection and model refinement to packaging and final deployment, demonstrating strong applied-engineer execution in medical imaging products.</li>
+          </ul>
+          <div class="tool-row" aria-label="VUNO tool stack">
+            <span class="tool-row__label" data-i18n="home.labels.toolsUsed">Tools</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg" alt="">PyTorch</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg" alt="">Docker</span>
+            <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/databricks.svg" alt="">MLflow</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section class="section" id="publications">
+      <span class="section-kicker" data-i18n="home.kickers.publications">My work</span>
+      <h2 data-i18n="home.sections.publications">Publications &amp; Research</h2>
+
+      <div class="publication-list">
+        <article class="publication-card">
+          <img src="/capt/assets/fig/method.webp" alt="CAPT method overview">
+          <div>
+            <h3 class="pub-title">CAPT: Cross-modal Anchored Prompt Tuning for Universal Cross-Domain Retrieval</h3>
+            <p class="authors"><u>Park, C.*</u>, &amp; Kang, M.*</p>
+            <div class="badge-row"><span class="badge accepted">Accepted</span><span class="badge">WACV 2027</span><span class="badge">Equal Contribution</span></div>
+            <ul class="compact-list">
+              <li>Adapts a fully frozen CLIP with at most 1.35M trainable parameters for universal cross-domain retrieval.</li>
+              <li>Sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.</li>
+            </ul>
+          </div>
+        </article>
+
+        <a class="publication-card" href="https://doi.org/10.1038/s41467-026-72956-x" target="_blank" rel="noopener">
+          <img src="/assets/images/posts/tiger-challenge/segmentation-patch-selection.png" alt="TIGER Challenge">
+          <div>
+            <h3 class="pub-title">Analysis of computational tumor-infiltrating lymphocytes in breast cancer from the results of the TIGER challenge</h3>
+            <p class="authors">van Rijthoven, M., Aswolinskiy, W., Tessier, L., Salgado, R., van der Laak, J., Ciompi, F., &amp; TIGER consortium (incl. <u>Park, C.</u>)</p>
+            <div class="badge-row"><span class="badge accepted">Published</span><span class="badge">Nature Communications 2026</span><span class="badge">TIGER 1st Place</span></div>
+          </div>
+        </a>
+
+        <a class="publication-card" href="https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html" target="_blank" rel="noopener">
+          <img src="/assets/images/publications/cng-sfda.png" alt="CNG-SFDA">
+          <div>
+            <h3 class="pub-title">CNG-SFDA: Clean-and-Noisy Region Guided Online-Offline Source-Free Domain Adaptation</h3>
+            <p class="authors">Cho, H., <u>Park, C.</u>, Kim, D. H., Kim, J., &amp; Kim, W. H.</p>
+            <div class="badge-row"><span class="badge accepted">Accepted</span><span class="badge">ACCV 2024</span></div>
+          </div>
+        </a>
+
+        <a class="publication-card" href="https://arxiv.org/abs/2407.10733" target="_blank" rel="noopener">
+          <img src="/assets/images/publications/jepa-ssl.png" alt="JEPA-SSL">
+          <div>
+            <h3 class="pub-title">Joint-Embedding Predictive Architecture for Self-Supervised Learning of Mask Classification Architecture</h3>
+            <p class="authors">Dong, H., Jo, D., Cho, H., <u>Park, C.</u>, &amp; Kim, W. H.</p>
+            <div class="badge-row"><span class="badge">arXiv 2024</span><span class="badge">Self-Supervised Learning</span></div>
+          </div>
+        </a>
+
+        <a class="publication-card" href="https://ieeexplore.ieee.org/document/9434102" target="_blank" rel="noopener">
+          <img src="/assets/images/publications/neuron-segmentation.jpg" alt="Neuron Segmentation">
+          <div>
+            <h3 class="pub-title">Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors</h3>
+            <p class="authors"><u>Park, C.</u>, et al.</p>
+            <div class="badge-row"><span class="badge accepted">Accepted</span><span class="badge">ISBI 2021</span><span class="badge">M.S. Thesis</span></div>
+          </div>
+        </a>
+
+        <article class="publication-card">
+          <div class="publication-card__placeholder"><i class="fas fa-file-alt" aria-hidden="true"></i></div>
+          <div>
+            <h3 class="pub-title">데이터 기반 동적 필터링이 포인트 클라우드 객체 증분 학습에 미치는 영향도 분석</h3>
+            <p class="authors">진종현, <u>박찬민</u>, 윤일용</p>
+            <div class="badge-row"><span class="badge">한국정보과학회 2025</span><span class="badge">Point Cloud</span></div>
+          </div>
+        </article>
+
+        <article class="publication-card">
+          <div class="publication-card__placeholder"><i class="fas fa-microscope" aria-hidden="true"></i></div>
+          <div>
+            <h3 class="pub-title">Development of a KFDA-certified Deep Learning Algorithm for Quantitative Analysis of Ki-67 Immunohistochemical Stains</h3>
+            <p class="authors"><u>Park, C.</u>, et al.</p>
+            <div class="badge-row"><span class="badge">대한병리학회</span><span class="badge">Domestic Conference</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="patent-row">
+        <article class="compact-card">
+          <h3 data-i18n="home.sections.patents">Patents</h3>
+          <ul>
+            <li>Method for analyzing medical image <span class="resume-tag">KR 10-2021-0139898</span></li>
+            <li>Method for analyzing medical image based on deep learning <span class="resume-tag">KR 10-2021-0139897</span></li>
+            <li>Brain neural network structure image processing system, method, and computer-readable storage medium <span class="resume-tag">Registered</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects">
+      <span class="section-kicker" data-i18n="home.kickers.projects">Selected projects</span>
+      <h2 data-i18n="home.sections.projects">Projects</h2>
+      <p class="section-note" data-i18n="home.sections.projectsNote">Industrial and medical vision systems I have built or shipped. Click a card for details.</p>
+
+      <div class="project-grid">
+        <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="project-card">
+          <div class="project-card__placeholder"><i class="fas fa-industry" aria-hidden="true"></i></div>
+          <div class="project-card__body">
+            <h3>Steel Defect Detection</h3>
+            <p>2024 · Anomaly Detection · Image Retrieval · MLOps</p>
+          </div>
+        </a>
+        <a href="/projects/path-quant.html" class="project-card">
+          <img src="/assets/images/projects/path-quant.jpg" alt="2D Pathology Object Detection">
+          <div class="project-card__body">
+            <h3>Pathology Detection (PathQuant)</h3>
+            <p>2023 · Object Detection · Whole Slide Image</p>
+          </div>
+        </a>
+        <a href="/projects/lungct-ai.html" class="project-card">
+          <img src="/assets/images/projects/lungct-ai.jpg" alt="3D Lung CT Nodule Detection">
+          <div class="project-card__body">
+            <h3>Lung CT Nodule Detection</h3>
+            <p>2022 · 3D CNN · Tiny Object Detection</p>
+          </div>
+        </a>
+        <a href="https://github.com/vuno/tiger_challenge" target="_blank" rel="noopener" class="project-card">
+          <img src="/assets/images/posts/tiger-challenge/segmentation-patch-selection.png" alt="TIGER Challenge">
+          <div class="project-card__body">
+            <h3>TIGER Challenge</h3>
+            <p>2022 · Multi-Task Segmentation · 1st Place</p>
+          </div>
+        </a>
+        <a href="/projects/test-time-adaptation.html" class="project-card">
+          <img src="/assets/images/projects/test-time-adaptation.jpg" alt="Test Time Adaptation">
+          <div class="project-card__body">
+            <h3>Test-Time Adaptation</h3>
+            <p>2024 · Domain Adaptation · CNG-SFDA</p>
+          </div>
+        </a>
+        <a href="/projects/universal-segmentation.html" class="project-card">
+          <img src="/assets/images/projects/universal-segmentation.jpg" alt="Universal Segmentation">
+          <div class="project-card__body">
+            <h3>Universal Segmentation</h3>
+            <p>U-Net · Multi-Organ · Semantic Segmentation</p>
+          </div>
+        </a>
+        <a href="/projects/mri-image-analysis.html" class="project-card">
+          <img src="/assets/images/projects/mri-image-analysis.jpg" alt="MRI Image Analysis">
+          <div class="project-card__body">
+            <h3>MRI Brain Analysis</h3>
+            <p>MRI · Registration · Brain Analysis</p>
+          </div>
+        </a>
+        <a href="/projects/medical-image-reconstruction.html" class="project-card">
+          <img src="/assets/images/projects/medical-image-reconstruction.jpg" alt="Medical Image Reconstruction">
+          <div class="project-card__body">
+            <h3>Medical Image Reconstruction</h3>
+            <p>WGAN-GP · Super Resolution · CT/MRI</p>
+          </div>
+        </a>
+        <a href="/projects/video-action.html" class="project-card">
+          <img src="/assets/images/projects/video-action.jpg" alt="Video Action Recognition">
+          <div class="project-card__body">
+            <h3>Video Action Recognition</h3>
+            <p>Video · Temporal Modeling · Sign Language</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section" id="education">
+      <span class="section-kicker" data-i18n="home.kickers.education">Education</span>
+      <div class="section-heading-row">
+        <h2 data-i18n="home.sections.education">Education</h2>
+        <p data-i18n="home.sections.educationNote">A compact academic timeline: degree, thesis, and research direction.</p>
+      </div>
+
+      <div class="education-grid">
+        <article class="education-card current">
+          <img class="institution-logo" src="/assets/images/unist-logo.svg" alt="UNIST">
+          <div class="education-topline">
+            <span class="degree-label">M.S.</span>
+            <span class="date">Mar 2019 - Mar 2021</span>
+          </div>
+          <h3>Computer Science</h3>
+          <p class="institution">UNIST · Ulsan, Korea</p>
+          <div class="education-details">
+            <span><span data-i18n="home.labels.thesis">Thesis</span> · Neuron segmentation using incomplete and noisy labels via adaptive learning with structure priors</span>
+            <span>GPA · 3.28 / 4.3</span>
+            <span data-i18n="home.education.unistScholarship">Academic excellence scholarship, 4 semesters (2019-2021)</span>
+          </div>
+          <div class="chip-row"><span>Medical Imaging</span><span>Noisy Labels</span><span>Segmentation</span></div>
+        </article>
+
+        <article class="education-card">
+          <img class="institution-logo" src="/assets/images/inje-university-logo.svg" alt="Inje University">
+          <div class="education-topline">
+            <span class="degree-label">B.S.</span>
+            <span class="date">Mar 2014 - Aug 2018</span>
+          </div>
+          <h3>Biomedical Engineering</h3>
+          <p class="institution">Inje University · Gimhae, Korea</p>
+          <div class="education-details">
+            <span>GPA · 3.89 / 4.5</span>
+            <span data-i18n="home.education.injeScholarship">Academic excellence scholarship, 8 semesters (2014-2018)</span>
+            <span data-i18n="home.education.injeAwards">Gold Prize, Inje Creative Comprehensive Design Contest · Bronze Prize, 2017 Engineering Festival</span>
+          </div>
+          <div class="chip-row"><span>Biomedical Engineering</span><span>Capstone Design</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Seminar & Teaching -->
+    <section class="section" id="seminar">
+      <span class="section-kicker" data-i18n="home.kickers.seminar">Teaching</span>
+      <h2 data-i18n="home.sections.seminar">Seminar &amp; Teaching</h2>
+
+      <div class="publication-list">
+        <a href="https://fastcampus.co.kr/data_online_medicalai" target="_blank" rel="noopener" class="publication-card">
+          <img src="/assets/images/medical-ai-course.png" alt="FastCampus Medical AI Course">
+          <div>
+            <h3 class="pub-title">딥러닝을 활용한 의료 영상 처리 &amp; 모델 개발</h3>
+            <p class="authors">Part-Time Instructor · FastCampus Inc. · Sep 2023 - Dec 2023</p>
+            <div class="badge-row"><span class="badge" data-i18n="home.labels.onlineCourse">Online Course</span><span class="badge">Medical AI</span></div>
+          </div>
+        </a>
+
+        <article class="publication-card">
+          <img src="/assets/images/inje-mentoring-card.png" alt="Inje University Mentoring">
+          <div>
+            <h3 class="pub-title">의용공학과에서 AI연구원되기까지</h3>
+            <p class="authors">Career Mentor · Inje University · 2023 - 2024</p>
+            <div class="badge-row"><span class="badge">Mentoring</span></div>
+            <ul class="compact-list"><li data-i18n="home.seminar.mentoringDesc">Provided guidance and mentorship to students in computer vision and machine learning projects.</li></ul>
+          </div>
+        </article>
+
+        <article class="publication-card">
+          <img src="/assets/images/gachon-ml-card.png" alt="Gachon University ML Course">
+          <div>
+            <h3 class="pub-title">Image Classification · Machine Learning Course</h3>
+            <p class="authors">Instructor · Gachon University (VUNO) · 2023 - 2024</p>
+            <div class="badge-row"><span class="badge">Lecture</span></div>
+            <ul class="compact-list"><li data-i18n="home.seminar.gachonDesc">Taught machine learning fundamentals and applications to university students.</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills">
+      <span class="section-kicker" data-i18n="home.kickers.skills">Toolbox</span>
+      <h2 data-i18n="home.sections.skills">Expertise &amp; Tools</h2>
+
+      <div class="tab-navigation">
+        <button class="tab-button active" data-tab="expertise" type="button"><i class="fas fa-brain" aria-hidden="true"></i> <span data-i18n="home.tabs.expertise">Expertise</span></button>
+        <button class="tab-button" data-tab="tools" type="button"><i class="fas fa-tools" aria-hidden="true"></i> <span data-i18n="home.tabs.tools">Tools &amp; Technologies</span></button>
+      </div>
+
+      <div class="tab-content active" id="expertise-tab">
+        <div class="expertise-grid">
+          <div class="expertise-item"><i class="fas fa-crosshairs" aria-hidden="true"></i><span data-i18n="home.expertise.item1">Object Detection &amp; Segmentation</span></div>
+          <div class="expertise-item"><i class="fas fa-cube" aria-hidden="true"></i><span data-i18n="home.expertise.item2">3D Vision · Depth · Pose</span></div>
+          <div class="expertise-item"><i class="fas fa-robot" aria-hidden="true"></i><span data-i18n="home.expertise.item3">Sensor Fusion &amp; Robotics Perception</span></div>
+          <div class="expertise-item"><i class="fas fa-video" aria-hidden="true"></i><span data-i18n="home.expertise.item4">Video Recognition &amp; Tracking</span></div>
+          <div class="expertise-item"><i class="fas fa-dna" aria-hidden="true"></i><span data-i18n="home.expertise.item5">Self-Supervised Vision (DINO/MoCo/MAE)</span></div>
+          <div class="expertise-item"><i class="fas fa-project-diagram" aria-hidden="true"></i><span data-i18n="home.expertise.item6">Embedding &amp; Metric Learning</span></div>
+          <div class="expertise-item"><i class="fas fa-exchange-alt" aria-hidden="true"></i><span data-i18n="home.expertise.item7">Domain Adaptation &amp; Continual Eval</span></div>
+          <div class="expertise-item"><i class="fas fa-database" aria-hidden="true"></i><span data-i18n="home.expertise.item8">Large-Scale Data Pipelines</span></div>
+          <div class="expertise-item"><i class="fas fa-rocket" aria-hidden="true"></i><span data-i18n="home.expertise.item9">Edge Deployment &amp; MLOps</span></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tools-tab">
+        <div class="tool-grid">
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg" alt="">Python</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg" alt="">PyTorch</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tensorflow.svg" alt="">TensorFlow</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg" alt="">Docker</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linux.svg" alt="">Linux</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg" alt="">MongoDB</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazonaws.svg" alt="">AWS</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/databricks.svg" alt="">MLflow</span>
+          <span class="tool-pill"><img src="/assets/images/dataiku-logo.svg" alt="">Dataiku</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/ros.svg" alt="">ROS2</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nvidia.svg" alt="">Isaac Sim</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg" alt="">Git</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/confluence.svg" alt="">Confluence</span>
+          <span class="tool-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jira.svg" alt="">Jira</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards -->
+    <section class="section" id="awards">
+      <span class="section-kicker" data-i18n="home.kickers.awards">Achievement</span>
+      <h2 data-i18n="home.sections.awards">Awards &amp; Honors</h2>
+
+      <div class="two-col">
+        <article class="compact-card">
+          <h3 data-i18n="home.awards.competitionsTitle">Competitions</h3>
+          <ul>
+            <li>1st place, TIGER Challenge (Grand Challenge), with VUNO</li>
+            <li>1st place, HealthHub Datathon, Track B Instance Segmentation (2020)</li>
+            <li>Top 8%, Autonomous Driving Sensor Tabular Classification</li>
+            <li>Google Isolated Sign Language Recognition (Video Recognition)</li>
+            <li>Lesion Detection AI Competition (Object Detection)</li>
+          </ul>
+        </article>
+        <article class="compact-card">
+          <h3 data-i18n="home.awards.academicTitle">Academic Awards</h3>
+          <ul>
+            <li><span data-i18n="home.awards.gold">Gold</span>, Inje Creative Comprehensive Design Contest</li>
+            <li><span data-i18n="home.awards.bronze">Bronze</span>, 2017 Engineering Festival Competition</li>
+            <li><span data-i18n="home.awards.excellence">Excellence</span>, Good Capstone Design Contest</li>
+            <li data-i18n="home.awards.scholarships">Academic excellence scholarships for 12 semesters across UNIST and Inje University</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Recent Posts -->
+    <section class="section" id="recent-posts">
+      <span class="section-kicker" data-i18n="home.kickers.posts">From the blog</span>
+      <h2 data-i18n="home.sections.recentPosts">Recent Posts</h2>
+
+      <div class="post-grid">
+        {% for post in site.posts limit: 3 %}
+        <a href="{{ post.url | relative_url }}" class="post-card">
+          <div class="post-card__date">{{ post.date | date: "%Y-%m-%d" }}</div>
+          <h3>{{ post.title }}</h3>
+          {% if post.excerpt %}
+          <p>{{ post.excerpt | strip_html | truncatewords: 18 }}</p>
+          {% endif %}
+          <span class="post-card__category">{% if post.categories.first %}{{ post.categories.first }}{% else %}Blog{% endif %}</span>
+        </a>
+        {% endfor %}
+      </div>
+      <div class="post-more">
+        <a href="/archive.html" class="primary-button"><span data-i18n="home.labels.more">More posts</span> <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
+    <p class="portfolio__footer">© {{ site.time | date: "%Y" }} ChanMin Park. All rights reserved.</p>
+  </main>
 </div>
 
 <script src="{{ '/assets/js/resume.js' | relative_url }}"></script>

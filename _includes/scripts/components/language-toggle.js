@@ -48,8 +48,29 @@
             patents: 'Patents',
             papers: 'Vision papers'
           },
+          kickers: {
+            about: 'About me',
+            experience: 'Experience',
+            publications: 'My work',
+            projects: 'Selected projects',
+            education: 'Education',
+            seminar: 'Teaching',
+            skills: 'Toolbox',
+            awards: 'Achievement',
+            posts: 'From the blog'
+          },
+          about: {
+            p1: 'I am a Spatial Intelligence Vision Engineer in the AX Technology R&D Group at POSCO DX, where I build Physical AI and sim-to-real vision systems for steel manufacturing.',
+            p2: 'Before that I spent three years as an AI Research Engineer at VUNO, shipping medical imaging products in pathology and lung CT, and I completed my M.S. in Computer Science at UNIST on neuron segmentation with noisy labels.'
+          },
+          education: {
+            unistScholarship: 'Academic excellence scholarship, 4 semesters (2019-2021)',
+            injeScholarship: 'Academic excellence scholarship, 8 semesters (2014-2018)',
+            injeAwards: 'Gold Prize, Inje Creative Comprehensive Design Contest · Bronze Prize, 2017 Engineering Festival'
+          },
           quickNav: 'Quick Navigation',
           nav: {
+            about: 'About',
             experience: 'Experience',
             education: 'Education',
             projects: 'Projects',
@@ -60,6 +81,9 @@
             recentPosts: 'Recent Posts'
           },
           sections: {
+            experienceNote: 'Industrial and medical vision work, from research prototypes to production deployment.',
+            projectsNote: 'Industrial and medical vision systems I have built or shipped. Click a card for details.',
+            educationNote: 'A compact academic timeline: degree, thesis, and research direction.',
             experience: 'Experience',
             education: 'Education',
             projects: 'Projects',
@@ -71,12 +95,13 @@
             recentPosts: 'Recent Posts'
           },
           labels: {
-            toolsUsed: 'Tools used:',
-            thesis: 'Thesis:',
+            blog: 'Blog',
+            toolsUsed: 'Tools',
+            thesis: 'Thesis',
             domesticPatent: 'Domestic Patent:',
             awards: 'Awards:',
-            onlineCourse: '[Online Course]',
-            more: 'More'
+            onlineCourse: 'Online Course',
+            more: 'More posts'
           },
           seminar: {
             mentoringDesc: 'Provided guidance and mentorship to students in computer vision and machine learning projects.',
@@ -98,6 +123,9 @@
             item9: 'Edge Deployment & MLOps'
           },
           awards: {
+            competitionsTitle: 'Competitions',
+            academicTitle: 'Academic Awards',
+            scholarships: 'Academic excellence scholarships for 12 semesters across UNIST and Inje University',
             codeLink: 'Code Link',
             gold: 'Gold',
             bronze: 'Bronze',
@@ -105,7 +133,7 @@
           },
           experience: {
             posco: {
-              title: 'AX Technology R&D Group · Spatial Intelligence Vision Engineer · POSCO DX',
+              title: 'Spatial Intelligence Vision Engineer',
               date: 'Pangyo, Korea · July 2024 - Present',
               bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·Sim2Real·Vision Control</a>: Built physical-AI training environments that mirrored steel-site conditions and iterated models against real deployment constraints.',
               bullet2Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Steel Defect Detection·Factory DX</a>: Advanced Digital Transformation (DX) from smart factory to intelligence factory by building SDD-driven image retrieval and automated MLOps pipelines for steel vision systems.',
@@ -113,7 +141,7 @@
               bullet4Html: 'Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.'
             },
             vuno: {
-              title: 'AI Research Engineer · VUNO Inc.',
+              title: 'AI Research Engineer',
               date: 'Seoul, Korea · May 2021 - July 2024',
               bullet1Html: '<a href="https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html" target="_blank" rel="noopener" class="timeline-link">Test-Time Adaptation·Domain Adaptation·ACCV 2024</a>: Developed adaptation strategies for medical imaging domain shifts and contributed to the CNG-SFDA research line published at ACCV 2024.',
               bullet2Html: '<a href="https://tiger.grand-challenge.org/Home/" target="_blank" rel="noopener" class="timeline-link">Self-Supervised Learning·Universal Segmentation·TIGER Challenge</a>: Conducted segmentation-oriented SSL research, built pathology workflows around it, and applied the stack to achieve 1st place in the TIGER Challenge.',
@@ -165,8 +193,29 @@
             patents: '특허',
             papers: '비전 논문'
           },
+          kickers: {
+            about: '소개',
+            experience: '경력',
+            publications: '연구 성과',
+            projects: '주요 프로젝트',
+            education: '학력',
+            seminar: '강의',
+            skills: '기술 스택',
+            awards: '수상',
+            posts: '블로그'
+          },
+          about: {
+            p1: '포스코DX AX기술연구그룹에서 Spatial Intelligence Vision Engineer로 일하며, 철강 제조 현장을 위한 Physical AI와 sim-to-real 비전 시스템을 만들고 있습니다.',
+            p2: '이전에는 VUNO에서 3년간 AI Research Engineer로 병리·폐 CT 의료영상 제품을 개발·배포했고, UNIST 컴퓨터공학 석사 과정에서 노이즈 라벨 기반 뉴런 분할을 연구했습니다.'
+          },
+          education: {
+            unistScholarship: '성적우수 장학금 4학기 (2019-2021)',
+            injeScholarship: '성적우수 장학금 8학기 (2014-2018)',
+            injeAwards: '인제 창의종합설계 경진대회 금상 · 2017 공학페스티벌 동상'
+          },
           quickNav: '빠른 이동',
           nav: {
+            about: '소개',
             experience: '경력',
             education: '학력',
             projects: '프로젝트',
@@ -177,6 +226,9 @@
             recentPosts: '최근 글'
           },
           sections: {
+            experienceNote: '연구 프로토타입부터 운영 배포까지, 산업·의료 비전 프로젝트 경력입니다.',
+            projectsNote: '직접 구축하거나 배포한 산업·의료 비전 시스템입니다. 카드를 누르면 상세 내용을 볼 수 있습니다.',
+            educationNote: '학위, 논문, 연구 방향을 간략히 정리한 학력 사항입니다.',
             experience: '경력',
             education: '학력',
             projects: '프로젝트',
@@ -188,11 +240,12 @@
             recentPosts: '최근 글'
           },
           labels: {
-            toolsUsed: '사용한 도구:',
-            thesis: '학위논문:',
+            blog: '블로그',
+            toolsUsed: '사용 도구',
+            thesis: '학위논문',
             domesticPatent: '국내 특허:',
             awards: '수상:',
-            onlineCourse: '[온라인 강의]',
+            onlineCourse: '온라인 강의',
             more: '더보기'
           },
           seminar: {
@@ -215,6 +268,9 @@
             item9: '엣지 배포 & MLOps'
           },
           awards: {
+            competitionsTitle: '대회',
+            academicTitle: '교내 수상',
+            scholarships: 'UNIST·인제대 통산 12학기 성적우수 장학금',
             codeLink: '코드 링크',
             gold: '금상',
             bronze: '동상',
@@ -222,7 +278,7 @@
           },
           experience: {
             posco: {
-              title: 'AX 기술연구개발 그룹 · Spatial Intelligence Vision Engineer · POSCO DX',
+              title: 'Spatial Intelligence Vision Engineer',
               date: '판교, 대한민국 · 2024년 7월 - 현재',
               bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·Sim2Real·Vision Control</a>: 철강 현장과 유사한 물리 환경을 구성하고, 시뮬레이션 기반 학습 결과를 실제 적용 조건에 맞춰 검증·고도화했습니다.',
               bullet2Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Steel Defect Detection·Factory DX</a>: 스마트팩토리에서 인텔리전스 팩토리로 이어지는 Digital Transformation(DX) 맥락에서, SDD를 활용한 image retrieval 파이프라인과 자동화된 MLOps 체계를 구축했습니다.',
@@ -230,7 +286,7 @@
               bullet4Html: 'Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: 공동 1저자로 CAPT를 제안했습니다. CLIP을 완전히 동결한 채 1.35M 이하의 학습 파라미터만으로 DomainNet, Sketchy, TU-Berlin에서 SOTA를 달성했습니다.'
             },
             vuno: {
-              title: 'AI 연구 엔지니어 · VUNO',
+              title: 'AI 연구 엔지니어',
               date: '서울, 대한민국 · 2021년 5월 - 2024년 7월',
               bullet1Html: '<a href="https://openaccess.thecvf.com/content/ACCV2024/html/Cho_CNG-SFDA_Clean-and-Noisy_Region_Guided_Online-Offline_Source-Free_Domain_Adaptation_ACCV_2024_paper.html" target="_blank" rel="noopener" class="timeline-link">Test-Time Adaptation·Domain Adaptation·ACCV 2024</a>: 의료영상 도메인 변화에 대응하는 적응 기법을 연구하고, ACCV 2024의 CNG-SFDA 연구 라인으로 이어지는 기술을 개발했습니다.',
               bullet2Html: '<a href="https://tiger.grand-challenge.org/Home/" target="_blank" rel="noopener" class="timeline-link">Self-Supervised Learning·Universal Segmentation·TIGER Challenge</a>: segmentation 기반 SSL 연구와 병리 워크플로우를 구축해 TIGER Challenge에 적용했고, 1위를 달성했습니다.',
