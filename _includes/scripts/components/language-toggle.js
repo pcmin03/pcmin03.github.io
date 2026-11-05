@@ -14,8 +14,11 @@
         },
         home: {
           subtitle: 'Vision Research Engineer',
-          quote: 'I build industrial and medical vision systems end to end: from Physical AI and domain adaptation to 3D detection, MLOps, and production deployment.',
+          quote: 'I bring vision AI onto the steel-plant floor, from unmanned cranes to the jump from smart factory to intelligent factory.',
           cards: {
+            crane: { title: 'Crane Automation', body: 'Vision AI that perceives cargo, holds, and surroundings so cranes can unload and move material without an operator.' },
+            factory: { title: 'Smart → Intelligent Factory', body: 'Apply AI on the production line itself: inspection, retrieval, and continuous training wired into plant control.' },
+            physical: { title: 'Physical AI · Sim2Real', body: 'Train in Isaac Sim, fuse LiDAR, ToF, and RGB, and transfer models that hold up under real site conditions.' },
             vision: {
               title: 'Physical AI · Spatial Intelligence',
               body: 'Build Physical AI, sim-to-real, and autonomous vision systems for manufacturing processes.',
@@ -43,12 +46,15 @@
             cv: 'CV'
           },
           stats: {
+            award: 'POSCO DX AI Tech Award 2025',
             years: 'Years in CV & Industry',
             projects: 'Major projects',
             patents: 'Patents',
             papers: 'Vision papers'
           },
           kickers: {
+            highlight: 'Featured work',
+            journey: 'Factory AI roadmap',
             about: 'About me',
             experience: 'Experience',
             publications: 'My work',
@@ -60,16 +66,33 @@
             posts: 'From the blog'
           },
           about: {
-            p1: 'I am a Spatial Intelligence Vision Engineer in the AX Technology R&D Group at POSCO DX, where I build Physical AI and sim-to-real vision systems for steel manufacturing.',
-            p2: 'Before that I spent three years as an AI Research Engineer at VUNO, shipping medical imaging products in pathology and lung CT, and I completed my M.S. in Computer Science at UNIST on neuron segmentation with noisy labels.'
+            p1Html: 'I am a Spatial Intelligence Vision Engineer in the AX Technology R&D Group at POSCO DX. My main work is <strong>crane automation</strong>: perception, sim-to-real training, and control integration that let industrial cranes run without an operator.',
+            p2: 'Around that I build the factory-side AI stack, including defect detection, retrieval, MLOps, and L2/PLC integration. Before POSCO DX I spent three years at VUNO taking vision models from research to certified products.'
           },
           education: {
             unistScholarship: 'Academic excellence scholarship, 4 semesters (2019-2021)',
             injeScholarship: 'Academic excellence scholarship, 8 semesters (2014-2018)',
             injeAwards: 'Gold Prize, Inje Creative Comprehensive Design Contest · Bronze Prize, 2017 Engineering Festival'
           },
+          tags: { crane: 'Crane Automation', factory: 'Intelligent Factory', physical: 'Physical AI', fusion: '3D Sensor Fusion' },
+          spotlight: {
+            badge: 'In operation · POSCO',
+            lede: 'Unmanned unloading cranes at POSCO\'s raw-material port, driven by vision AI instead of a cabin operator.',
+            s1t: 'Perceive', s1: 'Fuse LiDAR, ToF, and RGB to map the ship hold, cargo pile, and surroundings in 3D.',
+            s2t: 'Train in simulation', s2: 'Build site-matched Isaac Sim environments and close the sim-to-real gap before deployment.',
+            s3t: 'Control', s3: 'Connect vision outputs to PLC/L2 control so the crane plans and executes its own moves.',
+            news: 'Read the news: 포스코DX, 비전 AI로 철강 원료 항만 하역 무인화'
+          },
+          journey: {
+            title: 'From smart factory to intelligent factory',
+            l1: 'Smart Factory', t1: 'See the line', d1: 'Steel defect detection and image retrieval turn camera data into quality signals.',
+            l2: 'AI Factory', t2: 'Keep models current', d2: 'MLOps with continuous training in Dataiku keeps models in step with each line and facility.',
+            l3: 'Intelligent Factory', t3: 'Let equipment act', d3: 'Vision AI wired into L2/PLC drives unmanned cranes and autonomous steelmaking.'
+          },
+          projects: { featured: 'Featured', craneTitle: 'Unmanned Port Crane Automation', steelmakingTitle: 'Autonomous Steelmaking · L2' },
           quickNav: 'Quick Navigation',
           nav: {
+            highlight: 'Crane AI',
             about: 'About',
             experience: 'Experience',
             education: 'Education',
@@ -81,8 +104,9 @@
             recentPosts: 'Recent Posts'
           },
           sections: {
-            experienceNote: 'Industrial and medical vision work, from research prototypes to production deployment.',
-            projectsNote: 'Industrial and medical vision systems I have built or shipped. Click a card for details.',
+            highlight: 'Crane Automation with Vision AI',
+            experienceNote: 'Vision AI for industrial sites, from research prototypes to systems running on the plant floor.',
+            projectsNote: 'Factory AI first, then earlier vision research and products. Click a card for details.',
             educationNote: 'A compact academic timeline: degree, thesis, and research direction.',
             experience: 'Experience',
             education: 'Education',
@@ -123,7 +147,9 @@
             item9: 'Edge Deployment & MLOps'
           },
           awards: {
-            competitionsTitle: 'Competitions',
+            posco: 'AI Technology Excellence Award, POSCO DX (Sep 2025)',
+            poscoNote: 'Steelmaking automation with vision AI',
+            competitionsTitle: 'Awards & Competitions',
             academicTitle: 'Academic Awards',
             scholarships: 'Academic excellence scholarships for 12 semesters across UNIST and Inje University',
             codeLink: 'Code Link',
@@ -135,10 +161,11 @@
             posco: {
               title: 'Spatial Intelligence Vision Engineer',
               date: 'Pangyo, Korea · July 2024 - Present',
-              bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·Sim2Real·Vision Control</a>: Built physical-AI training environments that mirrored steel-site conditions and iterated models against real deployment constraints.',
-              bullet2Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Steel Defect Detection·Factory DX</a>: Advanced Digital Transformation (DX) from smart factory to intelligence factory by building SDD-driven image retrieval and automated MLOps pipelines for steel vision systems.',
-              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous Steelmaking·L2 Integration·Vision AI</a>: Integrated L2 communications and control signals to apply vision-based anomaly detection in autonomous steelmaking operations.',
-              bullet4Html: 'Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.'
+              bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Crane Automation·3D Sensor Fusion·Vision Control</a>: Lead vision AI for unmanned unloading cranes at the raw-material port, fusing LiDAR, ToF, and RGB and connecting perception to crane control.',
+              bullet2Html: 'Isaac Sim·Sim2Real: Built physical-AI training environments that mirror steel-site conditions and iterated models against real deployment constraints.',
+              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Intelligent Factory·L2/PLC Integration</a>: Wired vision AI into L2 communications and control signals for autonomous steelmaking, moving lines from smart factory to intelligent factory.',
+              bullet4Html: 'Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.',
+              bullet5Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Steel Defect Detection·MLOps</a>: Built SDD models, image retrieval, and MLOps Level 1 with continuous training in Dataiku for real-time quality improvement.'
             },
             vuno: {
               title: 'AI Research Engineer',
@@ -159,8 +186,11 @@
         },
         home: {
           subtitle: 'Vision Research Engineer',
-          quote: 'Physical AI, 도메인 적응, 3D detection, MLOps, 운영 배포까지 산업과 의료 현장에서 동작하는 비전 시스템을 end-to-end로 구축합니다.',
+          quote: '무인 크레인부터 스마트 팩토리를 넘어 인텔리전트 팩토리까지, 비전 AI를 철강 현장에 직접 적용합니다.',
           cards: {
+            crane: { title: '크레인 무인화', body: '화물·선창·주변 환경을 인지하는 비전 AI로, 운전자 없이 크레인이 하역하고 이동하도록 만듭니다.' },
+            factory: { title: '스마트 → 인텔리전트 팩토리', body: '검사, 검색, 지속 학습을 공장 제어에 연결해 생산 라인 자체에 AI를 적용합니다.' },
+            physical: { title: 'Physical AI · Sim2Real', body: 'Isaac Sim에서 학습하고 LiDAR·ToF·RGB를 융합해, 실제 현장에서도 버티는 모델을 만듭니다.' },
             vision: {
               title: 'Physical AI · Spatial Intelligence',
               body: '제조공정을 위한 Physical AI, sim-to-real, autonomous vision 시스템을 구축합니다.',
@@ -188,12 +218,15 @@
             cv: '이력서'
           },
           stats: {
+            award: '포스코DX AI 기술 우수상 2025',
             years: 'CV 및 산업 경력',
             projects: '주요 프로젝트',
             patents: '특허',
             papers: '비전 논문'
           },
           kickers: {
+            highlight: '대표 연구',
+            journey: '공장 AI 로드맵',
             about: '소개',
             experience: '경력',
             publications: '연구 성과',
@@ -205,16 +238,33 @@
             posts: '블로그'
           },
           about: {
-            p1: '포스코DX AX기술연구그룹에서 Spatial Intelligence Vision Engineer로 일하며, 철강 제조 현장을 위한 Physical AI와 sim-to-real 비전 시스템을 만들고 있습니다.',
-            p2: '이전에는 VUNO에서 3년간 AI Research Engineer로 병리·폐 CT 의료영상 제품을 개발·배포했고, UNIST 컴퓨터공학 석사 과정에서 노이즈 라벨 기반 뉴런 분할을 연구했습니다.'
+            p1Html: '포스코DX AX기술연구그룹의 Spatial Intelligence Vision Engineer입니다. 주력 분야는 <strong>크레인 무인화</strong>로, 운전자 없이 산업용 크레인이 움직이도록 인지·sim-to-real 학습·제어 연동을 개발하고 있습니다.',
+            p2: '이와 함께 결함 검출, 이미지 검색, MLOps, L2/PLC 연동 등 공장 현장의 AI 스택을 구축합니다. 포스코DX 이전에는 VUNO에서 3년간 비전 모델을 연구부터 인허가 제품까지 완성했습니다.'
           },
           education: {
             unistScholarship: '성적우수 장학금 4학기 (2019-2021)',
             injeScholarship: '성적우수 장학금 8학기 (2014-2018)',
             injeAwards: '인제 창의종합설계 경진대회 금상 · 2017 공학페스티벌 동상'
           },
+          tags: { crane: '크레인 무인화', factory: '인텔리전트 팩토리', physical: 'Physical AI', fusion: '3D 센서 퓨전' },
+          spotlight: {
+            badge: '현장 적용 · POSCO',
+            lede: '포스코 원료 항만의 하역 크레인을, 운전실 대신 비전 AI가 움직이도록 무인화하고 있습니다.',
+            s1t: '인지', s1: 'LiDAR·ToF·RGB를 융합해 선창, 원료 더미, 주변 환경을 3D로 파악합니다.',
+            s2t: '시뮬레이션 학습', s2: '현장과 같은 Isaac Sim 환경을 만들고, 배포 전에 sim-to-real 격차를 줄입니다.',
+            s3t: '제어', s3: '비전 결과를 PLC/L2 제어와 연결해 크레인이 스스로 동작을 계획하고 수행합니다.',
+            news: '관련 기사: 포스코DX, 비전 AI로 철강 원료 항만 하역 무인화'
+          },
+          journey: {
+            title: '스마트 팩토리에서 인텔리전트 팩토리로',
+            l1: '스마트 팩토리', t1: '라인을 보다', d1: '철강 결함 검출과 이미지 검색으로 카메라 데이터를 품질 신호로 바꿉니다.',
+            l2: 'AI 팩토리', t2: '모델을 최신으로', d2: 'Dataiku 기반 지속 학습 MLOps로 라인·설비별 모델을 계속 갱신합니다.',
+            l3: '인텔리전트 팩토리', t3: '설비가 스스로', d3: 'L2/PLC와 연동된 비전 AI가 무인 크레인과 자율 조업을 움직입니다.'
+          },
+          projects: { featured: '대표 프로젝트', craneTitle: '항만 하역 크레인 무인화', steelmakingTitle: '자율 조업 · L2 연동' },
           quickNav: '빠른 이동',
           nav: {
+            highlight: '크레인 AI',
             about: '소개',
             experience: '경력',
             education: '학력',
@@ -226,8 +276,9 @@
             recentPosts: '최근 글'
           },
           sections: {
-            experienceNote: '연구 프로토타입부터 운영 배포까지, 산업·의료 비전 프로젝트 경력입니다.',
-            projectsNote: '직접 구축하거나 배포한 산업·의료 비전 시스템입니다. 카드를 누르면 상세 내용을 볼 수 있습니다.',
+            highlight: '비전 AI 기반 크레인 무인화',
+            experienceNote: '연구 프로토타입부터 실제 현장에서 돌아가는 시스템까지, 산업 현장 비전 AI 경력입니다.',
+            projectsNote: '공장 AI 프로젝트를 먼저, 이전 비전 연구·제품을 그 다음에 정리했습니다. 카드를 누르면 상세 내용을 볼 수 있습니다.',
             educationNote: '학위, 논문, 연구 방향을 간략히 정리한 학력 사항입니다.',
             experience: '경력',
             education: '학력',
@@ -268,7 +319,9 @@
             item9: '엣지 배포 & MLOps'
           },
           awards: {
-            competitionsTitle: '대회',
+            posco: 'AI 기술 우수상, 포스코DX (2025년 9월)',
+            poscoNote: '비전 AI 기반 제철 공정 자동화',
+            competitionsTitle: '수상 & 대회',
             academicTitle: '교내 수상',
             scholarships: 'UNIST·인제대 통산 12학기 성적우수 장학금',
             codeLink: '코드 링크',
@@ -280,10 +333,11 @@
             posco: {
               title: 'Spatial Intelligence Vision Engineer',
               date: '판교, 대한민국 · 2024년 7월 - 현재',
-              bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">Isaac Sim·Sim2Real·Vision Control</a>: 철강 현장과 유사한 물리 환경을 구성하고, 시뮬레이션 기반 학습 결과를 실제 적용 조건에 맞춰 검증·고도화했습니다.',
-              bullet2Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">Steel Defect Detection·Factory DX</a>: 스마트팩토리에서 인텔리전스 팩토리로 이어지는 Digital Transformation(DX) 맥락에서, SDD를 활용한 image retrieval 파이프라인과 자동화된 MLOps 체계를 구축했습니다.',
-              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">Autonomous 조업·L2 통신·Vision AI</a>: 2제강 autonomous 조업에 필요한 L2 레벨 통신과 제어 통합을 구축하고, vision 기반 anomaly detection을 적용했습니다.',
-              bullet4Html: 'Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: 공동 1저자로 CAPT를 제안했습니다. CLIP을 완전히 동결한 채 1.35M 이하의 학습 파라미터만으로 DomainNet, Sketchy, TU-Berlin에서 SOTA를 달성했습니다.'
+              bullet1Html: '<a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="timeline-link">크레인 무인화·3D 센서 퓨전·Vision Control</a>: 원료 항만 하역 크레인 무인화를 위한 비전 AI를 맡아 LiDAR·ToF·RGB를 융합하고, 인지 결과를 크레인 제어와 연결했습니다.',
+              bullet2Html: 'Isaac Sim·Sim2Real: 철강 현장 조건을 반영한 Physical AI 학습 환경을 구축하고, 실제 적용 조건에 맞춰 모델을 반복 고도화했습니다.',
+              bullet3Html: '<a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="timeline-link">인텔리전트 팩토리·L2/PLC 연동</a>: 자율 조업을 위해 비전 AI를 L2 통신·제어 신호와 연동하여, 스마트 팩토리를 인텔리전트 팩토리로 전환했습니다.',
+              bullet4Html: 'Universal Cross-Domain Retrieval·CLIP Prompt Tuning·WACV 2027: 공동 1저자로 CAPT를 제안했습니다. CLIP을 완전히 동결한 채 1.35M 이하의 학습 파라미터만으로 DomainNet, Sketchy, TU-Berlin에서 SOTA를 달성했습니다.',
+              bullet5Html: '<a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="timeline-link">철강 결함 검출·MLOps</a>: SDD 모델과 이미지 검색을 개발하고, Dataiku 기반 지속 학습(CT) MLOps Level 1을 구축해 실시간 품질을 개선했습니다.'
             },
             vuno: {
               title: 'AI 연구 엔지니어',
