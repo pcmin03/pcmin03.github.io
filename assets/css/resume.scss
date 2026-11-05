@@ -233,8 +233,7 @@ html.dark-mode .page__content {
   text-decoration: none;
 }
 
-.layout--page .portfolio .compact-list a:hover,
-.layout--page .portfolio .spotlight__link:hover {
+.layout--page .portfolio .compact-list a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1217,110 +1216,6 @@ html.dark-mode .post-card {
   font-size: 18px;
 }
 
-/* --------------------------------------------------------------------------
-   Crane automation spotlight
-   -------------------------------------------------------------------------- */
-
-.spotlight {
-  display: grid;
-  grid-template-columns: 230px minmax(0, 1fr);
-  overflow: hidden;
-  border: 1px solid rgba(139, 30, 45, 0.22);
-  border-radius: 18px;
-  background: var(--pf-paper);
-  box-shadow: 0 18px 40px rgba(139, 30, 45, 0.08);
-}
-
-.spotlight__visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 220px;
-  background:
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 12px, transparent 12px 24px),
-    linear-gradient(160deg, #8b1e2d 0%, #4a0f18 100%);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 64px;
-}
-
-.spotlight__badge {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  backdrop-filter: blur(4px);
-}
-
-.spotlight__body {
-  padding: 22px 24px;
-}
-
-.spotlight__lede {
-  color: var(--pf-ink);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.portfolio .pipeline {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin: 16px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.pipeline li {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-.pipeline__step {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  background: var(--pf-accent-soft);
-  color: var(--pf-accent);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.pipeline strong {
-  display: block;
-  margin-bottom: 2px;
-  font-size: 13.5px;
-}
-
-.portfolio .pipeline p {
-  color: var(--pf-muted);
-  font-size: 12.8px;
-  line-height: 1.5;
-}
-
-.portfolio__main .spotlight__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  color: var(--pf-accent);
-  font-size: 13px;
-  font-weight: 700;
-}
-
 /* Smart -> intelligent factory roadmap */
 
 .journey {
@@ -1376,6 +1271,16 @@ html.dark-mode .post-card {
   transform: translateY(-50%);
 }
 
+.journey__steps--standalone .journey__step {
+  display: flex;
+  flex-direction: column;
+}
+
+.journey__steps--standalone .chip-row {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
 .journey__step--now {
   border-color: var(--pf-accent);
   box-shadow: 0 10px 24px var(--pf-accent-soft);
@@ -1403,19 +1308,7 @@ html.dark-mode .post-card {
   line-height: 1.5;
 }
 
-/* Featured project card */
-
-.project-card--featured {
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  border-color: rgba(139, 30, 45, 0.28);
-}
-
-.project-card--featured .project-card__placeholder {
-  height: 100%;
-  min-height: 150px;
-}
+/* Dark gradient placeholder for industrial projects without photos */
 
 .project-card__placeholder--crane {
   background:
@@ -1423,28 +1316,6 @@ html.dark-mode .post-card {
     linear-gradient(160deg, #8b1e2d 0%, #4a0f18 100%);
   color: #fff;
   font-size: 40px;
-}
-
-.project-card--featured .project-card__body {
-  align-self: center;
-  padding: 18px;
-}
-
-.project-card__flag {
-  display: inline-block;
-  margin-bottom: 6px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--pf-accent);
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.project-card--featured h3 {
-  font-size: 17px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1455,14 +1326,6 @@ html.dark-mode .post-card {
   .portfolio {
     grid-template-columns: 250px minmax(0, 1fr);
     gap: 36px;
-  }
-
-  .spotlight {
-    grid-template-columns: 1fr;
-  }
-
-  .spotlight__visual {
-    min-height: 150px;
   }
 }
 
@@ -1699,16 +1562,6 @@ html.dark-mode .post-card {
     font-size: 10.5px;
   }
 
-  .spotlight__body {
-    padding: 18px;
-  }
-
-  .spotlight__visual {
-    min-height: 120px;
-    font-size: 48px;
-  }
-
-  .portfolio .pipeline,
   .portfolio .journey__steps {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -1816,15 +1669,6 @@ html.dark-mode .post-card {
 
   .project-card p {
     font-size: 11.5px;
-  }
-
-  .project-card--featured {
-    grid-column: span 2;
-    grid-template-columns: 1fr;
-  }
-
-  .project-card--featured .project-card__placeholder {
-    min-height: 110px;
   }
 
   .expertise-grid,

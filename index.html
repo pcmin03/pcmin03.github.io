@@ -23,10 +23,10 @@ full_width: true
     </div>
 
     <div class="tag-row" aria-label="Research interests">
-      <span class="tag--accent" data-i18n="home.tags.crane">Crane Automation</span>
-      <span data-i18n="home.tags.factory">Intelligent Factory</span>
-      <span data-i18n="home.tags.physical">Physical AI</span>
-      <span data-i18n="home.tags.fusion">3D Sensor Fusion</span>
+      <span class="tag--accent" data-i18n="home.tags.physical">Physical AI</span>
+      <span data-i18n="home.tags.spatial">Spatial Intelligence</span>
+      <span data-i18n="home.tags.vfm">Vision Foundation Models</span>
+      <span data-i18n="home.tags.twin">Sim2Real · Digital Twin</span>
     </div>
 
 
@@ -43,7 +43,7 @@ full_width: true
 
     <nav class="sidebar-nav" aria-label="Homepage sections">
       <a href="#about" class="sidebar-nav__link" data-i18n="home.nav.about">About</a>
-      <a href="#highlight" class="sidebar-nav__link" data-i18n="home.nav.highlight">Crane AI</a>
+      <a href="#roadmap" class="sidebar-nav__link" data-i18n="home.nav.highlight">AX Roadmap</a>
       <a href="#experience" class="sidebar-nav__link" data-i18n="home.nav.experience">Experience</a>
       <a href="#publications" class="sidebar-nav__link" data-i18n="home.nav.publications">Publications</a>
       <a href="#projects" class="sidebar-nav__link" data-i18n="home.nav.projects">Projects</a>
@@ -60,24 +60,24 @@ full_width: true
     <!-- About -->
     <section class="section intro" id="about">
       <span class="section-kicker" data-i18n="home.kickers.about">About me</span>
-      <p class="hero-lede" data-i18n="home.quote">I bring vision AI onto the steel-plant floor, from unmanned cranes to the jump from smart factory to intelligent factory.</p>
+      <p class="hero-lede" data-i18n="home.quote">Building Physical AI for the real industrial world: spatial intelligence, vision foundation models, and sim-to-real systems that move factories from smart to intelligent.</p>
       <div class="hero-body">
-        <p data-i18n-html="home.about.p1Html">I am a Spatial Intelligence Vision Engineer in the AX Technology R&amp;D Group at POSCO DX. My main work is <strong>crane automation</strong>: perception, sim-to-real training, and control integration that let industrial cranes run without an operator.</p>
-        <p data-i18n="home.about.p2">Around that I build the factory-side AI stack, including defect detection, retrieval, MLOps, and L2/PLC integration. Before POSCO DX I spent three years at VUNO taking vision models from research to certified products.</p>
+        <p data-i18n-html="home.about.p1Html">I am a Spatial Intelligence Vision Engineer in the AX Technology R&amp;D Group at POSCO DX. I design <strong>Physical AI</strong> systems that see the plant in 3D, learn in digital twins, and act through real control loops: autonomous operations, vision control, and AI-driven quality.</p>
+        <p data-i18n="home.about.p2">On the research side I work on vision foundation models, parameter-efficient adaptation, and domain generalization. Before POSCO DX I spent three years at VUNO taking vision models from research to certified products.</p>
       </div>
 
       <div class="focus-grid">
         <article class="focus-card focus-card--accent">
-          <div class="focus-card__head"><i class="fas fa-truck-loading" aria-hidden="true"></i><span data-i18n="home.cards.crane.title">Crane Automation</span></div>
-          <p data-i18n="home.cards.crane.body">Vision AI that perceives cargo, holds, and surroundings so cranes can unload and move material without an operator.</p>
+          <div class="focus-card__head"><i class="fas fa-robot" aria-hidden="true"></i><span data-i18n="home.cards.physical.title">Physical AI · Autonomous Operations</span></div>
+          <p data-i18n="home.cards.physical.body">Perception-to-action AI that closes the loop with L2/PLC control, from autonomous steelmaking to unmanned material handling.</p>
         </article>
         <article class="focus-card">
-          <div class="focus-card__head"><i class="fas fa-industry" aria-hidden="true"></i><span data-i18n="home.cards.factory.title">Smart → Intelligent Factory</span></div>
-          <p data-i18n="home.cards.factory.body">Apply AI on the production line itself: inspection, retrieval, and continuous training wired into plant control.</p>
+          <div class="focus-card__head"><i class="fas fa-cube" aria-hidden="true"></i><span data-i18n="home.cards.spatial.title">Spatial Intelligence · Digital Twin</span></div>
+          <p data-i18n="home.cards.spatial.body">LiDAR, ToF, and RGB fusion for 3D scene understanding, trained in Isaac Sim digital twins and transferred with Sim2Real.</p>
         </article>
         <article class="focus-card">
-          <div class="focus-card__head"><i class="fas fa-cube" aria-hidden="true"></i><span data-i18n="home.cards.physical.title">Physical AI · Sim2Real</span></div>
-          <p data-i18n="home.cards.physical.body">Train in Isaac Sim, fuse LiDAR, ToF, and RGB, and transfer models that hold up under real site conditions.</p>
+          <div class="focus-card__head"><i class="fas fa-layer-group" aria-hidden="true"></i><span data-i18n="home.cards.vfm.title">Vision Foundation Models</span></div>
+          <p data-i18n="home.cards.vfm.body">CLIP prompt tuning, PEFT, and self-supervised learning that adapt large models to new domains with minimal labels.</p>
         </article>
       </div>
 
@@ -90,53 +90,32 @@ full_width: true
       </div>
     </section>
 
-    <!-- Crane automation spotlight -->
-    <section class="section" id="highlight">
-      <span class="section-kicker" data-i18n="home.kickers.highlight">Featured work</span>
-      <h2 data-i18n="home.sections.highlight">Crane Automation with Vision AI</h2>
+    <!-- AX roadmap: smart factory to intelligent factory -->
+    <section class="section" id="roadmap">
+      <span class="section-kicker" data-i18n="home.kickers.highlight">Industrial AX</span>
+      <h2 data-i18n="home.sections.highlight">From Smart Factory to AI-native Intelligent Factory</h2>
+      <p class="section-note" data-i18n="home.sections.highlightNote">How my work moves a steel plant from collecting data, to learning from it, to acting on its own.</p>
 
-      <article class="spotlight">
-        <div class="spotlight__visual" aria-hidden="true">
-          <i class="fas fa-truck-loading"></i>
-          <span class="spotlight__badge" data-i18n="home.spotlight.badge">In operation · POSCO</span>
-        </div>
-        <div class="spotlight__body">
-          <p class="spotlight__lede" data-i18n="home.spotlight.lede">Unmanned unloading cranes at POSCO's raw-material port, driven by vision AI instead of a cabin operator.</p>
-          <ol class="pipeline">
-            <li><span class="pipeline__step">1</span><div><strong data-i18n="home.spotlight.s1t">Perceive</strong><p data-i18n="home.spotlight.s1">Fuse LiDAR, ToF, and RGB to map the ship hold, cargo pile, and surroundings in 3D.</p></div></li>
-            <li><span class="pipeline__step">2</span><div><strong data-i18n="home.spotlight.s2t">Train in simulation</strong><p data-i18n="home.spotlight.s2">Build site-matched Isaac Sim environments and close the sim-to-real gap before deployment.</p></div></li>
-            <li><span class="pipeline__step">3</span><div><strong data-i18n="home.spotlight.s3t">Control</strong><p data-i18n="home.spotlight.s3">Connect vision outputs to PLC/L2 control so the crane plans and executes its own moves.</p></div></li>
-          </ol>
-          <div class="chip-row">
-            <span class="chip--accent">Crane Automation</span><span>3D Sensor Fusion</span><span>Isaac Sim</span><span>Sim2Real</span><span>Vision Control</span><span>PLC / L2</span>
-          </div>
-          <a class="spotlight__link" href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener"><span data-i18n="home.spotlight.news">Read the news: 포스코DX, 비전 AI로 철강 원료 항만 하역 무인화</span> <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-        </div>
-      </article>
-
-      <div class="journey">
-        <div class="journey__head">
-          <span class="section-kicker" data-i18n="home.kickers.journey">Factory AI roadmap</span>
-          <h3 data-i18n="home.journey.title">From smart factory to intelligent factory</h3>
-        </div>
-        <ol class="journey__steps">
-          <li class="journey__step">
-            <span class="journey__label" data-i18n="home.journey.l1">Smart Factory</span>
-            <strong data-i18n="home.journey.t1">See the line</strong>
-            <p data-i18n="home.journey.d1">Steel defect detection and image retrieval turn camera data into quality signals.</p>
-          </li>
-          <li class="journey__step">
-            <span class="journey__label" data-i18n="home.journey.l2">AI Factory</span>
-            <strong data-i18n="home.journey.t2">Keep models current</strong>
-            <p data-i18n="home.journey.d2">MLOps with continuous training in Dataiku keeps models in step with each line and facility.</p>
-          </li>
-          <li class="journey__step journey__step--now">
-            <span class="journey__label" data-i18n="home.journey.l3">Intelligent Factory</span>
-            <strong data-i18n="home.journey.t3">Let equipment act</strong>
-            <p data-i18n="home.journey.d3">Vision AI wired into L2/PLC drives unmanned cranes and autonomous steelmaking.</p>
-          </li>
-        </ol>
-      </div>
+      <ol class="journey__steps journey__steps--standalone">
+        <li class="journey__step">
+          <span class="journey__label" data-i18n="home.journey.l1">Smart Factory</span>
+          <strong data-i18n="home.journey.t1">Vision Inspection</strong>
+          <p data-i18n="home.journey.d1">Steel defect detection and image retrieval turn camera streams into real-time quality signals.</p>
+          <div class="chip-row"><span>SDD</span><span>Image Retrieval</span></div>
+        </li>
+        <li class="journey__step">
+          <span class="journey__label" data-i18n="home.journey.l2">AI Factory</span>
+          <strong data-i18n="home.journey.t2">MLOps · Continuous Training</strong>
+          <p data-i18n="home.journey.d2">Data-centric pipelines and continuous training keep models current across lines and facilities.</p>
+          <div class="chip-row"><span>MLOps L1</span><span>Dataiku</span><span>Domain Adaptation</span></div>
+        </li>
+        <li class="journey__step journey__step--now">
+          <span class="journey__label" data-i18n="home.journey.l3">Intelligent Factory</span>
+          <strong data-i18n="home.journey.t3">Physical AI · Autonomous Operations</strong>
+          <p data-i18n="home.journey.d3">Spatial AI wired into L2/PLC lets equipment act on its own, from autonomous steelmaking to unmanned port cranes.</p>
+          <div class="chip-row"><span class="chip--accent">Physical AI</span><span>Sim2Real</span><span>Vision Control</span></div>
+        </li>
+      </ol>
     </section>
 
     <!-- Experience -->
@@ -154,19 +133,19 @@ full_width: true
           <h3 data-i18n="home.experience.posco.title">Spatial Intelligence Vision Engineer</h3>
           <p class="institution">AX Technology R&amp;D Group · POSCO DX</p>
           <div class="chip-row">
-            <span class="chip--accent">Crane Automation</span>
-            <span class="chip--accent">Intelligent Factory</span>
-            <span>Physical AI</span>
+            <span class="chip--accent">Physical AI</span>
+            <span class="chip--accent">Spatial Intelligence</span>
+            <span>Digital Twin</span>
             <span>Sim2Real</span>
             <span>3D Sensor Fusion</span>
-            <span>Vision Control</span>
+            <span>Vision Foundation Models</span>
           </div>
           <ul class="compact-list">
-            <li data-i18n-html="home.experience.posco.bullet1Html"><a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener">Crane Automation · 3D Sensor Fusion · Vision Control</a>: Lead vision AI for unmanned unloading cranes at the raw-material port, fusing LiDAR, ToF, and RGB and connecting perception to crane control.</li>
-            <li data-i18n-html="home.experience.posco.bullet2Html">Isaac Sim · Sim2Real: Built physical-AI training environments that mirror steel-site conditions and iterated models against real deployment constraints.</li>
-            <li data-i18n-html="home.experience.posco.bullet3Html"><a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener">Intelligent Factory · L2/PLC Integration</a>: Wired vision AI into L2 communications and control signals for autonomous steelmaking, moving lines from smart factory to intelligent factory.</li>
-            <li data-i18n-html="home.experience.posco.bullet5Html"><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener">Steel Defect Detection · MLOps</a>: Built SDD models, image retrieval, and MLOps Level 1 with continuous training in Dataiku for real-time quality improvement.</li>
-            <li data-i18n-html="home.experience.posco.bullet4Html">Universal Cross-Domain Retrieval · CLIP Prompt Tuning · WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.</li>
+            <li data-i18n-html="home.experience.posco.bullet1Html">Physical AI · Digital Twin · Sim2Real: Built Isaac Sim digital twins of steel-site conditions and transferred perception models to the real plant.</li>
+            <li data-i18n-html="home.experience.posco.bullet2Html"><a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener">Spatial Intelligence · 3D Sensor Fusion</a>: Fused LiDAR, ToF, and RGB for 3D scene understanding, applied to vision control such as unmanned port unloading.</li>
+            <li data-i18n-html="home.experience.posco.bullet3Html"><a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener">Autonomous Operations · L2/PLC</a>: Connected vision AI to L2 communications and control signals for autonomous steelmaking.</li>
+            <li data-i18n-html="home.experience.posco.bullet5Html"><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener">Steel Defect Detection · MLOps</a>: Built SDD models, image retrieval, and MLOps Level 1 with continuous training in Dataiku.</li>
+            <li data-i18n-html="home.experience.posco.bullet4Html">Vision Foundation Models · PEFT · WACV 2027: Co-first-authored CAPT, which adapts a fully frozen CLIP with at most 1.35M trainable parameters and sets a new state of the art on DomainNet, Sketchy, and TU-Berlin.</li>
           </ul>
           <div class="tool-row" aria-label="POSCO DX tool stack">
             <span class="tool-row__label" data-i18n="home.labels.toolsUsed">Tools</span>
@@ -298,22 +277,21 @@ full_width: true
     <section class="section" id="projects">
       <span class="section-kicker" data-i18n="home.kickers.projects">Selected projects</span>
       <h2 data-i18n="home.sections.projects">Projects</h2>
-      <p class="section-note" data-i18n="home.sections.projectsNote">Factory AI first, then earlier vision research and products. Click a card for details.</p>
+      <p class="section-note" data-i18n="home.sections.projectsNote">Industrial AX projects first, then earlier vision research and products. Click a card for details.</p>
 
       <div class="project-grid">
-        <a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="project-card project-card--featured">
-          <div class="project-card__placeholder project-card__placeholder--crane"><i class="fas fa-truck-loading" aria-hidden="true"></i></div>
-          <div class="project-card__body">
-            <span class="project-card__flag" data-i18n="home.projects.featured">Featured</span>
-            <h3 data-i18n="home.projects.craneTitle">Unmanned Port Crane Automation</h3>
-            <p>2025 - Now · 3D Sensor Fusion · Isaac Sim · Vision Control</p>
-          </div>
-        </a>
         <a href="https://newsroom.posco.com/kr/%EC%9D%B8%ED%84%B0%EB%B7%B0-%EB%AF%B8%EB%9E%98%EB%A5%BC-%EC%97%AC%EB%8A%94-%ED%98%81%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EA%B0%9C%EB%B0%9C-2025-%ED%8F%AC%EC%8A%A4%EC%BD%94-%EA%B8%B0%EC%88%A0%EB%8C%80/" target="_blank" rel="noopener" class="project-card">
           <div class="project-card__placeholder"><i class="fas fa-fire" aria-hidden="true"></i></div>
           <div class="project-card__body">
-            <h3 data-i18n="home.projects.steelmakingTitle">Autonomous Steelmaking · L2</h3>
-            <p>2025 · Intelligent Factory · Anomaly Detection</p>
+            <h3 data-i18n="home.projects.steelmakingTitle">Autonomous Steelmaking</h3>
+            <p>Intelligent Factory · L2/PLC · Vision AI</p>
+          </div>
+        </a>
+        <a href="https://kidd.co.kr/news/245144" target="_blank" rel="noopener" class="project-card">
+          <div class="project-card__placeholder project-card__placeholder--crane"><i class="fas fa-truck-loading" aria-hidden="true"></i></div>
+          <div class="project-card__body">
+            <h3 data-i18n="home.projects.craneTitle">Autonomous Port Unloading</h3>
+            <p>Physical AI · 3D Sensor Fusion · Vision Control</p>
           </div>
         </a>
         <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=500285&rf=toastPopup&utm_source=digitaltoday" target="_blank" rel="noopener" class="project-card">
@@ -472,15 +450,15 @@ full_width: true
 
       <div class="tab-content active" id="expertise-tab">
         <div class="expertise-grid">
-          <div class="expertise-item"><i class="fas fa-crosshairs" aria-hidden="true"></i><span data-i18n="home.expertise.item1">Object Detection &amp; Segmentation</span></div>
-          <div class="expertise-item"><i class="fas fa-cube" aria-hidden="true"></i><span data-i18n="home.expertise.item2">3D Vision · Depth · Pose</span></div>
-          <div class="expertise-item"><i class="fas fa-robot" aria-hidden="true"></i><span data-i18n="home.expertise.item3">Sensor Fusion &amp; Robotics Perception</span></div>
-          <div class="expertise-item"><i class="fas fa-video" aria-hidden="true"></i><span data-i18n="home.expertise.item4">Video Recognition &amp; Tracking</span></div>
-          <div class="expertise-item"><i class="fas fa-dna" aria-hidden="true"></i><span data-i18n="home.expertise.item5">Self-Supervised Vision (DINO/MoCo/MAE)</span></div>
-          <div class="expertise-item"><i class="fas fa-project-diagram" aria-hidden="true"></i><span data-i18n="home.expertise.item6">Embedding &amp; Metric Learning</span></div>
-          <div class="expertise-item"><i class="fas fa-exchange-alt" aria-hidden="true"></i><span data-i18n="home.expertise.item7">Domain Adaptation &amp; Continual Eval</span></div>
-          <div class="expertise-item"><i class="fas fa-database" aria-hidden="true"></i><span data-i18n="home.expertise.item8">Large-Scale Data Pipelines</span></div>
-          <div class="expertise-item"><i class="fas fa-rocket" aria-hidden="true"></i><span data-i18n="home.expertise.item9">Edge Deployment &amp; MLOps</span></div>
+          <div class="expertise-item"><i class="fas fa-layer-group" aria-hidden="true"></i><span data-i18n="home.expertise.item1">Vision Foundation Models · PEFT</span></div>
+          <div class="expertise-item"><i class="fas fa-comments" aria-hidden="true"></i><span data-i18n="home.expertise.item2">Vision-Language (CLIP) Adaptation</span></div>
+          <div class="expertise-item"><i class="fas fa-cube" aria-hidden="true"></i><span data-i18n="home.expertise.item3">Spatial Intelligence · 3D Perception</span></div>
+          <div class="expertise-item"><i class="fas fa-robot" aria-hidden="true"></i><span data-i18n="home.expertise.item4">Embodied Perception · Sensor Fusion</span></div>
+          <div class="expertise-item"><i class="fas fa-vr-cardboard" aria-hidden="true"></i><span data-i18n="home.expertise.item5">Sim2Real · Digital Twin (Isaac Sim)</span></div>
+          <div class="expertise-item"><i class="fas fa-dna" aria-hidden="true"></i><span data-i18n="home.expertise.item6">Self-Supervised Learning (DINO/MAE)</span></div>
+          <div class="expertise-item"><i class="fas fa-exchange-alt" aria-hidden="true"></i><span data-i18n="home.expertise.item7">Domain Generalization · Test-Time Adaptation</span></div>
+          <div class="expertise-item"><i class="fas fa-database" aria-hidden="true"></i><span data-i18n="home.expertise.item8">Data-centric AI · Large-scale Pipelines</span></div>
+          <div class="expertise-item"><i class="fas fa-rocket" aria-hidden="true"></i><span data-i18n="home.expertise.item9">Edge AI Deployment · MLOps</span></div>
         </div>
       </div>
 
