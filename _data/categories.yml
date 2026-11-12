@@ -15,6 +15,14 @@
   excerpt: Exploring 3D vision techniques, depth estimation, and 3D scene understanding.
   type: research
 
+- title: Multimodal Retrieval
+  cover: /assets/images/papers/uniir-review/figure3_mbeir_instance.jpg
+  description: Universal multimodal information retrieval
+  url: /pages/multimodal-retrieval.html
+  tags: [Multimodal Retrieval, Vision-Language Model, Instruction Tuning]
+  excerpt: 텍스트 · 이미지 · (이미지+텍스트) 어떤 형태의 query 와 후보든 다루는 범용 멀티모달 검색 연구.
+  type: research
+
 # Study Categories
 - title: Image Processing
   cover: /assets/images/study/image-processing.jpg

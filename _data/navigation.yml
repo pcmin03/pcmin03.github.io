@@ -81,6 +81,8 @@ header:
         url: /pages/image-retrieval.html
       - title: 3D Vision
         url: /pages/3dvision.html
+      - title: Multimodal Retrieval
+        url: /pages/multimodal-retrieval.html
 
   - titles:
       # @start locale config

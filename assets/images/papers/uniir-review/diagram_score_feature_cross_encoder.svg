@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="color:#1c2228;background:#fff" viewBox="0 0 780 300" role="img" aria-label="세 구조 비교: score fusion 과 feature fusion 은 query 와 후보를 따로 인코딩해 내적하고, cross-encoder 는 쌍마다 함께 인코딩해 검색에 쓸 수 없다">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="currentColor"/></marker></defs>
+<g font-family="IBM Plex Sans KR,sans-serif" font-size="12" fill="currentColor" stroke="currentColor">
+<!-- panel A -->
+<text x="130" y="22" text-anchor="middle" stroke="none" font-weight="600" font-size="13">(a) score fusion</text>
+<rect x="20" y="40" width="100" height="34" rx="6" fill="none"/><text x="70" y="62" text-anchor="middle" stroke="none">f_I(q_i)</text>
+<rect x="140" y="40" width="100" height="34" rx="6" fill="none"/><text x="190" y="62" text-anchor="middle" stroke="none">f_T(inst+q_t)</text>
+<line x1="70" y1="74" x2="125" y2="108" marker-end="url(#ar)"/><line x1="190" y1="74" x2="135" y2="108" marker-end="url(#ar)"/>
+<circle cx="130" cy="118" r="10" fill="none"/><text x="130" y="122" text-anchor="middle" stroke="none">+</text>
+<text x="160" y="122" stroke="none" font-size="11" fill-opacity=".7">가중합</text>
+<line x1="130" y1="128" x2="130" y2="160" marker-end="url(#ar)"/>
+<rect x="85" y="162" width="90" height="28" rx="6" fill="none"/><text x="130" y="181" text-anchor="middle" stroke="none">query 벡터</text>
+<!-- panel B -->
+<text x="390" y="22" text-anchor="middle" stroke="none" font-weight="600" font-size="13">(b) feature fusion</text>
+<rect x="280" y="40" width="100" height="34" rx="6" fill="none"/><text x="330" y="62" text-anchor="middle" stroke="none">f_I(q_i)</text>
+<rect x="400" y="40" width="100" height="34" rx="6" fill="none"/><text x="450" y="62" text-anchor="middle" stroke="none">f_T(inst+q_t)</text>
+<rect x="300" y="100" width="180" height="34" rx="6" fill="none" stroke-dasharray="4 3"/><text x="390" y="122" text-anchor="middle" stroke="none">f_MIX: 토큰끼리 attention</text>
+<line x1="330" y1="74" x2="350" y2="98" marker-end="url(#ar)"/><line x1="450" y1="74" x2="430" y2="98" marker-end="url(#ar)"/>
+<line x1="390" y1="134" x2="390" y2="160" marker-end="url(#ar)"/>
+<rect x="345" y="162" width="90" height="28" rx="6" fill="none"/><text x="390" y="181" text-anchor="middle" stroke="none">query 벡터</text>
+<!-- shared bottom for a,b -->
+<line x1="130" y1="190" x2="250" y2="228" marker-end="url(#ar)"/><line x1="390" y1="190" x2="270" y2="228" marker-end="url(#ar)"/>
+<rect x="190" y="230" width="140" height="30" rx="6" fill="none"/><text x="260" y="250" text-anchor="middle" stroke="none">· 내적 ·  후보 벡터</text>
+<text x="260" y="282" text-anchor="middle" stroke="none" font-size="11" fill-opacity=".75">후보 5.6M 개는 미리 계산 → 내적 검색 가능</text>
+<!-- panel C -->
+<line x1="560" y1="30" x2="560" y2="290" stroke-opacity=".25"/>
+<text x="670" y="22" text-anchor="middle" stroke="none" font-weight="600" font-size="13">(c) cross-encoder (안 씀)</text>
+<rect x="590" y="40" width="70" height="34" rx="6" fill="none"/><text x="625" y="62" text-anchor="middle" stroke="none">query</text>
+<rect x="680" y="40" width="70" height="34" rx="6" fill="none"/><text x="715" y="62" text-anchor="middle" stroke="none">후보 1개</text>
+<rect x="595" y="100" width="150" height="34" rx="6" fill="none"/><text x="670" y="122" text-anchor="middle" stroke="none">함께 attention</text>
+<line x1="625" y1="74" x2="645" y2="98" marker-end="url(#ar)"/><line x1="715" y1="74" x2="695" y2="98" marker-end="url(#ar)"/>
+<line x1="670" y1="134" x2="670" y2="160" marker-end="url(#ar)"/>
+<rect x="625" y="162" width="90" height="28" rx="6" fill="none"/><text x="670" y="181" text-anchor="middle" stroke="none">점수 1개</text>
+<text x="670" y="222" text-anchor="middle" stroke="none" font-size="11" fill-opacity=".75">후보마다 네트워크를 다시 돌려야 한다</text>
+<text x="670" y="240" text-anchor="middle" stroke="none" font-size="11" fill-opacity=".75">query 1 개 = 5.6M 번 forward</text>
+<text x="670" y="258" text-anchor="middle" stroke="none" font-size="11" fill-opacity=".75">→ 재순위(reranking)에만 쓴다</text>
+</g>
+</svg>
